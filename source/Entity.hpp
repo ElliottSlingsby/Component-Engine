@@ -1,6 +1,5 @@
 #pragma once
 
-#include <unordered_map>
 #include <typeinfo>
 
 class Component{
@@ -13,15 +12,22 @@ public:
 	virtual void update(long dt) = 0;
 };
 
-typedef std::unordered_map<const type_info*, Component*> ComponentMap;
+#include <unordered_map>
+#include <set>
 
 class Entity{
 private:
+	typedef std::unordered_map<const type_info*, Component*> ComponentMap;
+	typedef std::set<Entity*> EntitySet;
+
 	int _id;
 	ComponentMap _components;
+	EntitySet _children;
 
 public:
-	Entity(int id = -1){ _id = id; };
+	Entity(){ _id = -1; }
+	Entity(int id){ _id = id; };
+
 	~Entity(){};
 
 	template <typename T>
@@ -29,7 +35,7 @@ public:
 		if (!_components[&typeid(T)]){
 			_components[&typeid(T)] = component;
 		}
-	};
+	}
 
 	template <typename T>
 	T* getComponent(){
@@ -40,7 +46,7 @@ public:
 		}
 		
 		return 0;
-	};
+	}
 
 	template <typename T>
 	T* removeComponent(){
@@ -51,7 +57,7 @@ public:
 		}
 
 		return component;
-	};
+	}
 
 	template <typename T>
 	void destroyComponent(){

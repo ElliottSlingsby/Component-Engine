@@ -32,8 +32,8 @@ int main(int argc, char* argv[]){
 	printf("Transform.x = %d\n", stub.getComponent<Transform>()->x);
 	printf("Transform.y = %d\n", stub.getComponent<Transform>()->y);
 
-	run();
+	//run();
+	getchar();
 
-	//getchar();
 	return 0;
 }
