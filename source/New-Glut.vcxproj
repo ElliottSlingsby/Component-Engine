@@ -11,11 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Component.hpp" />
     <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="EntityManager.hpp" />
     <ClInclude Include="Glut.hpp" />
+    <ClInclude Include="Identifier.hpp" />
+    <ClInclude Include="Vector2.hpp" />
+    <ClInclude Include="Vector3.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5259262C-54B0-4DB1-9BF0-EC1CFB840124}</ProjectGuid>

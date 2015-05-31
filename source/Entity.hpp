@@ -1,39 +1,27 @@
 #pragma once
 
+#include <stdio.h>
 #include <typeinfo>
-
-class Component{
-public:
-	Component(){}
-	virtual ~Component(){};
-	
-	virtual void init() = 0;
-	virtual void enable() = 0;
-	virtual void update(long dt) = 0;
-};
-
 #include <unordered_map>
-#include <set>
+#include "Component.hpp"
+#include "Identifier.hpp"
 
-class Entity{
+class Entity : public Identifier{
 private:
 	typedef std::unordered_map<const type_info*, Component*> ComponentMap;
-	typedef std::set<Entity*> EntitySet;
-
-	int _id;
 	ComponentMap _components;
-	EntitySet _children;
 
 public:
-	Entity(){ _id = -1; }
-	Entity(int id){ _id = id; };
-
-	~Entity(){};
+	Entity(){}
+	~Entity(){}
 
 	template <typename T>
 	void addComponent(T* component){
-		if (!_components[&typeid(T)]){
+		if (!_components[&typeid(T)]){//DOESN'T ACTUALLY CHECK FOR EXISTANCE!!!
 			_components[&typeid(T)] = component;
+		}
+		else{
+			printf("%s!\n", "Component already exists");
 		}
 	}
 
@@ -41,8 +29,17 @@ public:
 	T* getComponent(){
 		Component* component = _components[&typeid(T)];
 
-		if (component){
-			return dynamic_cast<T*>(component);
+		if (component){//DOESN'T ACTUALLY CHECK FOR EXISTANCE!!!
+			T* casted = dynamic_cast<T*>(component);
+
+			if (!casted){
+				printf("%s!\n", "Failed to cast component");
+			}
+
+			return casted;
+		}
+		else{
+			printf("%s!\n", "Cannot find component");
 		}
 		
 		return 0;
@@ -52,8 +49,11 @@ public:
 	T* removeComponent(){
 		T* component = getComponent<T>();
 
-		if (component){
+		if (component){//DOESN'T ACTUALLY CHECK FOR EXISTANCE!!!
 			_components[&typeid(T)] = 0;
+		}
+		else{
+			printf("%s!\n", "Cannot find component");
 		}
 
 		return component;
@@ -63,10 +63,23 @@ public:
 	void destroyComponent(){
 		Component* component = _components[&typeid(T)];
 
-		if (component){
+		if (component){//DOESN'T ACTUALLY CHECK FOR EXISTANCE!!!
 			_components.erase(&typeid(T));
 			_components[&typeid(T)] = 0;
 			delete component;
 		}
+		else{
+			printf("%s!\n", "Cannot find component");
+		}
+	}
+
+	Entity* clone(){
+		Entity* entity = new Entity();
+
+		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++){
+			entity->_components[i->first] = i->second->clone();
+		}
+
+		return entity;
 	}
 };

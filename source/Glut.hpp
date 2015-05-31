@@ -5,6 +5,7 @@
 #include <GL\GLU.h>
 #include <stdio.h>
 #include <string>
+//#include <GL\glut.h>
 
 bool init();
 void update();
@@ -13,26 +14,6 @@ void close();
 
 SDL_Window* WINDOW = NULL;
 SDL_GLContext GLCONTEXT;
-
-void run(){
-	bool running = false;
-
-	if (init()){
-		running = true;
-
-		while (running){
-			SDL_Event e;
-			while (SDL_PollEvent(&e) != 0){
-				if (e.type == SDL_QUIT){
-					running = false;
-				}
-			}
-
-			update();
-			render();
-		}
-	}
-}
 
 bool init(){
 	bool success = true;
@@ -66,12 +47,9 @@ bool init(){
 				success = false;
 			}
 			else{
-				glMatrixMode(GL_PROJECTION);
+				glMatrixMode(GL_PROJECTION | GL_MODELVIEW | GL_TEXTURE | GL_COLOR);
 				glLoadIdentity();
-
-				glMatrixMode(GL_MODELVIEW);
-				glLoadIdentity();
-
+				
 				glClearColor(0.f, 0.f, 0.f, 1.f);
 			}
 		}
@@ -87,20 +65,19 @@ void update(){
 void render(){
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	int width;
-	int height;
-
-	SDL_GetWindowSize(WINDOW, &width, &height);
-
-	glTranslatef(width / 2.f, height / 2.f, 0.f);
-
 	glBegin(GL_QUADS);
 
-	glColor3f(0.f, 1.f, 1.f);
-	glVertex2f(-50.f, -50.f);
-	glVertex2f(50.f, -50.f);
-	glVertex2f(50.f, 50.f);
-	glVertex2f(-50.f, 50.f);
+	glColor3f(1.f, 0.f, 0.f);
+	glVertex3f(-0.5f, -0.5f, 0.f);
+
+	glColor3f(0.f, 1.f, 0.f);
+	glVertex3f(0.5f, -0.5f, 0.f);
+
+	glColor3f(0.f, 0.f, 1.f);
+	glVertex3f(0.5f, 0.5f, 0.f);
+
+	glColor3f(1.f, 1.f, 1.f);
+	glVertex3f(-0.5f, 0.5f, 0.f);
 
 	glEnd();
 
