@@ -5,6 +5,7 @@
 #include <GL\GLU.h>
 #include <stdio.h>
 #include "Vector2.hpp"
+#include "Vector3.hpp"
 //#include <GL\glut.h> broken?
 
 /*
@@ -39,5 +40,5 @@ public:
 	void swap();
 
 	// Component methods
-	void renderTest();
+	void drawTriangle(Vector3f& v1, Vector3f& v2, Vector3f& v3, Vector3f& colour = Vector3f(1.f, 1.f, 1.f));
 };

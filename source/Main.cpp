@@ -9,7 +9,7 @@ int main(int argc, char* argv[]){
 	Entity* stub = new Entity;
 	stub->setID(1);
 
-	stub->addComponent(new Transform(5, 6));
+	stub->addComponent(new Transform(0.5f , 1.f));
 	stub->addComponent(new Draw);
 
 	stub->enable();

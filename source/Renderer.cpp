@@ -49,7 +49,7 @@ bool Renderer::init(){
 		return false;
 	}
 
-	// Getting OpenGL context, error handling and setting up OpenGl for first frame
+	// Getting OpenGL context and error handling
 	_glcontext = SDL_GL_CreateContext(_window);
 
 	if (!_glcontext){
@@ -57,6 +57,7 @@ bool Renderer::init(){
 		return false;
 	}
 
+	// OpenGL setup
 	glMatrixMode(GL_PROJECTION | GL_MODELVIEW | GL_TEXTURE | GL_COLOR);
 	glLoadIdentity();
 
@@ -71,21 +72,14 @@ void Renderer::swap(){
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void Renderer::renderTest(){
-	// Draw multi-colour quad for testing
-	glBegin(GL_QUADS);
+void Renderer::drawTriangle(Vector3f& v1, Vector3f& v2, Vector3f& v3, Vector3f& colour){
+	// Testing triangle method
+	glBegin(GL_TRIANGLES);
 
-	glColor3f(1.f, 0.f, 0.f);
-	glVertex3f(-0.5f, -0.5f, 0.f);
-
-	glColor3f(0.f, 1.f, 0.f);
-	glVertex3f(0.5f, -0.5f, 0.f);
-
-	glColor3f(0.f, 0.f, 1.f);
-	glVertex3f(0.5f, 0.5f, 0.f);
-
-	glColor3f(1.f, 1.f, 1.f);
-	glVertex3f(-0.5f, 0.5f, 0.f);
+	glColor3f(colour.x(), colour.y(), colour.z());
+	glVertex3f(v1.x(), v1.y(), v1.z());
+	glVertex3f(v2.x(), v2.y(), v2.z());
+	glVertex3f(v3.x(), v3.y(), v3.z());
 
 	glEnd();
 }
