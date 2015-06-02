@@ -1,8 +1,7 @@
 #pragma once
 
-#include <SDL.h>
-#include <SDL_opengl.h>
 #include "Identifier.hpp"
+#include "Renderer.hpp"
 
 class Component : public Identifier{
 public:
@@ -11,8 +10,8 @@ public:
 
 	virtual void enable(){}
 	virtual void update(long dt){}
-	virtual void render(SDL_GLContext& glcontext){}
-	virtual void render(SDL_Renderer* renderer){}
+	virtual void render(Renderer* renderer){}
 
+	// Pure virtual for RTTI / required
 	virtual Component* clone() = 0;
 };

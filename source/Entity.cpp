@@ -1,9 +1,5 @@
 #include "Entity.hpp"
 
-Entity::Entity(){
-
-}
-
 Entity::~Entity(){
 	// Destroy all components
 	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++){
@@ -33,4 +29,9 @@ void Entity::update(long dt){
 	//Calculate and add dt between components
 	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
 		i->second->update(dt);
+}
+
+void Entity::render(Renderer* renderer){
+	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
+		i->second->render(renderer);
 }

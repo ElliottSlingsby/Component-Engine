@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include "Component.hpp"
 #include "Identifier.hpp"
+#include "Renderer.hpp"
 
 class Entity : public Identifier{
 private:
@@ -12,7 +13,7 @@ private:
 	ComponentMap _components;
 
 public:
-	Entity();
+	// Destroys all components
 	~Entity();
 
 	// Clone entity and contents with new ID
@@ -21,6 +22,10 @@ public:
 	// Update all components with proper dt
 	void update(long dt);
 
+	// Render components passing a renderer object interface
+	void render(Renderer* renderer);
+
+	// addComponent(component) - Adds a component using typeid as key
 	template <typename T>
 	void addComponent(T* component){
 		// Add component if not already part of Entity
@@ -35,6 +40,7 @@ public:
 			printf("%s!\n", "Component already exists");
 	}
 
+	// getComponent<type>() - Returns corresponding component key as appropriate type
 	template <typename T>
 	T* getComponent(){
 		ComponentMap::iterator component = _components.find(&typeid(T));
@@ -54,6 +60,7 @@ public:
 		return 0;
 	}
 
+	// destroyComponent<type>() - Removes and deletes component
 	template <typename T>
 	void destroyComponent(){
 		ComponentMap::iterator component = _components.find(&typeid(T));

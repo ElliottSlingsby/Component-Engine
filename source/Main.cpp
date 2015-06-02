@@ -1,16 +1,13 @@
 #include <stdio.h>
 
 #include "Entity.hpp"
-#include "Glut.hpp"
+#include "Renderer.hpp"
 #include "Vector3.hpp"
 #include "Transform.hpp"
 #include "Ticker.hpp"
+#include "Draw.hpp"
 
 #undef main
-
-class Test{
-
-};
 
 int main(int argc, char* argv[]){
 	Entity* stub = new Entity;
@@ -18,27 +15,28 @@ int main(int argc, char* argv[]){
 
 	stub->addComponent(new Transform(5, 6));
 	stub->addComponent(new Ticker);
+	stub->addComponent(new Draw);
 
-	bool running = false;
+	Renderer* renderer = new Renderer();
 
-	if (init()){
-		running = true;
+	bool running = renderer->init();
 
-		while (running){
-			SDL_Event e;
-			while (SDL_PollEvent(&e) != 0){
-				if (e.type == SDL_QUIT){
-					running = false;
-				}
+	while (running){
+		SDL_Event e;
+		while (SDL_PollEvent(&e) != 0){
+			if (e.type == SDL_QUIT){
+				running = false;
 			}
-
-
-			stub->update(0);
-			render();
 		}
+
+		stub->update(0);
+		stub->render(renderer);
+
+		renderer->swap();
 	}
 
-	destroy();
+	delete stub;
+	delete renderer;
 
 	return 0;
 }

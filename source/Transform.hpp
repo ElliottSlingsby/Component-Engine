@@ -1,17 +1,20 @@
 #pragma once
 
 #include "Component.hpp"
+#include "Vector3.hpp"
 
 struct Transform : public Component{
-	int x;
-	int y;
+	Vector3f position;
 
-	Transform(int x = 0, int y = 0){
-		this->x = x;
-		this->y = y;
+	Transform(int x = 0, int y = 0, int z = 0){
+		position = Vector3f(x, y, z);
 	}
 
 	Component* clone(){
-		return new Transform(x, y);
+		Transform* transform = new Transform();
+
+		transform->position = position;
+
+		return transform;
 	}
 };
