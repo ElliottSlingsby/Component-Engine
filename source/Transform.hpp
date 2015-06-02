@@ -6,7 +6,7 @@
 struct Transform : public Component{
 	Vector3f position;
 
-	Transform(int x = 0, int y = 0, int z = 0){
+	Transform(int x = 0.f, int y = 0.f, int z = 0.f){
 		position = Vector3f(x, y, z);
 	}
 

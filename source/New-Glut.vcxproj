@@ -23,7 +23,6 @@
     <ClInclude Include="Spawner.hpp" />
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Identifier.hpp" />
-    <ClInclude Include="Ticker.hpp" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />

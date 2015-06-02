@@ -1,5 +1,9 @@
 #include "Entity.hpp"
 
+Entity::Entity(){
+	_enabled = false;
+}
+
 Entity::~Entity(){
 	// Destroy all components
 	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++){
@@ -17,7 +21,6 @@ Entity* Entity::clone(int id){
 		Component* component = i->second->clone();
 
 		component->setID(id);
-		component->enable();
 
 		entity->_components[i->first] = component;
 	}
@@ -25,13 +28,26 @@ Entity* Entity::clone(int id){
 	return entity;
 }
 
+void Entity::enable(){
+	if (!_enabled){
+		_enabled = true;
+
+		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
+			i->second->enable();
+	}
+	else
+		printf("%s!\n", "Entity already enabled");
+}
+
 void Entity::update(long dt){
 	//Calculate and add dt between components
-	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
-		i->second->update(dt);
+	if (_enabled)
+		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
+			i->second->update(dt);
 }
 
 void Entity::render(Renderer* renderer){
-	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
-		i->second->render(renderer);
+	if (_enabled)
+		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
+			i->second->render(renderer);
 }

@@ -9,8 +9,8 @@ class Vector2{
 
 public:
 	Vector2(){
-		_x = 0;
-		_y = 0;
+		_x = (T)0;
+		_y = (T)0;
 	}
 
 	Vector2(T x, T y){

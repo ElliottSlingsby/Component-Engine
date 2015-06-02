@@ -1,10 +1,6 @@
-#include <stdio.h>
-
 #include "Entity.hpp"
 #include "Renderer.hpp"
-#include "Vector3.hpp"
 #include "Transform.hpp"
-#include "Ticker.hpp"
 #include "Draw.hpp"
 
 #undef main
@@ -14,8 +10,9 @@ int main(int argc, char* argv[]){
 	stub->setID(1);
 
 	stub->addComponent(new Transform(5, 6));
-	stub->addComponent(new Ticker);
 	stub->addComponent(new Draw);
+
+	stub->enable();
 
 	Renderer* renderer = new Renderer();
 

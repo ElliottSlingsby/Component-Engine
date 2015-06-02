@@ -11,13 +11,19 @@ class Entity : public Identifier{
 private:
 	typedef std::unordered_map<const type_info*, Component*> ComponentMap;
 	ComponentMap _components;
+	
+	bool _enabled;
 
 public:
+	Entity();
 	// Destroys all components
 	~Entity();
 
 	// Clone entity and contents with new ID
 	Entity* clone(int id);
+
+	// Enable all components
+	void enable();
 
 	// Update all components with proper dt
 	void update(long dt);
@@ -34,7 +40,6 @@ public:
 
 			// Parent and enable the component
 			component->setID(ID());
-			component->enable();
 		}
 		else
 			printf("%s!\n", "Component already exists");
