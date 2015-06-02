@@ -8,58 +8,60 @@
 //#include <GL\glut.h>
 
 bool init();
-void update();
 void render();
 void close();
 
-SDL_Window* WINDOW = NULL;
+SDL_Window* WINDOW = 0;
+SDL_Renderer* RENDERER = 0;
 SDL_GLContext GLCONTEXT;
 
+void destroy(){
+	SDL_DestroyWindow(WINDOW);
+	SDL_DestroyRenderer(RENDERER);
+	SDL_GL_DeleteContext(GLCONTEXT);
+}
+
 bool init(){
-	bool success = true;
-
-	Uint32 flags = SDL_INIT_VIDEO;
-
 	const char* title = "My first polygon!";
 
 	int width = 1280;
 	int height = 720;
 
-	if (SDL_Init(flags) < 0){
+	if (SDL_Init(SDL_INIT_VIDEO) < 0){
 		printf("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
-		success = false;
+		return false;
 	}
-	else{
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-		WINDOW = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-		if (!WINDOW){
-			printf("%s! %s: %s\n", "Failed to create window", "SDL Error", SDL_GetError());
-			success = false;
-		}
-		else{
-			GLCONTEXT = SDL_GL_CreateContext(WINDOW);
+	WINDOW = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-			if (!GLCONTEXT){
-				printf("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", SDL_GetError());
-				success = false;
-			}
-			else{
-				glMatrixMode(GL_PROJECTION | GL_MODELVIEW | GL_TEXTURE | GL_COLOR);
-				glLoadIdentity();
+	if (!WINDOW){
+		printf("%s! %s: %s\n", "Failed to create window", "SDL Error", SDL_GetError());
+		return false;
+	}
+
+	RENDERER = SDL_CreateRenderer(WINDOW, -1, SDL_RENDERER_ACCELERATED);
+
+	if (!RENDERER){
+		printf("%s! %s: %s\n", "Failed to create ", "SDL Error", SDL_GetError());
+		return false;
+	}
+
+	GLCONTEXT = SDL_GL_CreateContext(WINDOW);
+
+	if (!GLCONTEXT){
+		printf("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", SDL_GetError());
+		return false;
+	}
+
+	glMatrixMode(GL_PROJECTION | GL_MODELVIEW | GL_TEXTURE | GL_COLOR);
+	glLoadIdentity();
 				
-				glClearColor(0.f, 0.f, 0.f, 1.f);
-			}
-		}
-	}
+	glClearColor(0.f, 0.f, 0.f, 1.f);
 
-	return success;
-}
-
-void update(){
-	
+	return true;
 }
 
 void render(){

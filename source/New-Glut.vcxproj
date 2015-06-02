@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
@@ -20,6 +21,8 @@
     <ClInclude Include="EntityManager.hpp" />
     <ClInclude Include="Glut.hpp" />
     <ClInclude Include="Identifier.hpp" />
+    <ClInclude Include="Ticker.hpp" />
+    <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
   </ItemGroup>

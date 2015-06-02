@@ -7,12 +7,12 @@
 class Component : public Identifier{
 public:
 	Component(){}
-	virtual ~Component(){};
+	virtual ~Component(){}
 
-	virtual void enable(){};
-	virtual void update(long dt){};
-	virtual void render(SDL_GLContext* context){};
-	virtual void render(SDL_Renderer* renderer){};
+	virtual void enable(){}
+	virtual void update(long dt){}
+	virtual void render(SDL_GLContext& glcontext){}
+	virtual void render(SDL_Renderer* renderer){}
 
 	virtual Component* clone() = 0;
 };

@@ -3,26 +3,22 @@
 #include "Entity.hpp"
 #include "Glut.hpp"
 #include "Vector3.hpp"
+#include "Transform.hpp"
+#include "Ticker.hpp"
 
-class Transform : public Component{
-public:
-	int x;
-	int y;
+#undef main
 
-	Transform(int x, int y){
-		this->x = x;
-		this->y = y;
-	}
+class Test{
 
-	void enable(){}
-	void update(long dt){}
-
-	Component* clone(){
-		return new Transform(x, y);
-	}
 };
 
-void run(){
+int main(int argc, char* argv[]){
+	Entity* stub = new Entity;
+	stub->setID(1);
+
+	stub->addComponent(new Transform(5, 6));
+	stub->addComponent(new Ticker);
+
 	bool running = false;
 
 	if (init()){
@@ -36,36 +32,13 @@ void run(){
 				}
 			}
 
-			update();
+
+			stub->update(0);
 			render();
 		}
 	}
-}
 
-#undef main
-
-int main(int argc, char* argv[]){
-	printf("Hello World!\n");
-
-	Entity* stub = new Entity();
-
-	Transform* position = new Transform(5, 6);
-
-	stub->addComponent(position);
-
-	printf("Transform.x = %d\n", stub->getComponent<Transform>()->x);
-	printf("Transform.y = %d\n", stub->getComponent<Transform>()->y);
-
-	Entity* test = stub->clone();
-
-	test->getComponent<Transform>()->x = 10;
-
-	printf("Transform.x = %d\n", stub->getComponent<Transform>()->x);
-	printf("Transform.x = %d\n", test->getComponent<Transform>()->x);
-
-	//stub->getComponent<int>();
-
-	run();
+	destroy();
 
 	return 0;
 }

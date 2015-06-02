@@ -2,23 +2,22 @@
 
 #include <stdio.h>
 
+#define NULL_ID -1
+
 class Identifier{
-	int _id = -1;
+	int _id = NULL_ID;
 
 public:
-	void ID(int id){ 
-		if (_id == -1){
+	void setID(int id){ 
+		if (_id == NULL_ID)
 			_id = id;
-		}
-		else{
-			printf("%s!\n", "ID is already set");
-		}
+		else
+			printf("%s!\n", "ID already set");
 	}
 
 	int ID(){
-		if (_id == -1){
+		if (_id == NULL_ID)
 			printf("%s!\n", "ID hasn't been set");
-		}
 
 		return _id;
 	}

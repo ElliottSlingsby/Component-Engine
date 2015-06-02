@@ -12,74 +12,58 @@ private:
 	ComponentMap _components;
 
 public:
-	Entity(){}
-	~Entity(){}
+	Entity();
+	~Entity();
+
+	// Clone entity and contents with new ID
+	Entity* clone(int id);
+
+	// Update all components with proper dt
+	void update(long dt);
 
 	template <typename T>
 	void addComponent(T* component){
-		if (!_components[&typeid(T)]){//DOESN'T ACTUALLY CHECK FOR EXISTANCE!!!
+		// Add component if not already part of Entity
+		if (!_components[&typeid(T)]){
 			_components[&typeid(T)] = component;
+
+			// Parent and enable the component
+			component->setID(ID());
+			component->enable();
 		}
-		else{
+		else
 			printf("%s!\n", "Component already exists");
-		}
 	}
 
 	template <typename T>
 	T* getComponent(){
-		Component* component = _components[&typeid(T)];
+		ComponentMap::iterator component = _components.find(&typeid(T));
 
-		if (component){//DOESN'T ACTUALLY CHECK FOR EXISTANCE!!!
-			T* casted = dynamic_cast<T*>(component);
+		// If component exists, cast to T and return
+		if (component != _components.end()){
+			T* casted = dynamic_cast<T*>(component->second);
 
-			if (!casted){
+			if (!casted)
 				printf("%s!\n", "Failed to cast component");
-			}
 
 			return casted;
 		}
-		else{
-			printf("%s!\n", "Cannot find component");
-		}
-		
+
+		printf("%s!\n", "Cannot find component");
+
 		return 0;
 	}
 
 	template <typename T>
-	T* removeComponent(){
-		T* component = getComponent<T>();
-
-		if (component){//DOESN'T ACTUALLY CHECK FOR EXISTANCE!!!
-			_components[&typeid(T)] = 0;
-		}
-		else{
-			printf("%s!\n", "Cannot find component");
-		}
-
-		return component;
-	}
-
-	template <typename T>
 	void destroyComponent(){
-		Component* component = _components[&typeid(T)];
+		ComponentMap::iterator component = _components.find(&typeid(T));
 
-		if (component){//DOESN'T ACTUALLY CHECK FOR EXISTANCE!!!
+		// If component exists, erase and delete
+		if (component != _components.end()){
 			_components.erase(&typeid(T));
-			_components[&typeid(T)] = 0;
-			delete component;
+			delete component->second;
 		}
-		else{
+		else
 			printf("%s!\n", "Cannot find component");
-		}
-	}
-
-	Entity* clone(){
-		Entity* entity = new Entity();
-
-		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++){
-			entity->_components[i->first] = i->second->clone();
-		}
-
-		return entity;
 	}
 };
