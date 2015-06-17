@@ -20,9 +20,13 @@
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Draw.hpp" />
     <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="ResourceManager.hpp" />
+    <ClInclude Include="Phong.hpp" />
     <ClInclude Include="Spawner.hpp" />
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Identifier.hpp" />
+    <ClInclude Include="Sprite.hpp" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />

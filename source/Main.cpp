@@ -3,9 +3,18 @@
 #include "Transform.hpp"
 #include "Draw.hpp"
 
+#include "ResourceManager.hpp"
+
 #undef main
 
 int main(int argc, char* argv[]){
+
+	//ObjLoader::simple(0);
+
+
+
+
+
 	Entity* stub = new Entity;
 	stub->setID(1);
 

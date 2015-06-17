@@ -72,14 +72,35 @@ void Renderer::swap(){
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+void Renderer::drawLine(Vector3f& v1, Vector3f& v2, Vector3f& colour){
+	glBegin(GL_LINE);
+
+	glColor3f(colour.x(), colour.y(), colour.z());
+	glVertex3f(v1.x(), v1.y(), v1.z());
+	glVertex3f(v2.x(), v2.y(), v2.z());
+
+	glEnd();
+}
+
 void Renderer::drawTriangle(Vector3f& v1, Vector3f& v2, Vector3f& v3, Vector3f& colour){
-	// Testing triangle method
 	glBegin(GL_TRIANGLES);
 
 	glColor3f(colour.x(), colour.y(), colour.z());
 	glVertex3f(v1.x(), v1.y(), v1.z());
 	glVertex3f(v2.x(), v2.y(), v2.z());
 	glVertex3f(v3.x(), v3.y(), v3.z());
+
+	glEnd();
+}
+
+void Renderer::drawQuad(Vector3f& v1, Vector3f& v2, Vector3f& v3, Vector3f& v4, Vector3f& colour){
+	glBegin(GL_QUADS);
+
+	glColor3f(colour.x(), colour.y(), colour.z());
+	glVertex3f(v1.x(), v1.y(), v1.z());
+	glVertex3f(v2.x(), v2.y(), v2.z());
+	glVertex3f(v3.x(), v3.y(), v3.z());
+	glVertex3f(v4.x(), v4.y(), v4.z());
 
 	glEnd();
 }

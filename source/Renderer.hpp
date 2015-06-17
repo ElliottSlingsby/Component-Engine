@@ -1,22 +1,16 @@
 #pragma once
 
+#define FREEGLUT_LIB_PRAGMAS 0
+
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <GL\GLU.h>
 #include <stdio.h>
 #include "Vector2.hpp"
 #include "Vector3.hpp"
-//#include <GL\glut.h> broken?
-
-/*
-Note, a Renderer object will be passed around to the render functions of entities and components.
-
-void render(Renderer* renderer)
-
-All rendering can be performed through the renderer object with a nice interface for the programming.
-
-This object should be super efficient with OpenGl / SDL, but also be super friendly and ease to interface with from a component's point of view.
-*/
+//#include "Mesh.hpp"
+//#include "Phong.hpp"
+//#include "Sprite.hpp"
 
 class Renderer{
 	SDL_Window* _window;
@@ -39,6 +33,10 @@ public:
 	bool init();
 	void swap();
 
-	// Component methods
+	// Component drawing methods
+	void drawLine(Vector3f& v1, Vector3f& v2, Vector3f& colour = Vector3f(1.f, 1.f, 1.f));
 	void drawTriangle(Vector3f& v1, Vector3f& v2, Vector3f& v3, Vector3f& colour = Vector3f(1.f, 1.f, 1.f));
+	void drawQuad(Vector3f& v1, Vector3f& v2, Vector3f& v3, Vector3f& v4, Vector3f& colour = Vector3f(1.f, 1.f, 1.f));
+	//void drawMesh(Mesh* mesh, Vector3f& position, Phong* phong = 0){}
+	//void drawSprite(Sprite* sprite, Vector2f& position){}
 };
