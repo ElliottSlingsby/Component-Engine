@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <typeinfo>
 #include <unordered_map>
-#include "Component.hpp"
+#include "Component\Base.hpp"
+#include "Component\Transform.hpp"
 #include "Identifier.hpp"
-#include "Renderer.hpp"
 
 class Entity : public Identifier{
 private:
@@ -22,6 +22,9 @@ public:
 	// Clone entity and contents with new ID
 	Entity* clone(int id);
 
+	// Load all components
+	void load(bool enable = true);
+
 	// Enable all components
 	void enable();
 
@@ -29,7 +32,7 @@ public:
 	void update(long dt);
 
 	// Render components passing a renderer object interface
-	void render(Renderer* renderer);
+	void render();
 
 	// addComponent(component) - Adds a component using typeid as key
 	template <typename T>

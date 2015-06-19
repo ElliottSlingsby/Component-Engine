@@ -1,31 +1,28 @@
 #include "Entity.hpp"
-#include "Renderer.hpp"
-#include "Transform.hpp"
-#include "Draw.hpp"
+
+#include "Component\Transform.hpp"
+#include "Component\Mesh.hpp"
+#include "Component\Phong.hpp"
+
+#include "Render\Window.hpp"
 
 #include "ResourceManager.hpp"
 
 #undef main
 
-int main(int argc, char* argv[]){
-
-	//ObjLoader::simple(0);
-
-
-
-
-
+int main(int argc, char** argv){
 	Entity* stub = new Entity;
 	stub->setID(1);
 
-	stub->addComponent(new Transform(0.5f , 1.f));
-	stub->addComponent(new Draw);
+	stub->addComponent(new Transform);
+	stub->addComponent(new Phong);
+	stub->addComponent(new Mesh);
 
-	stub->enable();
+	stub->load();
 
-	Renderer* renderer = new Renderer();
+	Window* window = new Window();
 
-	bool running = renderer->init();
+	bool running = window->init();
 
 	while (running){
 		SDL_Event e;
@@ -36,13 +33,13 @@ int main(int argc, char* argv[]){
 		}
 
 		stub->update(0);
-		stub->render(renderer);
+		stub->render();
 
-		renderer->swap();
+		window->swap();
 	}
 
 	delete stub;
-	delete renderer;
+	delete window;
 
 	return 0;
 }

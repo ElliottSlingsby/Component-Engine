@@ -28,6 +28,14 @@ Entity* Entity::clone(int id){
 	return entity;
 }
 
+void Entity::load(bool enable){
+	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
+		i->second->load();
+
+	if (enable)
+		this->enable();
+}
+
 void Entity::enable(){
 	if (!_enabled){
 		_enabled = true;
@@ -46,8 +54,8 @@ void Entity::update(long dt){
 			i->second->update(dt);
 }
 
-void Entity::render(Renderer* renderer){
+void Entity::render(){
 	if (_enabled)
 		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
-			i->second->render(renderer);
+			i->second->render();
 }
