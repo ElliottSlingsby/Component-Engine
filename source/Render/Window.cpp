@@ -25,7 +25,7 @@ void Window::title(const char* title){
 	_title = title;
 }
 
-bool Window::_SetupSDL(){
+bool Window::_setupSDL(){
 	// SDL initiation and error catching
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
 		printf("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
@@ -55,7 +55,7 @@ bool Window::_SetupSDL(){
 	return true;
 }
 
-bool Window::_SetupGL(){
+bool Window::_setupGL(){
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
@@ -85,25 +85,22 @@ bool Window::_SetupGL(){
 void Window::_reshape(){
 	float ar = (float)_size.x() / (float)_size.y();
 
-	glMatrixMode(GL_VIEWPORT);
-	glLoadIdentity();
-
 	glViewport(0, 0, _size.x(), _size.y());
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	gluPerspective(90, ar, 0, 100);
+	gluPerspective(59, ar, 0, 100);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
 
 bool Window::init(){
-	if (!_SetupSDL())
+	if (!_setupSDL())
 		return false;
 
-	if (!_SetupGL())
+	if (!_setupGL())
 		return false;
 
 	_reshape();

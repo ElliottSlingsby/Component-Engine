@@ -6,11 +6,6 @@
 
 #include "Render\Teapot.hpp"
 
-#include <glm/gtc/matrix_transform.hpp> 
-#include <glm/gtx/transform.hpp>
-
-#include "Render\Window.hpp"
-
 class Mesh : public Component{
 	float distance = 0;
 
@@ -28,7 +23,7 @@ public:
 	}
 
 	void update(long dt){
-		distance -= 0.5f;
+		distance -= 0.01f;
 	}
 
 	void render(){
@@ -36,23 +31,17 @@ public:
 
 		glTranslatef(0.f, 0.f, distance);
 
+		glRotatef(distance * 100, 1.f, 1.f, 1.f);
+
 		glBegin(GL_TRIANGLES);
+			glColor3f(1.f, 0.f, 0.f);
 			glVertex3f(0.0f, 1.0f, 0.0f);
+			glColor3f(0.f, 1.f, 0.f);
 			glVertex3f(-1.0f, -1.0f, 0.0f);
+			glColor3f(0.f, 0.f, 1.f);
 			glVertex3f(1.0f, -1.0f, 0.0f);
 		glEnd();
 		
 		glPopMatrix();
-
-
-		//glm::mat4 view = translate(glm::vec3(0.f, 0.f, 100.f));
-
-
-		/*glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(3, GL_FLOAT, 0, teapot_vertices);
-		glTranslatef(0.f, 0.f, -5.f);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_BYTE, teapot_body);
-
-		glDisableClientState(GL_VERTEX_ARRAY);*/
 	}
 };

@@ -17,8 +17,8 @@ class Window{
 
 	Vector2i _size;
 
-	bool _SetupSDL();
-	bool _SetupGL();
+	bool _setupSDL();
+	bool _setupGL();
 	
 	void _reshape();
 
