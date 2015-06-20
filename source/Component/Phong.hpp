@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Base.hpp"
+#include "Helper.hpp"
 
-class Phong : public Component{
+class Phong : public HelperComponent{
 
 public:
 	Phong(){

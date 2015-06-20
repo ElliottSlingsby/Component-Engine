@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Base.hpp"
+#include "Helper.hpp"
 
-class Light : public Component{
+class Light : public HelperComponent{
 
 public:
 	Light(){

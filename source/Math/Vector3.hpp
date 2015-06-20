@@ -40,6 +40,13 @@ public:
 			return false;
 		return true;
 	}
+
+	template <typename U>
+	void operator+=(Vector3<U>& other){
+		_x += other._x;
+		_y += other._y;
+		_z += other._z;
+	}
 };
 
 typedef Vector3<int> Vector3i;

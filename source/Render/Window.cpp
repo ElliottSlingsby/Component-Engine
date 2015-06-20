@@ -1,9 +1,9 @@
 #include "Window.hpp"
 
 #include <stdio.h>
-#include <gl\GLU.h>
 
 Window::Window(){
+	// Defualt values
 	_window = 0;
 	_renderer = 0;
 
@@ -26,7 +26,6 @@ void Window::title(const char* title){
 }
 
 bool Window::_setupSDL(){
-	// SDL initiation and error catching
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
 		printf("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
 		return false;
@@ -36,7 +35,13 @@ bool Window::_setupSDL(){
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-	// Creating the window and error handling
+	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+	// Window object
 	_window = SDL_CreateWindow(_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _size.x(), _size.y(), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
 	if (!_window){
@@ -44,7 +49,7 @@ bool Window::_setupSDL(){
 		return false;
 	}
 
-	// Creating the renderer and error handling
+	// Renderer object (for 2D graphics only)
 	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (!_renderer){
@@ -56,33 +61,39 @@ bool Window::_setupSDL(){
 }
 
 bool Window::_setupGL(){
-	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
+	// OpenGl settings
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 
-	int argc = 0;
-	char** argv = 0;
+	glShadeModel(GL_FLAT);
 
-	glutInit(&argc, argv);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	// Getting OpenGL context and error handling
+	// OpenGl context object
 	_glcontext = SDL_GL_CreateContext(_window);
 
 	if (!_glcontext){
 		printf("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", SDL_GetError());
 		return false;
 	}
-	
+
+	// Extensions
+	GLenum error = glewInit();
+
+	if (error != GLEW_OK){
+		printf("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", glewGetErrorString(error));
+		return false;
+	}
+
 	return true;
 }
 
-void Window::_reshape(){
+bool Window::_reshape(){
+	// Setting up OpenGL matrices
 	float ar = (float)_size.x() / (float)_size.y();
 
 	glViewport(0, 0, _size.x(), _size.y());
@@ -90,10 +101,20 @@ void Window::_reshape(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
+	// 59 vfov = ~90 hfov
 	gluPerspective(59, ar, 0, 100);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	GLenum error = glGetError();
+
+	if (error != GL_NO_ERROR){
+		printf("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", gluErrorString(error));
+		return false;
+	}
+
+	return true;
 }
 
 bool Window::init(){
@@ -103,13 +124,11 @@ bool Window::init(){
 	if (!_setupGL())
 		return false;
 
-	_reshape();
-
-	return true;
+	return _reshape();
 }
 
 void Window::swap(){
-	// Swap and clear buffer
+	// Swap and clear
 	SDL_GL_SwapWindow(_window);
 	glClear(GL_COLOR_BUFFER_BIT);
 }

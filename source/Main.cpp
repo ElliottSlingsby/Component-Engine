@@ -1,45 +1,50 @@
 #include "Entity.hpp"
 
+#include "Render\Window.hpp"
+
+#include "ResourceManager.hpp"
+#include "EntityManager.hpp"
+
 #include "Component\Transform.hpp"
 #include "Component\Mesh.hpp"
 #include "Component\Phong.hpp"
 
-#include "Render\Window.hpp"
-
-#include "ResourceManager.hpp"
-
 #undef main
 
 int main(int argc, char** argv){
-	Entity* stub = new Entity;
-	stub->setID(1);
+	Window window;
 
-	stub->addComponent(new Transform);
-	stub->addComponent(new Phong);
-	stub->addComponent(new Mesh);
+	bool running = window.init();
 
-	stub->load();
+	if (running){
+		Entity* stub = new Entity;
 
-	Window* window = new Window();
+		EntityManager::add(stub);
 
-	bool running = window->init();
+		stub->addComponent(new Transform);
+		stub->addComponent(new Phong);
+		stub->addComponent(new Mesh);
 
-	while (running){
-		SDL_Event e;
-		while (SDL_PollEvent(&e) != 0){
-			if (e.type == SDL_QUIT){
-				running = false;
+		EntityManager::loadAll();
+
+		while (running){
+			SDL_Event e;
+			while (SDL_PollEvent(&e) != 0){
+				if (e.type == SDL_QUIT){
+					running = false;
+				}
 			}
+
+			EntityManager::updateAll();
+			EntityManager::renderAll();
+
+			window.swap();
 		}
 
-		stub->update(0);
-		stub->render();
-
-		window->swap();
+		delete stub;
+	
+		return 0;
 	}
 
-	delete stub;
-	delete window;
-
-	return 0;
+	return 1;
 }

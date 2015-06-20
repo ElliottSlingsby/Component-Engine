@@ -1,10 +1,7 @@
 #pragma once
 
-#define FREEGLUT_LIB_PRAGMAS 0
-
 #include <SDL.h>
-#include <SDL_opengl.h>
-#include <GL\freeglut.h>
+#include <GL\glew.h>
 
 #include "Math\Vector2.hpp"
 
@@ -20,7 +17,7 @@ class Window{
 	bool _setupSDL();
 	bool _setupGL();
 	
-	void _reshape();
+	bool _reshape();
 
 public:
 	Window();

@@ -3,6 +3,8 @@
 #include "Identifier.hpp"
 
 class Component : public Identifier{
+protected:
+	
 public:
 	Component(){}
 	virtual ~Component(){}
