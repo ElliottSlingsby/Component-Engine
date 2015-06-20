@@ -20,6 +20,7 @@
     <ClInclude Include="Component\Base.hpp" />
     <ClInclude Include="Component\Helper.hpp" />
     <ClInclude Include="Component\Light.hpp" />
+    <ClInclude Include="Component\Movement.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Component\Mesh.hpp" />
     <ClInclude Include="EntityManager.hpp" />

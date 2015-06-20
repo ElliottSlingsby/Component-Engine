@@ -2,7 +2,6 @@
 
 #include "Base.hpp"
 #include "EntityManager.hpp"
-#include "Transform.hpp"
 
 class HelperComponent : public Component{
 protected:

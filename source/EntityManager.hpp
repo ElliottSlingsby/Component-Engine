@@ -21,7 +21,7 @@ class EntityManager{
 	void _removeId(unsigned int id);
 
 public:
-	static void add(Entity* entity);
+	static void add(Entity* entity, bool transform = true);
 	static Entity* get(unsigned int id);
 
 	static void loadAll();

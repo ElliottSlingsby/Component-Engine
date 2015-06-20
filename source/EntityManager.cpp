@@ -1,5 +1,7 @@
 #include "EntityManager.hpp"
 
+#include "Component\Transform.hpp"
+
 EntityManager::EntityManager(){
 	_entities.resize(MAX_ENTS);
 }
@@ -30,7 +32,7 @@ void EntityManager::_removeId(unsigned int id){
 	_removed.push(id);
 }
 
-void EntityManager::add(Entity* entity){
+void EntityManager::add(Entity* entity, bool transform){
 	int id = _instance()._newId();
 
 	if (_instance()._entities[id])
@@ -38,6 +40,9 @@ void EntityManager::add(Entity* entity){
 
 	entity->setID(id);
 	_instance()._entities[id] = entity;
+
+	if (transform)
+		entity->addComponent(new Transform);
 }
 
 Entity* EntityManager::get(unsigned int id){

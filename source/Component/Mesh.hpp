@@ -3,59 +3,36 @@
 #include "Helper.hpp"
 
 #include <GL\glew.h>
-//#include <SDL_image.h>
-
-//#include "Render\Teapot.hpp"
 
 #include "Component\Transform.hpp"
 
 class Mesh : public HelperComponent{
-	Transform* transform = 0;
-
-	//GLuint _texture = -1;	
+	Transform* _transform = 0;
 
 public:
 	Mesh(){}
 
 	void load(){
-		/*
-		// Texture testing
-
-		SDL_Surface* image = IMG_Load("../asset/bort.png");
-
-		glGenTextures(1, &_texture);
-		glBindTexture(GL_TEXTURE_2D, _texture);
-
-		int format = GL_RGB;
-
-		if (image->format->BytesPerPixel == 4)
-			format = GL_RGBA;
-
-		glTexImage2D(GL_TEXTURE_2D, 0, format, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
-
-		SDL_FreeSurface(image);*/
-
-		transform = getComponent<Transform>();
+		_transform = getComponent<Transform>();
 	}
 
 	Component* clone(){
 		return new Mesh;
 	}
 
-	void update(long dt){
-		transform->translate(Vector3f(0.f, 0.f, -0.02f));
-		transform->transform(Vector3f(0.5f, 1.f, 2.f));
-	}
-
 	void render(){
 		glPushMatrix();
 
-		glTranslatef(transform->position().x(), transform->position().y(), transform->position().z());
+		// Transform tranformations
+		glTranslatef(_transform->position().x(), 0.f, 0.f);
+		glTranslatef(0.f, _transform->position().y(), 0.f);
+		glTranslatef(0.f, 0.f, _transform->position().z());
 
-		glRotatef(transform->euler().x(), 1.f, 0.f, 0.f);
-		glRotatef(transform->euler().y(), 0.f, 1.f, 0.f);
-		glRotatef(transform->euler().z(), 0.f, 0.f, 1.f);
+		glRotatef(_transform->euler().x(), 1.f, 0.f, 0.f);
+		glRotatef(_transform->euler().y(), 0.f, 1.f, 0.f);
+		glRotatef(_transform->euler().z(), 0.f, 0.f, 1.f);
 
+		// Testing quad
 		glBegin(GL_QUADS);
 
 			glColor3f(1.f, 0.f, 0.f);

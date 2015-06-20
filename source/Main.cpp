@@ -1,13 +1,12 @@
-#include "Entity.hpp"
-
 #include "Render\Window.hpp"
 
 #include "ResourceManager.hpp"
 #include "EntityManager.hpp"
 
-#include "Component\Transform.hpp"
 #include "Component\Mesh.hpp"
 #include "Component\Phong.hpp"
+
+#include "Component\Movement.hpp"
 
 #undef main
 
@@ -21,9 +20,10 @@ int main(int argc, char** argv){
 
 		EntityManager::add(stub);
 
-		stub->addComponent(new Transform);
 		stub->addComponent(new Phong);
 		stub->addComponent(new Mesh);
+
+		stub->addComponent(new Movement);
 
 		EntityManager::loadAll();
 
