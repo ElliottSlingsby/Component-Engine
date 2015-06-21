@@ -9,7 +9,7 @@ public:
 	Transform* transform = 0;
 
 	void load(){
-		transform = getComponent<Transform>();
+		transform = _getComponent<Transform>();
 	}
 
 	void update(long dt){

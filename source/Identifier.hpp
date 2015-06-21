@@ -8,7 +8,7 @@ class Identifier{
 	int _id = NULL_ID;
 
 public:
-	virtual void setID(int id){ 
+	virtual void setID(int id){
 		if (_id == NULL_ID)
 			_id = id;
 		else

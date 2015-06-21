@@ -4,19 +4,26 @@
 #include <typeinfo>
 #include <unordered_map>
 #include "Component\Base.hpp"
+#include "Component\Transform.hpp"
 #include "Identifier.hpp"
 
 class Entity : public Identifier{
-private:
+protected:
 	typedef std::unordered_map<const type_info*, Component*> ComponentMap;
 	ComponentMap _components;
 	
-	bool _enabled;
+	bool _enabled = false;
+	Transform* _transform = 0;
 
 public:
 	Entity();
+
 	// Destroys all components
 	~Entity();
+
+	virtual void prefab(){};
+
+	void setID(int id);
 
 	// Clone entity and contents with new ID
 	Entity* clone(int id);
@@ -41,7 +48,8 @@ public:
 			_components[&typeid(T)] = component;
 
 			// Parent and enable the component
-			component->setID(ID());
+			if (typeid(T) != typeid(Transform))
+				component->setID(ID());
 		}
 		else
 			printf("%s!\n", "Component already exists");

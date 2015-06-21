@@ -1,7 +1,13 @@
 #include "Entity.hpp"
 
 Entity::Entity(){
-	_enabled = false;
+	_transform = new Transform;
+	addComponent(_transform);
+}
+
+void Entity::setID(int id){
+	Identifier::setID(id);
+	_transform->setID(id);
 }
 
 Entity::~Entity(){

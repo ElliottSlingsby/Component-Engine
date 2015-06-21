@@ -3,48 +3,33 @@
 #include "ResourceManager.hpp"
 #include "EntityManager.hpp"
 
-#include "Component\Mesh.hpp"
-#include "Component\Phong.hpp"
-
-#include "Component\Movement.hpp"
+#include "Prefab\Stub.hpp"
 
 #undef main
 
 int main(int argc, char** argv){
+
+	EntityManager::instantiate<Stub>(0.f, 0.f, -10.f);
+
 	Window window;
 
 	bool running = window.init();
+	
+	EntityManager::loadAll();
 
-	if (running){
-		Entity* stub = new Entity;
-
-		EntityManager::add(stub);
-
-		stub->addComponent(new Phong);
-		stub->addComponent(new Mesh);
-
-		stub->addComponent(new Movement);
-
-		EntityManager::loadAll();
-
-		while (running){
-			SDL_Event e;
-			while (SDL_PollEvent(&e) != 0){
-				if (e.type == SDL_QUIT){
-					running = false;
-				}
+	while (running){
+		SDL_Event e;
+		while (SDL_PollEvent(&e) != 0){
+			if (e.type == SDL_QUIT){
+				running = false;
 			}
-
-			EntityManager::updateAll();
-			EntityManager::renderAll();
-
-			window.swap();
 		}
 
-		delete stub;
-	
-		return 0;
-	}
+		EntityManager::updateAll();
+		EntityManager::renderAll();
 
-	return 1;
+		window.swap();
+	}
+	
+	return 0;
 }

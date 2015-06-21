@@ -13,7 +13,7 @@ public:
 	Mesh(){}
 
 	void load(){
-		_transform = getComponent<Transform>();
+		_transform = _getComponent<Transform>();
 	}
 
 	Component* clone(){

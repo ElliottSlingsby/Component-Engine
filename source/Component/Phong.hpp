@@ -18,7 +18,7 @@ public:
 	}
 
 	void load(){
-		_transform = getComponent<Transform>();
+		_transform = _getComponent<Transform>();
 
 		/*// Texture testing
 

@@ -14,6 +14,11 @@ public:
 		_euler = Vector3f(0.f, 0.f, 0.f);
 	}
 
+	Transform(Vector3f position, Vector3f euler){
+		_position = position;
+		_euler = euler;
+	}
+
 	Component* clone(){
 		Transform* transform = new Transform();
 		transform->_position = _position;

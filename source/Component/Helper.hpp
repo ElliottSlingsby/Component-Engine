@@ -6,7 +6,7 @@
 class HelperComponent : public Component{
 protected:
 	template <typename T>
-	T* getComponent(){
+	T* _getComponent(){
 		if (ID() != NULL_ID)
 			return EntityManager::get(ID())->getComponent<T>();
 
@@ -14,13 +14,13 @@ protected:
 	}
 
 	template <typename T>
-	void addComponent(T* component){
+	void _addComponent(T* component){
 		if (ID() != NULL_ID)
 			EntityManager::get(ID())->addComponent(component);
 	}
 
 	template <typename T>
-	void destroyComponent(){
+	void _destroyComponent(){
 		if (ID() != NULL_ID)
 			EntityManager::get(ID())->destroyComponent(component);
 	}
