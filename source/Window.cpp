@@ -2,27 +2,33 @@
 
 #include <stdio.h>
 
-Window::Window(){
-	// Defualt values
-	_window = 0;
-	_renderer = 0;
-
-	title("My first polygon!");
-	size(1280, 720);
+Window& Window::_instance(){
+	static Window instance;
+	return instance;
 }
 
 Window::~Window(){
+	_running = false;
+
 	SDL_DestroyWindow(_window);
 	SDL_DestroyRenderer(_renderer);
 	SDL_GL_DeleteContext(_glcontext);
 }
 
 void Window::size(int width, int height){
-	_size = Vector2i(width, height);
+	_instance()._size = Vector2i(width, height);
+
+	if (_instance()._running){
+		SDL_SetWindowSize(_instance()._window, width, height);
+		_instance().initiate();
+	}
 }
 
 void Window::title(const char* title){
-	_title = title;
+	_instance()._title = title;
+
+	if (_instance()._running)
+		SDL_SetWindowTitle(_instance()._window, title);
 }
 
 bool Window::_setupSDL(){
@@ -42,7 +48,7 @@ bool Window::_setupSDL(){
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	// Window object
-	_window = SDL_CreateWindow(_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _size.x(), _size.y(), SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+	_window = SDL_CreateWindow(_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _size.x(), _size.y(), SDL_WINDOW_OPENGL | _mode);
 
 	if (!_window){
 		printf("%s! %s: %s\n", "Failed to create window", "SDL Error", SDL_GetError());
@@ -53,7 +59,7 @@ bool Window::_setupSDL(){
 	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (!_renderer){
-		printf("%s! %s: %s\n", "Failed to create ", "SDL Error", SDL_GetError());
+		printf("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -72,7 +78,8 @@ bool Window::_setupGL(){
 	// OpenGl settings
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_COLOR_MATERIAL);
 
 	// Extensions
 	GLenum error = glewInit();
@@ -85,11 +92,11 @@ bool Window::_setupGL(){
 	return true;
 }
 
-bool Window::_reshape(){
+bool Window::reshape(){
 	// Setting up OpenGL matrices
-	float ar = (float)_size.x() / (float)_size.y();
+	float ar = (float)_instance()._size.x() / (float)_instance()._size.y();
 
-	glViewport(0, 0, _size.x(), _size.y());
+	glViewport(0, 0, _instance()._size.x(), _instance()._size.y());
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -110,18 +117,45 @@ bool Window::_reshape(){
 	return true;
 }
 
-bool Window::init(){
-	if (!_setupSDL())
+bool Window::initiate(){
+	if (_instance()._running){
+		SDL_DestroyWindow(_instance()._window);
+		SDL_DestroyRenderer(_instance()._renderer);
+		SDL_GL_DeleteContext(_instance()._glcontext);
+	}
+	else{
+		_instance()._running = true;
+	}
+
+	if (!_instance()._setupSDL())
 		return false;
 
-	if (!_setupGL())
+	if (!_instance()._setupGL())
 		return false;
 
-	return _reshape();
+	return reshape();
 }
 
 void Window::swap(){
-	// Swap and clear
-	SDL_GL_SwapWindow(_window);
+	SDL_GL_SwapWindow(_instance()._window);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+SDL_Renderer* Window::renderer(){
+	return _instance()._renderer;
+}
+
+int Window::width(){
+	return _instance()._size.x();
+}
+
+int Window::height(){
+	return _instance()._size.y();
+}
+
+void Window::fullscreen(WindowModes mode){
+	_instance()._mode = mode;
+	
+	if (_instance()._running)
+		SDL_SetWindowFullscreen(_instance()._window, mode);
 }

@@ -1,34 +1,42 @@
-#include "ResourceManager.hpp"
+#include "Window.hpp"
 #include "EntityManager.hpp"
-
-#include "Render\Window.hpp"
 
 #include "Prefab\Stub.hpp"
 
+#include "Component\Light.hpp"
+
 int main(int argc, char** argv){
-	Entity* entity = EntityManager::instantiate();
 
-	entity->addComponent(new Phong("regressiontest.jpg"));
-	entity->addComponent(new Mesh);
-	entity->addComponent(new Movement);
+	Window::size(1280, 720);
+	Window::fullscreen(WINDOW_WINDOWED);
+	Window::title("Component Game");
 
-	Window window;
+	Entity* stub = EntityManager::instantiate<Stub>();
 
-	bool running = window.init();
+	Entity* light = EntityManager::instantiate();
+
+	light->addComponent(new Light);
 	
+	bool running = Window::initiate();
+
 	EntityManager::loadAll();
 
 	while (running){
 		SDL_Event e;
-		while (SDL_PollEvent(&e) != 0)
+		while (SDL_PollEvent(&e) != 0){
 			if (e.type == SDL_QUIT)
 				running = false;
+			
+			else if(e.type == SDL_KEYDOWN)
+				if (e.key.keysym.sym == SDLK_ESCAPE)
+					running = false;
+		}
 
 		EntityManager::updateAll();
 		EntityManager::renderAll();
 
-		window.swap();
+		Window::swap();
 	}
-	
+
 	return 0;
 }

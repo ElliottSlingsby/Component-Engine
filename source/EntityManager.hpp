@@ -5,7 +5,6 @@
 #include "Entity.hpp"
 
 #define MAX_ENTS 1024 //Size of initial vector
-#define SIZE_STEP 512; //Size vector will be increased by on overflow
 
 class EntityManager{
 	std::vector<Entity*> _entities;

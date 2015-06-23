@@ -17,6 +17,7 @@ int EntityManager::_newID(){
 
 	int id = _removed.top();
 	_removed.pop();
+
 	return id;
 }
 

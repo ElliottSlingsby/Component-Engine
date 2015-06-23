@@ -7,13 +7,13 @@ class Resource{
 
 };
 
-class ResourceManager{
+class ResourceLoader{
 	std::unordered_map<std::string, Resource*> _resources;
 
-	ResourceManager(){}
+	ResourceLoader(){}
 
-	static ResourceManager& _instance(){
-		static ResourceManager instance;
+	static ResourceLoader& _instance(){
+		static ResourceLoader instance;
 		return instance;
 	}
 
