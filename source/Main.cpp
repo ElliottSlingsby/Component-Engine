@@ -8,10 +8,11 @@
 //#undef main
 
 int main(int argc, char** argv){
-	Entity* entity = EntityManager::instantiate<Stub>(0.f, 0.f, -10.f);
+	Entity* entity = EntityManager::instantiate();
 
-	//entity->destroyComponent<Transform>();
-	entity->destroyComponent<Movement>();
+	entity->addComponent(new Phong("regressiontest.jpg"));
+	entity->addComponent(new Mesh);
+	entity->addComponent(new Movement);
 
 	Window window;
 

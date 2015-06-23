@@ -12,7 +12,7 @@ struct Stub : public Entity{
 	}
 
 	void prefab(){
-		addComponent(new Phong);
+		addComponent(new Phong("regressiontest.jpg"));
 		addComponent(new Mesh);
 		addComponent(new Movement);
 	}

@@ -12,7 +12,7 @@ EntityManager& EntityManager::_instance(){
 int EntityManager::_newID(){
 	if (_removed.empty()){
 		_highest++;
-		return _highest;
+		return _highest - 1;
 	}
 
 	int id = _removed.top();
@@ -20,8 +20,8 @@ int EntityManager::_newID(){
 	return id;
 }
 
-void EntityManager::_removeID(unsigned int id){
-	if (id == _highest){
+void EntityManager::_removeID(int id){
+	if (id == _highest - 1){
 		_highest--;
 		return;
 	}
@@ -47,7 +47,7 @@ void EntityManager::add(Entity* entity){
 	printf("%s: %s!\n", "Entity Manager", "Cannot add an entity that already has an ID");
 }
 
-Entity* EntityManager::get(unsigned int id){
+Entity* EntityManager::get(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
@@ -58,7 +58,7 @@ Entity* EntityManager::get(unsigned int id){
 	return entity;
 }
 
-void EntityManager::destroy(unsigned int id){
+void EntityManager::destroy(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){

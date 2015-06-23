@@ -5,8 +5,10 @@
 #include <GL\glew.h>
 
 #include "Component\Transform.hpp"
+#include "Component\Phong.hpp"
 
 #include "Render\Cube.hpp"
+
 
 class Mesh : public HelperComponent{
 	Transform* _transform = 0;
@@ -36,22 +38,29 @@ public:
 		glRotatef(_transform->euler().y(), 0.f, 1.f, 0.f);
 		glRotatef(_transform->euler().z(), 0.f, 0.f, 1.f);
 
+		Phong* phong = _getComponent<Phong>();
+
+		if (phong)
+			phong->use();
+		else
+			glBindTexture(GL_TEXTURE_2D, 0);
+
 		// Testing quad
 		glBegin(GL_QUADS);
 
-			glColor3f(1.f, 0.f, 0.f);
+			//glColor3f(1.f, 0.f, 0.f);
 			glTexCoord2f(0.f, 0.f);
 			glVertex3f(-1.0f, -1.0f, 0.0f);
 
-			glColor3f(0.f, 1.f, 0.f);
+			//glColor3f(0.f, 1.f, 0.f);
 			glTexCoord2f(0.f, 1.f);
 			glVertex3f(-1.0f, 1.0f, 0.0f);
 
-			glColor3f(0.f, 0.f, 1.f);
+			//glColor3f(0.f, 0.f, 1.f);
 			glTexCoord2f(1.f, 1.f);
 			glVertex3f(1.0f, 1.0f, 0.0f);
 
-			glColor3f(1.f, 1.f, 1.f);
+			//glColor3f(1.f, 1.f, 1.f);
 			glTexCoord2f(1.f, 0.f);
 			glVertex3f(1.0f, -1.0f, 0.0f);
 

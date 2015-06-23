@@ -70,8 +70,6 @@ public:
 			return casted;
 		}
 
-		printf("%s!\n", "Cannot find component");
-
 		return 0;
 	}
 

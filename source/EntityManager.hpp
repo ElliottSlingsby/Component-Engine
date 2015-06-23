@@ -9,7 +9,7 @@
 
 class EntityManager{
 	std::vector<Entity*> _entities;
-	std::stack<unsigned int> _removed;
+	std::stack<int> _removed;
 
 	int _highest = 0;
 
@@ -18,7 +18,7 @@ class EntityManager{
 	static EntityManager& _instance();
 
 	int _newID();
-	void _removeID(unsigned int id);
+	void _removeID(int id);
 
 public:
 
@@ -43,8 +43,8 @@ public:
 	}
 
 	static void add(Entity* entity);
-	static Entity* get(unsigned int id);
-	static void destroy(unsigned int id);
+	static Entity* get(int id);
+	static void destroy(int id);
 
 	static void loadAll();
 	static void updateAll();

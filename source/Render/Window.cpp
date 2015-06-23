@@ -38,7 +38,7 @@ bool Window::_setupSDL(){
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 5);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	// Window object
@@ -61,18 +61,6 @@ bool Window::_setupSDL(){
 }
 
 bool Window::_setupGL(){
-	// OpenGl settings
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-
-	glShadeModel(GL_FLAT);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
 	// OpenGl context object
 	_glcontext = SDL_GL_CreateContext(_window);
 
@@ -80,6 +68,11 @@ bool Window::_setupGL(){
 		printf("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", SDL_GetError());
 		return false;
 	}
+
+	// OpenGl settings
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_LIGHTING);
 
 	// Extensions
 	GLenum error = glewInit();
@@ -102,7 +95,7 @@ bool Window::_reshape(){
 	glLoadIdentity();
 
 	// 59 vfov = ~90 hfov
-	gluPerspective(59, ar, 0, 100);
+	gluPerspective(59, ar, 0.1, 100);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -130,5 +123,5 @@ bool Window::init(){
 void Window::swap(){
 	// Swap and clear
 	SDL_GL_SwapWindow(_window);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
