@@ -5,8 +5,6 @@
 
 #include "Prefab\Stub.hpp"
 
-//#undef main
-
 int main(int argc, char** argv){
 	Entity* entity = EntityManager::instantiate();
 
@@ -22,11 +20,9 @@ int main(int argc, char** argv){
 
 	while (running){
 		SDL_Event e;
-		while (SDL_PollEvent(&e) != 0){
-			if (e.type == SDL_QUIT){
+		while (SDL_PollEvent(&e) != 0)
+			if (e.type == SDL_QUIT)
 				running = false;
-			}
-		}
 
 		EntityManager::updateAll();
 		EntityManager::renderAll();

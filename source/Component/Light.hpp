@@ -3,7 +3,6 @@
 #include "Helper.hpp"
 
 class Light : public HelperComponent{
-
 public:
 	Light(){
 

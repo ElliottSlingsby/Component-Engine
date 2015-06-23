@@ -14,6 +14,10 @@ public:
 		_image = image;
 	}
 
+	~Phong(){
+		glDeleteTextures(1, &_texture);
+	}
+
 	Component* clone(){
 		return new Phong(_image);
 	}

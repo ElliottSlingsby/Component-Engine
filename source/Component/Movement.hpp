@@ -13,7 +13,7 @@ public:
 	}
 
 	void update(long dt){
-		transform->translate(Vector3f(0.f, 0.f, -0.02f));
+		transform->translate(Vector3f(0.f, 0.f, 0.02f));
 		transform->transform(Vector3f(0.5f, 1.f, 2.f));
 	}
 
