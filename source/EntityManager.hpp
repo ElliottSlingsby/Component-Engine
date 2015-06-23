@@ -28,8 +28,10 @@ public:
 
 		int id = _instance()._newID();
 
-		if (_instance()._entities[id])
+		if (_instance()._entities[id]){
+			printf("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
 			return 0;
+		}
 
 		entity->setID(id);
 

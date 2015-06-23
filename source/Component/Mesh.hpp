@@ -6,11 +6,15 @@
 
 #include "Component\Transform.hpp"
 
+#include "Render\Cube.hpp"
+
 class Mesh : public HelperComponent{
 	Transform* _transform = 0;
 
 public:
-	Mesh(){}
+	Mesh(){
+
+	}
 
 	void load(){
 		_transform = _getComponent<Transform>();
@@ -23,7 +27,7 @@ public:
 	void render(){
 		glPushMatrix();
 
-		// Transform tranformations
+		// Tranformations
 		glTranslatef(_transform->position().x(), 0.f, 0.f);
 		glTranslatef(0.f, _transform->position().y(), 0.f);
 		glTranslatef(0.f, 0.f, _transform->position().z());

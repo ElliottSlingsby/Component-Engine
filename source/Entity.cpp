@@ -1,5 +1,7 @@
 #include "Entity.hpp"
 
+#include "EntityManager.hpp"
+
 Entity::Entity(){
 	_transform = new Transform;
 	addComponent(_transform);

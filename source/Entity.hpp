@@ -82,8 +82,13 @@ public:
 
 		// If component exists, erase and delete
 		if (component != _components.end()){
-			_components.erase(&typeid(T));
+			if (typeid(T) == typeid(Transform)){
+				printf("%s!\n", "Cannot destroy Transform component");
+				return;
+			}
+
 			delete component->second;
+			_components.erase(&typeid(T));
 		}
 		else
 			printf("%s!\n", "Cannot find component");

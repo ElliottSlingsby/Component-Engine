@@ -1,15 +1,17 @@
-#include "Render\Window.hpp"
-
 #include "ResourceManager.hpp"
 #include "EntityManager.hpp"
 
+#include "Render\Window.hpp"
+
 #include "Prefab\Stub.hpp"
 
-#undef main
+//#undef main
 
 int main(int argc, char** argv){
+	Entity* entity = EntityManager::instantiate<Stub>(0.f, 0.f, -10.f);
 
-	EntityManager::instantiate<Stub>(0.f, 0.f, -10.f);
+	//entity->destroyComponent<Transform>();
+	entity->destroyComponent<Movement>();
 
 	Window window;
 

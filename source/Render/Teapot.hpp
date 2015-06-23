@@ -2,40 +2,40 @@
 
 #include <GL\GL.h>
 
-const GLubyte teapot_rim[] = {
+static const GLubyte teapot_rim[] = {
 	102, 103, 104, 105, 4, 5, 6, 7,
 	8, 9, 10, 11, 12, 13, 14, 15,
 };
 
-const GLubyte teapot_body[] = {
+static const GLubyte teapot_body[] = {
 	12, 13, 14, 15, 16, 17, 18, 19,
 	20, 21, 22, 23, 24, 25, 26, 27,
 	24, 25, 26, 27, 29, 30, 31, 32,
 	33, 34, 35, 36, 37, 38, 39, 40,
 };
 
-const GLubyte teapot_lid[] = {
+static const GLubyte teapot_lid[] = {
 	96, 96, 96, 96, 97, 98, 99, 100,
 	101, 101, 101, 101, 0, 1, 2, 3,
 	0, 1, 2, 3, 106, 107, 108, 109,
 	110, 111, 112, 113, 114, 115, 116, 117,
 };
 
-const GLubyte teapot_handle[] = {
+static const GLubyte teapot_handle[] = {
 	41, 42, 43, 44, 45, 46, 47, 48,
 	49, 50, 51, 52, 53, 54, 55, 56,
 	53, 54, 55, 56, 57, 58, 59, 60,
 	61, 62, 63, 64, 28, 65, 66, 67,
 };
 
-const GLubyte teapot_spout[] = {
+static const GLubyte teapot_spout[] = {
 	68, 69, 70, 71, 72, 73, 74, 75,
 	76, 77, 78, 79, 80, 81, 82, 83,
 	80, 81, 82, 83, 84, 85, 86, 87,
 	88, 89, 90, 91, 92, 93, 94, 95,
 };
 
-const GLfloat teapot_vertices[] = {
+static const GLfloat teapot_vertices[] = {
 	0.2000f, 0.0000f, 2.70000f, 0.2000f, -0.1120f, 2.70000f,
 	0.1120f, -0.2000f, 2.70000f, 0.0000f, -0.2000f, 2.70000f,
 	1.3375f, 0.0000f, 2.53125f, 1.3375f, -0.7490f, 2.53125f,
