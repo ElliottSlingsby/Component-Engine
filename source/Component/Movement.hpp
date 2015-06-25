@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Helper.hpp"
+#include "Base\HelperComponent.hpp"
 
 // Testing movement
 

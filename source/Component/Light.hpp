@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Helper.hpp"
+#include "Base\HelperComponent.hpp"
 #include <stdint.h>
 #include "Math\Vector4.hpp"
 

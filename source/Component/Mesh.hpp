@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Helper.hpp"
+#include "Base\HelperComponent.hpp"
 
 #include <GL\glew.h>
-
-#include "Component\Transform.hpp"
-#include "Component\Phong.hpp"
-
 #include "Render\Cube.hpp"
+
+#include "Transform.hpp"
+#include "Phong.hpp"
 
 
 class Mesh : public HelperComponent{

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Base.hpp"
+#include "Component.hpp"
 #include "EntityManager.hpp"
 
 class HelperComponent : public Component{

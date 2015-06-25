@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Entity.hpp"
+#include "Base\Entity.hpp"
 
 #include "Component\Mesh.hpp"
 #include "Component\Phong.hpp"

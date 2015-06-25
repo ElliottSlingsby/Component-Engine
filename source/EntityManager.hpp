@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <stack>
-#include "Entity.hpp"
+#include "Base\Entity.hpp"
 
 #define MAX_ENTS 1024 //Size of initial vector
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Base.hpp"
+#include "Base\Component.hpp"
 
 #include "Math\Vector3.hpp"
 

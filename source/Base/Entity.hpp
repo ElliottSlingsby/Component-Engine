@@ -3,9 +3,7 @@
 #include <stdio.h>
 #include <typeinfo>
 #include <unordered_map>
-#include "Component\Base.hpp"
 #include "Component\Transform.hpp"
-#include "Identifier.hpp"
 
 class Entity : public Identifier{
 protected:

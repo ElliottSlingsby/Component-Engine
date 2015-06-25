@@ -11,17 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Base\Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component\Base.hpp" />
-    <ClInclude Include="Component\Helper.hpp" />
+    <ClInclude Include="Base\Component.hpp" />
+    <ClInclude Include="Base\HelperComponent.hpp" />
     <ClInclude Include="Component\Light.hpp" />
     <ClInclude Include="Component\Movement.hpp" />
-    <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="Base\Entity.hpp" />
     <ClInclude Include="Component\Mesh.hpp" />
     <ClInclude Include="EntityManager.hpp" />
     <ClInclude Include="Math\Vector4.hpp" />
@@ -31,7 +31,7 @@
     <ClInclude Include="ResourceLoader.hpp" />
     <ClInclude Include="Component\Phong.hpp" />
     <ClInclude Include="Window.hpp" />
-    <ClInclude Include="Identifier.hpp" />
+    <ClInclude Include="Base\Identifier.hpp" />
     <ClInclude Include="Component\Transform.hpp" />
     <ClInclude Include="Math\Vector2.hpp" />
     <ClInclude Include="Math\Vector3.hpp" />
