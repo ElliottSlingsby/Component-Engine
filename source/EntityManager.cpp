@@ -4,6 +4,10 @@ EntityManager::EntityManager(){
 	_entities.resize(MAX_ENTS);
 }
 
+EntityManager::~EntityManager(){
+	deleteAll();
+}
+
 EntityManager& EntityManager::_instance(){
 	static EntityManager instance;
 	return instance;
@@ -96,5 +100,14 @@ void EntityManager::renderAll(){
 
 		if (entity)
 			entity->render();
+	}
+}
+
+void EntityManager::deleteAll(){
+	for (int i = 0; i <= _instance()._highest; i++){
+		Entity* entity = _instance()._entities[i];
+
+		if (entity)
+			destroy(i);
 	}
 }

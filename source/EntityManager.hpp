@@ -21,6 +21,8 @@ class EntityManager{
 
 public:
 
+	~EntityManager();
+
 	template<typename T = Entity, typename... U> 
 	static Entity* instantiate(U... args){
 		Entity* entity = new T(args...);
@@ -48,4 +50,5 @@ public:
 	static void loadAll();
 	static void updateAll();
 	static void renderAll();
+	static void deleteAll();
 };

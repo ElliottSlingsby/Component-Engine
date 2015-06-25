@@ -44,7 +44,7 @@ public:
 	
 	// Setup and updating
 	static bool initiate();
-	static void swap();
+	static void swapBuffer();
 
 	static bool reshape();
 };

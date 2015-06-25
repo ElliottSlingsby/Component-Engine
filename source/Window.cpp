@@ -15,22 +15,6 @@ Window::~Window(){
 	SDL_GL_DeleteContext(_glcontext);
 }
 
-void Window::size(int width, int height){
-	_instance()._size = Vector2i(width, height);
-
-	if (_instance()._running){
-		SDL_SetWindowSize(_instance()._window, width, height);
-		_instance().initiate();
-	}
-}
-
-void Window::title(const char* title){
-	_instance()._title = title;
-
-	if (_instance()._running)
-		SDL_SetWindowTitle(_instance()._window, title);
-}
-
 bool Window::_setupSDL(){
 	if (SDL_Init(SDL_INIT_VIDEO) < 0){
 		printf("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
@@ -48,7 +32,7 @@ bool Window::_setupSDL(){
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	// Window object
-	_window = SDL_CreateWindow(_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _size.x(), _size.y(), SDL_WINDOW_OPENGL | _mode);
+	_window = SDL_CreateWindow(_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _size.x(), _size.y(), SDL_WINDOW_OPENGL);
 
 	if (!_window){
 		printf("%s! %s: %s\n", "Failed to create window", "SDL Error", SDL_GetError());
@@ -62,6 +46,8 @@ bool Window::_setupSDL(){
 		printf("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
 		return false;
 	}
+
+	SDL_SetWindowFullscreen(_window, _mode);
 
 	return true;
 }
@@ -80,6 +66,7 @@ bool Window::_setupGL(){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_PROGRAM_POINT_SIZE);
 
 	// Extensions
 	GLenum error = glewInit();
@@ -114,6 +101,8 @@ bool Window::reshape(){
 		return false;
 	}
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	return true;
 }
 
@@ -136,7 +125,7 @@ bool Window::initiate(){
 	return reshape();
 }
 
-void Window::swap(){
+void Window::swapBuffer(){
 	SDL_GL_SwapWindow(_instance()._window);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -158,4 +147,20 @@ void Window::fullscreen(WindowModes mode){
 	
 	if (_instance()._running)
 		SDL_SetWindowFullscreen(_instance()._window, mode);
+}
+
+void Window::size(int width, int height){
+	_instance()._size = Vector2i(width, height);
+
+	if (_instance()._running){
+		SDL_SetWindowSize(_instance()._window, width, height);
+		_instance().initiate();
+	}
+}
+
+void Window::title(const char* title){
+	_instance()._title = title;
+
+	if (_instance()._running)
+		SDL_SetWindowTitle(_instance()._window, title);
 }

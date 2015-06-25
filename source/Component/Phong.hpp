@@ -6,32 +6,38 @@
 #include <SDL_image.h>
 
 class Phong : public HelperComponent{
-	GLuint _texture = -1;
-	std::string _image;
+	GLuint _ambient = -1;
+	std::string _ambient_src;
+
+	GLuint _diffuse = -1;
+	std::string _diffuse_src;
+
+	GLuint _specular = -1;
+	std::string _specular_src;
 
 public:
 	Phong(std::string image){
-		_image = image;
+		_diffuse_src = image;
 	}
 
 	~Phong(){
-		glDeleteTextures(1, &_texture);
+		glDeleteTextures(1, &_diffuse);
 	}
 
 	Component* clone(){
-		return new Phong(_image);
+		return new Phong(_diffuse_src);
 	}
 
 	void load(){
-		SDL_Surface* image = IMG_Load(("../asset/" + _image).c_str());
+		SDL_Surface* image = IMG_Load(("../asset/" + _diffuse_src).c_str());
 
 		if (!image){
-			printf("%s %s!", "Cannot load texture", _image);
+			printf("%s %s!", "Cannot load texture", _diffuse_src);
 			return;
 		}
 
-		glGenTextures(1, &_texture);
-		glBindTexture(GL_TEXTURE_2D, _texture);
+		glGenTextures(1, &_diffuse);
+		glBindTexture(GL_TEXTURE_2D, _diffuse);
 
 		int format = GL_RGB;
 
@@ -49,6 +55,6 @@ public:
 	}
 
 	void use(){
-		glBindTexture(GL_TEXTURE_2D, _texture);
+		glBindTexture(GL_TEXTURE_2D, _diffuse);
 	}
 };
