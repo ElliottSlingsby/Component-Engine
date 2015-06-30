@@ -85,7 +85,16 @@ void EntityManager::loadAll(){
 	}
 }
 
-void EntityManager::updateAll(){
+void EntityManager::inputAll(SDL_Event& evnt){
+	for (int i = 0; i <= _instance()._highest; i++){
+		Entity* entity = _instance()._entities[i];
+
+		if (entity)
+			entity->input(evnt);
+	}
+}
+
+void EntityManager::updateAll(long dt){
 	for (int i = 0; i <= _instance()._highest; i++){
 		Entity* entity = _instance()._entities[i];
 

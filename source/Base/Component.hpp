@@ -1,16 +1,15 @@
 #pragma once
 
 #include "Identifier.hpp"
+#include <SDL.h>
 
-class Component : public Identifier{
-protected:
-	
-public:
+struct Component : public Identifier{
 	Component(){}
 	virtual ~Component(){}
 
 	virtual void load(){}
 	virtual void enable(){}
+	virtual void input(SDL_Event& evnt){}
 	virtual void update(long dt){}
 	virtual void render(){}
 

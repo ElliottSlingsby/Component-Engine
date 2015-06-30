@@ -48,7 +48,8 @@ public:
 	static void destroy(int id);
 
 	static void loadAll();
-	static void updateAll();
+	static void inputAll(SDL_Event& evnt);
+	static void updateAll(long dt);
 	static void renderAll();
 	static void deleteAll();
 };

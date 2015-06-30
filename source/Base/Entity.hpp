@@ -26,16 +26,10 @@ public:
 	// Clone entity and contents with new ID
 	Entity* clone(int id);
 
-	// Load all components
 	void load(bool enable = true);
-
-	// Enable all components
 	void enable();
-
-	// Update all components with proper dt
+	void input(SDL_Event& evnt);
 	void update(long dt);
-
-	// Render components passing a renderer object interface
 	void render();
 
 	// addComponent(component) - Adds a component using typeid as key
