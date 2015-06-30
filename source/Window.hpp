@@ -33,8 +33,8 @@ public:
 	~Window();
 
 	// Setters
-	static void resolution(int width, int height);
 	static void size(int width, int height);
+	static Vector2i size();
 	static void title(const char* title);
 	static void fullscreen(WindowModes mode);
 

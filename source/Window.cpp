@@ -158,6 +158,11 @@ void Window::size(int width, int height){
 	}
 }
 
+Vector2i Window::size(){
+	return _instance()._size;
+}
+
+
 void Window::title(const char* title){
 	_instance()._title = title;
 

@@ -4,7 +4,7 @@
 void setupEnts();
 
 int main(int argc, char** argv){
-	Window::size(720, 720);
+	Window::size(1280, 720);
 	Window::fullscreen(WINDOW_WINDOWED);
 	Window::title("Component Game");
 	
@@ -18,13 +18,18 @@ int main(int argc, char** argv){
 		while (SDL_PollEvent(&e) != 0){
 			if (e.type == SDL_QUIT)
 				running = false;
-			
-			else if(e.type == SDL_KEYDOWN)
+
+			else if (e.type == SDL_KEYDOWN){
+				EntityManager::inputAll(e);
+
 				if (e.key.keysym.sym == SDLK_ESCAPE)
 					running = false;
+			}
+			else if (e.type == SDL_KEYUP)
+				EntityManager::inputAll(e);
 		}
 
-		EntityManager::updateAll();
+		EntityManager::updateAll(0);
 		EntityManager::renderAll();
 		  
 		Window::swapBuffer();
@@ -39,19 +44,22 @@ int main(int argc, char** argv){
 #include "Component\Mesh.hpp"
 #include "Component\Movement.hpp"
 #include "Component\Light.hpp"
+#include "Component\Camera.hpp"
+#include "Component\Input.hpp"
 
 void setupEnts(){
+	Entity* camera = EntityManager::instantiate();
+	camera->addComponent(new Input);
+	camera->addComponent(new Camera);
+	camera->addComponent(new Light);
+
 	Entity* texture = EntityManager::instantiate();
 
+	texture->getComponent<Transform>()->position(Vector3f(0.f, 0.f, -5.f));
 	texture->addComponent(new Phong("regressiontest.jpg"));
 	texture->addComponent(new Mesh);
 	texture->addComponent(new Movement);
 
-	Entity* light = EntityManager::instantiate();
-
-	light->getComponent<Transform>()->position(Vector3f(10.f, 0.f, 0.f));
-	light->addComponent(new Movement);
-	light->addComponent(new Light);
 
 	EntityManager::loadAll();
 }

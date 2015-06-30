@@ -2,13 +2,37 @@
 
 #include <string>
 #include <unordered_map>
+#include <GL\glew.h>
+#include <regex>
 
-class Resource{
+/*
 
-};
+Regex patterns:
+
+Vertices
+v +(-*\d+.\d+) +(-*\d+.\d+) +(-*\d+.\d+)
+v +(?:(-*\d+.\d+) *){3}
+
+Normals
+vn +(-*\d+.\d+) +(-*\d+.\d+) +(-*\d+.\d+)
+vn +(?:(-*\d+.\d+) *){3}
+
+UVs
+vt +(-*\d+.\d+) +(-*\d+.\d+) +(-*\d+.\d+)
+vt +(?:(-*\d+.\d+) *){3}
+
+Faces
+f +(\d+)\/(\d+)\/(\d+) +(\d+)\/(\d+)\/(\d+) +(\d+)\/(\d+)\/(\d+)
+f +(?:(\d+)\/(\d+)\/(\d+) *){3}
+f +(?:(?:(\d+)\/*){3} *){3}
+
+g +([\s\S]+)
+s +(\d+)
+
+*/
 
 class ResourceLoader{
-	std::unordered_map<std::string, Resource*> _resources;
+	//std::unordered_map<const char*, GLuint> _;
 
 	ResourceLoader(){}
 

@@ -20,10 +20,7 @@ public:
 	}
 
 	Component* clone(){
-		Transform* transform = new Transform();
-		transform->_position = _position;
-		transform->_euler = _euler;
-		return transform;
+		return new Transform;
 	}
 
 	Vector3f position(){
@@ -39,10 +36,6 @@ public:
 		return _position;
 	}
 
-	Vector3f glPosition(){
-		return Vector3f(_position.x(), _position.y(), _position.z() * -1);
-	}
-
 	Vector3f euler(Vector3f vector){
 		_euler = vector;
 		return _euler;
@@ -52,7 +45,11 @@ public:
 		_position += vector;
 	}
 
-	void transform(Vector3f vector){
+	void relativeTranslate(Vector3f vector){
+
+	}
+
+	void rotate(Vector3f vector){
 		_euler += vector;
 	}
 };

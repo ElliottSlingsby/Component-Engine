@@ -26,12 +26,14 @@ public:
 	}
 
 	void render(){
+		glMatrixMode(GL_MODELVIEW);
+
 		glPushMatrix();
 
 		// Tranformations
-		glTranslatef(_transform->glPosition().x(), 0.f, 0.f);
-		glTranslatef(0.f, _transform->glPosition().y(), 0.f);
-		glTranslatef(0.f, 0.f, _transform->glPosition().z());
+		glTranslatef(_transform->position().x(), 0.f, 0.f);
+		glTranslatef(0.f, _transform->position().y(), 0.f);
+		glTranslatef(0.f, 0.f, _transform->position().z());
 
 		glRotatef(_transform->euler().x(), 1.f, 0.f, 0.f);
 		glRotatef(_transform->euler().y(), 0.f, 1.f, 0.f);
@@ -47,16 +49,16 @@ public:
 		// Testing quad
 		glBegin(GL_QUADS);
 
-			glTexCoord2f(0.f, 0.f);
+			glTexCoord2f(0.f, 1.f);
 			glVertex3f(-1.0f, -1.0f, 0.0f);
 
-			glTexCoord2f(0.f, 1.f);
+			glTexCoord2f(0.f, 0.f);
 			glVertex3f(-1.0f, 1.0f, 0.0f);
 
-			glTexCoord2f(1.f, 1.f);
+			glTexCoord2f(1.f, 0.f);
 			glVertex3f(1.0f, 1.0f, 0.0f);
 
-			glTexCoord2f(1.f, 0.f);
+			glTexCoord2f(1.f, 1.f);
 			glVertex3f(1.0f, -1.0f, 0.0f);
 
 		glEnd();
