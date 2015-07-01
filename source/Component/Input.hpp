@@ -6,8 +6,8 @@
 class Input : public HelperComponent{
 	Transform* _transform = 0;
 
-	bool _rotateLeft = false;
-	bool _rotateRight = false;
+	bool _moveLeft = false;
+	bool _moveRight = false;
 	bool _moveForward = false;
 	bool _moveBack = false;
 
@@ -21,10 +21,10 @@ public:
 			switch (evnt.key.keysym.sym){
 
 			case SDLK_LEFT:
-				_rotateLeft = true;
+				_moveLeft = true;
 				break;
 			case SDLK_RIGHT:
-				_rotateRight = true;
+				_moveRight = true;
 				break;
 			case SDLK_UP:
 				_moveForward = true;
@@ -36,11 +36,12 @@ public:
 		}
 		else if (evnt.type == SDL_KEYUP){
 			switch (evnt.key.keysym.sym){
+
 			case SDLK_LEFT:
-				_rotateLeft = false;
+				_moveLeft = false;
 				break;
 			case SDLK_RIGHT:
-				_rotateRight = false;
+				_moveRight = false;
 				break;
 			case SDLK_UP:
 				_moveForward = false;
@@ -53,14 +54,17 @@ public:
 	}
 
 	void update(long dt){
-		if (_rotateLeft)
-			_transform->rotate(Vector3f(0.f, -1.f, 0.f));
-		if (_rotateRight)
-			_transform->rotate(Vector3f(0.f, 1.f, 0.f));
+		if (_moveLeft)
+			_transform->translate(Vector3f(0.01f, 0.f, 0.f));
+
+		if (_moveRight)
+			_transform->translate(Vector3f(-0.01f, 0.f, 0.f));
+
 		if (_moveForward)
-			_transform->translate(Vector3f(0.f, 0.f, 0.05f));
+			_transform->translate(Vector3f(0.f, 0.f, 0.01f));
+
 		if (_moveBack)
-			_transform->translate(Vector3f(0.f, 0.f, -0.05f));
+			_transform->translate(Vector3f(0.f, 0.f, -0.01f));
 	}
 
 	Component* clone(){

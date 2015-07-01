@@ -6,7 +6,7 @@
 #include "Render\Cube.hpp"
 
 #include "Transform.hpp"
-#include "Phong.hpp"
+#include "Material.hpp"
 
 
 class Mesh : public HelperComponent{
@@ -39,10 +39,10 @@ public:
 		glRotatef(_transform->euler().y(), 0.f, 1.f, 0.f);
 		glRotatef(_transform->euler().z(), 0.f, 0.f, 1.f);
 
-		Phong* phong = _getComponent<Phong>();
+		Material* material = _getComponent<Material>();
 
-		if (phong)
-			phong->use();
+		if (material)
+			material->use();
 		else
 			glBindTexture(GL_TEXTURE_2D, 0);
 

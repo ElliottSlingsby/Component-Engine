@@ -13,7 +13,7 @@ public:
 	}
 
 	void update(long dt){
-		transform->rotate(Vector3f(0.f, 1.f, 0.f));
+		transform->rotate(Vector3f(0.f, 0.1f, 0.f));
 	}
 
 	Component* clone(){

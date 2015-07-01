@@ -18,18 +18,20 @@ public:
 	}
 
 	void render(){
+		// Replace with push pop
+
 		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity(); //This is bad!
+		glLoadIdentity();
 
 		gluPerspective(59, _ratio, 0.1, 100);
 
-		// Swap the order of these when transform has "relativeTranslate" !!!!
+		glRotatef(_transform->euler().x(), 1.f, 0.f, 0.f);
+		glRotatef(_transform->euler().y(), 0.f, 1.f, 0.f);
+		glRotatef(_transform->euler().z(), 0.f, 0.f, 1.f);
 
 		glTranslatef(_transform->position().x(), _transform->position().y(), _transform->position().z());
 
-		glRotatef(_transform->euler().x(), 1.f, 0.f, 0.f);
-		glRotatef(_transform->euler().y(), 0.f, 1.f, 0.f);
-		glRotatef(_transform->euler().z(), 0.f, 0.f, 1.f);		
+		printf("%f %f %f \n", _transform->position().x(), _transform->position().y(), _transform->position().z());
 	}
 
 	Component* clone(){

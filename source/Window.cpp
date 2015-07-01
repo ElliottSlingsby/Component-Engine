@@ -48,6 +48,7 @@ bool Window::_setupSDL(){
 	}
 
 	SDL_SetWindowFullscreen(_window, _mode);
+	//SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	return true;
 }

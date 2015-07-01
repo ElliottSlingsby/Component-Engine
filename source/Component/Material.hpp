@@ -4,8 +4,9 @@
 
 #include <string>
 #include <SDL_image.h>
+#include <GL\glew.h>
 
-class Phong : public HelperComponent{
+class Material : public HelperComponent{
 	GLuint _ambient = -1;
 	std::string _ambient_src;
 
@@ -16,19 +17,21 @@ class Phong : public HelperComponent{
 	std::string _specular_src;
 
 public:
-	Phong(std::string image){
+	Material(std::string image){
 		_diffuse_src = image;
 	}
 
-	~Phong(){
+	~Material(){
 		glDeleteTextures(1, &_diffuse);
 	}
 
 	Component* clone(){
-		return new Phong(_diffuse_src);
+		return new Material(_diffuse_src);
 	}
 
 	void load(){
+		// Image loading should be in "ResourceManager"!
+
 		SDL_Surface* image = IMG_Load(("../asset/" + _diffuse_src).c_str());
 
 		if (!image){
