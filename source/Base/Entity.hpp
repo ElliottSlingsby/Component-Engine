@@ -28,7 +28,6 @@ public:
 
 	void load(bool enable = true);
 	void enable();
-	void input(SDL_Event& evnt);
 	void update(long dt);
 	void render();
 

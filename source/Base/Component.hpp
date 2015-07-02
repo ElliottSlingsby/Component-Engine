@@ -9,7 +9,6 @@ struct Component : public Identifier{
 
 	virtual void load(){}
 	virtual void enable(){}
-	virtual void input(SDL_Event& evnt){}
 	virtual void update(long dt){}
 	virtual void render(){}
 

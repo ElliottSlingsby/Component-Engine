@@ -55,12 +55,6 @@ void Entity::enable(){
 		printf("%s!\n", "Entity already enabled");
 }
 
-void Entity::input(SDL_Event& evnt){
-	if (_enabled)
-		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
-			i->second->input(evnt);
-}
-
 void Entity::update(long dt){
 	//Calculate and add dt between components
 	if (_enabled)

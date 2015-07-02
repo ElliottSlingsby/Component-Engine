@@ -13,19 +13,15 @@ int main(int argc, char** argv){
 		setup();
 
 	while (running){
-		SDL_Event evnt;
-		while (SDL_PollEvent(&evnt) != 0){
-			if (evnt.type == SDL_QUIT)
+		SDL_Event e;
+
+		while (SDL_PollEvent(&e) != 0){
+			if (e.type == SDL_QUIT)
 				running = false;
 
-			else if (evnt.type == SDL_KEYDOWN){
-				EntityManager::inputAll(evnt);
-
-				if (evnt.key.keysym.sym == SDLK_ESCAPE)
+			else if (e.type == SDL_KEYDOWN)
+				if (e.key.keysym.sym == SDLK_ESCAPE)
 					running = false;
-			}
-			else if (evnt.type == SDL_KEYUP)
-				EntityManager::inputAll(evnt);
 		}
 
 		EntityManager::updateAll(0);
