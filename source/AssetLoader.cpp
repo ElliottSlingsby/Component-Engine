@@ -3,6 +3,10 @@
 #include <algorithm>
 #include <SDL_image.h>
 #include <GL\glew.h>
+#include <glm\vec2.hpp>
+#include <glm\vec3.hpp>
+#include <fstream>
+#include <string>
 
 AssetLoader& AssetLoader::_instance(){
 	static AssetLoader instance;
@@ -18,10 +22,10 @@ GLuint AssetLoader::getAsset(std::string filepath){
 	if (iter == _instance()._assets.end()){
 		GLuint asset;
 
-		if (std::regex_match(filepath, std::regex(".+\\.obj")))
+		if (std::regex_match(filepath, std::regex("^.+\\.obj$")))
 			asset = _instance()._loadMesh(filepath);
 
-		if (std::regex_match(filepath, std::regex(".+\\.(?:bmp|gif|jpeg|jpg|png|tga|tiff)")))
+		if (std::regex_match(filepath, std::regex("^.+\\.(?:bmp|gif|jpeg|jpg|png|tga|tiff)$")))
 			asset = _instance()._loadTexture(filepath);
 
 		return asset;
@@ -63,7 +67,78 @@ GLuint AssetLoader::_loadTexture(std::string filepath){
 }
 
 GLuint AssetLoader::_loadMesh (std::string filepath){
-	printf("%s\n", filepath.c_str());
+	std::ifstream file(_assetPath + filepath);
 
-	return NULL_RESOURCE;
+	if (!file.is_open()){
+		printf("%s %s!", "Cannot load mesh", filepath.c_str());
+		return NULL_RESOURCE;
+	}
+
+	// Counters
+	unsigned int v_i = 0;
+	unsigned int vn_i = 0;
+	unsigned int vt_i = 0;
+	unsigned int f_i = 0;
+
+	while (file.good()){
+		std::string line;
+		getline(file, line);
+
+		std::string type = line.substr(0, line.find(' '));
+
+		if (type == "v" || type == "vn" || type == "vt"){
+			std::string first = line.substr(line.find(' ') + 1);
+
+			std::string second = first.substr(line.find(' ') + 1);
+
+			std::string third = second.substr(line.find(' ') + 1);
+
+			//printf("%s | %s | %s\n", first.c_str(), second.c_str(), third.c_str());
+
+			printf("|%s|\n", first.c_str());
+
+			if (type == "v")
+				v_i++;
+			if (type == "vn")
+				vn_i++;
+			if (type == "vt")
+				vt_i++;
+		}
+		else if (type == "f"){
+
+			f_i++;
+		}
+	}
+
+	//file.seekg(0, is.beg);
+	
+	GLuint id = NULL_RESOURCE;
+
+	return id;
 }
+
+/*
+		if (std::regex_match(line, std::regex("^v.*$"))){
+			//std::regex pattern("^v +(?:(-*\d+.\d+) *){3}$");
+			//std::smatch matches;
+
+			std::regex_search(line, matches, std::regex("^v +(?:(-*\d+.\d+) *){3}$"));
+
+			//if (std::regex_search(line.begin(), line.end(), matches, pattern))
+				//std::cout << "match: " << match[1] << '\n';
+
+			//^v +(?:(-*\d+.\d+) *){3}$
+			printf("v\n");
+		}
+		else if (std::regex_match(line, std::regex("^vn.*$"))){
+			//^vn +(?:(-*\d+.\d+) *){3}$
+			printf("vn\n");
+		}
+		else if (std::regex_match(line, std::regex("^vt.*$"))){
+			//^vt +(?:(-*\d+.\d+) *){2}$
+			printf("vt\n");
+		}
+		else if (std::regex_match(line, std::regex("^f.*$"))){
+			//^f +(?:(?:(\d+)\/*){3} *){3}$
+			printf("f\n");
+		}*/

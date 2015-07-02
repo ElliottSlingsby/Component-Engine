@@ -3,20 +3,25 @@
 #include "Base\Component.hpp"
 
 #include "Math\Vector3.hpp"
+#include <math.h>
+
+static float rad(float deg){
+	return (float)(deg * (M_PI / 180));
+}
 
 class Transform : public Component{
 	Vector3f _position;
-	Vector3f _euler;
+	Vector3f _rotation;
 
 public:
 	Transform(){
 		_position = Vector3f(0.f, 0.f, 0.f);
-		_euler = Vector3f(0.f, 0.f, 0.f);
+		_rotation = Vector3f(0.f, 0.f, 0.f);
 	}
 
-	Transform(Vector3f position, Vector3f euler){
+	Transform(Vector3f position, Vector3f rotation){
 		_position = position;
-		_euler = euler;
+		_rotation = rotation;
 	}
 
 	Component* clone(){
@@ -27,8 +32,8 @@ public:
 		return _position;
 	}
 
-	Vector3f euler(){
-		return _euler;
+	Vector3f rotation(){
+		return _rotation;
 	}
 
 	Vector3f position(Vector3f vector){
@@ -36,20 +41,29 @@ public:
 		return _position;
 	}
 
-	Vector3f euler(Vector3f vector){
-		_euler = vector;
-		return _euler;
+	Vector3f rotation(Vector3f vector){
+		_rotation = vector;
+		return _rotation;
 	}
 
 	void translate(Vector3f vector){
 		_position += vector;
 	}
 
-	void relativeTranslate(Vector3f vector){
+	void push(float speed){
+		float sinX = sin(rad(_rotation.x()));
+		float cosX = cos(rad(_rotation.x()));
+		float sinY = sin(rad(_rotation.y() - 180));
+		float cosY = cos(rad(_rotation.y() - 180));
 
+		float x = (-cosX * sinY) * -1;
+		float y = sinX;
+		float z = -cosX * cosY;
+
+		_position += Vector3f(x * speed, y * speed, z * speed);
 	}
 
 	void rotate(Vector3f vector){
-		_euler += vector;
+		_rotation += vector;
 	}
 };

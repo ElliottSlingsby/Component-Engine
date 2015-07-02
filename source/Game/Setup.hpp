@@ -23,7 +23,7 @@ void setup(){
 		texture->getComponent<Transform>()->position(Vector3f(0.f, 0.f, -(float)i * 5));
 		texture->addComponent(new Material("regressiontest.jpg"));
 		texture->addComponent(new Mesh);
-		texture->addComponent(new Movement);
+		//texture->addComponent(new Movement);
 	}
 
 	EntityManager::loadAll();

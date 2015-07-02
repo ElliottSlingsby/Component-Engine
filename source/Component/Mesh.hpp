@@ -35,9 +35,9 @@ public:
 		glTranslatef(0.f, _transform->position().y(), 0.f);
 		glTranslatef(0.f, 0.f, _transform->position().z());
 
-		glRotatef(_transform->euler().x(), 1.f, 0.f, 0.f);
-		glRotatef(_transform->euler().y(), 0.f, 1.f, 0.f);
-		glRotatef(_transform->euler().z(), 0.f, 0.f, 1.f);
+		glRotatef(_transform->rotation().x(), 1.f, 0.f, 0.f);
+		glRotatef(_transform->rotation().y(), 0.f, 1.f, 0.f);
+		glRotatef(_transform->rotation().z(), 0.f, 0.f, 1.f);
 
 		Material* material = _getComponent<Material>();
 

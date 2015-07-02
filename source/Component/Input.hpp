@@ -6,7 +6,7 @@
 
 class Input : public HelperComponent{
 	Transform* _transform = 0;
-	float _speed = 0.01f;
+	float _speed = 0.1f;
 
 public:
 	void load(){
@@ -23,16 +23,22 @@ public:
 		const Uint8* keyDown = SDL_GetKeyboardState(0);
 
 		if (keyDown[SDL_SCANCODE_A])
-			_transform->translate(Vector3f(_speed, 0.f, 0.f));
+			_transform->rotate(Vector3f(0.f, -_speed * 10, 0.f));
 
 		if (keyDown[SDL_SCANCODE_D])
-			_transform->translate(Vector3f(-_speed, 0.f, 0.f));
+			_transform->rotate(Vector3f(0.f, _speed * 10, 0.f));
+
+		if (keyDown[SDL_SCANCODE_UP])
+			_transform->rotate(Vector3f(-_speed * 10, 0.f, 0.f));
+
+		if (keyDown[SDL_SCANCODE_DOWN])
+			_transform->rotate(Vector3f(_speed * 10, 0.f, 0.f));
 
 		if (keyDown[SDL_SCANCODE_W])
-			_transform->translate(Vector3f(0.f, 0.f, _speed));
+			_transform->push(_speed);
 
 		if (keyDown[SDL_SCANCODE_S])
-			_transform->translate(Vector3f(0.f, 0.f, -_speed));
+			_transform->push(-_speed);
 	}
 
 	Component* clone(){
