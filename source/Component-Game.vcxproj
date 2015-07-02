@@ -32,7 +32,6 @@
     <ClInclude Include="EntityManager.hpp" />
     <ClInclude Include="Math\Quaternion.hpp" />
     <ClInclude Include="Math\Vector4.hpp" />
-    <ClInclude Include="Math\Vectors.hpp" />
     <ClInclude Include="Prefab\Example.hpp" />
     <ClInclude Include="Render\Cube.hpp" />
     <ClInclude Include="Render\Teapot.hpp" />
