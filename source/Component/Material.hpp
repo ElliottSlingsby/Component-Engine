@@ -6,7 +6,7 @@
 #include <SDL_image.h>
 #include <GL\glew.h>
 
-#include "ResourceLoader.hpp"
+#include "AssetLoader.hpp"
 
 class Material : public HelperComponent{
 	GLuint _ambient = -1;
@@ -32,7 +32,7 @@ public:
 	}
 
 	void load(){
-		_diffuse = ResourceLoader::getResource("regressiontest.jpg");
+		_diffuse = AssetLoader::getAsset("regressiontest.jpg");
 	}
 
 	void use(){

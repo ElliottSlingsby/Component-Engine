@@ -32,18 +32,18 @@ s +(\d+)
 
 */
 
-class ResourceLoader{
-	typedef std::unordered_map<const char*, GLuint> ResourceMap;
-	ResourceMap _resources;
+class AssetLoader{
+	typedef std::unordered_map<const char*, GLuint> AssetMap;
+	AssetMap _assets;
 
 	const char* _assetPath = "../asset/";
 
-	static ResourceLoader& _instance();
+	static AssetLoader& _instance();
 
 	GLuint _loadTexture(std::string& filepath);
 	GLuint _loadMesh(std::string& filepath);
 
 public:
 
-	static GLuint getResource(std::string filepath);
+	static GLuint getAsset(std::string filepath);
 };

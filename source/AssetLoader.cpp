@@ -1,36 +1,36 @@
-#include "ResourceLoader.hpp"
+#include "AssetLoader.hpp"
 
 #include <algorithm>
 #include <SDL_image.h>
 #include <GL\glew.h>
 
-ResourceLoader& ResourceLoader::_instance(){
-	static ResourceLoader instance;
+AssetLoader& AssetLoader::_instance(){
+	static AssetLoader instance;
 	return instance;
 }
 
-GLuint ResourceLoader::getResource(std::string filepath){
+GLuint AssetLoader::getAsset(std::string filepath){
 	// OS specific, as Linux is case sensitive
 	std::transform(filepath.begin(), filepath.end(), filepath.begin(), ::tolower);
 
-	ResourceMap::iterator iter = _instance()._resources.find(filepath.c_str());
+	AssetMap::iterator iter = _instance()._assets.find(filepath.c_str());
 
-	if (iter == _instance()._resources.end()){
-		GLuint resource;
+	if (iter == _instance()._assets.end()){
+		GLuint asset;
 
 		if (std::regex_match(filepath, std::regex(".+\\.obj")))
-			resource = _instance()._loadMesh(filepath);
+			asset = _instance()._loadMesh(filepath);
 
 		if (std::regex_match(filepath, std::regex(".+\\.(?:bmp|gif|jpeg|jpg|png|tga|tiff)")))
-			resource = _instance()._loadTexture(filepath);
+			asset = _instance()._loadTexture(filepath);
 
-		return resource;
+		return asset;
 	}
 
 	return iter->second;
 }
 
-GLuint ResourceLoader::_loadTexture(std::string& filepath){
+GLuint AssetLoader::_loadTexture(std::string& filepath){
 	SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
 
 	if (!image){
@@ -57,12 +57,12 @@ GLuint ResourceLoader::_loadTexture(std::string& filepath){
 
 	SDL_FreeSurface(image);
 
-	_resources[filepath.c_str()] = id;
+	_assets[filepath.c_str()] = id;
 
 	return id;
 }
 
-GLuint ResourceLoader::_loadMesh (std::string& filepath){
+GLuint AssetLoader::_loadMesh (std::string& filepath){
 	printf("%s\n", filepath.c_str());
 
 	return NULL_RESOURCE;

@@ -1,8 +1,8 @@
 ## Component-Game
-A WIP prototype component based 2D / 3D game
+A WIP prototype component based 3D engine
 
 ## To-do
-- ~~Resource flyweight~~  
+- ~~Asset flyweight~~  
 - Vertex buffer objects  
 - Obj loader  
 - Additional material maps  
