@@ -30,7 +30,7 @@ GLuint AssetLoader::getAsset(std::string filepath){
 	return iter->second;
 }
 
-GLuint AssetLoader::_loadTexture(std::string& filepath){
+GLuint AssetLoader::_loadTexture(std::string filepath){
 	SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
 
 	if (!image){
@@ -57,12 +57,12 @@ GLuint AssetLoader::_loadTexture(std::string& filepath){
 
 	SDL_FreeSurface(image);
 
-	_assets[filepath.c_str()] = id;
+	_assets[filepath] = id;
 
 	return id;
 }
 
-GLuint AssetLoader::_loadMesh (std::string& filepath){
+GLuint AssetLoader::_loadMesh (std::string filepath){
 	printf("%s\n", filepath.c_str());
 
 	return NULL_RESOURCE;
