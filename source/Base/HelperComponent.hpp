@@ -34,3 +34,17 @@ protected:
 		printf("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity ID hasn't been assigned");
 	}
 };
+
+// Addexceptions for when components can't find other required components in the same entity.
+// Example below...
+
+/*struct Example : public HelperComponent{
+	void load(){
+		if (!_getComponent<Other>())
+			throw invalid_components;
+	}
+
+	Component* clone(){
+		return new Example;
+	}
+}*/

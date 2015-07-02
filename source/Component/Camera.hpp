@@ -30,8 +30,6 @@ public:
 		glRotatef(_transform->euler().z(), 0.f, 0.f, 1.f);
 
 		glTranslatef(_transform->position().x(), _transform->position().y(), _transform->position().z());
-
-		printf("%f %f %f \n", _transform->position().x(), _transform->position().y(), _transform->position().z());
 	}
 
 	Component* clone(){

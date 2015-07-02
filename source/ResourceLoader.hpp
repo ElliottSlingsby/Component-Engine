@@ -5,9 +5,10 @@
 #include <GL\glew.h>
 #include <regex>
 
+#define NULL_RESOURCE -1;
 /*
 
-Regex patterns:
+OBJ Regex patterns:
 
 Vertices
 v +(-*\d+.\d+) +(-*\d+.\d+) +(-*\d+.\d+)
@@ -32,24 +33,17 @@ s +(\d+)
 */
 
 class ResourceLoader{
-	//std::unordered_map<const char*, GLuint> _;
+	typedef std::unordered_map<const char*, GLuint> ResourceMap;
+	ResourceMap _resources;
 
-	ResourceLoader(){}
+	const char* _assetPath = "../asset/";
 
-	static ResourceLoader& _instance(){
-		static ResourceLoader instance;
-		return instance;
-	}
+	static ResourceLoader& _instance();
 
-	std::string& _formatPath(std::string& filepath){}
-
-	bool _loadTexture(std::string filepath){}
-	bool _loadMesh(std::string filepath){}
+	GLuint _loadTexture(std::string& filepath);
+	GLuint _loadMesh(std::string& filepath);
 
 public:
-	template <typename T>
-	static void load(std::string filepath, void (*callback)(T* resource)){}
 
-	template <typename T>
-	static T* get(std::string filepath){}
+	static GLuint getResource(std::string filepath);
 };
