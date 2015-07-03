@@ -13,6 +13,7 @@ public:
 
 	Movement(){
 		_speed = Vector3f(
+			// Random rotation speed
 			(float)(rand() % 1000) / 10,
 			(float)(rand() % 1000) / 10,
 			(float)(rand() % 1000) / 10

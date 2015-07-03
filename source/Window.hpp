@@ -5,6 +5,7 @@
 
 #include "Math\Vector2.hpp"
 
+// Window modes, derived from SDL window modes
 enum WindowModes{
 	WINDOW_WINDOWED = SDL_WINDOW_SHOWN,
 	WINDOW_FULLSCREEN = SDL_WINDOW_FULLSCREEN,
@@ -15,7 +16,7 @@ class Window{
 	bool _running = false;
 
 	SDL_Window* _window = 0;
-	SDL_Renderer* _renderer = 0;
+	SDL_Renderer* _renderer = 0; // Hasn't really been used yet
 	SDL_GLContext _glcontext;
 
 	const char* _title = "My first polygon!";
@@ -24,9 +25,10 @@ class Window{
 
 	WindowModes _mode = WINDOW_WINDOWED;
 
-	bool _setupSDL();
-	bool _setupGL();
+	bool _setupSDL(); // Returns false if failed
+	bool _setupGL();  // "
 	
+	// Private singleton used by static methods
 	static Window& _instance();
 
 public:	
@@ -34,10 +36,10 @@ public:
 
 	// Setters
 	static void size(int width, int height);
-	static Vector2i size();
 	static void title(const char* title);
 	static void fullscreen(WindowModes mode);
 
+	// Getters
 	static int width();
 	static int height();
 	static SDL_Renderer* renderer();
@@ -46,5 +48,6 @@ public:
 	static bool initiate();
 	static void swapBuffer();
 
-	static bool reshape();
+	// Reshapes the OpenGL matrices to initial shape
+	static bool reshape(); 
 };

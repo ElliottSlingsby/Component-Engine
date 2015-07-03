@@ -6,21 +6,18 @@
 #include "Window.hpp"
 #include <math.h>
 
-// Super prototype
-
 class Camera : public HelperComponent{
 	Transform* _transform = 0;
-	float _ratio;
+	float _ratio; // Screen aspect ratio
 
 public:
 	void load(){
 		_transform = _getComponent<Transform>();
-		_ratio = (float)Window::size().x() / (float)Window::size().y();
+		_ratio = (float)Window::width() / (float)Window::height();
 	}
 
 	void render(){
 		// Replace with push pop!!!
-
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 

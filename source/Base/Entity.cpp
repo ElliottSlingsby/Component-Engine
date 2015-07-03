@@ -37,6 +37,7 @@ Entity* Entity::clone(int id){
 }
 
 void Entity::load(bool enable){
+	// Load all components if enabled
 	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
 		i->second->load();
 
@@ -45,6 +46,7 @@ void Entity::load(bool enable){
 }
 
 void Entity::enable(){
+	// Enable all components if not enabled
 	if (!_enabled){
 		_enabled = true;
 
@@ -56,13 +58,16 @@ void Entity::enable(){
 }
 
 void Entity::update(float dt){
-	//Calculate and add dt between components
+	// Update all entites if enabled
 	if (_enabled)
 		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
 			i->second->update(dt);
+
+	// Note: Should probably calculate dt inbetween updates aswell
 }
 
 void Entity::render(){
+	// Render all components if enabled
 	if (_enabled)
 		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
 			i->second->render();

@@ -21,7 +21,7 @@ bool Window::_setupSDL(){
 		return false;
 	}
 
-	// Setting OpenGL to 2.1 fixed pipeline
+	// Setting OpenGL to 2.1
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
@@ -47,7 +47,10 @@ bool Window::_setupSDL(){
 		return false;
 	}
 
+	// Set size mode
 	SDL_SetWindowFullscreen(_window, _mode);
+
+	// Lock the mouse
 	SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	return true;
@@ -68,9 +71,8 @@ bool Window::_setupGL(){
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_CULL_FACE);
-	//glEnable(GL_PROGRAM_POINT_SIZE);
 
-	// Extensions
+	// Extensions init
 	GLenum error = glewInit();
 
 	if (error != GLEW_OK){
@@ -87,11 +89,13 @@ bool Window::reshape(){
 
 	glViewport(0, 0, _instance()._size.x(), _instance()._size.y());
 
+	// Until a better solution for the camera position changing is solved, 
+	// perspective is set in the Camera class instead of here.
+
 	//glMatrixMode(GL_PROJECTION);
 	//glLoadIdentity();
 
-	// 59 vfov = ~90 hfov
-	//gluPerspective(59, ar, 0.1, 1000);
+	//gluPerspective(59, ar, 0.1, 1000); // 59 vfov = ~90 hfov
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -109,6 +113,7 @@ bool Window::reshape(){
 }
 
 bool Window::initiate(){
+	// If already running, reset
 	if (_instance()._running){
 		SDL_DestroyWindow(_instance()._window);
 		SDL_DestroyRenderer(_instance()._renderer);
@@ -118,6 +123,7 @@ bool Window::initiate(){
 		_instance()._running = true;
 	}
 
+	// Returns false if failed to setup
 	if (!_instance()._setupSDL())
 		return false;
 
@@ -128,6 +134,7 @@ bool Window::initiate(){
 }
 
 void Window::swapBuffer(){
+	// Swap and clean
 	SDL_GL_SwapWindow(_instance()._window);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
@@ -159,11 +166,6 @@ void Window::size(int width, int height){
 		_instance().initiate();
 	}
 }
-
-Vector2i Window::size(){
-	return _instance()._size;
-}
-
 
 void Window::title(const char* title){
 	_instance()._title = title;

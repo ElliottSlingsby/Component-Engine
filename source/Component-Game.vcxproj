@@ -20,7 +20,6 @@
   <ItemGroup>
     <ClInclude Include="Base\Component.hpp" />
     <ClInclude Include="Base\HelperComponent.hpp" />
-    <ClInclude Include="Base\State.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Floor.hpp" />
     <ClInclude Include="Component\Input.hpp" />
@@ -30,11 +29,8 @@
     <ClInclude Include="Component\Mesh.hpp" />
     <ClInclude Include="Game\Setup.hpp" />
     <ClInclude Include="EntityManager.hpp" />
-    <ClInclude Include="Math\Quaternion.hpp" />
     <ClInclude Include="Math\Vector4.hpp" />
     <ClInclude Include="Prefab\Example.hpp" />
-    <ClInclude Include="Render\Cube.hpp" />
-    <ClInclude Include="Render\Teapot.hpp" />
     <ClInclude Include="AssetLoader.hpp" />
     <ClInclude Include="Component\Material.hpp" />
     <ClInclude Include="Window.hpp" />

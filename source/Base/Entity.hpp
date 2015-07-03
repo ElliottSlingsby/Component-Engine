@@ -11,6 +11,8 @@ protected:
 	ComponentMap _components;
 	
 	bool _enabled = false;
+
+	// Transform is here as to be edited by prefabs in their constructor if needed
 	Transform* _transform = 0;
 
 public:
@@ -19,6 +21,7 @@ public:
 	// Destroys all components
 	~Entity();
 
+	// Called just before loading, as to be overridden for prefabs
 	virtual void prefab(){};
 
 	void setID(int id);
@@ -26,6 +29,7 @@ public:
 	// Clone entity and contents with new ID
 	Entity* clone(int id);
 
+	// Functions for calling multiple equivalent component functions
 	void load(bool enable = true);
 	void enable();
 	void update(float dt);
@@ -36,9 +40,10 @@ public:
 	void addComponent(T* component){
 		// Add component if not already part of Entity
 		if (!_components[&typeid(T)]){
+			// Parent and enable the component
 			_components[&typeid(T)] = component;
 
-			// Parent and enable the component
+			// Make an exception for Transform
 			if (typeid(T) != typeid(Transform))
 				component->setID(ID());
 		}

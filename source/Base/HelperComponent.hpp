@@ -3,8 +3,13 @@
 #include "Component.hpp"
 #include "EntityManager.hpp"
 
+// This helper class is for deriving components, so that the derived component can get other components from it's associated entity.
+
 class HelperComponent : public Component{
 protected:
+	// Perform as long as component has ID.
+	// Otherwise printf error.
+
 	template <typename T>
 	T* _getComponent(){
 		if (ID() != NULL_ID)

@@ -2,6 +2,9 @@
 
 #include <stdio.h>
 
+// This is the base class for both Component and Entity classes.
+// This is so Components know what Entity they're attached to, and also so that the EntityManager can keep track of the entity.
+
 #define NULL_ID -1
 
 class Identifier{

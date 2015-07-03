@@ -9,6 +9,13 @@
 #include "Component\Floor.hpp"
 
 void setup(){
+	// Checkerboard testing floor
+	Entity* floor = EntityManager::instantiate();
+
+	floor->getComponent<Transform>()->position(Vector3f(0.f, -4.f, 0.f));
+	floor->addComponent(new Material("floor.jpg"));
+	floor->addComponent(new Floor);
+
 	// Camera setup
 	Entity* camera = EntityManager::instantiate();
 
@@ -17,21 +24,15 @@ void setup(){
 	camera->addComponent(new Camera);
 	camera->addComponent(new Light);
 
-	// Spinning cats setup
+	// Making a bunch of randomly positioned spinning cat cubes
 	for (int i = 0; i != 100; i++){
 		Entity* texture = EntityManager::instantiate();
-
+		
 		texture->getComponent<Transform>()->position(Vector3f((float)(rand() % 100) - 50.f, 0.f, (float)(rand() % 100) - 50.f));
 		texture->addComponent(new Material("regressiontest.jpg"));
 		texture->addComponent(new Mesh);
 		texture->addComponent(new Movement);
 	}
-
-	Entity* floor = EntityManager::instantiate();
-
-	floor->getComponent<Transform>()->position(Vector3f(0.f, -4.f, 0.f));
-	floor->addComponent(new Material("floor.jpg"));
-	floor->addComponent(new Floor);
 
 	EntityManager::loadAll();
 }

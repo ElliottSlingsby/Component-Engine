@@ -1,24 +1,30 @@
 #include "EntityManager.hpp"
 
 EntityManager::EntityManager(){
+	// Set initial vector size
 	_entities.resize(MAX_ENTS);
 }
 
 EntityManager::~EntityManager(){
+	// Purge!
 	deleteAll();
 }
 
 EntityManager& EntityManager::_instance(){
+	// Singleton implementation
 	static EntityManager instance;
 	return instance;
 }
 
 int EntityManager::_newID(){
+	// If no removed IDs available
 	if (_removed.empty()){
+		// Create new one
 		_highest++;
 		return _highest - 1;
 	}
 
+	// Otherwise pop off used one
 	int id = _removed.top();
 	_removed.pop();
 
@@ -26,11 +32,13 @@ int EntityManager::_newID(){
 }
 
 void EntityManager::_removeID(int id){
+	// If id was at the top
 	if (id == _highest - 1){
 		_highest--;
 		return;
 	}
 
+	// Otherwise add it to the removed pile
 	_removed.push(id);
 }
 

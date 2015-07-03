@@ -10,20 +10,25 @@ int main(int argc, char** argv){
 	Window::fullscreen(WINDOW_WINDOWED);
 	Window::title("Component Game");
 	
+	// Used for calculating delta time
 	int lastFrame = 0;
 	int currFrame = 0;
 
+	// Start running if window initiates successfully
 	bool running = Window::initiate();
 
 	if (running)
 		setup();
 
 	while (running){
+		// Update timers
 		lastFrame = currFrame;
 		currFrame = SDL_GetTicks();
 
-		SDL_Event e;
+		float dt = (float)(currFrame - lastFrame) / 1000.f;
 
+		// Checking for exit conditions
+		SDL_Event e;
 		while (SDL_PollEvent(&e) != 0){
 			if (e.type == SDL_QUIT)
 				running = false;
@@ -33,11 +38,10 @@ int main(int argc, char** argv){
 					running = false;
 		}
 
-		float dt = (float)(currFrame - lastFrame) / 1000.f;
-
+		// Call entities
 		EntityManager::updateAll(dt);
 		EntityManager::renderAll();
-		  
+		
 		Window::swapBuffer();
 	}
 

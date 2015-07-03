@@ -5,6 +5,7 @@
 #include "Math\Vector3.hpp"
 #include <math.h>
 
+// Move this to a static Maths Utils class!!
 static float rad(float deg){
 	return (float)(deg * (M_PI / 180));
 }
@@ -51,6 +52,10 @@ public:
 	}
 
 	void push(float speed){
+		// Pushes the Transform along the _rotation's euler angles.
+		
+		// Somewhat temporary until the Quaternion class gets implemented
+
 		float sinX = sin(rad(_rotation.x()));
 		float cosX = cos(rad(_rotation.x()));
 		float sinY = sin(rad((_rotation.y() - 180)));
