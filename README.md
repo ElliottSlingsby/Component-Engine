@@ -8,4 +8,6 @@ A WIP prototype component based 3D engine
 - Obj loader
 - Additional material maps
 - ~~Vector maths~~
-- Axis aligned bounding box
+- Axis aligned bounding boxes
+- Fix normals on floor and cubes
+- Additional light parameters
