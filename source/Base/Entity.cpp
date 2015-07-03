@@ -55,7 +55,7 @@ void Entity::enable(){
 		printf("%s!\n", "Entity already enabled");
 }
 
-void Entity::update(long dt){
+void Entity::update(float dt){
 	//Calculate and add dt between components
 	if (_enabled)
 		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)

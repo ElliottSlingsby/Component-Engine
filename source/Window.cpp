@@ -16,7 +16,7 @@ Window::~Window(){
 }
 
 bool Window::_setupSDL(){
-	if (SDL_Init(SDL_INIT_VIDEO) < 0){
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0){
 		printf("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
 		return false;
 	}
@@ -67,6 +67,7 @@ bool Window::_setupGL(){
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_CULL_FACE);
 	//glEnable(GL_PROGRAM_POINT_SIZE);
 
 	// Extensions

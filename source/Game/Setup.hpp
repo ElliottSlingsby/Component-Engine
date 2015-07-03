@@ -12,16 +12,16 @@ void setup(){
 	// Camera setup
 	Entity* camera = EntityManager::instantiate();
 
-	camera->getComponent<Transform>()->position(Vector3f(2.25f, 0.f, -4.5f));
+	camera->getComponent<Transform>()->position(Vector3f(0.f, -10.f, -75.f));
 	camera->addComponent(new Input);
 	camera->addComponent(new Camera);
 	camera->addComponent(new Light);
 
 	// Spinning cats setup
-	for (int i = 0; i != 5; i++){
+	for (int i = 0; i != 100; i++){
 		Entity* texture = EntityManager::instantiate();
 
-		texture->getComponent<Transform>()->position(Vector3f(0.f, 0.f, -(float)i * 5));
+		texture->getComponent<Transform>()->position(Vector3f((float)(rand() % 100) - 50.f, 0.f, (float)(rand() % 100) - 50.f));
 		texture->addComponent(new Material("regressiontest.jpg"));
 		texture->addComponent(new Mesh);
 		texture->addComponent(new Movement);

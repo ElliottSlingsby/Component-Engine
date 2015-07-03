@@ -2,7 +2,7 @@
 A WIP prototype component based 3D engine
 
 ## To-do
-- Delta time
+- ~~Delta time~~
 - ~~Cubes~~
 - ~~Asset flyweight~~
 - Obj loader
@@ -10,4 +10,4 @@ A WIP prototype component based 3D engine
 - ~~Vector maths~~
 - Axis aligned bounding boxes
 - Fix normals on floor and cubes
-- Additional light parameters
+- ~~Additional light parameters~~

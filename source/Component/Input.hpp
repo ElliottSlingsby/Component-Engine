@@ -6,7 +6,7 @@
 
 class Input : public HelperComponent{
 	Transform* _transform = 0;
-	float _speed = 0.1f;
+	float _speed = 20.f;
 	float _sensitivity = 0.2f;
 
 public:
@@ -14,7 +14,7 @@ public:
 		_transform = _getComponent<Transform>();
 	}
 
-	void update(long dt){
+	void update(float dt){
 		int mouseRX, mouseRY;
 
 		SDL_GetRelativeMouseState(&mouseRX, &mouseRY);
@@ -24,17 +24,17 @@ public:
 		const Uint8* keyDown = SDL_GetKeyboardState(0);
 
 		if (keyDown[SDL_SCANCODE_W]){
-			_transform->push(_speed);
+			_transform->push(_speed * dt);
 
 			if (keyDown[SDL_SCANCODE_LSHIFT])
-				_transform->push(_speed);
+				_transform->push(_speed * dt);
 		}
 
 		if (keyDown[SDL_SCANCODE_S]){
-			_transform->push(-_speed);
+			_transform->push(-_speed * dt);
 
 			if (keyDown[SDL_SCANCODE_LSHIFT])
-				_transform->push(-_speed);
+				_transform->push(-_speed * dt);
 		}		
 	}
 

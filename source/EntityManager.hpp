@@ -48,7 +48,7 @@ public:
 	static void destroy(int id);
 
 	static void loadAll();
-	static void updateAll(long dt);
+	static void updateAll(float dt);
 	static void renderAll();
 	static void deleteAll();
 };

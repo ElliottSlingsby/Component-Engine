@@ -13,9 +13,9 @@ public:
 
 	Movement(){
 		_speed = Vector3f(
-			(float)(rand() % 20) / 10,
-			(float)(rand() % 20) / 10,
-			(float)(rand() % 20) / 10
+			(float)(rand() % 1000) / 10,
+			(float)(rand() % 1000) / 10,
+			(float)(rand() % 1000) / 10
 		);
 	}
 
@@ -23,8 +23,8 @@ public:
 		_transform = _getComponent<Transform>();
 	}
 
-	void update(long dt){
-		_transform->rotate(_speed);
+	void update(float dt){
+		_transform->rotate(_speed * dt);
 	}
 
 	Component* clone(){

@@ -85,12 +85,12 @@ void EntityManager::loadAll(){
 	}
 }
 
-void EntityManager::updateAll(long dt){
+void EntityManager::updateAll(float dt){
 	for (int i = 0; i <= _instance()._highest; i++){
 		Entity* entity = _instance()._entities[i];
 
 		if (entity)
-			entity->update(0);
+			entity->update(dt);
 	}
 }
 

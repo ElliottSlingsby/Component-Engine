@@ -16,7 +16,7 @@ public:
 	}
 
 	Vector4(T w, T x, T y, T z){
-		_w = xw;
+		_w = w;
 		_x = x;
 		_y = y;
 		_z = z;

@@ -47,6 +47,10 @@ public:
 		_y += other._y;
 		_z += other._z;
 	}
+
+	Vector3<T> operator*(float n){
+		return Vector3<T>(_x * n, _y * n, _z * n);
+	}
 };
 
 typedef Vector3<int> Vector3i;

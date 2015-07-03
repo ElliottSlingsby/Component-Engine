@@ -9,7 +9,7 @@ struct Component : public Identifier{
 
 	virtual void load(){}
 	virtual void enable(){}
-	virtual void update(long dt){}
+	virtual void update(float dt){}
 	virtual void render(){}
 
 	// Pure virtual for RTTI / required

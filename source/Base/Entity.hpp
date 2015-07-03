@@ -28,7 +28,7 @@ public:
 
 	void load(bool enable = true);
 	void enable();
-	void update(long dt);
+	void update(float dt);
 	void render();
 
 	// addComponent(component) - Adds a component using typeid as key
