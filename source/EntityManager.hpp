@@ -36,7 +36,7 @@ public:
 
 		if (_instance()._entities[id]){
 			printf("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
-			instance()._removeID(id);
+			_instance()._removeID(id);
 			return 0;
 		}
 
