@@ -86,11 +86,11 @@ bool Window::reshape(){
 
 	glViewport(0, 0, _instance()._size.x(), _instance()._size.y());
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
 
 	// 59 vfov = ~90 hfov
-	gluPerspective(59, ar, 0.1, 100);
+	//gluPerspective(59, ar, 0.1, 1000);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

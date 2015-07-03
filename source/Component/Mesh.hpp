@@ -10,6 +10,7 @@
 
 
 class Mesh : public HelperComponent{
+protected:
 	Transform* _transform = 0;
 
 public:

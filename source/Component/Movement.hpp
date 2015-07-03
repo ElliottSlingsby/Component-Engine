@@ -1,11 +1,9 @@
 #pragma once
 
 #include "Base\HelperComponent.hpp"
-
 #include "Math\Vector3.hpp"
 
 // Testing movement
-
 class Movement : public HelperComponent{
 	Transform* _transform = 0;
 

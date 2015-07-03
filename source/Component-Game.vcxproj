@@ -22,6 +22,7 @@
     <ClInclude Include="Base\HelperComponent.hpp" />
     <ClInclude Include="Base\State.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
+    <ClInclude Include="Component\Floor.hpp" />
     <ClInclude Include="Component\Input.hpp" />
     <ClInclude Include="Component\Light.hpp" />
     <ClInclude Include="Component\Movement.hpp" />

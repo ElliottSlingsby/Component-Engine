@@ -19,12 +19,13 @@ public:
 	}
 
 	void render(){
-		// Replace with push pop
+		// Replace with push pop!!!
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
-		gluPerspective(59, _ratio, 0.1, 100);
+		// THIS IS BAD! gluPerspective should only be set once in Window::reshape!
+		gluPerspective(59, _ratio, 0.1, 1000);
 
 		glRotatef(_transform->rotation().x(), 1.f, 0.f, 0.f);
 		glRotatef(_transform->rotation().y(), 0.f, 1.f, 0.f);

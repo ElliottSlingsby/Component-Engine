@@ -23,11 +23,19 @@ public:
 
 		const Uint8* keyDown = SDL_GetKeyboardState(0);
 
-		if (keyDown[SDL_SCANCODE_W])
+		if (keyDown[SDL_SCANCODE_W]){
 			_transform->push(_speed);
 
-		if (keyDown[SDL_SCANCODE_S])
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				_transform->push(_speed);
+		}
+
+		if (keyDown[SDL_SCANCODE_S]){
 			_transform->push(-_speed);
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				_transform->push(-_speed);
+		}		
 	}
 
 	Component* clone(){

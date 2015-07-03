@@ -6,6 +6,7 @@
 #include "Component\Light.hpp"
 #include "Component\Camera.hpp"
 #include "Component\Input.hpp"
+#include "Component\Floor.hpp"
 
 void setup(){
 	// Camera setup
@@ -25,6 +26,12 @@ void setup(){
 		texture->addComponent(new Mesh);
 		texture->addComponent(new Movement);
 	}
+
+	Entity* floor = EntityManager::instantiate();
+
+	floor->getComponent<Transform>()->position(Vector3f(0.f, -4.f, 0.f));
+	floor->addComponent(new Material("floor.jpg"));
+	floor->addComponent(new Floor);
 
 	EntityManager::loadAll();
 }
