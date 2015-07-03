@@ -3,7 +3,7 @@ A WIP prototype component based 3D engine
 
 ## To-do
 - Delta time
-- Cubes
+- ~~Cubes~~
 - ~~Asset flyweight~~
 - Obj loader
 - Additional material maps
