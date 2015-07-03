@@ -10,7 +10,7 @@ class Light : public HelperComponent{
 	Transform* _transform = 0;
 	unsigned int _light = 0;
 
-	Vector4f _ambient;
+	/*Vector4f _ambient;
 	Vector4f _diffuse;
 	Vector4f _specular;
 
@@ -21,7 +21,7 @@ class Light : public HelperComponent{
 
 	float _constant = 0.f;
 	float _linear = 0.f;
-	float _quadratic = 0.f;
+	float _quadratic = 0.f;*/
 	
 public:
 	void load(){
@@ -45,7 +45,7 @@ public:
 	}
 
 	void render(){
-		GLfloat position[] = { _transform->position().x(), _transform->position().y(), _transform->position().z(), 1 }; // Position
+		GLfloat position[] = { _transform->position().x(), _transform->position().y(), -_transform->position().z(), 1 }; // Position
 		glLightfv(GL_LIGHTS[_light], GL_POSITION, position);
 	}
 };

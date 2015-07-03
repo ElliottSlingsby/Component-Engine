@@ -12,8 +12,6 @@ int main(int argc, char** argv){
 	if (running)
 		setup();
 
-	AssetLoader::getAsset("teapot.obj");
-
 	while (running){
 		SDL_Event e;
 

@@ -13,10 +13,6 @@ class Mesh : public HelperComponent{
 	Transform* _transform = 0;
 
 public:
-	Mesh(){
-
-	}
-
 	void load(){
 		_transform = _getComponent<Transform>();
 	}
@@ -49,17 +45,71 @@ public:
 		// Testing quad
 		glBegin(GL_QUADS);
 
-			glTexCoord2f(0.f, 1.f);
-			glVertex3f(-1.0f, -1.0f, 0.0f);
-
-			glTexCoord2f(0.f, 0.f);
-			glVertex3f(-1.0f, 1.0f, 0.0f);
-
-			glTexCoord2f(1.f, 0.f);
-			glVertex3f(1.0f, 1.0f, 0.0f);
-
-			glTexCoord2f(1.f, 1.f);
-			glVertex3f(1.0f, -1.0f, 0.0f);
+		//Top
+		glNormal3f(0.f, 1.f, 0.f);
+		glTexCoord2f(0.f, 1.f);
+		glVertex3f(-1.f, 1.f, -1.f);
+		glTexCoord2f(0.f, 0.f);
+		glVertex3f(1.f, 1.f, -1.f);
+		glTexCoord2f(1.f, 0.f);
+		glVertex3f(1.f, 1.f, 1.f);
+		glTexCoord2f(1.f, 1.f);
+		glVertex3f(-1.f, 1.f, 1.f);
+		
+		//Bottom
+		glNormal3f(0.f, -1.f, 0.f);
+		glTexCoord2f(0.f, 1.f);
+		glVertex3f(-1.f, -1.f, -1.f);
+		glTexCoord2f(0.f, 0.f);
+		glVertex3f(1.f, -1.f, -1.f);
+		glTexCoord2f(1.f, 0.f);
+		glVertex3f(1.f, -1.f, 1.f);
+		glTexCoord2f(1.f, 1.f);
+		glVertex3f(-1.f, -1.f, 1.f);
+		
+		//Front
+		glNormal3f(0.f, 0.f, 1.f);
+		glTexCoord2f(0.f, 1.f);
+		glVertex3f(-1.f, 1.f, 1.f);
+		glTexCoord2f(0.f, 0.f);
+		glVertex3f(1.f, 1.f, 1.f);
+		glTexCoord2f(1.f, 0.f);
+		glVertex3f(1.f, -1.f, 1.f);
+		glTexCoord2f(1.f, 1.f);
+		glVertex3f(-1.f, -1.f, 1.f);
+		
+		//Back
+		glNormal3f(0.f, 0.f, -1.f);
+		glTexCoord2f(0.f, 1.f);
+		glVertex3f(-1.f, 1.f, -1.f);
+		glTexCoord2f(0.f, 0.f);
+		glVertex3f(1.f, 1.f, -1.f);
+		glTexCoord2f(1.f, 0.f);
+		glVertex3f(1.f, -1.f, -1.f);
+		glTexCoord2f(1.f, 1.f);
+		glVertex3f(-1.f, -1.f, -1.f);
+		
+		//Left
+		glNormal3f(-1.f, 0.f, 0.f);
+		glTexCoord2f(0.f, 1.f);
+		glVertex3f(-1.f, 1.f, -1.f);
+		glTexCoord2f(0.f, 0.f);
+		glVertex3f(-1.f, 1.f, 1.f);
+		glTexCoord2f(1.f, 0.f);
+		glVertex3f(-1.f, -1.f, 1.f);
+		glTexCoord2f(1.f, 1.f);
+		glVertex3f(-1.f, -1.f, -1.f);
+		
+		//Right
+		glNormal3f(1.f, 0.f, 0.f);
+		glTexCoord2f(0.f, 1.f);
+		glVertex3f(1.f, 1.f, -1.f);
+		glTexCoord2f(0.f, 0.f);
+		glVertex3f(1.f, 1.f, 1.f);
+		glTexCoord2f(1.f, 0.f);
+		glVertex3f(1.f, -1.f, 1.f);
+		glTexCoord2f(1.f, 1.f);
+		glVertex3f(1.f, -1.f, -1.f);
 
 		glEnd();
 

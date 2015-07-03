@@ -9,14 +9,14 @@
 #include "AssetLoader.hpp"
 
 class Material : public HelperComponent{
-	GLuint _ambient = -1;
-	std::string _ambient_src;
+	//GLuint _ambient = -1;
+	//std::string _ambient_src;
 
 	GLuint _diffuse = -1;
 	std::string _diffuse_src;
 
-	GLuint _specular = -1;
-	std::string _specular_src;
+	//GLuint _specular = -1;
+	//std::string _specular_src;
 
 public:
 	Material(std::string image){
@@ -32,7 +32,7 @@ public:
 	}
 
 	void load(){
-		_diffuse = AssetLoader::getAsset("regressiontest.jpg");
+		_diffuse = AssetLoader::getAsset(_diffuse_src);
 	}
 
 	void use(){

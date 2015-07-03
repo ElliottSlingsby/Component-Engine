@@ -53,8 +53,8 @@ public:
 	void push(float speed){
 		float sinX = sin(rad(_rotation.x()));
 		float cosX = cos(rad(_rotation.x()));
-		float sinY = sin(rad(_rotation.y() - 180));
-		float cosY = cos(rad(_rotation.y() - 180));
+		float sinY = sin(rad((_rotation.y() - 180)));
+		float cosY = cos(rad((_rotation.y() - 180)));
 
 		float x = (-cosX * sinY) * -1;
 		float y = sinX;

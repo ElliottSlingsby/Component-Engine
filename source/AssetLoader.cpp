@@ -67,7 +67,7 @@ GLuint AssetLoader::_loadTexture(std::string filepath){
 }
 
 GLuint AssetLoader::_loadMesh (std::string filepath){
-	std::ifstream file(_assetPath + filepath);
+	/*std::ifstream file(_assetPath + filepath);
 
 	if (!file.is_open()){
 		printf("%s %s!", "Cannot load mesh", filepath.c_str());
@@ -110,35 +110,9 @@ GLuint AssetLoader::_loadMesh (std::string filepath){
 		}
 	}
 
-	//file.seekg(0, is.beg);
+	//file.seekg(0, is.beg);*/
 	
 	GLuint id = NULL_RESOURCE;
 
 	return id;
 }
-
-/*
-		if (std::regex_match(line, std::regex("^v.*$"))){
-			//std::regex pattern("^v +(?:(-*\d+.\d+) *){3}$");
-			//std::smatch matches;
-
-			std::regex_search(line, matches, std::regex("^v +(?:(-*\d+.\d+) *){3}$"));
-
-			//if (std::regex_search(line.begin(), line.end(), matches, pattern))
-				//std::cout << "match: " << match[1] << '\n';
-
-			//^v +(?:(-*\d+.\d+) *){3}$
-			printf("v\n");
-		}
-		else if (std::regex_match(line, std::regex("^vn.*$"))){
-			//^vn +(?:(-*\d+.\d+) *){3}$
-			printf("vn\n");
-		}
-		else if (std::regex_match(line, std::regex("^vt.*$"))){
-			//^vt +(?:(-*\d+.\d+) *){2}$
-			printf("vt\n");
-		}
-		else if (std::regex_match(line, std::regex("^f.*$"))){
-			//^f +(?:(?:(\d+)\/*){3} *){3}$
-			printf("f\n");
-		}*/

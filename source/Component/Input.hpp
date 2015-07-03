@@ -21,21 +21,7 @@ public:
 
 		_transform->rotate(Vector3f((float)mouseRY * _sensitivity, (float)mouseRX * _sensitivity, 0.f));
 
-		// FPS controls here
-
 		const Uint8* keyDown = SDL_GetKeyboardState(0);
-
-		/*if (keyDown[SDL_SCANCODE_A])
-			_transform->rotate(Vector3f(0.f, -_speed * 10, 0.f));
-
-		if (keyDown[SDL_SCANCODE_D])
-			_transform->rotate(Vector3f(0.f, _speed * 10, 0.f));
-
-		if (keyDown[SDL_SCANCODE_UP])
-			_transform->rotate(Vector3f(-_speed * 10, 0.f, 0.f));
-
-		if (keyDown[SDL_SCANCODE_DOWN])
-			_transform->rotate(Vector3f(_speed * 10, 0.f, 0.f));*/
 
 		if (keyDown[SDL_SCANCODE_W])
 			_transform->push(_speed);

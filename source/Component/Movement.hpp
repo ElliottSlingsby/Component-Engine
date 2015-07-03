@@ -2,18 +2,31 @@
 
 #include "Base\HelperComponent.hpp"
 
+#include "Math\Vector3.hpp"
+
 // Testing movement
 
 class Movement : public HelperComponent{
+	Transform* _transform = 0;
+
+	Vector3f _speed;
+
 public:
-	Transform* transform = 0;
+
+	Movement(){
+		_speed = Vector3f(
+			(float)(rand() % 20) / 10,
+			(float)(rand() % 20) / 10,
+			(float)(rand() % 20) / 10
+		);
+	}
 
 	void load(){
-		transform = _getComponent<Transform>();
+		_transform = _getComponent<Transform>();
 	}
 
 	void update(long dt){
-		transform->rotate(Vector3f(0.f, 0.1f, 0.f));
+		_transform->rotate(_speed);
 	}
 
 	Component* clone(){
