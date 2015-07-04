@@ -8,7 +8,7 @@ int main(int argc, char** argv){
 
 	Window::size(1280, 720);
 	Window::fullscreen(WINDOW_WINDOWED);
-	Window::title("Component Game");
+	Window::title("3D Component Engine");
 	
 	// Used for calculating delta time
 	int lastFrame = 0;

@@ -21,13 +21,17 @@ GLuint AssetLoader::getAsset(std::string filepath){
 
 	// If asset isn't loaded, the nload
 	if (iter == _instance()._assets.end()){
-		GLuint asset;
+		GLuint asset = NULL_ASSET;
 
-		if (std::regex_match(filepath, std::regex("^.+\\.obj$"))) // Regex file extension check
+		// Regex search to determine file type
+		if (std::regex_match(filepath, std::regex("^.+\\.obj$"))) // Meshes
 			asset = _instance()._loadMesh(filepath);
 
-		if (std::regex_match(filepath, std::regex("^.+\\.(?:bmp|gif|jpeg|jpg|png|tga|tiff)$"))) //  Regex file extension check
+		else if (std::regex_match(filepath, std::regex("^.+\\.(?:bmp|gif|jpeg|jpg|png|tga|tiff)$"))) // Textures
 			asset = _instance()._loadTexture(filepath);
+
+		else
+			printf("%s: %s %s!\n", "Asset Loader", "Cannot load asset from file", filepath);
 
 		return asset;
 	}
@@ -41,7 +45,7 @@ GLuint AssetLoader::_loadTexture(std::string filepath){
 
 	if (!image){
 		printf("%s %s!", "Cannot load texture", filepath.c_str());
-		return NULL_RESOURCE;
+		return NULL_ASSET;
 	}
 
 	// Gl ID creation
@@ -55,7 +59,7 @@ GLuint AssetLoader::_loadTexture(std::string filepath){
 	if (image->format->BytesPerPixel == 4)
 		format = GL_RGBA;
 
-	// Send pixels
+	// Upload pixels
 	glTexImage2D(GL_TEXTURE_2D, 0, format, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
 
 	// Default parameters
@@ -122,7 +126,7 @@ GLuint AssetLoader::_loadMesh (std::string filepath){
 
 	//file.seekg(0, is.beg);*/
 	
-	GLuint id = NULL_RESOURCE;
+	GLuint id = NULL_ASSET;
 
 	return id;
 }

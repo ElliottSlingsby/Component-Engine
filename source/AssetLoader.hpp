@@ -5,7 +5,7 @@
 #include <GL\glew.h>
 #include <regex>
 
-#define NULL_RESOURCE -1;
+#define NULL_ASSET -1;
 
 
 class AssetLoader{
@@ -22,6 +22,6 @@ class AssetLoader{
 
 public:
 
-	// Gets and asset if it's already loaded, but will also load and get the asset if not.
+	// Gets an asset if it's already loaded, but will also load and get the asset if not
 	static GLuint getAsset(std::string filepath);
 };

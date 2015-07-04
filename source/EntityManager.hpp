@@ -17,7 +17,7 @@ class EntityManager{
 
 	EntityManager();
 
-	// Private singleton, used by static functions only.
+	// Private singleton, used by static functions only
 	static EntityManager& _instance();
 
 	int _newID();
@@ -28,7 +28,7 @@ public:
 
 	template<typename T = Entity, typename... U> 
 	static Entity* instantiate(U... args){
-		// Pass any potential constructor args
+		// Pass any potential constructor args (if any)
 		Entity* entity = new T(args...);
 
 		// Make a new ID
@@ -50,7 +50,7 @@ public:
 		return entity;
 	}
 
-	// Old Entity controls. These will be heavily expanded on, like name and tag searching.
+	// Old Entity controls, these will be heavily expanded on, like name and tag searching
 	static void add(Entity* entity);
 	static Entity* get(int id);
 	static void destroy(int id);

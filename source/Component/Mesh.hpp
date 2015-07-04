@@ -71,7 +71,7 @@ public:
 		glVertex3f(-1.f, -1.f, 1.f);
 		
 		//Front
-		glNormal3f(0.f, 0.f, -1.f);
+		glNormal3f(0.f, 0.f, 1.f);
 		glTexCoord2f(1.f, 1.f);
 		glVertex3f(-1.f, -1.f, 1.f);
 		glTexCoord2f(1.f, 0.f);
@@ -83,7 +83,7 @@ public:
 				
 		
 		//Back
-		glNormal3f(0.f, 0.f, 1.f);
+		glNormal3f(0.f, 0.f, -1.f);
 		glTexCoord2f(0.f, 1.f);
 		glVertex3f(-1.f, 1.f, -1.f);
 		glTexCoord2f(0.f, 0.f);
@@ -94,7 +94,7 @@ public:
 		glVertex3f(-1.f, -1.f, -1.f);
 		
 		//Left
-		glNormal3f(1.f, 0.f, 0.f);
+		glNormal3f(-1.f, 0.f, 0.f);
 		glTexCoord2f(1.f, 1.f);
 		glVertex3f(-1.f, -1.f, -1.f);
 		glTexCoord2f(1.f, 0.f);
@@ -106,7 +106,7 @@ public:
 				
 		
 		//Right
-		glNormal3f(-1.f, 0.f, 0.f);
+		glNormal3f(1.f, 0.f, 0.f);
 		glTexCoord2f(0.f, 1.f);
 		glVertex3f(1.f, 1.f, -1.f);
 		glTexCoord2f(0.f, 0.f);

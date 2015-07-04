@@ -64,7 +64,7 @@ public:
 	}
 
 	void render(){
-		GLfloat position[] = { _transform->position().x(), _transform->position().y(), _transform->position().z(), 1.f }; // Position
+		GLfloat position[] = { -_transform->position().x(), _transform->position().y(), -_transform->position().z(), 1.f }; // Position
 		glLightfv(GL_LIGHTS[_light], GL_POSITION, position);
 	}
 };

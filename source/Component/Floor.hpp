@@ -12,9 +12,6 @@ public:
 
 		glPushMatrix();
 
-
-		// Although this is a lot of copied code from the Mesh class,
-		// It's only temporary until the obj loader is finished.
 		Material* material = _getComponent<Material>();
 
 		if (material)
