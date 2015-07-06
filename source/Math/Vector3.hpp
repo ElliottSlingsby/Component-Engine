@@ -1,5 +1,7 @@
 #pragma once
 
+#include <math.h>
+
 template <class T>
 class Vector3{
 	T _x;
@@ -25,9 +27,9 @@ public:
 
 	template <typename U>
 	Vector3<T> operator=(Vector3<U>& other){
-		_x = other.x();
-		_y = other.y();
-		_z = other.z();
+		_x = (T)other.x();
+		_y = (T)other.y();
+		_z = (T)other.z();
 	}
 
 	template <typename U>
@@ -43,13 +45,41 @@ public:
 
 	template <typename U>
 	void operator+=(Vector3<U>& other){
-		_x += other._x;
-		_y += other._y;
-		_z += other._z;
+		_x += (T)other._x;
+		_y += (T)other._y;
+		_z += (T)other._z;
 	}
 
-	Vector3<T> operator*(float n){
+	template <typename U>
+	Vector3<T> operator*(U n){
 		return Vector3<T>(_x * n, _y * n, _z * n);
+	}
+
+	template <typename U>
+	Vector3<T> operator/(U n){
+		return Vector3<T>(_x / n, _y / n, _z / n);
+	}
+
+	template <typename U>
+	Vector3<T> operator+(Vector3<U>& other){
+		return Vector3<T>(
+			_x + (T)other._x,
+			_y + (T)other._y,
+			_z + (T)other._z,
+		);
+	}
+
+	template <typename U>
+	Vector3<T> operator-(Vector3<U>& other){
+		return Vector3<T>(
+			_x - (T)other._x,
+			_y - (T)other._y,
+			_z - (T)other._z,
+		);
+	}
+
+	float length(){
+		return sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2));
 	}
 };
 
