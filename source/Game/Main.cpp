@@ -8,7 +8,6 @@ int main(int argc, char** argv){
 
 	Window::size(1280, 720);
 	Window::fullscreen(WINDOW_WINDOWED);
-	Window::title("3D Component Engine");
 	
 	// Used for calculating delta time
 	int lastFrame = 0;
@@ -26,6 +25,8 @@ int main(int argc, char** argv){
 		currFrame = SDL_GetTicks();
 
 		float dt = (float)(currFrame - lastFrame) / 1000.f;
+
+		Window::title(("FPS : " + std::to_string((int)(1.f / dt))).c_str());
 
 		// Checking for exit conditions
 		SDL_Event e;

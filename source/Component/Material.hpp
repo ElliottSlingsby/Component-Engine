@@ -1,12 +1,8 @@
 #pragma once
 
 #include "Base\HelperComponent.hpp"
-
-#include <string>
-#include <SDL_image.h>
-#include <GL\glew.h>
-
 #include "AssetLoader.hpp"
+#include <GL\glew.h>
 
 class Material : public HelperComponent{
 	//GLuint _ambient = -1;

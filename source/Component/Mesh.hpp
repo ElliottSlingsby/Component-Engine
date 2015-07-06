@@ -2,7 +2,6 @@
 
 #include "Base\HelperComponent.hpp"
 #include <GL\glew.h>
-#include "Transform.hpp"
 #include "Material.hpp"
 
 // While there's no obj loader, models have to be hardcoded. This will be changed eventually.
