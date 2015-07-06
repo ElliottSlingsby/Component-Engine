@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <GL\glew.h>
+#include <string>
 
 #include "Math\Vector2.hpp"
 
@@ -19,7 +20,7 @@ class Window{
 	SDL_Renderer* _renderer = 0; // Hasn't really been used yet
 	SDL_GLContext _glcontext;
 
-	const char* _title = "My first polygon!";
+	const char* _title = "3D Component Engine";
 
 	Vector2i _size = Vector2i(1280, 720);
 
