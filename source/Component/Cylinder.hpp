@@ -22,10 +22,10 @@ public:
 		_transform = _getComponent<Transform>();
 	}
 
-	bool colliding(Cylinder& other){
-		Vector3f dif = _position() - other._position();
+	bool colliding(Cylinder* other){
+		float distance = (_position() - other->_position()).length();
 		
-		if (dif.length() > _radius + other._radius)
+		if (distance <= _radius + other->_radius)
 			return true;
 
 		return false;
