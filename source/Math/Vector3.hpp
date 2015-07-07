@@ -65,7 +65,7 @@ public:
 		return Vector3<T>(
 			_x + (T)other._x,
 			_y + (T)other._y,
-			_z + (T)other._z,
+			_z + (T)other._z
 		);
 	}
 
@@ -74,12 +74,12 @@ public:
 		return Vector3<T>(
 			_x - (T)other._x,
 			_y - (T)other._y,
-			_z - (T)other._z,
+			_z - (T)other._z
 		);
 	}
 
 	float length(){
-		return sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2));
+		return abs(sqrt(pow(_x, 2) + pow(_y, 2) + pow(_z, 2)));
 	}
 };
 
