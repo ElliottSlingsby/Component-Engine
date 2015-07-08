@@ -26,6 +26,7 @@ public:
 
 	void update(float dt){
 		_transform->rotate(_speed * dt);
+		_transform->push(10 * dt);
 	}
 
 	Component* clone(){

@@ -10,7 +10,7 @@
 #include "Component\Cylinder.hpp"
 
 void setup(){
-	// Camera setup
+	// Camera setup (Camera needs to be setup first until projection matrix issue is fixed)
 	Entity* camera = EntityManager::instantiate();
 
 	camera->getComponent<Transform>()->position(Vector3f(0.f, -10.f, -75.f));
@@ -33,19 +33,21 @@ void setup(){
 		texture->addComponent(new Material("regressiontest.jpg"));
 		texture->addComponent(new Mesh);
 		texture->addComponent(new Movement);
-		texture->addComponent(new Input); //just for fun
 	}
 
+	// Collision testing setup
 	Entity* test1 = EntityManager::instantiate();
 	test1->getComponent<Transform>()->position(Vector3f(0.f, 0.f, 0.f));
 	test1->addComponent(new Cylinder(10));
 
 	Entity* test2 = EntityManager::instantiate();
-	test2->getComponent<Transform>()->position(Vector3f(21.f, 0.f, 0.f));
+	test2->getComponent<Transform>()->position(Vector3f(20.f, 0.f, 0.f));
 	test2->addComponent(new Cylinder(10));
 	
+	// Load all
 	EntityManager::loadAll();
 
+	// Hit detect test (Shouldn't really be here)
 	if (test1->getComponent<Cylinder>()->colliding(test2->getComponent<Cylinder>()))
 		printf("Colliding!");
 }
