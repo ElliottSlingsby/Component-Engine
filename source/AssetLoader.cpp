@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include <list>
+#include <tuple>
 
 AssetLoader& AssetLoader::_instance(){
 	static AssetLoader instance;
@@ -112,9 +113,6 @@ void explode(std::vector<std::string>& container, std::string line, char divider
 }
 
 GLuint AssetLoader::_loadMesh (std::string filepath){
-	// Work in progress!
-	// Will eventually read through obj files line by line
-
 	std::ifstream file(_assetPath + filepath);
 
 	if (!file.is_open()){
@@ -122,12 +120,18 @@ GLuint AssetLoader::_loadMesh (std::string filepath){
 		return NULL_ASSET;
 	}
 
-	typedef Vector3<GLfloat> Vector3Gl;
-	typedef Vector2<GLfloat> Vector2Gl;
+	typedef std::tuple<GLfloat, GLfloat, GLfloat> Vertex;
+	typedef std::tuple<GLfloat, GLfloat> Texture;
+	typedef std::tuple<GLfloat, GLfloat, GLfloat> Normal;
 
-	std::list<Vector3Gl> vertices;
-	std::list<Vector2Gl> textures;
-	std::list<Vector3Gl> normals;
+	std::list<Vertex> vertices;
+	std::list<Texture> textures;
+	std::list<Normal> normals;
+
+	typedef std::tuple<int, int, int> Corner;
+	typedef std::tuple<Corner, Corner, Corner> Face;
+
+	std::list<Face> faces;
 
 	while (file.good()){
 		std::string line;
@@ -140,30 +144,29 @@ GLuint AssetLoader::_loadMesh (std::string filepath){
 			
 		explode(contents, line);
 
-		if (contents[0] == "v"){
-			vertices.push_back(Vector3Gl(
-				std::stof(contents[1]),
-				std::stof(contents[2]),
-				std::stof(contents[3])
-			));
-		}
-		else if (contents[0] == "vt"){
-			textures.push_back(Vector2Gl(
-				std::stof(contents[1]),
-				std::stof(contents[2])
-			));
-		}
-		else if (contents[0] == "vn"){
-			normals.push_back(Vector3Gl(
-				std::stof(contents[1]),
-				std::stof(contents[2]),
-				std::stof(contents[3])
-			));
+		if (contents[0] == "v")
+			vertices.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2]), std::stof(contents[3])));
+
+		else if (contents[0] == "vt")
+			textures.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2])));
+
+		else if (contents[0] == "vn")
+			normals.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2]), std::stof(contents[3])));
+		
+		else if (contents[0] == "f"){
+			Corner corners[3];
+
+			for (unsigned int i = 1; i < contents.size(); i++){
+				std::vector<std::string> point;
+				explode(point, contents[i], '/');
+
+				corners[i - 1] = std::make_tuple(std::stoi(point[0]), std::stoi(point[1]), std::stoi(point[2]));
+			}
+
+			faces.push_back(std::make_tuple(corners[0], corners[1], corners[2]));
 		}
 	}
 
-	//file.seekg(0, is.beg);
-	
 	GLuint id = NULL_ASSET;
 
 	return id;
