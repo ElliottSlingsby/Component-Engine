@@ -3,10 +3,13 @@
 #include <algorithm>
 #include <SDL_image.h>
 #include <GL\glew.h>
-#include <glm\vec2.hpp>
-#include <glm\vec3.hpp>
+#include "Math\Vector2.hpp"
+#include "Math\Vector3.hpp"
+#include "Math\Vector4.hpp"
 #include <fstream>
 #include <string>
+#include <iostream>
+#include <list>
 
 AssetLoader& AssetLoader::_instance(){
 	static AssetLoader instance;
@@ -77,54 +80,89 @@ GLuint AssetLoader::_loadTexture(std::string filepath){
 	return id;
 }
 
+void explode(std::vector<std::string>& container, std::string line, char divider = ' '){
+	bool reading = true;
+
+	if (*line.begin() == divider)
+		bool reading = false;
+
+	int i = 0;
+
+	int in = 0;
+	int out = line.length() - 1;
+
+	for (std::string::iterator iter = line.begin(); iter != line.end(); iter++){
+		bool capture = false;
+
+		if (reading && *iter == divider){
+			out = i;
+			reading = false;
+			capture = true;
+		}
+		else if (!reading && *iter != divider){
+			in = i;
+			reading = true;
+		}
+
+		if (capture || i == line.length() - 1)
+			container.push_back(line.substr(in, out - in));
+
+		i++;
+	}
+}
+
 GLuint AssetLoader::_loadMesh (std::string filepath){
 	// Work in progress!
 	// Will eventually read through obj files line by line
 
-	/*std::ifstream file(_assetPath + filepath);
+	std::ifstream file(_assetPath + filepath);
 
 	if (!file.is_open()){
 		printf("%s %s!", "Cannot load mesh", filepath.c_str());
-		return NULL_RESOURCE;
+		return NULL_ASSET;
 	}
 
-	// Counters
-	unsigned int v_i = 0;
-	unsigned int vn_i = 0;
-	unsigned int vt_i = 0;
-	unsigned int f_i = 0;
+	typedef Vector3<GLfloat> Vector3Gl;
+	typedef Vector2<GLfloat> Vector2Gl;
+
+	std::list<Vector3Gl> vertices;
+	std::list<Vector2Gl> textures;
+	std::list<Vector3Gl> normals;
 
 	while (file.good()){
 		std::string line;
 		getline(file, line);
 
-		std::string type = line.substr(0, line.find(' '));
+		if (!line.size() || *line.begin() == '#')
+			continue;
 
-		if (type == "v" || type == "vn" || type == "vt"){
-			std::string first = line.substr(line.find(' ') + 1);
+		std::vector<std::string> contents;
+			
+		explode(contents, line);
 
-			std::string second = first.substr(line.find(' ') + 1);
-
-			std::string third = second.substr(line.find(' ') + 1);
-
-			//printf("%s | %s | %s\n", first.c_str(), second.c_str(), third.c_str());
-
-			printf("|%s|\n", first.c_str());
-
-			if (type == "v")
-				v_i++;
-			if (type == "vn")
-				vn_i++;
-			if (type == "vt")
-				vt_i++;
+		if (contents[0] == "v"){
+			vertices.push_back(Vector3Gl(
+				std::stof(contents[1]),
+				std::stof(contents[2]),
+				std::stof(contents[3])
+			));
 		}
-		else if (type == "f"){
-
-			f_i++;
+		else if (contents[0] == "vt"){
+			textures.push_back(Vector2Gl(
+				std::stof(contents[1]),
+				std::stof(contents[2])
+			));
+		}
+		else if (contents[0] == "vn"){
+			normals.push_back(Vector3Gl(
+				std::stof(contents[1]),
+				std::stof(contents[2]),
+				std::stof(contents[3])
+			));
 		}
 	}
 
-	//file.seekg(0, is.beg);*/
+	//file.seekg(0, is.beg);
 	
 	GLuint id = NULL_ASSET;
 

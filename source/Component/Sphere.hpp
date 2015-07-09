@@ -2,7 +2,7 @@
 
 #include "Base\HelperComponent.hpp"
 
-class Cylinder : public HelperComponent{
+class Sphere : public HelperComponent{
 	Transform* _transform = 0;
 
 	float _radius;
@@ -13,7 +13,7 @@ class Cylinder : public HelperComponent{
 	}
 
 public:
-	Cylinder(float radius, Vector3f offset = Vector3f(0.f, 0.f, 0.f)){
+	Sphere(float radius, Vector3f offset = Vector3f(0.f, 0.f, 0.f)){
 		_radius = radius;
 		_offset = _offset;
 	}
@@ -22,7 +22,7 @@ public:
 		_transform = _getComponent<Transform>();
 	}
 
-	bool colliding(Cylinder* other){
+	bool colliding(Sphere* other){
 		float distance = (_position() - other->_position()).length();
 		
 		if (distance <= _radius + other->_radius)
@@ -40,6 +40,6 @@ public:
 	}
 
 	Component* clone(){
-		return new Cylinder(_radius, _offset);
+		return new Sphere(_radius, _offset);
 	}
 };

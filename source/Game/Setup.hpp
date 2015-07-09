@@ -7,7 +7,7 @@
 #include "Component\Camera.hpp"
 #include "Component\Input.hpp"
 #include "Component\Floor.hpp"
-#include "Component\Cylinder.hpp"
+#include "Component\Sphere.hpp"
 
 void setup(){
 	// Camera setup (Camera needs to be setup first until projection matrix issue is fixed)
@@ -26,7 +26,7 @@ void setup(){
 	floor->addComponent(new Floor);
 
 	// Making a bunch of randomly positioned spinning cat cubes
-	for (int i = 0; i != 500; i++){
+	for (int i = 0; i != 1000; i++){
 		Entity* texture = EntityManager::instantiate();
 		
 		texture->getComponent<Transform>()->position(Vector3f((float)(rand() % 100) - 50.f, 0.f, (float)(rand() % 100) - 50.f));
@@ -38,16 +38,18 @@ void setup(){
 	// Collision testing setup
 	Entity* test1 = EntityManager::instantiate();
 	test1->getComponent<Transform>()->position(Vector3f(0.f, 0.f, 0.f));
-	test1->addComponent(new Cylinder(10));
+	test1->addComponent(new Sphere(10));
 
 	Entity* test2 = EntityManager::instantiate();
 	test2->getComponent<Transform>()->position(Vector3f(20.f, 0.f, 0.f));
-	test2->addComponent(new Cylinder(10));
+	test2->addComponent(new Sphere(10));
 	
 	// Load all
 	EntityManager::loadAll();
 
 	// Hit detect test (Shouldn't really be here)
-	if (test1->getComponent<Cylinder>()->colliding(test2->getComponent<Cylinder>()))
+	if (test1->getComponent<Sphere>()->colliding(test2->getComponent<Sphere>()))
 		printf("Colliding!");
+
+	AssetLoader::getAsset("torus.obj");
 }
