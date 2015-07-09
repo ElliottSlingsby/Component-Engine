@@ -11,6 +11,8 @@
 #include <iostream>
 #include <list>
 #include <tuple>
+#include <glm\vec2.hpp>
+#include <glm\vec3.hpp>
 
 AssetLoader& AssetLoader::_instance(){
 	static AssetLoader instance;
@@ -85,7 +87,7 @@ void explode(std::vector<std::string>& container, std::string line, char divider
 	bool reading = true;
 
 	if (*line.begin() == divider)
-		bool reading = false;
+		reading = false;
 
 	int i = 0;
 
@@ -112,6 +114,12 @@ void explode(std::vector<std::string>& container, std::string line, char divider
 	}
 }
 
+typedef std::tuple<GLfloat, GLfloat, GLfloat> Vertex;
+typedef std::tuple<GLfloat, GLfloat> Texture;
+typedef std::tuple<GLfloat, GLfloat, GLfloat> Normal;
+typedef std::tuple<int, int, int> Corner;
+typedef std::tuple<Corner, Corner, Corner> Face;
+
 GLuint AssetLoader::_loadMesh (std::string filepath){
 	std::ifstream file(_assetPath + filepath);
 
@@ -120,24 +128,16 @@ GLuint AssetLoader::_loadMesh (std::string filepath){
 		return NULL_ASSET;
 	}
 
-	typedef std::tuple<GLfloat, GLfloat, GLfloat> Vertex;
-	typedef std::tuple<GLfloat, GLfloat> Texture;
-	typedef std::tuple<GLfloat, GLfloat, GLfloat> Normal;
-
 	std::list<Vertex> vertices;
 	std::list<Texture> textures;
 	std::list<Normal> normals;
-
-	typedef std::tuple<int, int, int> Corner;
-	typedef std::tuple<Corner, Corner, Corner> Face;
-
 	std::list<Face> faces;
 
 	while (file.good()){
 		std::string line;
 		getline(file, line);
 
-		if (!line.size() || *line.begin() == '#')
+		if (line.size() == 0 || *line.begin() == '#')
 			continue;
 
 		std::vector<std::string> contents;
@@ -166,7 +166,7 @@ GLuint AssetLoader::_loadMesh (std::string filepath){
 			faces.push_back(std::make_tuple(corners[0], corners[1], corners[2]));
 		}
 	}
-
+	
 	GLuint id = NULL_ASSET;
 
 	return id;
