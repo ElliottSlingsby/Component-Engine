@@ -11,8 +11,6 @@
 #include <iostream>
 #include <list>
 #include <tuple>
-#include <glm\vec2.hpp>
-#include <glm\vec3.hpp>
 
 AssetLoader& AssetLoader::_instance(){
 	static AssetLoader instance;
@@ -55,7 +53,7 @@ GLuint AssetLoader::_loadTexture(std::string filepath){
 	}
 
 	// Gl ID creation
-	GLuint id = -1;
+	GLuint id = NULL_ASSET;
 	glGenTextures(1, &id);
 	glBindTexture(GL_TEXTURE_2D, id);
 
@@ -128,10 +126,10 @@ GLuint AssetLoader::_loadMesh (std::string filepath){
 		return NULL_ASSET;
 	}
 
-	std::list<Vertex> vertices;
-	std::list<Texture> textures;
-	std::list<Normal> normals;
-	std::list<Face> faces;
+	std::list<Vertex> verticesTemp;
+	std::list<Texture> texturesTemp;
+	std::list<Normal> normalsTemp;
+	std::list<Face> facesTemp;
 
 	while (file.good()){
 		std::string line;
@@ -145,13 +143,13 @@ GLuint AssetLoader::_loadMesh (std::string filepath){
 		explode(contents, line);
 
 		if (contents[0] == "v")
-			vertices.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2]), std::stof(contents[3])));
+			verticesTemp.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2]), std::stof(contents[3])));
 
 		else if (contents[0] == "vt")
-			textures.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2])));
+			texturesTemp.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2])));
 
 		else if (contents[0] == "vn")
-			normals.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2]), std::stof(contents[3])));
+			normalsTemp.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2]), std::stof(contents[3])));
 		
 		else if (contents[0] == "f"){
 			Corner corners[3];
@@ -163,11 +161,29 @@ GLuint AssetLoader::_loadMesh (std::string filepath){
 				corners[i - 1] = std::make_tuple(std::stoi(point[0]), std::stoi(point[1]), std::stoi(point[2]));
 			}
 
-			faces.push_back(std::make_tuple(corners[0], corners[1], corners[2]));
+			facesTemp.push_back(std::make_tuple(corners[0], corners[1], corners[2]));
 		}
 	}
-	
-	GLuint id = NULL_ASSET;
 
-	return id;
+	/*std::vector<Vertex> vertices = { std::begin(verticesTemp), std::end(verticesTemp) };
+	std::vector<Texture> textures = { std::begin(texturesTemp), std::end(texturesTemp) };
+	std::vector<Normal> normals = { std::begin(normalsTemp), std::end(normalsTemp) };
+	std::vector<Face> faces = { std::begin(facesTemp), std::end(facesTemp) };
+
+	GLuint id = NULL_ASSET;
+	glGenBuffers(1, &id);
+	glBindBuffer(GL_ARRAY_BUFFER, id);
+
+	//&vertices[0]
+
+	glBufferData(
+		GL_ARRAY_BUFFER,
+		vertices.size() * sizeof(Vertex),
+		&vertices[0],
+		GL_STATIC_DRAW
+	);
+	
+	return id;*/
+
+	return NULL_ASSET;
 }

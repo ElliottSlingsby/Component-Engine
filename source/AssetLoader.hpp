@@ -7,7 +7,6 @@
 
 #define NULL_ASSET -1;
 
-
 class AssetLoader{
 	typedef std::unordered_map<std::string, GLuint> AssetMap;
 	AssetMap _assets; // Map of binded GL IDs

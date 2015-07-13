@@ -20,6 +20,7 @@
   <ItemGroup>
     <ClInclude Include="Base\Component.hpp" />
     <ClInclude Include="Base\HelperComponent.hpp" />
+    <ClInclude Include="Component\Box.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Sphere.hpp" />
     <ClInclude Include="Component\Floor.hpp" />

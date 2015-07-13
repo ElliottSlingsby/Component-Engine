@@ -8,6 +8,7 @@
 #include "Component\Input.hpp"
 #include "Component\Floor.hpp"
 #include "Component\Sphere.hpp"
+#include "Component\Box.hpp"
 
 void setup(){
 	// Camera setup (Camera needs to be setup first until projection matrix issue is fixed)
@@ -36,20 +37,32 @@ void setup(){
 	}
 
 	// Collision testing setup
-	Entity* test1 = EntityManager::instantiate();
-	test1->getComponent<Transform>()->position(Vector3f(0.f, 0.f, 0.f));
-	test1->addComponent(new Sphere(10));
+	Entity* sphere1 = EntityManager::instantiate();
+	sphere1->getComponent<Transform>()->position(Vector3f(0.f, 0.f, 0.f));
+	sphere1->addComponent(new Sphere(10));
 
-	Entity* test2 = EntityManager::instantiate();
-	test2->getComponent<Transform>()->position(Vector3f(20.f, 0.f, 0.f));
-	test2->addComponent(new Sphere(10));
+	Entity* sphere2 = EntityManager::instantiate();
+	sphere2->getComponent<Transform>()->position(Vector3f(20.f, 0.f, 0.f));
+	sphere2->addComponent(new Sphere(10));
+
+	Entity* box1 = EntityManager::instantiate();
+	box1->getComponent<Transform>()->position(Vector3f(0.f, 0.f, 0.f));
+	box1->addComponent(new Box(Vector3f(10.f, 10.f, 10.f)));
+
+	Entity* box2 = EntityManager::instantiate();
+	box2->getComponent<Transform>()->position(Vector3f(0.f, 0.f, 0.f));
+	box2->addComponent(new Box(Vector3f(10.f, 10.f, 10.f)));
 	
 	// Load all
 	EntityManager::loadAll();
 
 	// Hit detect test (Shouldn't really be here)
-	if (test1->getComponent<Sphere>()->colliding(test2->getComponent<Sphere>()))
-		printf("Colliding!");
+	if (sphere1->getComponent<Sphere>()->colliding(sphere2->getComponent<Sphere>()))
+		printf("Sphere colliding!\n");
 
-	AssetLoader::getAsset("torus.obj");
+	if (box1->getComponent<Box>()->colliding(box2->getComponent<Box>()))
+		printf("Box colliding!\n");
+
+	// Obj load test (Shouldn't be here)
+	//AssetLoader::getAsset("torus.obj");
 }

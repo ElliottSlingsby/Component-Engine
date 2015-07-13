@@ -25,8 +25,7 @@ public:
 	bool colliding(Sphere* other){
 		float distance = (_position() - other->_position()).length();
 		
-		if (distance <= _radius + other->_radius)
-			return true;
+		if (distance <= _radius + other->_radius) return true;
 
 		return false;
 	}
