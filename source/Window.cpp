@@ -85,17 +85,14 @@ bool Window::_setupGL(){
 
 bool Window::reshape(){
 	// Setting up OpenGL matrices
-	float ar = (float)_instance()._size.x() / (float)_instance()._size.y();
-
 	glViewport(0, 0, _instance()._size.x(), _instance()._size.y());
 
-	// Until a better solution for the camera position changing is solved, 
-	// perspective is set in the Camera class instead of here.
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
+	float ar = (float)_instance()._size.x() / (float)_instance()._size.y();
 
-	//gluPerspective(59, ar, 0.1, 1000); // 59 vfov = ~90 hfov
+	gluPerspective(59, ar, 0.1, 1000); // 59 vfov = ~90 hfov
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

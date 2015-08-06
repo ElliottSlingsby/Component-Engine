@@ -8,22 +8,17 @@
 
 class Camera : public HelperComponent{
 	Transform* _transform = 0;
-	float _ratio; // Screen aspect ratio
 
 public:
 	void load(){
 		_transform = _getComponent<Transform>();
-		_ratio = (float)Window::width() / (float)Window::height();
 	}
 
 	void render(){
-		// Replace with push pop!!!
-		glMatrixMode(GL_PROJECTION);
+		glMatrixMode(GL_MODELVIEW);
+
 		glLoadIdentity();
-
-		// THIS IS BAD! gluPerspective should only be set once in Window::reshape!
-		gluPerspective(59, _ratio, 0.1, 1000);
-
+		
 		glRotatef(_transform->rotation().x(), 1.f, 0.f, 0.f);
 		glRotatef(_transform->rotation().y(), 0.f, 1.f, 0.f);
 		glRotatef(_transform->rotation().z(), 0.f, 0.f, 1.f);

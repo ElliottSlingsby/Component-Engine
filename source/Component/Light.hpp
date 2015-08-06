@@ -16,9 +16,6 @@ class Light : public HelperComponent{
 
 	//bool _spot = false;
 
-	//float _exponent = 0.f;
-	//float _cutoff = 0.f;
-
 	//float _constant = 2.f;
 	//float _linear = 1.f;
 	//float _quadratic = 0.5f;

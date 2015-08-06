@@ -51,6 +51,14 @@ public:
 		_position += vector;
 	}
 
+	Vector3f lookingAt(){
+		return Vector3f(
+			cos(_rotation.y()) * cos(_rotation.x()),
+			sin(_rotation.y()) * cos(_rotation.x()),
+			sin(_rotation.x())			
+		);
+	}
+
 	void push(float speed){
 		// Pushes the Transform along the _rotation's euler angles.
 		
