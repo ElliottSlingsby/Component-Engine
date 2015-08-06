@@ -15,7 +15,7 @@
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Game\Main.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\Component.hpp" />
@@ -35,7 +35,7 @@
     <ClInclude Include="Prefab\Example.hpp" />
     <ClInclude Include="AssetLoader.hpp" />
     <ClInclude Include="Component\Material.hpp" />
-    <ClInclude Include="Window.hpp" />
+    <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Base\Identifier.hpp" />
     <ClInclude Include="Component\Transform.hpp" />
     <ClInclude Include="Math\Vector2.hpp" />

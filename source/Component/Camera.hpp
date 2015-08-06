@@ -3,7 +3,7 @@
 #include <Base\HelperComponent.hpp>
 #include <Component\Transform.hpp>
 #include <GL\glew.h>
-#include "Window.hpp"
+#include "Renderer.hpp"
 #include <math.h>
 
 class Camera : public HelperComponent{

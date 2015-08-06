@@ -33,7 +33,7 @@ void setup(){
 		texture->getComponent<Transform>()->position(Vector3f((float)(rand() % 100) - 50.f, 0.f, (float)(rand() % 100) - 50.f));
 		texture->addComponent(new Material("regressiontest.jpg"));
 		texture->addComponent(new Mesh);
-		//texture->addComponent(new Movement);
+		texture->addComponent(new Movement);
 	}
 
 	// Collision testing setup

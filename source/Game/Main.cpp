@@ -1,4 +1,4 @@
-#include "Window.hpp"
+#include "Renderer.hpp"
 #include "EntityManager.hpp"
 #include "Setup.hpp"
 #include <time.h>
@@ -6,15 +6,15 @@
 int main(int argc, char** argv){
 	srand((unsigned int)time(0));
 
-	Window::size(1280, 720);
-	Window::fullscreen(WINDOW_WINDOWED);
+	Renderer::size(1280, 720);
+	Renderer::fullscreen(WINDOW_WINDOWED);
 	
 	// Used for calculating delta time
 	int lastFrame = 0;
 	int currFrame = 0;
 
-	// Start running if window initiates successfully
-	bool running = Window::initiate();
+	// Start running if renderer initiates successfully
+	bool running = Renderer::initiate();
 
 	if (running)
 		setup();
@@ -26,7 +26,7 @@ int main(int argc, char** argv){
 
 		float dt = (float)(currFrame - lastFrame) / 1000.f;
 
-		Window::title(("FPS : " + std::to_string((int)(1.f / dt))).c_str());
+		Renderer::title(("FPS : " + std::to_string((int)(1.f / dt))).c_str());
 
 		// Checking for exit conditions
 		SDL_Event e;
@@ -43,7 +43,7 @@ int main(int argc, char** argv){
 		EntityManager::updateAll(dt);
 		EntityManager::renderAll();
 		
-		Window::swapBuffer();
+		Renderer::swapBuffer();
 	}
 
 	EntityManager::deleteAll();

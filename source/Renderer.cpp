@@ -1,21 +1,21 @@
-#include "Window.hpp"
+#include "Renderer.hpp"
 
 #include <stdio.h>
 
-Window& Window::_instance(){
-	static Window instance;
+Renderer& Renderer::_instance(){
+	static Renderer instance;
 	return instance;
 }
 
-Window::~Window(){
+Renderer::~Renderer(){
 	_running = false;
 
 	SDL_DestroyWindow(_window);
-	SDL_DestroyRenderer(_renderer);
+	SDL_DestroyRenderer(_sdl_renderer);
 	SDL_GL_DeleteContext(_glcontext);
 }
 
-bool Window::_setupSDL(){
+bool Renderer::_setupSDL(){
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0){
 		printf("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
 		return false;
@@ -31,19 +31,19 @@ bool Window::_setupSDL(){
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-	// Window object
+	// Renderer object
 	_window = SDL_CreateWindow(_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _size.x(), _size.y(), SDL_WINDOW_OPENGL);
 
 	if (!_window){
-		printf("%s! %s: %s\n", "Failed to create window", "SDL Error", SDL_GetError());
+		printf("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
 		return false;
 	}
 
 	// Renderer object (for 2D graphics only)
-	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
+	_sdl_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
-	if (!_renderer){
-		printf("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
+	if (!_sdl_renderer){
+		printf("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -56,7 +56,7 @@ bool Window::_setupSDL(){
 	return true;
 }
 
-bool Window::_setupGL(){
+bool Renderer::_setupGL(){
 	// OpenGl context object
 	_glcontext = SDL_GL_CreateContext(_window);
 
@@ -83,7 +83,7 @@ bool Window::_setupGL(){
 	return true;
 }
 
-bool Window::reshape(){
+bool Renderer::reshape(){
 	// Setting up OpenGL matrices
 	glViewport(0, 0, _instance()._size.x(), _instance()._size.y());
 
@@ -109,11 +109,11 @@ bool Window::reshape(){
 	return true;
 }
 
-bool Window::initiate(){
+bool Renderer::initiate(){
 	// If already running, reset
 	if (_instance()._running){
 		SDL_DestroyWindow(_instance()._window);
-		SDL_DestroyRenderer(_instance()._renderer);
+		SDL_DestroyRenderer(_instance()._sdl_renderer);
 		SDL_GL_DeleteContext(_instance()._glcontext);
 	}
 	else{
@@ -130,32 +130,32 @@ bool Window::initiate(){
 	return reshape();
 }
 
-void Window::swapBuffer(){
+void Renderer::swapBuffer(){
 	// Swap and clean
 	SDL_GL_SwapWindow(_instance()._window);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-SDL_Renderer* Window::renderer(){
-	return _instance()._renderer;
+SDL_Renderer* Renderer::sdl_renderer(){
+	return _instance()._sdl_renderer;
 }
 
-int Window::width(){
+int Renderer::width(){
 	return _instance()._size.x();
 }
 
-int Window::height(){
+int Renderer::height(){
 	return _instance()._size.y();
 }
 
-void Window::fullscreen(WindowModes mode){
+void Renderer::fullscreen(WindowModes mode){
 	_instance()._mode = mode;
 	
 	if (_instance()._running)
 		SDL_SetWindowFullscreen(_instance()._window, mode);
 }
 
-void Window::size(int width, int height){
+void Renderer::size(int width, int height){
 	_instance()._size = Vector2i(width, height);
 
 	if (_instance()._running){
@@ -164,7 +164,7 @@ void Window::size(int width, int height){
 	}
 }
 
-void Window::title(const char* title){
+void Renderer::title(const char* title){
 	_instance()._title = title;
 
 	if (_instance()._running)
