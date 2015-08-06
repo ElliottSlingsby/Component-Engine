@@ -17,14 +17,14 @@ class Renderer{
 	bool _running = false;
 
 	SDL_Window* _window = 0;
-	SDL_Renderer* _sdl_renderer = 0; // Hasn't really been used yet
+	SDL_Renderer* _sdlRenderer = 0; // Hasn't really been used yet
 	SDL_GLContext _glcontext;
 
-	const char* _title = "3D Component Engine";
+	const char* _windowTitle = "3D Component Engine";
 
-	Vector2i _size = Vector2i(1280, 720);
+	Vector2i _windowSize = Vector2i(1280, 720);
 
-	WindowModes _mode = WINDOW_WINDOWED;
+	WindowModes _windowMode = WINDOW_WINDOWED;
 
 	bool _setupSDL(); // Returns false if failed
 	bool _setupGL();  // "
@@ -36,14 +36,14 @@ public:
 	~Renderer();
 
 	// Setters
-	static void size(int width, int height);
-	static void title(const char* title);
-	static void fullscreen(WindowModes mode);
+	static void setWindowSize(int width, int height);
+	static void setWindowTitle(const char* title);
+	static void setWindowMode(WindowModes mode);
 
 	// Getters
-	static int width();
-	static int height();
-	static SDL_Renderer* sdl_renderer();
+	static int windowWidth();
+	static int windowHeight();
+	static SDL_Renderer* sdlRenderer();
 	
 	// Setup and updating
 	static bool initiate();

@@ -42,7 +42,7 @@ void EntityManager::_removeID(int id){
 	_removed.push(id);
 }
 
-void EntityManager::add(Entity* entity){
+void EntityManager::addEntity(Entity* entity){
 	if (entity->ID() == NULL_ID){
 		int id = _instance()._newID();
 
@@ -60,7 +60,7 @@ void EntityManager::add(Entity* entity){
 	printf("%s: %s!\n", "Entity Manager", "Cannot add an entity that already has an ID");
 }
 
-Entity* EntityManager::get(int id){
+Entity* EntityManager::getEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
@@ -71,7 +71,7 @@ Entity* EntityManager::get(int id){
 	return entity;
 }
 
-void EntityManager::destroy(int id){
+void EntityManager::destroyEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
@@ -116,6 +116,6 @@ void EntityManager::deleteAll(){
 		Entity* entity = _instance()._entities[i];
 
 		if (entity)
-			destroy(i);
+			destroyEntity(i);
 	}
 }

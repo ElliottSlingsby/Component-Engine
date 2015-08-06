@@ -11,7 +11,7 @@ Renderer::~Renderer(){
 	_running = false;
 
 	SDL_DestroyWindow(_window);
-	SDL_DestroyRenderer(_sdl_renderer);
+	SDL_DestroyRenderer(_sdlRenderer);
 	SDL_GL_DeleteContext(_glcontext);
 }
 
@@ -32,7 +32,7 @@ bool Renderer::_setupSDL(){
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	// Renderer object
-	_window = SDL_CreateWindow(_title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _size.x(), _size.y(), SDL_WINDOW_OPENGL);
+	_window = SDL_CreateWindow(_windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _windowSize.x(), _windowSize.y(), SDL_WINDOW_OPENGL);
 
 	if (!_window){
 		printf("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
@@ -40,15 +40,15 @@ bool Renderer::_setupSDL(){
 	}
 
 	// Renderer object (for 2D graphics only)
-	_sdl_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
+	_sdlRenderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
-	if (!_sdl_renderer){
+	if (!_sdlRenderer){
 		printf("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", SDL_GetError());
 		return false;
 	}
 
 	// Set size mode
-	SDL_SetWindowFullscreen(_window, _mode);
+	SDL_SetWindowFullscreen(_window, _windowMode);
 
 	// Lock the mouse
 	SDL_SetRelativeMouseMode(SDL_TRUE);
@@ -85,12 +85,12 @@ bool Renderer::_setupGL(){
 
 bool Renderer::reshape(){
 	// Setting up OpenGL matrices
-	glViewport(0, 0, _instance()._size.x(), _instance()._size.y());
+	glViewport(0, 0, _instance()._windowSize.x(), _instance()._windowSize.y());
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	float ar = (float)_instance()._size.x() / (float)_instance()._size.y();
+	float ar = (float)_instance()._windowSize.x() / (float)_instance()._windowSize.y();
 
 	gluPerspective(59, ar, 0.1, 1000); // 59 vfov = ~90 hfov
 
@@ -113,7 +113,7 @@ bool Renderer::initiate(){
 	// If already running, reset
 	if (_instance()._running){
 		SDL_DestroyWindow(_instance()._window);
-		SDL_DestroyRenderer(_instance()._sdl_renderer);
+		SDL_DestroyRenderer(_instance()._sdlRenderer);
 		SDL_GL_DeleteContext(_instance()._glcontext);
 	}
 	else{
@@ -136,27 +136,27 @@ void Renderer::swapBuffer(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-SDL_Renderer* Renderer::sdl_renderer(){
-	return _instance()._sdl_renderer;
+SDL_Renderer* Renderer::sdlRenderer(){
+	return _instance()._sdlRenderer;
 }
 
-int Renderer::width(){
-	return _instance()._size.x();
+int Renderer::windowWidth(){
+	return _instance()._windowSize.x();
 }
 
-int Renderer::height(){
-	return _instance()._size.y();
+int Renderer::windowHeight(){
+	return _instance()._windowSize.y();
 }
 
-void Renderer::fullscreen(WindowModes mode){
-	_instance()._mode = mode;
+void Renderer::setWindowMode(WindowModes mode){
+	_instance()._windowMode = mode;
 	
 	if (_instance()._running)
 		SDL_SetWindowFullscreen(_instance()._window, mode);
 }
 
-void Renderer::size(int width, int height){
-	_instance()._size = Vector2i(width, height);
+void Renderer::setWindowSize(int width, int height){
+	_instance()._windowSize = Vector2i(width, height);
 
 	if (_instance()._running){
 		SDL_SetWindowSize(_instance()._window, width, height);
@@ -164,8 +164,8 @@ void Renderer::size(int width, int height){
 	}
 }
 
-void Renderer::title(const char* title){
-	_instance()._title = title;
+void Renderer::setWindowTitle(const char* title){
+	_instance()._windowTitle = title;
 
 	if (_instance()._running)
 		SDL_SetWindowTitle(_instance()._window, title);

@@ -37,12 +37,12 @@ public:
 		return _rotation;
 	}
 
-	Vector3f position(Vector3f vector){
+	Vector3f setPosition(Vector3f vector){
 		_position = vector;
 		return _position;
 	}
 
-	Vector3f rotation(Vector3f vector){
+	Vector3f setRotation(Vector3f vector){
 		_rotation = vector;
 		return _rotation;
 	}

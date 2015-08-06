@@ -10,7 +10,7 @@ struct Example : public Entity{
 
 	// Only the _transform component can be used in the constructor
 	Example(float x = 0.f, float y = 0.f, float z = 0.f){
-		_transform->position(Vector3f(x, y, z));
+		_transform->setPosition(Vector3f(x, y, z));
 	}
 
 	// Other components can be setup and used by overriding prefab

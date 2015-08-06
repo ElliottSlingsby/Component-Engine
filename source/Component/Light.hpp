@@ -14,11 +14,16 @@ class Light : public HelperComponent{
 	Vector4f _diffuse;
 	Vector4f _specular;
 
-	//bool _spot = false;
+	
 
 	//float _constant = 2.f;
 	//float _linear = 1.f;
 	//float _quadratic = 0.5f;
+
+	bool _spot = true;
+
+	float _cutoff = 25.f;
+	float exponent = 75.f;
 	
 public:
 	Light(){
@@ -45,7 +50,12 @@ public:
 		//glLightf(GL_LIGHTS[_light], GL_CONSTANT_ATTENUATION, _constant);
 		//glLightf(GL_LIGHTS[_light], GL_LINEAR_ATTENUATION, _linear);
 		//glLightf(GL_LIGHTS[_light], GL_QUADRATIC_ATTENUATION, _quadratic);
-		
+
+		if (_spot){
+			glLightf(GL_LIGHTS[_light], GL_SPOT_CUTOFF, _cutoff);
+			glLightf(GL_LIGHTS[_light], GL_SPOT_EXPONENT, exponent);
+		}
+
 		GLfloat ambient[] = { _ambient.w(), _ambient.x(), _ambient.y(), _ambient.z() };
 		glLightfv(GL_LIGHTS[_light], GL_AMBIENT, ambient);
 
@@ -61,7 +71,8 @@ public:
 	}
 
 	void render(){
-		GLfloat position[] = { -_transform->position().x(), _transform->position().y(), -_transform->position().z(), 1.f }; // Position
+		// y shouldn't be minus
+		GLfloat position[] = { -_transform->position().x(), -_transform->position().y(), -_transform->position().z(), 1.f }; // Position
 		glLightfv(GL_LIGHTS[_light], GL_POSITION, position);
 	}
 };

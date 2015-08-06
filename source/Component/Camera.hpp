@@ -18,7 +18,7 @@ public:
 		glMatrixMode(GL_MODELVIEW);
 
 		glLoadIdentity();
-		
+
 		glRotatef(_transform->rotation().x(), 1.f, 0.f, 0.f);
 		glRotatef(_transform->rotation().y(), 0.f, 1.f, 0.f);
 		glRotatef(_transform->rotation().z(), 0.f, 0.f, 1.f);

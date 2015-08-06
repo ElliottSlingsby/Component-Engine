@@ -27,7 +27,7 @@ public:
 	~EntityManager();
 
 	template<typename T = Entity, typename... U> 
-	static Entity* instantiate(U... args){
+	static Entity* createEntity(U... args){
 		// Pass any potential constructor args (if any)
 		Entity* entity = new T(args...);
 
@@ -51,9 +51,9 @@ public:
 	}
 
 	// Old Entity controls, these will be heavily expanded on, like name and tag searching
-	static void add(Entity* entity);
-	static Entity* get(int id);
-	static void destroy(int id);
+	static void addEntity(Entity* entity);
+	static Entity* getEntity(int id);
+	static void destroyEntity(int id);
 
 	static void loadAll();
 	static void updateAll(float dt);

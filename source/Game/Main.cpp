@@ -6,8 +6,8 @@
 int main(int argc, char** argv){
 	srand((unsigned int)time(0));
 
-	Renderer::size(1280, 720);
-	Renderer::fullscreen(WINDOW_WINDOWED);
+	Renderer::setWindowSize(1280, 720);
+	Renderer::setWindowMode(WINDOW_WINDOWED);
 	
 	// Used for calculating delta time
 	int lastFrame = 0;
@@ -26,10 +26,11 @@ int main(int argc, char** argv){
 
 		float dt = (float)(currFrame - lastFrame) / 1000.f;
 
-		Renderer::title(("FPS : " + std::to_string((int)(1.f / dt))).c_str());
+		Renderer::setWindowTitle(("FPS : " + std::to_string((int)(1.f / dt))).c_str());
 
 		// Checking for exit conditions
 		SDL_Event e;
+
 		while (SDL_PollEvent(&e) != 0){
 			if (e.type == SDL_QUIT)
 				running = false;

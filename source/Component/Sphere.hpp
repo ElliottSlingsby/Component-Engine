@@ -22,7 +22,7 @@ public:
 		_transform = _getComponent<Transform>();
 	}
 
-	bool colliding(Sphere* other){
+	bool isColliding(Sphere* other){
 		float distance = (_position() - other->_position()).length();
 		
 		if (distance <= _radius + other->_radius) return true;
@@ -30,11 +30,11 @@ public:
 		return false;
 	}
 
-	void radius(float radius){
+	void setRadius(float radius){
 		_radius = radius;
 	}
 
-	void offset(Vector3f offset){
+	void setOffset(Vector3f offset){
 		_offset = offset;
 	}
 

@@ -25,7 +25,7 @@ public:
 		_transform = _getComponent<Transform>();
 	}
 
-	bool colliding(Box* other){
+	bool isColliding(Box* other){
 		if (_min().x() >= other->_max().x()) return false;
 		if (_min().y() >= other->_max().y()) return false;
 		if (_min().z() >= other->_max().z()) return false;
@@ -36,11 +36,11 @@ public:
 		return true;
 	}
 
-	void size(Vector3f size){
+	void setSize(Vector3f size){
 		_size = size;
 	}
 
-	void offset(Vector3f offset){
+	void setOffset(Vector3f offset){
 		_offset = offset;
 	}
 

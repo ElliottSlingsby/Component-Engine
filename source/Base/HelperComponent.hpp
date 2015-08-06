@@ -13,7 +13,7 @@ protected:
 	template <typename T>
 	T* _getComponent(){
 		if (ID() != NULL_ID)
-			return EntityManager::get(ID())->getComponent<T>();
+			return EntityManager::getEntity(ID())->getComponent<T>();
 
 		printf("%s: %s!\n", "HelperComponent", "Cannot get component, entity ID hasn't been assigned");
 		return 0;
@@ -22,7 +22,7 @@ protected:
 	template <typename T>
 	void _addComponent(T* component){
 		if (ID() != NULL_ID){
-			EntityManager::get(ID())->addComponent(component);
+			EntityManager::getEntity(ID())->addComponent(component);
 			return;
 		}
 
@@ -32,7 +32,7 @@ protected:
 	template <typename T>
 	void _destroyComponent(){
 		if (ID() != NULL_ID){
-			EntityManager::get(ID())->destroyComponent(component);
+			EntityManager::getEntity(ID())->destroyComponent(component);
 			return;
 		}
 		
