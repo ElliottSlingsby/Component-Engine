@@ -58,10 +58,6 @@ class AssetLoader{
 	// Private singleton for use in static functions
 	static AssetLoader& _instance();
 
-	GLuint _loadTexture(std::string filepath);
-	GLuint _loadMaterial(std::string filepath);
-	GLuint _loadMesh(std::string filepath); // Still work in progress
-
 	MeshData* _loadNewMesh(std::string filepath);
 	MaterialData* _loadNewMaterial(std::string filepath);
 
@@ -69,7 +65,6 @@ class AssetLoader{
 
 public:
 	// Gets an asset if it's already loaded, but will also load and get the asset if not
-	static GLuint getAsset(std::string filepath);
 
 	template <typename T>
 	static const T* getNewAsset(std::string filepath){
