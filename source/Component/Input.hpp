@@ -44,4 +44,12 @@ public:
 	Component* clone(){
 		return new Input;
 	}
+
+	void setSpeed(float speed){
+		_speed = speed;
+	}
+
+	void setSensitivity(float sensitivity){
+		_sensitivity = sensitivity;
+	}
 };

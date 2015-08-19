@@ -1,6 +1,6 @@
 #include "Renderer.hpp"
 #include "EntityManager.hpp"
-#include "Setup.hpp"
+#include "Game\Setup.hpp"
 #include <time.h>
 
 int main(int argc, char** argv){

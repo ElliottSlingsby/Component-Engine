@@ -3,16 +3,20 @@
 #include "Base\HelperComponent.hpp"
 #include <GL\glew.h>
 #include "Material.hpp"
+#include "AssetLoader.hpp"
 
 // While there's no obj loader, models have to be hardcoded. This will be changed eventually.
 
 class Mesh : public HelperComponent{
 protected:
 	Transform* _transform = 0;
+	GLuint mesh = 0;
 
 public:
 	void load(){
 		_transform = _getComponent<Transform>();
+
+		//mesh = AssetLoader::getAsset("torus.obj");
 	}
 
 	Component* clone(){
@@ -45,6 +49,9 @@ public:
 			glBindTexture(GL_TEXTURE_2D, 0);
 
 		// Testing cube
+
+		//glDrawElements(GL_QUADS, 24, GL_UNSIGNED_BYTE, 0);
+
 		glBegin(GL_QUADS);
 
 		//Top

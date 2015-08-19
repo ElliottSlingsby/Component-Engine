@@ -64,5 +64,12 @@ void setup(){
 		printf("Box colliding!\n");
 
 	// Obj load test (Shouldn't be here)
-	AssetLoader::getAsset("torus.obj");
+	//AssetLoader::getAsset("torus.obj");
+
+
+	//MeshData* test = new MeshData(0, 12, 21, 10564);
+
+	//const MeshData* test = AssetLoader::getNewAsset<MeshData>("torus.obj");
+
+	printf("h");
 }

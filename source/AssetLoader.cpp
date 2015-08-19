@@ -1,16 +1,11 @@
 #include "AssetLoader.hpp"
 
-#include <algorithm>
 #include <SDL_image.h>
-#include <GL\glew.h>
-#include "Math\Vector2.hpp"
-#include "Math\Vector3.hpp"
-#include "Math\Vector4.hpp"
-#include <fstream>
-#include <string>
-#include <iostream>
-#include <list>
-#include <tuple>
+#include <tiny_obj_loader.h>
+
+AssetLoader::~AssetLoader(){
+	// Delete everything!
+}
 
 AssetLoader& AssetLoader::_instance(){
 	static AssetLoader instance;
@@ -23,19 +18,22 @@ GLuint AssetLoader::getAsset(std::string filepath){
 
 	AssetMap::iterator iter = _instance()._assets.find(filepath.c_str());
 
-	// If asset isn't loaded, the nload
+	// If asset isn't loaded, then load
 	if (iter == _instance()._assets.end()){
-		GLuint asset = NULL_ASSET;
+		GLuint asset = 0;
 
 		// Regex search to determine file type
-		if (std::regex_match(filepath, std::regex("^.+\\.obj$"))) // Meshes
+		if (std::regex_match(filepath, std::regex("^.+\\.obj$"))) // Meshes (contains materials)
 			asset = _instance()._loadMesh(filepath);
+
+		else if (std::regex_match(filepath, std::regex("^.+\\.mtl$"))) // Materials (contains textures)
+			asset = _instance()._loadMaterial(filepath);
 
 		else if (std::regex_match(filepath, std::regex("^.+\\.(?:bmp|gif|jpeg|jpg|png|tga|tiff)$"))) // Textures
 			asset = _instance()._loadTexture(filepath);
 
 		else
-			printf("%s: %s %s!\n", "Asset Loader", "Cannot load asset from file", filepath);
+			printf("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
 
 		return asset;
 	}
@@ -44,16 +42,68 @@ GLuint AssetLoader::getAsset(std::string filepath){
 	return iter->second;
 }
 
+GLuint AssetLoader::_loadMesh(std::string filepath){
+	std::vector<tinyobj::shape_t> shapes;
+	std::vector<tinyobj::material_t> materials;
+
+	std::string error = tinyobj::LoadObj(shapes, materials, (_assetPath + filepath).c_str());
+
+	if (!error.empty()){
+		printf("%s: %s %s!\n", "Asset Loader", "Cannot load mesh from file", (_assetPath + filepath).c_str());
+		return 0;
+	}
+
+	GLuint id = 0;
+	glGenBuffers(2, &id);
+
+	//int normals_s = shapes[0].mesh.normals.size() * sizeof(float);
+	//int textures_s = shapes[0].mesh.texcoords.size() * sizeof(float);
+	int positions_s = shapes[0].mesh.positions.size() * sizeof(float);
+	int indices_s = shapes[0].mesh.indices.size() * sizeof(unsigned int);
+	
+	//int total = normals_s + textures_s + positions_s + indices_s;
+
+	glBindBuffer(GL_ARRAY_BUFFER, id);
+	glBufferData(GL_ARRAY_BUFFER, positions_s, &(shapes[0].mesh.positions[0]), GL_STATIC_DRAW);
+
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_s, &(shapes[0].mesh.indices[0]), GL_STATIC_DRAW);
+
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, indices_s, &(shapes[0].mesh.indices)[0]);
+	//glBufferSubData(GL_ARRAY_BUFFER, indices_s, positions_s, &(shapes[0].mesh.positions)[0]);
+	//glBufferSubData(GL_ARRAY_BUFFER, indices_s + positions_s, normals_s, &(shapes[0].mesh.normals)[0]);
+	//glBufferSubData(GL_ARRAY_BUFFER, indices_s + positions_s + normals_s, textures_s, &(shapes[0].mesh.texcoords)[0]);
+	
+	//&(shapes[0].mesh.positions)[0];
+
+	//glBufferData(GL_ARRAY_BUFFER, )
+
+	//for (std::vector<tinyobj::shape_t>::iterator i = shapes.begin(); i != shapes.end(); i++){
+	//}
+
+	GLenum err = glGetError();
+
+	if (err != GL_NO_ERROR){
+		printf("DAKJSDLKJASL:DK");
+	}
+
+	return id;
+}
+
+GLuint AssetLoader::_loadMaterial(std::string filepath){
+	return 0;
+}
+
 GLuint AssetLoader::_loadTexture(std::string filepath){
 	SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
 
 	if (!image){
-		printf("%s %s!", "Cannot load texture", filepath.c_str());
-		return NULL_ASSET;
+		printf("%s %s!", "Cannot load texture", (_assetPath + filepath).c_str());
+		return 0;
 	}
 
 	// Gl ID creation
-	GLuint id = NULL_ASSET;
+	GLuint id = 0;
 	glGenTextures(1, &id);
 	glBindTexture(GL_TEXTURE_2D, id);
 
@@ -81,109 +131,45 @@ GLuint AssetLoader::_loadTexture(std::string filepath){
 	return id;
 }
 
-void explode(std::vector<std::string>& container, std::string line, char divider = ' '){
-	bool reading = true;
 
-	if (*line.begin() == divider)
-		reading = false;
-
-	int i = 0;
-
-	int in = 0;
-	int out = line.length() - 1;
-
-	for (std::string::iterator iter = line.begin(); iter != line.end(); iter++){
-		bool capture = false;
-
-		if (reading && *iter == divider){
-			out = i;
-			reading = false;
-			capture = true;
-		}
-		else if (!reading && *iter != divider){
-			in = i;
-			reading = true;
-		}
-
-		if (capture || i == line.length() - 1)
-			container.push_back(line.substr(in, out - in));
-
-		i++;
-	}
+MeshData* AssetLoader::_loadNewMesh(std::string filepath){
+	MeshData* asset = new MeshData(0, 0, 0);
+	return asset;
 }
 
-typedef std::tuple<GLfloat, GLfloat, GLfloat> Vertex;
-typedef std::tuple<GLfloat, GLfloat> Texture;
-typedef std::tuple<GLfloat, GLfloat, GLfloat> Normal;
-typedef std::tuple<int, int, int> Corner;
-typedef std::tuple<Corner, Corner, Corner> Face;
+MaterialData* AssetLoader::_loadNewMaterial(std::string filepath){
+	SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
 
-GLuint AssetLoader::_loadMesh (std::string filepath){
-	std::ifstream file(_assetPath + filepath);
-
-	if (!file.is_open()){
-		printf("%s %s!", "Cannot load mesh", filepath.c_str());
-		return NULL_ASSET;
+	if (!image){
+		printf("%s %s!", "Cannot load texture", (_assetPath + filepath).c_str());
+		return 0;
 	}
 
-	std::list<Vertex> verticesTemp;
-	std::list<Texture> texturesTemp;
-	std::list<Normal> normalsTemp;
-	std::list<Face> facesTemp;
+	// Gl ID creation
+	GLuint id = 0;
+	glGenTextures(1, &id);
+	glBindTexture(GL_TEXTURE_2D, id);
 
-	while (file.good()){
-		std::string line;
-		getline(file, line);
+	// Format check
+	int format = GL_RGB;
 
-		if (line.size() == 0 || *line.begin() == '#')
-			continue;
+	if (image->format->BytesPerPixel == 4)
+		format = GL_RGBA;
 
-		std::vector<std::string> contents;
-			
-		explode(contents, line);
+	// Upload pixels
+	glTexImage2D(GL_TEXTURE_2D, 0, format, image->w, image->h, 0, format, GL_UNSIGNED_BYTE, image->pixels);
 
-		if (contents[0] == "v")
-			verticesTemp.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2]), std::stof(contents[3])));
+	// Default parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-		else if (contents[0] == "vt")
-			texturesTemp.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2])));
+	// Free the original surface
+	SDL_FreeSurface(image);
 
-		else if (contents[0] == "vn")
-			normalsTemp.push_back(std::make_tuple(std::stof(contents[1]), std::stof(contents[2]), std::stof(contents[3])));
-		
-		else if (contents[0] == "f"){
-			Corner corners[3];
-
-			for (unsigned int i = 1; i < contents.size(); i++){
-				std::vector<std::string> point;
-				explode(point, contents[i], '/');
-
-				corners[i - 1] = std::make_tuple(std::stoi(point[0]), std::stoi(point[1]), std::stoi(point[2]));
-			}
-
-			facesTemp.push_back(std::make_tuple(corners[0], corners[1], corners[2]));
-		}
-	}
-
-	/*std::vector<Vertex> vertices = { std::begin(verticesTemp), std::end(verticesTemp) };
-	std::vector<Texture> textures = { std::begin(texturesTemp), std::end(texturesTemp) };
-	std::vector<Normal> normals = { std::begin(normalsTemp), std::end(normalsTemp) };
-	std::vector<Face> faces = { std::begin(facesTemp), std::end(facesTemp) };
-
-	GLuint id = NULL_ASSET;
-	glGenBuffers(1, &id);
-	glBindBuffer(GL_ARRAY_BUFFER, id);
-
-	//&vertices[0]
-
-	glBufferData(
-		GL_ARRAY_BUFFER,
-		vertices.size() * sizeof(Vertex),
-		&vertices[0],
-		GL_STATIC_DRAW
-	);
-	
-	return id;*/
-
-	return NULL_ASSET;
+	// Add to map
+	MaterialData* asset = new MaterialData(0, id, 0);
+	_newAssets[filepath] = asset;
+	return asset;
 }

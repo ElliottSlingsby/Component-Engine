@@ -5,22 +5,19 @@
 #include <GL\glew.h>
 
 class Material : public HelperComponent{
-	//GLuint _ambient = -1;
 	//std::string _ambient_src;
-
-	GLuint _diffuse = -1;
-	std::string _diffuse_src;
-
-	//GLuint _specular = -1;
 	//std::string _specular_src;
-
+	std::string _diffuse_src;
+	
+	const MaterialData* _data;
+	
 public:
 	Material(std::string image){
 		_diffuse_src = image;
 	}
 
 	~Material(){
-		glDeleteTextures(1, &_diffuse);
+		//glDeleteTextures(1, &_diffuse);
 	}
 
 	Component* clone(){
@@ -28,10 +25,10 @@ public:
 	}
 
 	void load(){
-		_diffuse = AssetLoader::getAsset(_diffuse_src);
+		_data = AssetLoader::getNewAsset<MaterialData>(_diffuse_src);
 	}
 
 	void use(){
-		glBindTexture(GL_TEXTURE_2D, _diffuse);
+		glBindTexture(GL_TEXTURE_2D, _data->diffuse);
 	}
 };

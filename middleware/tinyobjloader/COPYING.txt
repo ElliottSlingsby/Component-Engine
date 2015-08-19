@@ -1,0 +1,2 @@
+Free open-source obj loader created by Syoyo Fujita.
+Source code and license information at Github : https://github.com/syoyo/tinyobjloader#license
