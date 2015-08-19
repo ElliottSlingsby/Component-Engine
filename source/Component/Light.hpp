@@ -65,7 +65,9 @@ public:
 	}
 
 	void render(){
-		// y shouldn't be minus
+		//GLfloat rotation[] = { -_transform->lookingAt().x(), -_transform->lookingAt().y(), -_transform->lookingAt().z() }; // Rotation
+		//glLightfv(GL_LIGHTS[_light], GL_SPOT_DIRECTION, rotation);
+
 		GLfloat position[] = { -_transform->position().x(), -_transform->position().y(), -_transform->position().z(), 1.f }; // Position
 		glLightfv(GL_LIGHTS[_light], GL_POSITION, position);
 	}

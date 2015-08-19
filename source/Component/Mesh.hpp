@@ -5,18 +5,15 @@
 #include "Material.hpp"
 #include "AssetLoader.hpp"
 
-// While there's no obj loader, models have to be hardcoded. This will be changed eventually.
-
 class Mesh : public HelperComponent{
 protected:
 	Transform* _transform = 0;
-	GLuint mesh = 0;
+	const MeshData* _data;
 
 public:
 	void load(){
 		_transform = _getComponent<Transform>();
-
-		//mesh = AssetLoader::getAsset("torus.obj");
+		_data = AssetLoader::getAsset<MeshData>("torus.obj");
 	}
 
 	Component* clone(){
@@ -45,84 +42,61 @@ public:
 		if (material)
 			material->use();
 		else
-			// If not then use blank
 			glBindTexture(GL_TEXTURE_2D, 0);
 
 		// Testing cube
 
-		//glDrawElements(GL_QUADS, 24, GL_UNSIGNED_BYTE, 0);
+		//glBindBuffer(GL_ARRAY_BUFFER, _data->vertexBuffer);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _data->indexBuffer);
+		//glDrawElements(GL_TRIANGLES, _data->size, GL_UNSIGNED_INT, 0);
 
+		///*
 		glBegin(GL_QUADS);
-
+				
 		//Top
 		glNormal3f(0.f, 1.f, 0.f);
-		glTexCoord2f(1.f, 1.f);
-		glVertex3f(-1.f, 1.f, 1.f);
-		glTexCoord2f(1.f, 0.f);
-		glVertex3f(1.f, 1.f, 1.f);
-		glTexCoord2f(0.f, 0.f);
-		glVertex3f(1.f, 1.f, -1.f);
-		glTexCoord2f(0.f, 1.f);
-		glVertex3f(-1.f, 1.f, -1.f);
+		glTexCoord2f(1.f, 1.f);	glVertex3f(-1.f, 1.f, 1.f);
+		glTexCoord2f(1.f, 0.f);	glVertex3f(1.f, 1.f, 1.f);
+		glTexCoord2f(0.f, 0.f);	glVertex3f(1.f, 1.f, -1.f);
+		glTexCoord2f(0.f, 1.f);	glVertex3f(-1.f, 1.f, -1.f);
 		
 		//Bottom
 		glNormal3f(0.f, -1.f, 0.f);
-		glTexCoord2f(0.f, 1.f);
-		glVertex3f(-1.f, -1.f, -1.f);
-		glTexCoord2f(0.f, 0.f);
-		glVertex3f(1.f, -1.f, -1.f);
-		glTexCoord2f(1.f, 0.f);
-		glVertex3f(1.f, -1.f, 1.f);
-		glTexCoord2f(1.f, 1.f);
-		glVertex3f(-1.f, -1.f, 1.f);
+		glTexCoord2f(0.f, 1.f);	glVertex3f(-1.f, -1.f, -1.f);
+		glTexCoord2f(0.f, 0.f);	glVertex3f(1.f, -1.f, -1.f);
+		glTexCoord2f(1.f, 0.f);	glVertex3f(1.f, -1.f, 1.f);
+		glTexCoord2f(1.f, 1.f);	glVertex3f(-1.f, -1.f, 1.f);
 		
 		//Front
 		glNormal3f(0.f, 0.f, 1.f);
-		glTexCoord2f(1.f, 1.f);
-		glVertex3f(-1.f, -1.f, 1.f);
-		glTexCoord2f(1.f, 0.f);
-		glVertex3f(1.f, -1.f, 1.f);
-		glTexCoord2f(0.f, 0.f);
-		glVertex3f(1.f, 1.f, 1.f);
-		glTexCoord2f(0.f, 1.f);
-		glVertex3f(-1.f, 1.f, 1.f);
+		glTexCoord2f(1.f, 1.f);	glVertex3f(-1.f, -1.f, 1.f);
+		glTexCoord2f(1.f, 0.f);	glVertex3f(1.f, -1.f, 1.f);
+		glTexCoord2f(0.f, 0.f);	glVertex3f(1.f, 1.f, 1.f);
+		glTexCoord2f(0.f, 1.f);	glVertex3f(-1.f, 1.f, 1.f);
 				
-		
 		//Back
 		glNormal3f(0.f, 0.f, -1.f);
-		glTexCoord2f(0.f, 1.f);
-		glVertex3f(-1.f, 1.f, -1.f);
-		glTexCoord2f(0.f, 0.f);
-		glVertex3f(1.f, 1.f, -1.f);
-		glTexCoord2f(1.f, 0.f);
-		glVertex3f(1.f, -1.f, -1.f);
-		glTexCoord2f(1.f, 1.f);
-		glVertex3f(-1.f, -1.f, -1.f);
+		glTexCoord2f(0.f, 1.f);	glVertex3f(-1.f, 1.f, -1.f);
+		glTexCoord2f(0.f, 0.f);	glVertex3f(1.f, 1.f, -1.f);
+		glTexCoord2f(1.f, 0.f);	glVertex3f(1.f, -1.f, -1.f);
+		glTexCoord2f(1.f, 1.f);	glVertex3f(-1.f, -1.f, -1.f);
 		
 		//Left
 		glNormal3f(-1.f, 0.f, 0.f);
-		glTexCoord2f(1.f, 1.f);
-		glVertex3f(-1.f, -1.f, -1.f);
-		glTexCoord2f(1.f, 0.f);
-		glVertex3f(-1.f, -1.f, 1.f);
-		glTexCoord2f(0.f, 0.f);
-		glVertex3f(-1.f, 1.f, 1.f);
-		glTexCoord2f(0.f, 1.f);
-		glVertex3f(-1.f, 1.f, -1.f);
+		glTexCoord2f(1.f, 1.f);	glVertex3f(-1.f, -1.f, -1.f);
+		glTexCoord2f(1.f, 0.f);	glVertex3f(-1.f, -1.f, 1.f);
+		glTexCoord2f(0.f, 0.f);	glVertex3f(-1.f, 1.f, 1.f);
+		glTexCoord2f(0.f, 1.f);	glVertex3f(-1.f, 1.f, -1.f);
 				
-		
 		//Right
 		glNormal3f(1.f, 0.f, 0.f);
-		glTexCoord2f(0.f, 1.f);
-		glVertex3f(1.f, 1.f, -1.f);
-		glTexCoord2f(0.f, 0.f);
-		glVertex3f(1.f, 1.f, 1.f);
-		glTexCoord2f(1.f, 0.f);
-		glVertex3f(1.f, -1.f, 1.f);
-		glTexCoord2f(1.f, 1.f);
-		glVertex3f(1.f, -1.f, -1.f);
-
+		glTexCoord2f(0.f, 1.f);	glVertex3f(1.f, 1.f, -1.f);
+		glTexCoord2f(0.f, 0.f);	glVertex3f(1.f, 1.f, 1.f);
+		glTexCoord2f(1.f, 0.f);	glVertex3f(1.f, -1.f, 1.f);
+		glTexCoord2f(1.f, 1.f);	glVertex3f(1.f, -1.f, -1.f);
+		
 		glEnd();
+		//*/
 
 		glPopMatrix();
 	}

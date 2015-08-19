@@ -30,8 +30,9 @@
     <ClInclude Include="Base\Entity.hpp" />
     <ClInclude Include="Component\Mesh.hpp" />
     <ClInclude Include="EntityManager.hpp" />
+    <ClInclude Include="Math\Quaternion.hpp" />
+    <ClInclude Include="Math\MathUtils.hpp" />
     <ClInclude Include="Math\Vector4.hpp" />
-    <ClInclude Include="Prefab\Example.hpp" />
     <ClInclude Include="AssetLoader.hpp" />
     <ClInclude Include="Component\Material.hpp" />
     <ClInclude Include="Renderer.hpp" />
@@ -73,14 +74,14 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)-$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\glm\include;$(SolutionDir)middleware\glew-1.12.0\include;$(SolutionDir)middleware\SDL2_image-2.0.0\include;$(SolutionDir)middleware\SDL2_ttf-2.0.12\include;$(SolutionDir)middleware\tinyobjloader\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\glew-1.12.0\include;$(SolutionDir)middleware\SDL2_image-2.0.0\include;$(SolutionDir)middleware\SDL2_ttf-2.0.12\include;$(SolutionDir)middleware\tinyobjloader\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)middleware\SDL2-2.0.3\lib\x86;$(SolutionDir)middleware\glew-1.12.0\lib\Release\Win32;$(SolutionDir)middleware\SDL2_image-2.0.0\lib\x86;$(SolutionDir)middleware\SDL2_ttf-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)-$(Configuration)</TargetName>
-    <IncludePath>$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\glm\include;$(SolutionDir)middleware\glew-1.12.0\include;$(SolutionDir)middleware\SDL2_image-2.0.0\include;$(SolutionDir)middleware\SDL2_ttf-2.0.12\include;$(SolutionDir)middleware\tinyobjloader\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\glew-1.12.0\include;$(SolutionDir)middleware\SDL2_image-2.0.0\include;$(SolutionDir)middleware\SDL2_ttf-2.0.12\include;$(SolutionDir)middleware\tinyobjloader\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)middleware\SDL2-2.0.3\lib\x86;$(SolutionDir)middleware\glew-1.12.0\lib\Release\Win32;$(SolutionDir)middleware\SDL2_image-2.0.0\lib\x86;$(SolutionDir)middleware\SDL2_ttf-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

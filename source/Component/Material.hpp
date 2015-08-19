@@ -25,7 +25,7 @@ public:
 	}
 
 	void load(){
-		_data = AssetLoader::getNewAsset<MaterialData>(_diffuse_src);
+		_data = AssetLoader::getAsset<MaterialData>(_diffuse_src);
 	}
 
 	void use(){

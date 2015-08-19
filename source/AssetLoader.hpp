@@ -22,7 +22,7 @@ struct MeshData : public Asset{
 		size(size){
 	}
 
-	virtual ~MeshData(){
+	~MeshData(){
 		glDeleteBuffers(1, &vertexBuffer);
 		glDeleteBuffers(1, &indexBuffer);
 	}
@@ -39,7 +39,7 @@ struct MaterialData : public Asset{
 		ambient(ambient){
 	}
 
-	virtual ~MaterialData(){
+	~MaterialData(){
 		glDeleteTextures(1, &specular);
 		glDeleteTextures(1, &diffuse);
 		glDeleteTextures(1, &ambient);
@@ -47,11 +47,8 @@ struct MaterialData : public Asset{
 };
 
 class AssetLoader{
-	typedef std::unordered_map<std::string, GLuint> AssetMap;
-	AssetMap _assets; // Map of binded GL IDs
-
-	typedef std::unordered_map<std::string, Asset*> newAssetMap;
-	newAssetMap _newAssets;
+	typedef std::unordered_map<std::string, const Asset*> AssetMap;
+	AssetMap _assets;
 
 	const char* _assetPath = "../asset/"; // Defualt asset location
 
@@ -67,30 +64,30 @@ public:
 	// Gets an asset if it's already loaded, but will also load and get the asset if not
 
 	template <typename T>
-	static const T* getNewAsset(std::string filepath){
-		// OS specific, as Linux is case sensitive. Should be ifdef'ed out
+	static const T* getAsset(std::string filepath){
+		// Case sensitivity may cause issues on non windows machines
 		std::transform(filepath.begin(), filepath.end(), filepath.begin(), ::tolower);
 
-		newAssetMap::iterator iter = _instance()._newAssets.find(filepath.c_str());
+		AssetMap::iterator iter = _instance()._assets.find(filepath.c_str());
 
 		// If asset isn't loaded, then load
-		if (iter == _instance()._newAssets.end()){
+		if (iter == _instance()._assets.end()){
 			Asset* asset = 0;
 
 			// Regex search to determine file type
 			if (std::regex_match(filepath, std::regex("^.+\\.obj$"))) // Meshes (contains materials)
 				asset = _instance()._loadNewMesh(filepath);
 
-			else if (std::regex_match(filepath, std::regex("^.+\\.(?:mtl|bmp|gif|jpeg|jpg|png|tga|tiff)$"))) // Materials (contains textures)
+			else if (std::regex_match(filepath, std::regex("^.+\\.(?:bmp|gif|jpeg|jpg|png|tga|tiff)$"))) // Materials (contains textures)
 				asset = _instance()._loadNewMaterial(filepath);
 
 			else
 				printf("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
 
-			return dynamic_cast<T*>(asset);
+			return dynamic_cast<const T*>(asset);
 		}
 
 		// If asset is loaded, then return already loaded version
-		return dynamic_cast<T*>(iter->second);
+		return dynamic_cast<const T*>(iter->second);
 	}
 };

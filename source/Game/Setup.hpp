@@ -19,6 +19,15 @@ void setup(){
 	camera->addComponent(new Light);
 	camera->addComponent(new Camera);
 
+	// Testing light setup
+	Entity* light = EntityManager::createEntity();
+
+	light->getComponent<Transform>()->setPosition(Vector3f(0.f, -10.f, 0.f));
+	light->getComponent<Transform>()->setRotation(Vector3f(0.f, 90.f, 0.f));
+	light->addComponent(new Light);
+	light->getComponent<Light>()->setDiffuse(Vector4f(0.75f, 1.f, 0.25f, 1.f));
+	light->getComponent<Light>()->setSpot(false);
+	
 	// Checkerboard testing floor
 	Entity* floor = EntityManager::createEntity();
 
@@ -33,7 +42,7 @@ void setup(){
 		texture->getComponent<Transform>()->setPosition(Vector3f((float)(rand() % 100) - 50.f, 0.f, (float)(rand() % 100) - 50.f));
 		texture->addComponent(new Material("regressiontest.jpg"));
 		texture->addComponent(new Mesh);
-		texture->addComponent(new Movement);
+		//texture->addComponent(new Movement);
 	}
 
 	// Collision testing setup
@@ -56,20 +65,10 @@ void setup(){
 	// Load all
 	EntityManager::loadAll();
 
-	// Hit detect test (Shouldn't really be here)
+	// Hit detect test (Stays here until collision detection isn't broken)
 	if (sphere1->getComponent<Sphere>()->isColliding(sphere2->getComponent<Sphere>()))
 		printf("Sphere colliding!\n");
 
 	if (box1->getComponent<Box>()->isColliding(box2->getComponent<Box>()))
 		printf("Box colliding!\n");
-
-	// Obj load test (Shouldn't be here)
-	//AssetLoader::getAsset("torus.obj");
-
-
-	//MeshData* test = new MeshData(0, 12, 21, 10564);
-
-	//const MeshData* test = AssetLoader::getNewAsset<MeshData>("torus.obj");
-
-	printf("h");
 }

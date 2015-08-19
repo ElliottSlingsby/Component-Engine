@@ -4,7 +4,10 @@
 #include <tiny_obj_loader.h>
 
 AssetLoader::~AssetLoader(){
-	// Delete everything!
+	for (AssetMap::iterator i = _assets.begin(); i != _assets.end(); i++){
+		delete i->second;
+		i->second = 0;
+	}
 }
 
 AssetLoader& AssetLoader::_instance(){
@@ -13,10 +16,11 @@ AssetLoader& AssetLoader::_instance(){
 }
 
 MeshData* AssetLoader::_loadNewMesh(std::string filepath){
-	/*
+	// tinyobj containers
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 
+	// Error checking
 	std::string error = tinyobj::LoadObj(shapes, materials, (_assetPath + filepath).c_str());
 
 	if (!error.empty()){
@@ -24,42 +28,29 @@ MeshData* AssetLoader::_loadNewMesh(std::string filepath){
 		return 0;
 	}
 
-	GLuint id = 0;
-	glGenBuffers(2, &id);
+	// Determining size of obj components
+	int positionsSize = shapes[0].mesh.positions.size() * sizeof(float);
+	int indicesSize = shapes[0].mesh.indices.size() * sizeof(unsigned int);
 
-	//int normals_s = shapes[0].mesh.normals.size() * sizeof(float);
-	//int textures_s = shapes[0].mesh.texcoords.size() * sizeof(float);
-	int positions_s = shapes[0].mesh.positions.size() * sizeof(float);
-	int indices_s = shapes[0].mesh.indices.size() * sizeof(unsigned int);
+	// Initializing index and vertex buffers
+	GLuint vertexBuffer = 0;
+	GLuint indexBuffer = 0;
 
-	//int total = normals_s + textures_s + positions_s + indices_s;
+	glGenBuffers(1, &vertexBuffer);
+	glGenBuffers(1, &indexBuffer);
 
-	glBindBuffer(GL_ARRAY_BUFFER, id);
-	glBufferData(GL_ARRAY_BUFFER, positions_s, &(shapes[0].mesh.positions[0]), GL_STATIC_DRAW);
+	// Uploading vertex data to vertex buffer object
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, positionsSize, &(shapes.front().mesh.positions.front()), GL_STATIC_DRAW);
 
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_s, &(shapes[0].mesh.indices[0]), GL_STATIC_DRAW);
+	// Uploading indices to index buffer object
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, &(shapes.front().mesh.indices.front()), GL_STATIC_DRAW);
+	
+	// Storing data in Asset object and saving in asset map
+	MeshData* asset = new MeshData(vertexBuffer, indexBuffer, indicesSize);
+	_assets[filepath] = asset;
 
-	//glBufferSubData(GL_ARRAY_BUFFER, 0, indices_s, &(shapes[0].mesh.indices)[0]);
-	//glBufferSubData(GL_ARRAY_BUFFER, indices_s, positions_s, &(shapes[0].mesh.positions)[0]);
-	//glBufferSubData(GL_ARRAY_BUFFER, indices_s + positions_s, normals_s, &(shapes[0].mesh.normals)[0]);
-	//glBufferSubData(GL_ARRAY_BUFFER, indices_s + positions_s + normals_s, textures_s, &(shapes[0].mesh.texcoords)[0]);
-
-	//&(shapes[0].mesh.positions)[0];
-
-	//glBufferData(GL_ARRAY_BUFFER, )
-
-	//for (std::vector<tinyobj::shape_t>::iterator i = shapes.begin(); i != shapes.end(); i++){
-	//}
-
-	GLenum err = glGetError();
-
-	if (err != GL_NO_ERROR){
-		printf("DAKJSDLKJASL:DK");
-	}
-	*/
-
-	MeshData* asset = new MeshData(0, 0, 0);
 	return asset;
 }
 
@@ -96,6 +87,7 @@ MaterialData* AssetLoader::_loadNewMaterial(std::string filepath){
 
 	// Add to map
 	MaterialData* asset = new MaterialData(0, id, 0);
-	_newAssets[filepath] = asset;
+	_assets[filepath] = asset;
+
 	return asset;
 }

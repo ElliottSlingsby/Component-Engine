@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Base\Component.hpp"
-
 #include "Math\Vector3.hpp"
 #include <math.h>
 
@@ -13,7 +12,6 @@ static float rad(float deg){
 static float deg(float rad){
 	return (float)(rad * (180 / M_PI));
 }
-
 
 class Transform : public Component{
 	Vector3f _position;
