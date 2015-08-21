@@ -1,21 +1,21 @@
 #pragma once
 
-#include "Mesh.hpp"
+#include "Model.hpp"
 
 // Derives from mesh, and overrides render.
 // This will be deleted when the obj loader is finished.
 
-class Floor : public Mesh{
+class Floor : public Model{
 public:
+	Floor(std::string materialSrc = "") : Model("", materialSrc){}
+
 	void render(){
 		glMatrixMode(GL_MODELVIEW);
 
 		glPushMatrix();
 
-		Material* material = _getComponent<Material>();
-
-		if (material)
-			material->use();
+		if (_material)
+			glBindTexture(GL_TEXTURE_2D, _material->diffuse);
 		else
 			glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -39,9 +39,5 @@ public:
 		glEnd();
 
 		glPopMatrix();
-	}
-
-	Component* clone(){
-		return new Mesh;
 	}
 };

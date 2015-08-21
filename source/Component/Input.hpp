@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Base\HelperComponent.hpp>
+#include <Entity\HelperComponent.hpp>
 #include <SDL.h>
 
 class Input : public HelperComponent{
@@ -39,10 +39,6 @@ public:
 			if (keyDown[SDL_SCANCODE_LSHIFT])
 				_transform->push(-_speed * dt);
 		}
-	}
-
-	Component* clone(){
-		return new Input;
 	}
 
 	void setSpeed(float speed){

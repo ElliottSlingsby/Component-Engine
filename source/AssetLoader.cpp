@@ -15,7 +15,7 @@ AssetLoader& AssetLoader::_instance(){
 	return instance;
 }
 
-MeshData* AssetLoader::_loadNewMesh(std::string filepath){
+MeshData* AssetLoader::_loadMesh(std::string filepath){
 	// tinyobj containers
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
@@ -41,11 +41,11 @@ MeshData* AssetLoader::_loadNewMesh(std::string filepath){
 
 	// Uploading vertex data to vertex buffer object
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, positionsSize, &(shapes.front().mesh.positions.front()), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, positionsSize, &(shapes[0].mesh.positions[0]), GL_STATIC_DRAW);
 
 	// Uploading indices to index buffer object
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, &(shapes.front().mesh.indices.front()), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, &(shapes[0].mesh.indices[0]), GL_STATIC_DRAW);
 	
 	// Storing data in Asset object and saving in asset map
 	MeshData* asset = new MeshData(vertexBuffer, indexBuffer, indicesSize);
@@ -54,7 +54,7 @@ MeshData* AssetLoader::_loadNewMesh(std::string filepath){
 	return asset;
 }
 
-MaterialData* AssetLoader::_loadNewMaterial(std::string filepath){
+MaterialData* AssetLoader::_loadMaterial(std::string filepath){
 	SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
 
 	if (!image){

@@ -15,6 +15,6 @@ struct MathUtils{
 
 	template <typename T>
 	static Vector3<T> dot(Vector3<T>, Vector3<T>){
-		glm::quat test()
+
 	}
 };

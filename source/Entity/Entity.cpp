@@ -20,22 +20,6 @@ Entity::~Entity(){
 	}
 }
 
-Entity* Entity::clone(int id){
-	Entity* entity = new Entity;
-	entity->setID(id);
-
-	// Clone components from this to clone
-	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++){
-		Component* component = i->second->clone();
-
-		component->setID(id);
-
-		entity->_components[i->first] = component;
-	}
-
-	return entity;
-}
-
 void Entity::load(bool enable){
 	// Load all components if enabled
 	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)

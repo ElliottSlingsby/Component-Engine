@@ -2,7 +2,8 @@
 
 #include <vector>
 #include <stack>
-#include "Base\Entity.hpp"
+#include <map>
+#include "Entity\Entity.hpp"
 
 #define MAX_ENTS 1024 //Size of initial vector
 
@@ -11,6 +12,8 @@ class EntityManager{
 	std::vector<Entity*> _entities;
 	// Removed ID pile
 	std::stack<int> _removed;
+
+	std::unordered_map<std::string, int> _names;
 
 	// Highest ID
 	int _highest = 0;
@@ -27,7 +30,7 @@ public:
 	~EntityManager();
 
 	template<typename T = Entity, typename... U> 
-	static Entity* createEntity(U... args){
+	static Entity* createEntity(std::string name = "", U... args){
 		// Pass any potential constructor args (if any)
 		Entity* entity = new T(args...);
 
@@ -38,6 +41,13 @@ public:
 			printf("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
 			_instance()._removeID(id);
 			return 0;
+		}
+
+		if (name != ""){
+			if (_instance()._names.find(name) == _instance()._names.end())
+				_instance()._names[name] = id;
+			else
+				printf("%s: %s!\n", "Entity Manager", "Name clashed with existing entity");
 		}
 
 		entity->setID(id);
@@ -51,9 +61,11 @@ public:
 	}
 
 	// Old Entity controls, these will be heavily expanded on, like name and tag searching
-	static void addEntity(Entity* entity);
 	static Entity* getEntity(int id);
-	static void destroyEntity(int id);
+	static Entity* getEntity(std::string name);
+
+	static void deleteEntity(int id);
+	static void deleteEntity(std::string name);
 
 	static void loadAll();
 	static void updateAll(float dt);

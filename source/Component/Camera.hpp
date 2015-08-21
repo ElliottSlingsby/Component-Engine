@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Base\HelperComponent.hpp>
+#include <Entity\HelperComponent.hpp>
 #include <Component\Transform.hpp>
 #include <GL\glew.h>
 #include "Renderer.hpp"
@@ -24,9 +24,5 @@ public:
 		glRotatef(_transform->rotation().z(), 0.f, 0.f, 1.f);
 
 		glTranslatef(_transform->position().x(), _transform->position().y(), _transform->position().z());
-	}
-
-	Component* clone(){
-		return new Camera;
 	}
 };

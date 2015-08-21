@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Base\HelperComponent.hpp"
+#include "Entity\HelperComponent.hpp"
 #include "Math\Vector3.hpp"
 
 // Testing movement
@@ -27,9 +27,5 @@ public:
 	void update(float dt){
 		_transform->rotate(_speed * dt);
 		_transform->push(10 * dt);
-	}
-
-	Component* clone(){
-		return new Movement;
 	}
 };

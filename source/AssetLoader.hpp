@@ -4,8 +4,8 @@
 #include <unordered_map>
 #include <GL\glew.h>
 #include <vector>
-#include <regex>
 #include <GL\glew.h>
+#include <algorithm>
 
 struct Asset{
 	virtual ~Asset(){}
@@ -55,8 +55,8 @@ class AssetLoader{
 	// Private singleton for use in static functions
 	static AssetLoader& _instance();
 
-	MeshData* _loadNewMesh(std::string filepath);
-	MaterialData* _loadNewMaterial(std::string filepath);
+	MeshData* _loadMesh(std::string filepath);
+	MaterialData* _loadMaterial(std::string filepath);
 
 	~AssetLoader();
 
@@ -75,11 +75,11 @@ public:
 			Asset* asset = 0;
 
 			// Regex search to determine file type
-			if (std::regex_match(filepath, std::regex("^.+\\.obj$"))) // Meshes (contains materials)
-				asset = _instance()._loadNewMesh(filepath);
+			if (typeid(T) == typeid(MeshData))
+				asset = _instance()._loadMesh(filepath);
 
-			else if (std::regex_match(filepath, std::regex("^.+\\.(?:bmp|gif|jpeg|jpg|png|tga|tiff)$"))) // Materials (contains textures)
-				asset = _instance()._loadNewMaterial(filepath);
+			else if (typeid(T) == typeid(MaterialData))
+				asset = _instance()._loadMaterial(filepath);
 
 			else
 				printf("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);

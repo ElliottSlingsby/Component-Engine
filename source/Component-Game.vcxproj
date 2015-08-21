@@ -11,32 +11,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Base\Entity.cpp" />
+    <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="AssetLoader.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Base\Component.hpp" />
-    <ClInclude Include="Base\HelperComponent.hpp" />
-    <ClInclude Include="Component\Box.hpp" />
+    <ClInclude Include="Entity\Component.hpp" />
+    <ClInclude Include="Entity\HelperComponent.hpp" />
+    <ClInclude Include="Component\Collider\Box.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
-    <ClInclude Include="Component\Sphere.hpp" />
+    <ClInclude Include="Component\Collider\Collider.hpp" />
+    <ClInclude Include="Component\Cube.hpp" />
+    <ClInclude Include="Component\Collider\Sphere.hpp" />
     <ClInclude Include="Component\Floor.hpp" />
     <ClInclude Include="Component\Input.hpp" />
     <ClInclude Include="Component\Light.hpp" />
     <ClInclude Include="Component\Movement.hpp" />
-    <ClInclude Include="Base\Entity.hpp" />
-    <ClInclude Include="Component\Mesh.hpp" />
+    <ClInclude Include="Entity\Entity.hpp" />
+    <ClInclude Include="Component\Model.hpp" />
     <ClInclude Include="EntityManager.hpp" />
     <ClInclude Include="Math\Quaternion.hpp" />
     <ClInclude Include="Math\MathUtils.hpp" />
     <ClInclude Include="Math\Vector4.hpp" />
     <ClInclude Include="AssetLoader.hpp" />
-    <ClInclude Include="Component\Material.hpp" />
     <ClInclude Include="Renderer.hpp" />
-    <ClInclude Include="Base\Identifier.hpp" />
+    <ClInclude Include="Entity\Identifier.hpp" />
     <ClInclude Include="Component\Transform.hpp" />
     <ClInclude Include="Math\Vector2.hpp" />
     <ClInclude Include="Math\Vector3.hpp" />
@@ -73,14 +74,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\</IntDir>
-    <TargetName>$(ProjectName)-$(Configuration)</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
     <IncludePath>$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\glew-1.12.0\include;$(SolutionDir)middleware\SDL2_image-2.0.0\include;$(SolutionDir)middleware\SDL2_ttf-2.0.12\include;$(SolutionDir)middleware\tinyobjloader\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)middleware\SDL2-2.0.3\lib\x86;$(SolutionDir)middleware\glew-1.12.0\lib\Release\Win32;$(SolutionDir)middleware\SDL2_image-2.0.0\lib\x86;$(SolutionDir)middleware\SDL2_ttf-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\</IntDir>
-    <TargetName>$(ProjectName)-$(Configuration)</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
     <IncludePath>$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\glew-1.12.0\include;$(SolutionDir)middleware\SDL2_image-2.0.0\include;$(SolutionDir)middleware\SDL2_ttf-2.0.12\include;$(SolutionDir)middleware\tinyobjloader\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)middleware\SDL2-2.0.3\lib\x86;$(SolutionDir)middleware\glew-1.12.0\lib\Release\Win32;$(SolutionDir)middleware\SDL2_image-2.0.0\lib\x86;$(SolutionDir)middleware\SDL2_ttf-2.0.12\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>

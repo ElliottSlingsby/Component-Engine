@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Component\Material.hpp"
-#include "Component\Mesh.hpp"
+#include "Component\Model.hpp"
 #include "Component\Movement.hpp"
 #include "Component\Light.hpp"
 #include "Component\Camera.hpp"
 #include "Component\Input.hpp"
 #include "Component\Floor.hpp"
-#include "Component\Sphere.hpp"
-#include "Component\Box.hpp"
+#include "Component\Cube.hpp"
+#include "Component\Collider\Sphere.hpp"
+#include "Component\Collider\Box.hpp"
 
 void setup(){
 	// Camera setup (Camera needs to be setup first until projection matrix issue is fixed)
@@ -32,17 +32,16 @@ void setup(){
 	Entity* floor = EntityManager::createEntity();
 
 	floor->getComponent<Transform>()->setPosition(Vector3f(0.f, -4.f, 0.f));
-	floor->addComponent(new Material("floor.jpg"));
-	floor->addComponent(new Floor);
+	floor->addComponent(new Floor("floor.jpg"));
 
 	// Making a bunch of randomly positioned spinning cat cubes
 	for (int i = 0; i != 1000; i++){
-		Entity* texture = EntityManager::createEntity();
+		Entity* cube = EntityManager::createEntity();
 		
-		texture->getComponent<Transform>()->setPosition(Vector3f((float)(rand() % 100) - 50.f, 0.f, (float)(rand() % 100) - 50.f));
-		texture->addComponent(new Material("regressiontest.jpg"));
-		texture->addComponent(new Mesh);
-		//texture->addComponent(new Movement);
+		cube->getComponent<Transform>()->setPosition(Vector3f((float)(rand() % 100) - 50.f, 0.f, (float)(rand() % 100) - 50.f));
+		cube->addComponent(new Cube("regressiontest.jpg"));
+		//texture->addComponent(new Model("torus.obj", "regressiontest.jpg"));
+		cube->addComponent(new Movement);
 	}
 
 	// Collision testing setup
@@ -64,6 +63,23 @@ void setup(){
 	
 	// Load all
 	EntityManager::loadAll();
+
+	
+
+	Entity* cube = EntityManager::createEntity("thursday");
+
+	cube->getComponent<Transform>()->setPosition(Vector3f(0.f, 10.f, 0.f));
+	cube->addComponent(new Cube("thursday.png"));
+	//cube->addComponent(new Model("teapot.obj", "thursday.png"));
+
+	cube->load();
+
+	printf("%d\n", cube->ID());
+	printf("%d\n", EntityManager::getEntity("thursday")->ID());
+
+	//EntityManager::deleteEntity("thursday");
+
+
 
 	// Hit detect test (Stays here until collision detection isn't broken)
 	if (sphere1->getComponent<Sphere>()->isColliding(sphere2->getComponent<Sphere>()))

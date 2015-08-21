@@ -26,9 +26,6 @@ public:
 
 	void setID(int id);
 
-	// Clone entity and contents with new ID
-	Entity* clone(int id);
-
 	// Functions for calling multiple equivalent component functions
 	void load(bool enable = true);
 	void enable();

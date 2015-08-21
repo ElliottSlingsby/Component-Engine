@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Base\Component.hpp"
+#include "Entity\Component.hpp"
 #include "Math\Vector3.hpp"
 #include <math.h>
 
@@ -28,10 +28,6 @@ public:
 	Transform(Vector3f position, Vector3f rotation){
 		_position = position;
 		_rotation = rotation;
-	}
-
-	Component* clone(){
-		return new Transform;
 	}
 
 	Vector3f position(){

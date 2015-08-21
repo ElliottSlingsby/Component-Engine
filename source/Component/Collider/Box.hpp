@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Base\HelperComponent.hpp"
+#include "Collider.hpp"
 
-class Box : public HelperComponent{
+class Box : public Collider{
 	Transform* _transform = 0;
 
 	Vector3f _size;
@@ -42,9 +42,5 @@ public:
 
 	void setOffset(Vector3f offset){
 		_offset = offset;
-	}
-
-	Component* clone(){
-		return new Box(_size, _offset);
 	}
 };

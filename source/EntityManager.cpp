@@ -42,46 +42,57 @@ void EntityManager::_removeID(int id){
 	_removed.push(id);
 }
 
-void EntityManager::addEntity(Entity* entity){
-	if (entity->ID() == NULL_ID){
-		int id = _instance()._newID();
-
-		if (_instance()._entities[id]){
-			printf("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
-			return;
-		}
-
-		entity->setID(id);
-		_instance()._entities[id] = entity;
-
-		return;
-	}
-
-	printf("%s: %s!\n", "Entity Manager", "Cannot add an entity that already has an ID");
-}
-
 Entity* EntityManager::getEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
-		printf("%s: %s!\n", "Entity Manager", "Entity doesn't exist");
+		printf("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist!");
 		return 0;
 	}
 
 	return entity;
 }
 
-void EntityManager::destroyEntity(int id){
+Entity* EntityManager::getEntity(std::string name){
+	if (!_instance()._names[name]){
+		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist!");
+		return 0;
+	}
+
+	return getEntity(_instance()._names[name]);
+}
+
+void EntityManager::deleteEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
-		printf("%s: %s!\n", "Entity Manager", "Cannot destroy entity that doesn't exist");
+		printf("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist!");
 		return;
+	}
+
+	std::unordered_map<std::string, int>::iterator i;
+
+	for (i = _instance()._names.begin(); i != _instance()._names.end(); i++){
+		if (i->second == id){
+			std::string key = i->first;
+			_instance()._names.erase(key);
+
+			break;
+		}
 	}
 
 	_instance()._removeID(id);
 	_instance()._entities[id] = 0;
 	delete entity;
+}
+
+void EntityManager::deleteEntity(std::string name){
+	if (!_instance()._names[name]){
+		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name, "doesn't exist!");
+		return;
+	}
+
+	deleteEntity(_instance()._names[name]);
 }
 
 void EntityManager::loadAll(){
@@ -116,6 +127,6 @@ void EntityManager::deleteAll(){
 		Entity* entity = _instance()._entities[i];
 
 		if (entity)
-			destroyEntity(i);
+			deleteEntity(i);
 	}
 }

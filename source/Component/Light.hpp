@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Base\HelperComponent.hpp"
+#include "Entity\HelperComponent.hpp"
 #include <stdint.h>
 #include "Math\Vector4.hpp"
 
@@ -58,10 +58,6 @@ public:
 		//glLightf(GL_LIGHTS[_light], GL_CONSTANT_ATTENUATION, _constant);
 		//glLightf(GL_LIGHTS[_light], GL_LINEAR_ATTENUATION, _linear);
 		//glLightf(GL_LIGHTS[_light], GL_QUADRATIC_ATTENUATION, _quadratic);
-	}
-
-	Component* clone(){
-		return new Light;
 	}
 
 	void render(){

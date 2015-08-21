@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Base\HelperComponent.hpp"
+#include "Collider.hpp"
 
-class Sphere : public HelperComponent{
+class Sphere : public Collider{
 	Transform* _transform = 0;
 
 	float _radius;
@@ -36,9 +36,5 @@ public:
 
 	void setOffset(Vector3f offset){
 		_offset = offset;
-	}
-
-	Component* clone(){
-		return new Sphere(_radius, _offset);
 	}
 };

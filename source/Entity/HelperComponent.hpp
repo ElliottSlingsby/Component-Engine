@@ -48,8 +48,4 @@ protected:
 		if (!_getComponent<Other>())
 			throw invalid_components;
 	}
-
-	Component* clone(){
-		return new Example;
-	}
 }*/
