@@ -1,4 +1,4 @@
-#include "EntityManager.hpp"
+#include "Static\EntityManager.hpp"
 
 EntityManager::EntityManager(){
 	// Set initial vector size
@@ -54,12 +54,27 @@ Entity* EntityManager::getEntity(int id){
 }
 
 Entity* EntityManager::getEntity(std::string name){
-	if (!_instance()._names[name]){
+	EntityNames::iterator container = _instance()._names.find(name);
+
+	if (container == _instance()._names.end() || container->second.size() == 0){
 		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist!");
 		return 0;
 	}
 
-	return getEntity(_instance()._names[name]);
+	return getEntity(_instance()._names[name][0]);
+}
+
+void EntityManager::getEntities(std::string name, EntityVector& results){
+	EntityNames::iterator container = _instance()._names.find(name);
+
+	if (container == _instance()._names.end() || container->second.size() == 0){
+		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist!");
+		return;
+	}
+
+	for (std::vector<int>::iterator i = container->second.begin(); i != container->second.end(); i++){
+		results.push_back(getEntity(*i));
+	}
 }
 
 void EntityManager::deleteEntity(int id){
@@ -70,14 +85,16 @@ void EntityManager::deleteEntity(int id){
 		return;
 	}
 
-	std::unordered_map<std::string, int>::iterator i;
+	EntityNames::iterator x;
 
-	for (i = _instance()._names.begin(); i != _instance()._names.end(); i++){
-		if (i->second == id){
-			std::string key = i->first;
-			_instance()._names.erase(key);
-
-			break;
+	for (x = _instance()._names.begin(); x != _instance()._names.end(); x++){
+		if (x->second.size() != 0){
+			for (std::vector<int>::iterator y = x->second.begin(); y != x->second.end(); y++){
+				if (*y = id){
+					x->second.erase(y);
+					break;
+				}
+			}
 		}
 	}
 
@@ -86,13 +103,8 @@ void EntityManager::deleteEntity(int id){
 	delete entity;
 }
 
-void EntityManager::deleteEntity(std::string name){
-	if (!_instance()._names[name]){
-		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name, "doesn't exist!");
-		return;
-	}
+void EntityManager::deleteEntities(std::string){
 
-	deleteEntity(_instance()._names[name]);
 }
 
 void EntityManager::loadAll(){

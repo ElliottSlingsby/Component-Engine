@@ -1,6 +1,6 @@
 #include "Entity.hpp"
 
-#include "EntityManager.hpp"
+#include "Static\EntityManager.hpp"
 
 Entity::Entity(){
 	_transform = new Transform;

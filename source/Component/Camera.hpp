@@ -3,8 +3,8 @@
 #include <Entity\HelperComponent.hpp>
 #include <Component\Transform.hpp>
 #include <GL\glew.h>
-#include "Renderer.hpp"
-#include <math.h>
+#include "Static\Renderer.hpp"
+#include <Math\MathUtils.hpp>
 
 class Camera : public HelperComponent{
 	Transform* _transform = 0;

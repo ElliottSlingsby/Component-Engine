@@ -7,13 +7,16 @@
 
 #define MAX_ENTS 1024 //Size of initial vector
 
+typedef std::vector<Entity*> EntityVector;
+
 class EntityManager{
 	// Collection of entities
-	std::vector<Entity*> _entities;
+	EntityVector _entities;
 	// Removed ID pile
 	std::stack<int> _removed;
 
-	std::unordered_map<std::string, int> _names;
+	typedef std::unordered_map<std::string, std::vector<int>> EntityNames;
+	EntityNames _names;
 
 	// Highest ID
 	int _highest = 0;
@@ -45,9 +48,9 @@ public:
 
 		if (name != ""){
 			if (_instance()._names.find(name) == _instance()._names.end())
-				_instance()._names[name] = id;
-			else
-				printf("%s: %s!\n", "Entity Manager", "Name clashed with existing entity");
+				_instance()._names[name] = std::vector<int>();
+
+			_instance()._names[name].push_back(id);
 		}
 
 		entity->setID(id);
@@ -60,12 +63,11 @@ public:
 		return entity;
 	}
 
-	// Old Entity controls, these will be heavily expanded on, like name and tag searching
 	static Entity* getEntity(int id);
 	static Entity* getEntity(std::string name);
-
+	static void getEntities(std::string name, EntityVector& results);
 	static void deleteEntity(int id);
-	static void deleteEntity(std::string name);
+	static void deleteEntities(std::string name);
 
 	static void loadAll();
 	static void updateAll(float dt);

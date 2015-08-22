@@ -1,4 +1,4 @@
-#include "AssetLoader.hpp"
+#include "Static\AssetLoader.hpp"
 
 #include <SDL_image.h>
 #include <tiny_obj_loader.h>

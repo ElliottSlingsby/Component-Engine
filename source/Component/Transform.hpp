@@ -2,27 +2,18 @@
 
 #include "Entity\Component.hpp"
 #include "Math\Vector3.hpp"
-#include <math.h>
-
-// Move this to a static Maths Utils class!!
-static float rad(float deg){
-	return (float)(deg * (M_PI / 180));
-}
-
-static float deg(float rad){
-	return (float)(rad * (180 / M_PI));
-}
+#include "Math\MathUtils.hpp"
 
 class Transform : public Component{
 	Vector3f _position;
 	Vector3f _rotation;
-	Vector3f _size;
+	Vector3f _scale;
 
 public:
 	Transform(){
 		_position = Vector3f(0.f, 0.f, 0.f);
 		_rotation = Vector3f(0.f, 0.f, 0.f);
-		_size = Vector3f(1.f, 1.f, 1.f);
+		_scale = Vector3f(1.f, 1.f, 1.f);
 	}
 
 	Transform(Vector3f position, Vector3f rotation){
@@ -38,8 +29,8 @@ public:
 		return _rotation;
 	}
 
-	Vector3f size(){
-		return _size;
+	Vector3f scale(){
+		return _scale;
 	}
 
 	void setPosition(Vector3f vector){
@@ -50,8 +41,8 @@ public:
 		_rotation = vector;
 	}
 
-	void setSize(Vector3f size){
-		_size = size;
+	void setScale(Vector3f scale){
+		_scale = scale;
 	}
 
 	void translate(Vector3f vector){
@@ -71,10 +62,10 @@ public:
 		
 		// Somewhat temporary until the Quaternion class gets implemented
 
-		float sinX = sin(rad(_rotation.x()));
-		float cosX = cos(rad(_rotation.x()));
-		float sinY = sin(rad((_rotation.y() - 180)));
-		float cosY = cos(rad((_rotation.y() - 180)));
+		float sinX = sin(MathUtils::radians(_rotation.x()));
+		float cosX = cos(MathUtils::radians(_rotation.x()));
+		float sinY = sin(MathUtils::radians((_rotation.y() - 180)));
+		float cosY = cos(MathUtils::radians((_rotation.y() - 180)));
 
 		float x = (-cosX * sinY) * -1;
 		float y = sinX;

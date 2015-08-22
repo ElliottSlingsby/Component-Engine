@@ -1,6 +1,6 @@
 #pragma once
 
-#include <math.h>
+#include "Math\MathUtils.hpp"
 
 template <class T>
 class Vector3{

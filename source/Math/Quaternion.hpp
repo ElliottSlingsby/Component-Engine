@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Vector3.hpp"
-#include "MathUtils.hpp"
-#include <math.h>
+#include "Math\MathUtils.hpp"
 
 class Quaternion{
 	float _w, _x, _y, _z;

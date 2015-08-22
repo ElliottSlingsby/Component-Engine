@@ -1,14 +1,16 @@
 #pragma once
 
-#include "Component\Model.hpp"
-#include "Component\Movement.hpp"
 #include "Component\Light.hpp"
 #include "Component\Camera.hpp"
 #include "Component\Input.hpp"
-#include "Component\Floor.hpp"
-#include "Component\Cube.hpp"
+#include "Component\Model\Model.hpp"
+#include "Component\Model\Plane.hpp"
+#include "Component\Model\Cube.hpp"
 #include "Component\Collider\Sphere.hpp"
 #include "Component\Collider\Box.hpp"
+#include "Component\Movement.hpp"
+
+// The setup function will be replaced with a gamestate thing eventually.
 
 void setup(){
 	// Camera setup (Camera needs to be setup first until projection matrix issue is fixed)
@@ -32,7 +34,8 @@ void setup(){
 	Entity* floor = EntityManager::createEntity();
 
 	floor->getComponent<Transform>()->setPosition(Vector3f(0.f, -4.f, 0.f));
-	floor->addComponent(new Floor("floor.jpg"));
+	floor->getComponent<Transform>()->setScale(Vector3f(50.f, 50.f, 50.f));
+	floor->addComponent(new Plane("floor.jpg"));
 
 	// Making a bunch of randomly positioned spinning cat cubes
 	for (int i = 0; i != 1000; i++){
@@ -77,7 +80,23 @@ void setup(){
 	printf("%d\n", cube->ID());
 	printf("%d\n", EntityManager::getEntity("thursday")->ID());
 
-	//EntityManager::deleteEntity("thursday");
+	EntityManager::createEntity("thursday");
+	EntityManager::createEntity("thursday");
+	EntityManager::createEntity("thursday");
+	EntityManager::createEntity("thursday");
+
+	EntityVector entities;
+	EntityManager::getEntities("thursday", entities);
+
+	printf("%d ents called thursday\n", entities.size());
+
+	for (EntityVector::iterator i = entities.begin(); i != entities.end(); i++)
+		EntityManager::deleteEntity((*i)->ID());
+
+	entities.clear();
+	EntityManager::getEntities("thursday", entities);
+
+	printf("%d ents called thursday\n", entities.size());
 
 
 
