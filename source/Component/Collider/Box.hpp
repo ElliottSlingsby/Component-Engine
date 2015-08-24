@@ -17,7 +17,7 @@ class Box : public Collider{
 	}
 
 public:
-	Box(Vector3f size, Vector3f offset = Vector3f(0.f, 0.f, 0.f)){
+	Box(Vector3f size, Vector3f offset = Vector3f(0.f, 0.f, 0.f)) : Collider(COLLIDER_BOX){
 		_offset = _offset;
 	}
 
@@ -25,13 +25,13 @@ public:
 		_transform = _getComponent<Transform>();
 	}
 
-	bool isColliding(Box* other){
-		if (_min().x() >= other->_max().x()) return false;
+	bool isColliding(Collider* Collider){
+		/*if (_min().x() >= other->_max().x()) return false;
 		if (_min().y() >= other->_max().y()) return false;
 		if (_min().z() >= other->_max().z()) return false;
 		if (_max().x() <= other->_min().x()) return false;
 		if (_max().y() <= other->_min().y()) return false;
-		if (_max().z() <= other->_min().z()) return false;
+		if (_max().z() <= other->_min().z()) return false;*/
 		
 		return true;
 	}

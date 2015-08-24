@@ -13,7 +13,7 @@ class Sphere : public Collider{
 	}
 
 public:
-	Sphere(float radius, Vector3f offset = Vector3f(0.f, 0.f, 0.f)){
+	Sphere(float radius, Vector3f offset = Vector3f(0.f, 0.f, 0.f)) : Collider(COLLIDER_SPHERE){
 		_radius = radius;
 		_offset = _offset;
 	}
@@ -22,10 +22,10 @@ public:
 		_transform = _getComponent<Transform>();
 	}
 
-	bool isColliding(Sphere* other){
-		float distance = (_position() - other->_position()).length();
+	bool isColliding(Collider* other){
+		/*float distance = (_position() - other->_position()).length();
 		
-		if (distance <= _radius + other->_radius) return true;
+		if (distance <= _radius + other->_radius) return true;*/
 
 		return false;
 	}

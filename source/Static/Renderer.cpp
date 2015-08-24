@@ -21,9 +21,10 @@ bool Renderer::_setupSDL(){
 		return false;
 	}
 
-	// Setting OpenGL to 2.1
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 5);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 5);
@@ -72,8 +73,23 @@ bool Renderer::_setupGL(){
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_CULL_FACE);
 
+#ifdef _DEBUG
+	glDisable(GL_CULL_FACE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_TEXTURE_2D);
+	glColor4f(1, 1, 1, 1);
+#endif
+
+	GLenum error = glGetError();
+
+	if (error != GL_NO_ERROR){
+		printf("%s! %s: %s\n", "Failed to set OpenGL parameters", "OpenGL Error", gluErrorString(error));
+		return false;
+	}
+	
 	// Extensions init
-	GLenum error = glewInit();
+	error = glewInit();
 
 	if (error != GLEW_OK){
 		printf("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", glewGetErrorString(error));

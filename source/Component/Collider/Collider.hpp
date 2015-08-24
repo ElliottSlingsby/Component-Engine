@@ -2,6 +2,19 @@
 
 #include "Entity\HelperComponent.hpp"
 
-class Collider : public HelperComponent{
+enum ColliderType{
+	COLLIDER_SPHERE,
+	COLLIDER_BOX
+};
 
+class Collider : public HelperComponent{
+protected:
+
+
+public:
+	const ColliderType type;
+
+	Collider(ColliderType type) : type(type){}
+
+	virtual bool isColliding(Collider* other) = 0;
 };

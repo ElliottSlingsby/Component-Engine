@@ -54,7 +54,7 @@ Entity* EntityManager::getEntity(int id){
 }
 
 Entity* EntityManager::getEntity(std::string name){
-	EntityNames::iterator container = _instance()._names.find(name);
+	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
 		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist!");
@@ -65,14 +65,14 @@ Entity* EntityManager::getEntity(std::string name){
 }
 
 void EntityManager::getEntities(std::string name, EntityVector& results){
-	EntityNames::iterator container = _instance()._names.find(name);
+	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
 		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist!");
 		return;
 	}
 
-	for (std::vector<int>::iterator i = container->second.begin(); i != container->second.end(); i++){
+	for (IntVector::iterator i = container->second.begin(); i != container->second.end(); i++){
 		results.push_back(getEntity(*i));
 	}
 }
@@ -85,11 +85,11 @@ void EntityManager::deleteEntity(int id){
 		return;
 	}
 
-	EntityNames::iterator x;
+	EntityNameMap::iterator x;
 
 	for (x = _instance()._names.begin(); x != _instance()._names.end(); x++){
 		if (x->second.size() != 0){
-			for (std::vector<int>::iterator y = x->second.begin(); y != x->second.end(); y++){
+			for (IntVector::iterator y = x->second.begin(); y != x->second.end(); y++){
 				if (*y = id){
 					x->second.erase(y);
 					break;
@@ -103,8 +103,21 @@ void EntityManager::deleteEntity(int id){
 	delete entity;
 }
 
-void EntityManager::deleteEntities(std::string){
+void EntityManager::deleteEntities(std::string name){
+	EntityNameMap::iterator container = _instance()._names.find(name);
 
+	if (container == _instance()._names.end() || container->second.size() == 0){
+		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist!");
+		return;
+	}
+
+	for (IntVector::iterator i = container->second.begin(); i != container->second.end(); i++){
+		_instance()._removeID(*i);
+		delete _instance()._entities[*i];
+		_instance()._entities[*i] = 0;
+	}
+
+	container->second.clear();
 }
 
 void EntityManager::loadAll(){

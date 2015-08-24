@@ -1,7 +1,7 @@
 # Component Engine (to do)
-- Entity hierarchy improvements
-- Asset loading
-- Lighting shaders
+- Entity deletion from inside components
+- VBO / IBO drawing
+- Lighting and material shaders
 - Maths functions
-- Materials
-- Collision detection
+- Sweep and proon getters
+- Box / Sphere collision detection

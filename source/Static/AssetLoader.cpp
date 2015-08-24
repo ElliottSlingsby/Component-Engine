@@ -31,22 +31,28 @@ MeshData* AssetLoader::_loadMesh(std::string filepath){
 	// Determining size of obj components
 	int positionsSize = shapes[0].mesh.positions.size() * sizeof(float);
 	int indicesSize = shapes[0].mesh.indices.size() * sizeof(unsigned int);
-
-	// Initializing index and vertex buffers
-	GLuint vertexBuffer = 0;
-	GLuint indexBuffer = 0;
-
-	glGenBuffers(1, &vertexBuffer);
-	glGenBuffers(1, &indexBuffer);
-
+	
 	// Uploading vertex data to vertex buffer object
+	GLuint vertexBuffer = 0;
+	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, positionsSize, &(shapes[0].mesh.positions[0]), GL_STATIC_DRAW);
 
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+
 	// Uploading indices to index buffer object
+	GLuint indexBuffer = 0;
+	glGenBuffers(1, &indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, &(shapes[0].mesh.indices[0]), GL_STATIC_DRAW);
-	
+
+	GLenum err = glGetError();
+
+	if (err != GL_NO_ERROR){
+		printf("%s: %s\n", "OpenGL Error", gluErrorString(err));
+	}
+
 	// Storing data in Asset object and saving in asset map
 	MeshData* asset = new MeshData(vertexBuffer, indexBuffer, indicesSize);
 	_assets[filepath] = asset;

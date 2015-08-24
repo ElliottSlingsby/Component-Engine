@@ -5,7 +5,9 @@
 #include <map>
 #include "Entity\Entity.hpp"
 
+#ifndef MAX_ENTS
 #define MAX_ENTS 1024 //Size of initial vector
+#endif
 
 typedef std::vector<Entity*> EntityVector;
 
@@ -15,8 +17,10 @@ class EntityManager{
 	// Removed ID pile
 	std::stack<int> _removed;
 
-	typedef std::unordered_map<std::string, std::vector<int>> EntityNames;
-	EntityNames _names;
+	typedef std::vector<int> IntVector;
+
+	typedef std::unordered_map<std::string, IntVector> EntityNameMap;
+	EntityNameMap _names;
 
 	// Highest ID
 	int _highest = 0;
@@ -48,7 +52,7 @@ public:
 
 		if (name != ""){
 			if (_instance()._names.find(name) == _instance()._names.end())
-				_instance()._names[name] = std::vector<int>();
+				_instance()._names[name] = IntVector();
 
 			_instance()._names[name].push_back(id);
 		}

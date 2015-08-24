@@ -30,27 +30,36 @@ public:
 			_material = AssetLoader::getAsset<MaterialData>(_materialSrc);
 	}
 
+	void setMesh(MeshData* mesh){
+		_mesh = mesh;
+	}
+
+	void setMaterial(MaterialData* material){
+		_material = material;
+	}
+
 	void render(){
 		glMatrixMode(GL_MODELVIEW);
 
 		glPushMatrix();
 
 		// Translate based on Transform
-		glTranslatef(_transform->position().x(), _transform->position().y(), _transform->position().z());
+		glTranslatef(-_transform->position().x(), -_transform->position().y(), -_transform->position().z());
 
 		// Rotate based on Transform
-		glRotatef(_transform->rotation().x(), 1.f, 0.f, 0.f);
-		glRotatef(_transform->rotation().y(), 0.f, 1.f, 0.f);
-		glRotatef(_transform->rotation().z(), 0.f, 0.f, 1.f);
-
+		glRotatef(_transform->rotation().z(), 0.f, 0.f, -1.f);
+		glRotatef(_transform->rotation().y(), 0.f, -1.f, 0.f);
+		glRotatef(_transform->rotation().x(), -1.f, 0.f, 0.f);
+		
 		// Scale based on Transform
 		glScalef(_transform->scale().x(), _transform->scale().y(), _transform->scale().z());
+		
 		
 		if (_material)
 			glBindTexture(GL_TEXTURE_2D, _material->diffuse);
 		else
 			glBindTexture(GL_TEXTURE_2D, 0);
-
+		
 		draw();
 
 		glPopMatrix();
@@ -58,6 +67,7 @@ public:
 
 	virtual void draw(){
 		glBindBuffer(GL_ARRAY_BUFFER, _mesh->vertexBuffer);
+
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _mesh->indexBuffer);
 
 		glDrawElements(GL_TRIANGLES, _mesh->size, GL_UNSIGNED_INT, 0);
