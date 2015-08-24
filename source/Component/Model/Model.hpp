@@ -67,9 +67,24 @@ public:
 
 	virtual void draw(){
 		glBindBuffer(GL_ARRAY_BUFFER, _mesh->vertexBuffer);
-
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _mesh->indexBuffer);
+		
+		// Loading vertex data
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(3, GL_FLOAT, 3 * sizeof(float), 0);
 
-		glDrawElements(GL_TRIANGLES, _mesh->size, GL_UNSIGNED_INT, 0);
+		// Loading normal data
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glNormalPointer(GL_FLOAT, 3 * sizeof(float), (void*)(_mesh->vertexSize));
+
+		// Loading texture data
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_FLOAT, 2 * sizeof(float), (void*)(_mesh->vertexSize + _mesh->normalSize));
+
+		glDrawElements(GL_TRIANGLES, _mesh->indicesSize, GL_UNSIGNED_INT, 0);
+
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 };

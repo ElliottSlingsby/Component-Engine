@@ -28,33 +28,41 @@ MeshData* AssetLoader::_loadMesh(std::string filepath){
 		return 0;
 	}
 
-	// Determining size of obj components
+	// Vertex buffer
 	int positionsSize = shapes[0].mesh.positions.size() * sizeof(float);
+	int normalsSize = shapes[0].mesh.normals.size() * sizeof(float);
+	int texcoordsSize = shapes[0].mesh.texcoords.size() * sizeof(float);
 	int indicesSize = shapes[0].mesh.indices.size() * sizeof(unsigned int);
-	
-	// Uploading vertex data to vertex buffer object
+
+	// Setting up vertex buffer
 	GLuint vertexBuffer = 0;
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, positionsSize, &(shapes[0].mesh.positions[0]), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, positionsSize + normalsSize + texcoordsSize, 0, GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	// Filling vertex buffer
+	glBufferSubData(GL_ARRAY_BUFFER, 0, positionsSize, &(shapes[0].mesh.positions)[0]);
 
-	// Uploading indices to index buffer object
+	if (normalsSize)
+		glBufferSubData(GL_ARRAY_BUFFER, positionsSize, normalsSize, &(shapes[0].mesh.normals)[0]);
+
+	if (texcoordsSize)
+		glBufferSubData(GL_ARRAY_BUFFER, positionsSize + normalsSize, texcoordsSize, &(shapes[0].mesh.texcoords)[0]);
+	
+	// Setting up index buffer
 	GLuint indexBuffer = 0;
 	glGenBuffers(1, &indexBuffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, &(shapes[0].mesh.indices[0]), GL_STATIC_DRAW);
-
+	
+	// Error checking and storing data
 	GLenum err = glGetError();
 
 	if (err != GL_NO_ERROR){
 		printf("%s: %s\n", "OpenGL Error", gluErrorString(err));
 	}
 
-	// Storing data in Asset object and saving in asset map
-	MeshData* asset = new MeshData(vertexBuffer, indexBuffer, indicesSize);
+	MeshData* asset = new MeshData(vertexBuffer, indexBuffer, indicesSize, positionsSize, texcoordsSize, normalsSize);
 	_assets[filepath] = asset;
 
 	return asset;
@@ -67,7 +75,7 @@ MaterialData* AssetLoader::_loadMaterial(std::string filepath){
 		printf("%s %s!", "Cannot load texture", (_assetPath + filepath).c_str());
 		return 0;
 	}
-
+	
 	// Gl ID creation
 	GLuint id = 0;
 	glGenTextures(1, &id);

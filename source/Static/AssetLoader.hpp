@@ -14,12 +14,19 @@ struct Asset{
 struct MeshData : public Asset{
 	const GLuint vertexBuffer;
 	const GLuint indexBuffer;
-	const unsigned int size;
 
-	MeshData(GLuint vertexBuffer, GLuint indexBuffer, unsigned int size) : 
+	const unsigned int indicesSize;
+	const unsigned int vertexSize;
+	const unsigned int textureSize;
+	const unsigned int normalSize;
+
+	MeshData(GLuint vertexBuffer, GLuint indexBuffer, unsigned int indicesSize, unsigned int vertexSize, unsigned int textureSize, unsigned int normalSize) :
 		vertexBuffer(vertexBuffer), 
 		indexBuffer(indexBuffer), 
-		size(size){
+		indicesSize(indicesSize),
+		vertexSize(vertexSize),
+		textureSize(textureSize),
+		normalSize(normalSize){
 	}
 
 	~MeshData(){
