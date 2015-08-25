@@ -3,10 +3,16 @@
 #include <Entity\HelperComponent.hpp>
 #include <SDL.h>
 
+#include "Model\Model.hpp"
+#include "Movement.hpp"
+#include "Collider\Collider.hpp"
+
 class Input : public HelperComponent{
 	Transform* _transform = 0;
 	float _speed = 20.f; // Movement speed
 	float _sensitivity = 0.2f; // Mouse sensitivity
+
+	bool _fired = false;
 
 public:
 	void load(){
@@ -39,6 +45,58 @@ public:
 			if (keyDown[SDL_SCANCODE_LSHIFT])
 				_transform->push(-_speed * dt);
 		}
+
+		// S = Left
+		if (keyDown[SDL_SCANCODE_A]){
+			_transform->push(-_speed * dt, 0, -90);
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				_transform->push(-_speed * dt, 0, -90);
+		}
+
+		// D = Right
+		if (keyDown[SDL_SCANCODE_D]){
+			_transform->push(-_speed * dt, 0, 90);
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				_transform->push(-_speed * dt, 0, 90);
+		}
+
+		// Space = Rise
+		if (keyDown[SDL_SCANCODE_SPACE]){
+			_transform->setPosition(_transform->position() + Vector3f(0.f, -_speed * dt, 0.f));
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				_transform->setPosition(_transform->position() + Vector3f(0.f, -_speed * dt, 0.f));
+		}
+
+		// Control = Lower
+		if (keyDown[SDL_SCANCODE_LCTRL]){
+			_transform->setPosition(_transform->position() + Vector3f(0.f, _speed * dt, 0.f));
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				_transform->setPosition(_transform->position() + Vector3f(0.f, _speed * dt, 0.f));
+		}
+
+		// Left Mouse = Fire bullet
+		if (SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_fired){
+			Entity* bullet = EntityManager::createEntity("bullet");
+
+			bullet->getComponent<Transform>()->setPosition(_transform->position());
+			bullet->getComponent<Transform>()->setRotation(_transform->rotation());
+			bullet->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
+			bullet->getComponent<Transform>()->push(-0.5f);
+			bullet->addComponent(new Movement(100.f));
+			bullet->addComponent(new Model("ship.obj", "ship.png"));
+			bullet->addComponent(new Sphere(10.f));
+
+			bullet->load();
+
+			_fired = true;
+		}
+		else if (!SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && _fired){
+			_fired = false;
+		}		
 	}
 
 	void setSpeed(float speed){

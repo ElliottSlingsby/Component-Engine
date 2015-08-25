@@ -14,6 +14,8 @@ protected:
 	const MeshData* _mesh = 0;
 	const MaterialData* _material = 0;
 
+	Vector3f _offset = Vector3f(0.f, 0.f, 0.f);
+
 public:
 	Model(std::string meshSrc, std::string materialSrc = ""){
 		_meshSrc = meshSrc;
@@ -30,12 +32,16 @@ public:
 			_material = AssetLoader::getAsset<MaterialData>(_materialSrc);
 	}
 
-	void setMesh(MeshData* mesh){
+	void setMesh(const MeshData* mesh){
 		_mesh = mesh;
 	}
 
-	void setMaterial(MaterialData* material){
+	void setMaterial(const MaterialData* material){
 		_material = material;
+	}
+
+	void setOffset(Vector3f offset){
+		_offset = offset;
 	}
 
 	void render(){
@@ -44,7 +50,11 @@ public:
 		glPushMatrix();
 
 		// Translate based on Transform
-		glTranslatef(-_transform->position().x(), -_transform->position().y(), -_transform->position().z());
+		glTranslatef(
+			-_transform->position().x() - _offset.x(),
+			-_transform->position().y() - _offset.y(),
+			-_transform->position().z() - _offset.z()
+		);
 
 		// Rotate based on Transform
 		glRotatef(_transform->rotation().z(), 0.f, 0.f, -1.f);
@@ -66,25 +76,27 @@ public:
 	}
 
 	virtual void draw(){
-		glBindBuffer(GL_ARRAY_BUFFER, _mesh->vertexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _mesh->indexBuffer);
-		
-		// Loading vertex data
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(3, GL_FLOAT, 3 * sizeof(float), 0);
+		if (_mesh){
+			glBindBuffer(GL_ARRAY_BUFFER, _mesh->vertexBuffer);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _mesh->indexBuffer);
 
-		// Loading normal data
-		glEnableClientState(GL_NORMAL_ARRAY);
-		glNormalPointer(GL_FLOAT, 3 * sizeof(float), (void*)(_mesh->vertexSize));
+			// Loading vertex data
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glVertexPointer(3, GL_FLOAT, 3 * sizeof(float), 0);
 
-		// Loading texture data
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_FLOAT, 2 * sizeof(float), (void*)(_mesh->vertexSize + _mesh->normalSize));
+			// Loading normal data
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glNormalPointer(GL_FLOAT, 3 * sizeof(float), (void*)(_mesh->vertexSize));
 
-		glDrawElements(GL_TRIANGLES, _mesh->indicesSize, GL_UNSIGNED_INT, 0);
+			// Loading texture data
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glTexCoordPointer(2, GL_FLOAT, 2 * sizeof(float), (void*)(_mesh->vertexSize + _mesh->normalSize));
 
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisableClientState(GL_NORMAL_ARRAY);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+			glDrawElements(GL_TRIANGLES, _mesh->indicesSize, GL_UNSIGNED_INT, 0);
+
+			glDisableClientState(GL_VERTEX_ARRAY);
+			glDisableClientState(GL_NORMAL_ARRAY);
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		}
 	}
 };

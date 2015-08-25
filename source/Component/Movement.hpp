@@ -7,17 +7,12 @@
 class Movement : public HelperComponent{
 	Transform* _transform = 0;
 
-	Vector3f _speed;
+	float _speed;
 
 public:
 
-	Movement(){
-		_speed = Vector3f(
-			// Random rotation speed
-			(float)(rand() % 1000) / 10,
-			(float)(rand() % 1000) / 10,
-			(float)(rand() % 1000) / 10
-		);
+	Movement(float speed = 10){
+		_speed = speed;
 	}
 
 	void load(){
@@ -25,7 +20,7 @@ public:
 	}
 
 	void update(float dt){
-		_transform->rotate(_speed * dt);
-		_transform->push(10 * dt);
+		//_transform->rotate(_speed * dt);
+		_transform->push(_speed * dt);
 	}
 };

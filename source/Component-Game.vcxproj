@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Collider\Collider.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="Static\EntityManager.cpp" />
     <ClCompile Include="Static\AssetLoader.cpp" />
@@ -20,11 +21,9 @@
   <ItemGroup>
     <ClInclude Include="Entity\Component.hpp" />
     <ClInclude Include="Entity\HelperComponent.hpp" />
-    <ClInclude Include="Component\Collider\Box.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Collider\Collider.hpp" />
     <ClInclude Include="Component\Model\Cube.hpp" />
-    <ClInclude Include="Component\Collider\Sphere.hpp" />
     <ClInclude Include="Component\Model\Plane.hpp" />
     <ClInclude Include="Component\Input.hpp" />
     <ClInclude Include="Component\Light.hpp" />

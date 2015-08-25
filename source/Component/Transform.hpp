@@ -57,15 +57,15 @@ public:
 		);
 	}
 
-	void push(float speed){
+	void push(float speed, float dx = 0, float dy = 0){
 		// Pushes the Transform along the _rotation's euler angles.
 		
 		// Somewhat temporary until the Quaternion class gets implemented
 
-		float sinX = sin(MathUtils::radians(_rotation.x()));
-		float cosX = cos(MathUtils::radians(_rotation.x()));
-		float sinY = sin(MathUtils::radians((_rotation.y() - 180)));
-		float cosY = cos(MathUtils::radians((_rotation.y() - 180)));
+		float sinX = sin(MathUtils::radians(_rotation.x() - dx));
+		float cosX = cos(MathUtils::radians(_rotation.x() - dx));
+		float sinY = sin(MathUtils::radians((_rotation.y() - 180 - dy)));
+		float cosY = cos(MathUtils::radians((_rotation.y() - 180 - dy)));
 
 		float x = (-cosX * sinY) * -1;
 		float y = sinX;
