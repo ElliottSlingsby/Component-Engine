@@ -45,12 +45,15 @@ int main(int argc, char** argv){
 		EntityManager::runSystems();
 
 		EntityManager::invokeAll(&Component::update, dt);
+		EntityManager::invokeAll(&Component::lateUpdate);
 		EntityManager::invokeAll(&Component::render);
 		
 		Renderer::swapBuffer();
+
+		EntityManager::deleteDestroyed();
 	}
 
-	EntityManager::deleteAll();
+	EntityManager::destroyAll();
 
 	return 0;
 }

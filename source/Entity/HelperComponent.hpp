@@ -37,6 +37,14 @@ struct HelperComponent : public Component{
 		
 		printf("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity ID hasn't been assigned");
 	}
+
+	Entity* parent(){
+		if (ID() != NULL_ID)
+			return EntityManager::getEntity(ID());
+
+		printf("%s: %s!\n", "HelperComponent", "Cannot find component, entity ID hasn't been assigned");
+		return 0;
+	}
 };
 
 // Addexceptions for when components can't find other required components in the same entity.

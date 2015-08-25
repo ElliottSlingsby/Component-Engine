@@ -2,6 +2,14 @@
 
 #include "Static\EntityManager.hpp"
 
+void Entity::destroy(){
+	_destroyed = true;
+}
+
+bool Entity::destroyed(){
+	return _destroyed;
+}
+
 Entity::Entity(){
 	_transform = new Transform;
 	addComponent(_transform);

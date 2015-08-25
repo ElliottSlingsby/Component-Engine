@@ -11,13 +11,13 @@ protected:
 	ComponentMap _components;
 	
 	bool _enabled = false;
+	bool _destroyed = false;
 
 	// Transform is here as to be edited by prefabs in their constructor if needed
 	Transform* _transform = 0;
 
 public:
 	Entity();
-
 	// Destroys all components
 	~Entity();
 
@@ -25,6 +25,9 @@ public:
 	virtual void prefab(){};
 
 	void setID(int id);
+
+	void destroy();
+	bool destroyed();
 
 	template<typename... T>
 	void invoke(void (Component::* method)(T...), T... args){

@@ -5,7 +5,9 @@
 #include <set>
 
 class Collision : public System{
-	std::set<Collider*> _colliders;
+
+	typedef std::set<Collider*> ColliderSet;
+	ColliderSet _colliders;
 
 public:
 	Collision() : System(&typeid(Collider)){}
@@ -19,6 +21,8 @@ public:
 	}
 
 	void update(){
-		// Collision goes here!
+		for (ColliderSet::iterator i = _colliders.begin(); i != _colliders.end(); i++){
+			(*i)->parent()->invoke(&Component::onCollision, (*i)->ID());
+		}
 	};
 };

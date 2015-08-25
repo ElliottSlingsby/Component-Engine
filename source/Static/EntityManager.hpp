@@ -155,7 +155,9 @@ public:
 	static Entity* getEntity(std::string name);
 	static void getEntities(std::string name, EntityVector& results);
 
-	static void deleteEntity(int id);
-	static void deleteEntities(std::string name);
-	static void deleteAll();
+	static void destroyEntity(int id);
+	static void destroyEntities(std::string name);
+	static void destroyAll();
+
+	static void deleteDestroyed();
 };

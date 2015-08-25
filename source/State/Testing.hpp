@@ -50,13 +50,13 @@ struct Testing : public State{
 		Entity* collider = EntityManager::createEntity("collider");
 		collider->addComponent(new Sphere(1));
 
-		EntityManager::deleteEntity(collider->ID());
+		EntityManager::destroyEntity(collider->ID());
 	}
 
 	void off(){
 		// Keep camera + sky
-		EntityManager::deleteEntities("floor");
-		EntityManager::deleteEntities("face");
-		EntityManager::deleteEntities("ship");
+		EntityManager::destroyEntities("floor");
+		EntityManager::destroyEntities("face");
+		EntityManager::destroyEntities("ship");
 	}
 };

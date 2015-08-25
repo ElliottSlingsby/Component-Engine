@@ -7,7 +7,7 @@ EntityManager::EntityManager(){
 
 EntityManager::~EntityManager(){
 	// Purge!
-	deleteAll();
+	destroyAll();
 }
 
 EntityManager& EntityManager::_instance(){
@@ -77,7 +77,7 @@ void EntityManager::getEntities(std::string name, EntityVector& results){
 	}
 }
 
-void EntityManager::deleteEntity(int id){
+void EntityManager::destroyEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
@@ -98,12 +98,10 @@ void EntityManager::deleteEntity(int id){
 		}
 	}
 
-	_instance()._removeID(id);
-	_instance()._entities[id] = 0;
-	delete entity;
+	entity->destroy();
 }
 
-void EntityManager::deleteEntities(std::string name){
+void EntityManager::destroyEntities(std::string name){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
@@ -112,25 +110,35 @@ void EntityManager::deleteEntities(std::string name){
 	}
 
 	for (IntVector::iterator i = container->second.begin(); i != container->second.end(); i++){
-		_instance()._removeID(*i);
-		delete _instance()._entities[*i];
-		_instance()._entities[*i] = 0;
+		_instance()._entities[*i]->destroy();
 	}
 
 	container->second.clear();
 }
 
-void EntityManager::deleteAll(){
+void EntityManager::destroyAll(){
 	for (int i = 0; i <= _instance()._highest; i++){
 		Entity* entity = _instance()._entities[i];
 
 		if (entity)
-			deleteEntity(i);
+			entity->destroy();
 	}
 }
 
 void EntityManager::runSystems(){
 	for (SystemMap::iterator i = _instance()._systems.begin(); i != _instance()._systems.end(); i++){
 		i->second->update();
+	}
+}
+
+void EntityManager::deleteDestroyed(){
+	for (int i = 0; i <= _instance()._highest; i++){
+		Entity* entity = _instance()._entities[i];
+
+		if (entity && entity->destroyed()){
+			_instance()._removeID(entity->ID());
+			_instance()._entities[entity->ID()] = 0;
+			delete entity;
+		}
 	}
 }
