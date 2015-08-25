@@ -16,7 +16,7 @@ public:
 	}
 
 	void load(){
-		_transform = _getComponent<Transform>();
+		_transform = getComponent<Transform>();
 	}
 
 	void update(float dt){

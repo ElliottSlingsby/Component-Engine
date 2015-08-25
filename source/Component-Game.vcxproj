@@ -30,6 +30,7 @@
     <ClInclude Include="Component\Movement.hpp" />
     <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Component\Model\Model.hpp" />
+    <ClInclude Include="State\Testing.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />
     <ClInclude Include="Math\Quaternion.hpp" />
     <ClInclude Include="Math\MathUtils.hpp" />

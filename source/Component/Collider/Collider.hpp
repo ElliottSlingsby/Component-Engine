@@ -19,7 +19,7 @@ public:
 	virtual bool isColliding(Collider* other) = 0;
 
 	void load(){
-		_transform = _getComponent<Transform>();
+		_transform = getComponent<Transform>();
 	}
 };
 

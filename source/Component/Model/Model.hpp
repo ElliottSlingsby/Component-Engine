@@ -23,7 +23,7 @@ public:
 	}
 
 	void load(){
-		_transform = _getComponent<Transform>();
+		_transform = getComponent<Transform>();
 
 		if (_meshSrc != "")
 			_mesh = AssetLoader::getAsset<MeshData>(_meshSrc);

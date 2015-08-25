@@ -16,7 +16,7 @@ class Input : public HelperComponent{
 
 public:
 	void load(){
-		_transform = _getComponent<Transform>();
+		_transform = getComponent<Transform>();
 	}
 
 	void update(float dt){
@@ -84,13 +84,14 @@ public:
 
 			bullet->getComponent<Transform>()->setPosition(_transform->position());
 			bullet->getComponent<Transform>()->setRotation(_transform->rotation());
-			bullet->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
+			bullet->getComponent<Transform>()->setScale(Vector3f(0.25f, 0.25f, 0.25f));
 			bullet->getComponent<Transform>()->push(-0.5f);
 			bullet->addComponent(new Movement(100.f));
-			bullet->addComponent(new Model("ship.obj", "ship.png"));
+			bullet->addComponent(new Model("sphere.obj"));
 			bullet->addComponent(new Sphere(10.f));
 
-			bullet->load();
+			bullet->invoke(&Component::load);
+			//bullet->load();
 
 			_fired = true;
 		}

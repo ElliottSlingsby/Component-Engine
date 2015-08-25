@@ -16,8 +16,10 @@ int main(int argc, char** argv){
 	// Start running if renderer initiates successfully
 	bool running = Renderer::initiate();
 
-	if (running)
+	if (running){
 		setup();
+		EntityManager::invokeAll(&Component::load);
+	}
 
 	while (running){
 		// Update timers
@@ -40,9 +42,8 @@ int main(int argc, char** argv){
 					running = false;
 		}
 
-		// Call entities
-		EntityManager::updateAll(dt);
-		EntityManager::renderAll();
+		EntityManager::invokeAll(&Component::update, dt);
+		EntityManager::invokeAll(&Component::render);
 		
 		Renderer::swapBuffer();
 	}

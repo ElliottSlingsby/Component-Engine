@@ -9,6 +9,12 @@
 #define MAX_ENTS 1024 //Size of initial vector
 #endif
 
+struct State{
+	virtual void on(){}
+	virtual void off(){}
+	virtual ~State(){}
+};
+
 typedef std::vector<Entity*> EntityVector;
 
 class EntityManager{
@@ -18,9 +24,13 @@ class EntityManager{
 	std::stack<int> _removed;
 
 	typedef std::vector<int> IntVector;
-
 	typedef std::unordered_map<std::string, IntVector> EntityNameMap;
 	EntityNameMap _names;
+
+	typedef std::unordered_map<const type_info*, State*> StateMap;
+	StateMap _states;
+
+	State* _currentState = 0;
 
 	// Highest ID
 	int _highest = 0;
@@ -35,6 +45,45 @@ class EntityManager{
 
 public:
 	~EntityManager();
+
+	template<typename... T>
+	static void invokeAll(void (Component::* method)(T...), T... args){
+		for (int i = 0; i <= _instance()._highest; i++){
+			Entity* entity = _instance()._entities[i];
+
+			if (entity)
+				entity->invoke(method, args...);
+		}
+	}
+
+	template<typename T>
+	static void addState(T* state){
+		if (!_instance()._states[&typeid(T)]){
+			_instance()._states[&typeid(T)] = state;
+
+			//if (!_instance()._currentState){
+			//	_instance()._currentState = state;
+			//	state->on();
+			//}
+		}
+		else
+			printf("%s!\n", "State already exists");
+	}
+
+	template<typename T>
+	static void changeState(){
+		if (!_instance()._states[&typeid(T)])
+			printf("%s!\n", "State doesn't exist");
+		else if (_instance()._currentState == _instance()._states[&typeid(T)])
+			printf("%s!\n", "State already active");
+		else{
+			if (_instance()._currentState)
+				_instance()._currentState->off();
+
+			_instance()._currentState = _instance()._states[&typeid(T)];
+			_instance()._currentState->on();
+		}
+	}
 
 	template<typename T = Entity, typename... U> 
 	static Entity* createEntity(std::string name = "", U... args){
@@ -70,11 +119,8 @@ public:
 	static Entity* getEntity(int id);
 	static Entity* getEntity(std::string name);
 	static void getEntities(std::string name, EntityVector& results);
+
 	static void deleteEntity(int id);
 	static void deleteEntities(std::string name);
-
-	static void loadAll();
-	static void updateAll(float dt);
-	static void renderAll();
 	static void deleteAll();
 };

@@ -5,13 +5,12 @@
 
 // This helper class is for deriving components, so that the derived component can get other components from it's associated entity.
 
-class HelperComponent : public Component{
-protected:
+struct HelperComponent : public Component{
 	// Perform as long as component has ID.
 	// Otherwise printf error.
 
 	template <typename T>
-	T* _getComponent(){
+	T* getComponent(){
 		if (ID() != NULL_ID)
 			return EntityManager::getEntity(ID())->getComponent<T>();
 
@@ -20,7 +19,7 @@ protected:
 	}
 
 	template <typename T>
-	void _addComponent(T* component){
+	void addComponent(T* component){
 		if (ID() != NULL_ID){
 			EntityManager::getEntity(ID())->addComponent(component);
 			return;
@@ -30,7 +29,7 @@ protected:
 	}
 
 	template <typename T>
-	void _destroyComponent(){
+	void destroyComponent(){
 		if (ID() != NULL_ID){
 			EntityManager::getEntity(ID())->destroyComponent(component);
 			return;
@@ -45,7 +44,7 @@ protected:
 
 /*struct Example : public HelperComponent{
 	void load(){
-		if (!_getComponent<Other>())
+		if (!getComponent<Other>())
 			throw invalid_components;
 	}
 }*/

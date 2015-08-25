@@ -26,11 +26,16 @@ public:
 
 	void setID(int id);
 
-	// Functions for calling multiple equivalent component functions
-	void load(bool enable = true);
-	void enable();
-	void update(float dt);
-	void render();
+	template<typename... T>
+	void invoke(void (Component::* method)(T...), T... args){
+		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
+			(i->second->*method)(args...);
+
+		if (typeid(method) == typeid((&Component::enable)))
+			_enabled = true;
+		else if (typeid(method) == typeid((&Component::load)))
+			invoke(&Component::enable);
+	}
 
 	// addComponent(component) - Adds a component using typeid as key
 	template <typename T>

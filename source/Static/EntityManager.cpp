@@ -120,33 +120,6 @@ void EntityManager::deleteEntities(std::string name){
 	container->second.clear();
 }
 
-void EntityManager::loadAll(){
-	for (int i = 0; i <= _instance()._highest; i++){
-		Entity* entity = _instance()._entities[i];
-
-		if (entity)
-			entity->load();
-	}
-}
-
-void EntityManager::updateAll(float dt){
-	for (int i = 0; i <= _instance()._highest; i++){
-		Entity* entity = _instance()._entities[i];
-
-		if (entity)
-			entity->update(dt);
-	}
-}
-
-void EntityManager::renderAll(){
-	for (int i = 0; i <= _instance()._highest; i++){
-		Entity* entity = _instance()._entities[i];
-
-		if (entity)
-			entity->render();
-	}
-}
-
 void EntityManager::deleteAll(){
 	for (int i = 0; i <= _instance()._highest; i++){
 		Entity* entity = _instance()._entities[i];
