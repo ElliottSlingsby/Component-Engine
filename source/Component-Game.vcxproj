@@ -42,6 +42,7 @@
     <ClInclude Include="Math\Vector2.hpp" />
     <ClInclude Include="Math\Vector3.hpp" />
     <ClInclude Include="Setup.hpp" />
+    <ClInclude Include="System\Collision.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5259262C-54B0-4DB1-9BF0-EC1CFB840124}</ProjectGuid>

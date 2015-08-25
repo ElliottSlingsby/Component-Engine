@@ -14,7 +14,13 @@ protected:
 public:
 	const ColliderType type;
 
-	Collider(ColliderType type) : type(type){}
+	Collider(ColliderType type) : type(type){
+		EntityManager::registerToSystem(this);
+	}
+
+	~Collider(){
+		EntityManager::unregisterFromSystem(this);
+	}
 
 	virtual bool isColliding(Collider* other) = 0;
 

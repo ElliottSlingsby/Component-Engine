@@ -4,10 +4,23 @@
 #include <stack>
 #include <map>
 #include "Entity\Entity.hpp"
+#include <typeinfo>
 
 #ifndef MAX_ENTS
 #define MAX_ENTS 1024 //Size of initial vector
 #endif
+
+struct System{
+	const type_info* type;
+
+	System(const type_info* type) : type(type){}
+
+	virtual void registerComponent(Component* component){}
+	virtual void unregisterComponent(Component* component){}
+
+	virtual void update(){};
+	virtual ~System(){}
+};
 
 struct State{
 	virtual void on(){}
@@ -29,6 +42,9 @@ class EntityManager{
 
 	typedef std::unordered_map<const type_info*, State*> StateMap;
 	StateMap _states;
+
+	typedef std::unordered_map<const type_info*, System*> SystemMap;
+	SystemMap _systems;
 
 	State* _currentState = 0;
 
@@ -57,17 +73,19 @@ public:
 	}
 
 	template<typename T>
-	static void addState(T* state){
-		if (!_instance()._states[&typeid(T)]){
-			_instance()._states[&typeid(T)] = state;
-
-			//if (!_instance()._currentState){
-			//	_instance()._currentState = state;
-			//	state->on();
-			//}
-		}
+	static void addSystem(T* system){
+		if (!_instance()._systems[&typeid(T)])
+			_instance()._systems[&typeid(T)] = system;
 		else
-			printf("%s!\n", "State already exists");
+			printf("%s!\n", "System already added");
+	}
+
+	template<typename T>
+	static void addState(T* state){
+		if (!_instance()._states[&typeid(T)])
+			_instance()._states[&typeid(T)] = state;
+		else
+			printf("%s!\n", "State already added");
 	}
 
 	template<typename T>
@@ -75,7 +93,7 @@ public:
 		if (!_instance()._states[&typeid(T)])
 			printf("%s!\n", "State doesn't exist");
 		else if (_instance()._currentState == _instance()._states[&typeid(T)])
-			printf("%s!\n", "State already active");
+			printf("%s!\n", "State already on");
 		else{
 			if (_instance()._currentState)
 				_instance()._currentState->off();
@@ -107,7 +125,6 @@ public:
 		}
 
 		entity->setID(id);
-
 		_instance()._entities[id] = entity;
 
 		// Now that the ID has been set, it's safe to start adding components
@@ -115,6 +132,24 @@ public:
 		
 		return entity;
 	}
+
+	template<typename T>
+	static void	registerToSystem(T* component){
+		for (SystemMap::iterator i = _instance()._systems.begin(); i != _instance()._systems.end(); i++){
+			if (i->second->type == &typeid(T))
+				i->second->registerComponent(component);
+		}
+	}
+
+	template<typename T>
+	static void unregisterFromSystem(T* component){
+		for (SystemMap::iterator i = _instance()._systems.begin(); i != _instance()._systems.end(); i++){
+			if (i->second->type == &typeid(T))
+				i->second->unregisterComponent(component);
+		}
+	}
+
+	static void runSystems();
 
 	static Entity* getEntity(int id);
 	static Entity* getEntity(std::string name);

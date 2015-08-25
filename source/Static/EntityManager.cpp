@@ -46,7 +46,7 @@ Entity* EntityManager::getEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
-		printf("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist!");
+		printf("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist");
 		return 0;
 	}
 
@@ -57,7 +57,7 @@ Entity* EntityManager::getEntity(std::string name){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
-		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist!");
+		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
 		return 0;
 	}
 
@@ -68,7 +68,7 @@ void EntityManager::getEntities(std::string name, EntityVector& results){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
-		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist!");
+		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
 		return;
 	}
 
@@ -81,7 +81,7 @@ void EntityManager::deleteEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
-		printf("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist!");
+		printf("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist");
 		return;
 	}
 
@@ -107,7 +107,7 @@ void EntityManager::deleteEntities(std::string name){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
-		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist!");
+		printf("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
 		return;
 	}
 
@@ -126,5 +126,11 @@ void EntityManager::deleteAll(){
 
 		if (entity)
 			deleteEntity(i);
+	}
+}
+
+void EntityManager::runSystems(){
+	for (SystemMap::iterator i = _instance()._systems.begin(); i != _instance()._systems.end(); i++){
+		i->second->update();
 	}
 }

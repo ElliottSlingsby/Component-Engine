@@ -46,6 +46,11 @@ struct Testing : public State{
 		ship->getComponent<Transform>()->setRotation(Vector3f(0.f, 180.f, 0.f));
 		ship->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
 		ship->addComponent(new Model("ship.obj", "ship.png"));
+
+		Entity* collider = EntityManager::createEntity("collider");
+		collider->addComponent(new Sphere(1));
+
+		EntityManager::deleteEntity(collider->ID());
 	}
 
 	void off(){

@@ -42,6 +42,8 @@ int main(int argc, char** argv){
 					running = false;
 		}
 
+		EntityManager::runSystems();
+
 		EntityManager::invokeAll(&Component::update, dt);
 		EntityManager::invokeAll(&Component::render);
 		
