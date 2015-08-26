@@ -23,9 +23,8 @@ public:
 		// Stupid-style collision detection
 		for (ColliderSet::iterator x = _colliders.begin(); x != _colliders.end(); x++){
 			for (ColliderSet::iterator y = _colliders.begin(); y != _colliders.end(); y++){
-				if ((*x) != (*y) && (*x)->isColliding(*y)){
+				if ((*x) != (*y) && (*x)->isColliding(*y))
 					(*x)->parent()->invoke(&Component::onCollision, (*y)->ID());
-				}
 			}
 		}
 	};

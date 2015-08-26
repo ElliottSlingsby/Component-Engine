@@ -6,11 +6,14 @@
 #include "Model\Model.hpp"
 #include "Movement.hpp"
 #include "Collider\Collider.hpp"
+#include "Physics.hpp"
 
 #include "Prefab\Bullet.hpp"
 
 class Input : public HelperComponent{
 	Transform* _transform = 0;
+	Physics* _physics = 0;
+
 	float _speed = 20.f;
 	float _sensitivity = 0.2f; // Mouse sensitivity
 
@@ -23,6 +26,7 @@ public:
 
 	void load(){
 		_transform = getComponent<Transform>();
+		_physics = getComponent<Physics>();
 	}
 
 	void update(float dt){
@@ -31,17 +35,13 @@ public:
 		SDL_GetRelativeMouseState(&mouseRX, &mouseRY);
 
 		// Rotate camera FPS style
-		_transform->rotate(Vector3f((float)mouseRY * _sensitivity, (float)mouseRX * _sensitivity, 0.f));
+		_physics->rotationForce(Vector3f((float)mouseRY * _sensitivity, (float)mouseRX * _sensitivity, 0.f));
 
 		const Uint8* keyDown = SDL_GetKeyboardState(0);
 
 		// W = forward
 		if (keyDown[SDL_SCANCODE_W]){
-			_transform->push(_speed * dt);
-
-			// Shift = Speed boost
-			if (keyDown[SDL_SCANCODE_LSHIFT])
-				_transform->push(_speed * dt);
+			_physics->pushForce(_speed);
 		}
 
 		// Left Mouse = Fire bullet
