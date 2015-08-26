@@ -13,23 +13,19 @@
 int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
 
-	Renderer::setWindowSize(1280, 720);
-	Renderer::setWindowMode(WINDOW_WINDOWED);
-
 	//DEBUG_PRINT("%d", 1);
 
 	// Used for calculating delta time
 	int lastFrame = 0;
 	int currFrame = 0;
 
-	// Start running if renderer initiates successfully
+	EntityManager::addSystem(new Collision);
+
+	setup();
+
 	bool running = Renderer::initiate();
 
 	if (running){
-		EntityManager::addSystem(new Collision);
-
-		setup();
-
 		EntityManager::invokeAll(&Component::load);
 		EntityManager::invokeAll(&Component::lateLoad);
 	}

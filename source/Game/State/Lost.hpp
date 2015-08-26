@@ -20,7 +20,6 @@ struct Lost : public State{
 
 		camera->invoke(&Component::load);
 
-		// Evil face model
 		Entity* won = EntityManager::createEntity("text");
 
 		won->getComponent<Transform>()->setPosition(Vector3f(0.f, -20.f, 0.f));
