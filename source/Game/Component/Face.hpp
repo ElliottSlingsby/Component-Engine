@@ -29,6 +29,10 @@ public:
 		_difficulty = difficulty;
 	}
 
+	void setDifficulty(float difficulty){
+		_difficulty = difficulty;
+	}
+
 	void load(){
 		_transform = getComponent<Transform>();
 
