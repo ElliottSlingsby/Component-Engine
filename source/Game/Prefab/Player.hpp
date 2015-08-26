@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Entity\Entity.hpp"
-#include "Component\Model\Model.hpp"
+#include "Component\Model.hpp"
 #include "Component\Input.hpp"
 #include "Component\Physics.hpp"
 #include "Component\Ship.hpp"

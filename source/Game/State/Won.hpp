@@ -3,7 +3,7 @@
 #include "Static\EntityManager.hpp"
 
 #include "Component\Camera.hpp"
-#include "Component\Model\Model.hpp"
+#include "Component\Model.hpp"
 #include "Component\Spinner.hpp"
 #include "Component\Light.hpp"
 

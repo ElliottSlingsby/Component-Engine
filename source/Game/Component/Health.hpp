@@ -3,7 +3,7 @@
 #include "Entity\HelperComponent.hpp"
 #include "State\Won.hpp"
 #include "State\Lost.hpp"
-#include "Component\Model\Model.hpp"
+#include "Component\Model.hpp"
 #include "Static\AssetLoader.hpp"
 
 class Health : public HelperComponent{

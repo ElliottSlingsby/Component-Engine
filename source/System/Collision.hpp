@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Static\EntityManager.hpp"
-#include "Component\Collider\Collider.hpp"
+#include "Component\Collider.hpp"
 #include <set>
 
 class Collision : public System{

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Entity\Entity.hpp"
-#include "Component\Model\Model.hpp"
-#include "Component\Collider\Collider.hpp"
+#include "Component\Model.hpp"
+#include "Component\Collider.hpp"
 
 class Sky : public Entity{
 	float _size;

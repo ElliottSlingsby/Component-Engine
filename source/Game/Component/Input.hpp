@@ -3,10 +3,10 @@
 #include <Entity\HelperComponent.hpp>
 #include <SDL.h>
 
-#include "Model\Model.hpp"
+#include "Component\Model.hpp"
 #include "Movement.hpp"
-#include "Collider\Collider.hpp"
-#include "Physics.hpp"
+#include "Component\Collider.hpp"
+#include "Component\Physics.hpp"
 
 #include "Prefab\Bullet.hpp"
 
