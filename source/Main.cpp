@@ -1,5 +1,6 @@
 #include "Static\Renderer.hpp"
 #include "Static\EntityManager.hpp"
+#include "System\Collision.hpp"
 #include "Setup.hpp"
 #include <time.h>
 
@@ -19,7 +20,10 @@ int main(int argc, char *args[]){
 	bool running = Renderer::initiate();
 
 	if (running){
+		EntityManager::addSystem(new Collision);
+
 		setup();
+
 		EntityManager::invokeAll(&Component::load);
 		EntityManager::invokeAll(&Component::lateLoad);
 	}
