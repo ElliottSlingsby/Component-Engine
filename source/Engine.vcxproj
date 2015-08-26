@@ -19,6 +19,7 @@
     <ClCompile Include="Static\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Spinner.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Ship.hpp" />
     <ClInclude Include="Entity\Component.hpp" />

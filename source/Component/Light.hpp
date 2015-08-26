@@ -15,7 +15,7 @@ class Light : public HelperComponent{
 	Vector4f _diffuse = Vector4f(1.f, 1.f, 1.f, 1.f);
 	Vector4f _specular = Vector4f(1.f, 1.f, 1.f, 1.f);
 	
-	bool _spot = true;
+	bool _spot = false;
 
 	float _cutoff = 25.f;
 	float _exponent = 75.f;

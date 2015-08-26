@@ -44,6 +44,10 @@ public:
 			_physics->pushForce(_speed);
 		}
 
+		if (keyDown[SDL_SCANCODE_S]){
+			_physics->pushForce(-_speed / 100);
+		}
+
 		// Left Mouse = Fire bullet
 		if (SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_fired){
 			Entity* bullet = EntityManager::createEntity<Bullet>("", ID());

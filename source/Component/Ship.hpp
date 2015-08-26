@@ -2,11 +2,16 @@
 
 #include <Entity\HelperComponent.hpp>
 #include <Component\Transform.hpp>
-#include "Component\Model\Model.hpp"
+#include "Component\Camera.hpp"
+#include "Component\Light.hpp"
 
 class Ship : public HelperComponent{
 	Transform* _transform = 0;
-	Entity* _ship = 0;
+	Entity* _camera = 0;
+
+	float _ease(float value, float target, float speed){
+		return value + (target - value) * speed;
+	}
 
 public:
 	void load(){
@@ -14,22 +19,41 @@ public:
 	}
 
 	void lateLoad(){
-		_ship = EntityManager::createEntity("ship");
+		_camera = EntityManager::createEntity("ship");
 
-		_ship->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
-		_ship->addComponent(new Model("ship.obj", "ship.png"));
-		_ship->getComponent<Transform>()->setPosition(_transform->position());
-		_ship->getComponent<Transform>()->setRotation(_transform->rotation());
-		_ship->getComponent<Transform>()->push(-3.f, 90.f);
-		_ship->getComponent<Transform>()->push(10.f);
+		_camera->addComponent(new Camera);
+		_camera->addComponent(new Light);
+		_camera->getComponent<Transform>()->setPosition(_transform->position());
+		_camera->getComponent<Transform>()->setRotation(_transform->rotation());
+		_camera->getComponent<Transform>()->push(-3.f, 90.f);
+		_camera->getComponent<Transform>()->push(-10.f);
 
-		_ship->invoke(&Component::load);
+		_camera->invoke(&Component::load);
 	}
 
 	void lateUpdate(){
-		_ship->getComponent<Transform>()->setPosition(_transform->position());
-		_ship->getComponent<Transform>()->setRotation(_transform->rotation());
-		_ship->getComponent<Transform>()->push(-3.f, 90.f);
-		_ship->getComponent<Transform>()->push(10.f);
+
+		Transform* camTransform = _camera->getComponent<Transform>();
+
+		Vector3f camPosition = camTransform->position();
+		Vector3f camRotation = camTransform->rotation();
+		
+		camPosition = Vector3f(
+			_ease(camPosition.x(), _transform->position().x(), 0.25f),
+			_ease(camPosition.y(), _transform->position().y(), 0.25f),
+			_ease(camPosition.z(), _transform->position().z(), 0.25f)
+		);
+
+		camRotation = Vector3f(
+			_ease(camRotation.x(), _transform->rotation().x(), 0.25f),
+			_ease(camRotation.y(), _transform->rotation().y(), 0.25f),
+			_ease(camRotation.z(), _transform->rotation().z(), 0.25f)
+		);
+
+		camTransform->setPosition(camPosition);
+		camTransform->setRotation(camRotation);
+		
+		_camera->getComponent<Transform>()->push(3.f, 90.f);
+		_camera->getComponent<Transform>()->push(-10.f);
 	}
 };
