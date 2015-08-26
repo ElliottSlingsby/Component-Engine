@@ -19,6 +19,7 @@
     <ClCompile Include="Static\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Health.hpp" />
     <ClInclude Include="Component\Spinner.hpp" />
     <ClInclude Include="Component\Physics.hpp" />
     <ClInclude Include="Component\Ship.hpp" />
@@ -34,9 +35,12 @@
     <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Component\Model\Model.hpp" />
     <ClInclude Include="Prefab\Bullet.hpp" />
+    <ClInclude Include="Prefab\Enemy.hpp" />
     <ClInclude Include="Prefab\Player.hpp" />
     <ClInclude Include="Setup.hpp" />
-    <ClInclude Include="State\Testing.hpp" />
+    <ClInclude Include="State\Lost.hpp" />
+    <ClInclude Include="State\Playing.hpp" />
+    <ClInclude Include="State\Won.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />
     <ClInclude Include="Math\Quaternion.hpp" />
     <ClInclude Include="Math\MathUtils.hpp" />

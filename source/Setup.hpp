@@ -1,11 +1,17 @@
 #pragma once
 
-#include "State\Testing.hpp"
 #include "System\Collision.hpp"
+
+#include "State\Playing.hpp"
+#include "State\Lost.hpp"
+#include "State\Won.hpp"
 
 void setup(){
 	EntityManager::addSystem(new Collision);
 
-	EntityManager::addState(new Testing);
-	EntityManager::changeState<Testing>();
+	EntityManager::addState(new Playing);
+	EntityManager::addState(new Lost);
+	EntityManager::addState(new Won);
+
+	EntityManager::changeState<Playing>();
 }
