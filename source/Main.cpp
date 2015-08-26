@@ -3,7 +3,9 @@
 #include "Setup.hpp"
 #include <time.h>
 
-int main(int argc, char** argv){
+#define main SDL_main
+
+int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
 
 	Renderer::setWindowSize(1280, 720);
@@ -19,6 +21,7 @@ int main(int argc, char** argv){
 	if (running){
 		setup();
 		EntityManager::invokeAll(&Component::load);
+		EntityManager::invokeAll(&Component::lateLoad);
 	}
 
 	while (running){
@@ -46,6 +49,7 @@ int main(int argc, char** argv){
 
 		EntityManager::invokeAll(&Component::update, dt);
 		EntityManager::invokeAll(&Component::lateUpdate);
+
 		EntityManager::invokeAll(&Component::render);
 		
 		Renderer::swapBuffer();

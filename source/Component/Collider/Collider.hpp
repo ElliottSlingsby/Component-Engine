@@ -11,15 +11,22 @@ class Collider : public HelperComponent{
 protected:
 	Transform* _transform = 0;
 
+	bool _inverted = false;
+
 public:
 	const ColliderType type;
 
-	Collider(ColliderType type) : type(type){
+	Collider(ColliderType type, bool inverted = false) : type(type){
 		EntityManager::registerToSystem(this);
+		_inverted = inverted;
 	}
 
 	~Collider(){
 		EntityManager::unregisterFromSystem(this);
+	}
+
+	Vector3f position(){
+		return _transform->position();
 	}
 
 	virtual bool isColliding(Collider* other) = 0;
@@ -38,7 +45,7 @@ class Sphere : public Collider{
 	}
 
 public:
-	Sphere(float radius, Vector3f offset = Vector3f(0.f, 0.f, 0.f)) : Collider(COLLIDER_SPHERE){
+	Sphere(float radius, bool inverted = false, Vector3f offset = Vector3f(0.f, 0.f, 0.f)) : Collider(COLLIDER_SPHERE, inverted){
 		_radius = radius;
 		_offset = _offset;
 	}
@@ -67,7 +74,7 @@ class Box : public Collider{
 	}
 
 public:
-	Box(Vector3f size, Vector3f offset = Vector3f(0.f, 0.f, 0.f)) : Collider(COLLIDER_BOX){
+	Box(Vector3f size, bool inverted = false, Vector3f offset = Vector3f(0.f, 0.f, 0.f)) : Collider(COLLIDER_BOX, inverted){
 		_offset = _offset;
 	}
 	

@@ -3,7 +3,7 @@
 #include "Entity\HelperComponent.hpp"
 #include "Math\Vector3.hpp"
 
-// Testing movement
+// Testing Bullet
 class Movement : public HelperComponent{
 	Transform* _transform = 0;
 
@@ -20,7 +20,11 @@ public:
 	}
 
 	void update(float dt){
-		//_transform->rotate(_speed * dt);
 		_transform->push(_speed * dt);
+	}
+
+	void onCollision(int id){
+		if (EntityManager::getEntity("sky") == EntityManager::getEntity(id))
+			parent()->destroy();
 	}
 };

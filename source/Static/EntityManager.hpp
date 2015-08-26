@@ -33,9 +33,7 @@ typedef std::vector<Entity*> EntityVector;
 class EntityManager{
 	// Collection of entities
 	EntityVector _entities;
-	// Removed ID pile
-	std::stack<int> _removed;
-
+	
 	typedef std::vector<int> IntVector;
 	typedef std::unordered_map<std::string, IntVector> EntityNameMap;
 	EntityNameMap _names;
@@ -47,6 +45,9 @@ class EntityManager{
 	SystemMap _systems;
 
 	State* _currentState = 0;
+
+	// Removed ID pile
+	std::stack<int> _removed;
 
 	// Highest ID
 	int _highest = 0;

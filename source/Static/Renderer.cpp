@@ -1,5 +1,5 @@
 #include "Static\Renderer.hpp"
-
+#include <SDL.h>
 #include <stdio.h>
 
 Renderer& Renderer::_instance(){

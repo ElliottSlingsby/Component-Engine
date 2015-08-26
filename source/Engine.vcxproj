@@ -13,12 +13,14 @@
   <ItemGroup>
     <ClCompile Include="Component\Collider\Collider.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Static\EntityManager.cpp" />
     <ClCompile Include="Static\AssetLoader.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Static\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Physics.hpp" />
+    <ClInclude Include="Component\Ship.hpp" />
     <ClInclude Include="Entity\Component.hpp" />
     <ClInclude Include="Entity\HelperComponent.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
@@ -30,6 +32,8 @@
     <ClInclude Include="Component\Movement.hpp" />
     <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Component\Model\Model.hpp" />
+    <ClInclude Include="Prefab\Bullet.hpp" />
+    <ClInclude Include="Setup.hpp" />
     <ClInclude Include="State\Testing.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />
     <ClInclude Include="Math\Quaternion.hpp" />
@@ -41,7 +45,6 @@
     <ClInclude Include="Component\Transform.hpp" />
     <ClInclude Include="Math\Vector2.hpp" />
     <ClInclude Include="Math\Vector3.hpp" />
-    <ClInclude Include="Setup.hpp" />
     <ClInclude Include="System\Collision.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

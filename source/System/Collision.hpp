@@ -5,7 +5,6 @@
 #include <set>
 
 class Collision : public System{
-
 	typedef std::set<Collider*> ColliderSet;
 	ColliderSet _colliders;
 
@@ -21,8 +20,13 @@ public:
 	}
 
 	void update(){
-		for (ColliderSet::iterator i = _colliders.begin(); i != _colliders.end(); i++){
-			(*i)->parent()->invoke(&Component::onCollision, (*i)->ID());
+		// Stupid-style collision detection
+		for (ColliderSet::iterator x = _colliders.begin(); x != _colliders.end(); x++){
+			for (ColliderSet::iterator y = _colliders.begin(); y != _colliders.end(); y++){
+				if ((*x) != (*y) && (*x)->isColliding(*y)){
+					(*x)->parent()->invoke(&Component::onCollision, (*y)->ID());
+				}
+			}
 		}
 	};
 };
