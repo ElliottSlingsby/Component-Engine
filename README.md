@@ -6,4 +6,5 @@
 - ~~VBO / IBO drawing~~
 - Maths functions
 - ~~Systems and States~~
-- Sweep / proon collision detection
+- Sweep and proon 
+- ~~Collision detection~~
