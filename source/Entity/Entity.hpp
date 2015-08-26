@@ -4,6 +4,7 @@
 #include <typeinfo>
 #include <unordered_map>
 #include "Component\Transform.hpp"
+#include "Static\DebugPrint.hpp"
 
 class Entity : public Identifier{
 protected:
@@ -53,7 +54,7 @@ public:
 				component->setID(ID());
 		}
 		else
-			printf("%s!\n", "Component already exists");
+			print("%s!\n", "Component already exists");
 	}
 
 	// getComponent<type>() - Returns corresponding component key as appropriate type
@@ -66,7 +67,7 @@ public:
 			T* casted = dynamic_cast<T*>(component->second);
 
 			if (!casted)
-				printf("%s!\n", "Failed to cast component");
+				print("%s!\n", "Failed to cast component");
 
 			return casted;
 		}
@@ -82,7 +83,7 @@ public:
 		// If component exists, erase and delete
 		if (component != _components.end()){
 			if (typeid(T) == typeid(Transform)){
-				printf("%s!\n", "Cannot destroy Transform component");
+				print("%s!\n", "Cannot destroy Transform component");
 				return;
 			}
 
@@ -90,6 +91,6 @@ public:
 			_components.erase(&typeid(T));
 		}
 		else
-			printf("%s!\n", "Cannot find component");
+			print("%s!\n", "Cannot find component");
 	}
 };

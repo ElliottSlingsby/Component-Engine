@@ -6,6 +6,7 @@
 #include <vector>
 #include <GL\glew.h>
 #include <algorithm>
+#include "Static\DebugPrint.hpp"
 
 struct Asset{
 	virtual ~Asset(){}
@@ -89,7 +90,7 @@ public:
 				asset = _instance()._loadMaterial(filepath);
 
 			else
-				printf("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
+				print("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
 
 			return dynamic_cast<const T*>(asset);
 		}

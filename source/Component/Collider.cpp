@@ -1,17 +1,16 @@
 #include "Collider.hpp"
+#include "Static\DebugPrint.hpp"
 
 bool Box::isColliding(Collider* other){
 	Box* box = dynamic_cast<Box*>(other);
 
 	if (box){
-		printf("IT'S A BOX!\n");
 		return false;
 	}
 
 	Sphere* sphere = dynamic_cast<Sphere*>(other);
 
 	if (sphere){
-		printf("IT'S A SPHERE!\n");
 		return false;
 	}
 
@@ -47,12 +46,11 @@ bool Sphere::isColliding(Collider* other){
 		}
 	}
 
-	//Box* box = dynamic_cast<Box*>(other);
+	Box* box = dynamic_cast<Box*>(other);
 
-	//if (box){
-	//	printf("IT'S A BOX!\n");
-	//	return true;
-	//}
+	if (box){
+		return false;
+	}
 
 	return false;
 }

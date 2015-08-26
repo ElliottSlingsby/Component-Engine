@@ -5,6 +5,7 @@
 #include <map>
 #include "Entity\Entity.hpp"
 #include <typeinfo>
+#include "Static\DebugPrint.hpp"
 
 #ifndef MAX_ENTS
 #define MAX_ENTS 1024 //Size of initial vector
@@ -78,7 +79,7 @@ public:
 		if (!_instance()._systems[&typeid(T)])
 			_instance()._systems[&typeid(T)] = system;
 		else
-			printf("%s!\n", "System already added");
+			print("%s!\n", "System already added");
 	}
 
 	template<typename T>
@@ -86,15 +87,15 @@ public:
 		if (!_instance()._states[&typeid(T)])
 			_instance()._states[&typeid(T)] = state;
 		else
-			printf("%s!\n", "State already added");
+			print("%s!\n", "State already added");
 	}
 
 	template<typename T>
 	static void changeState(){
 		if (!_instance()._states[&typeid(T)])
-			printf("%s!\n", "State doesn't exist");
+			print("%s!\n", "State doesn't exist");
 		else if (_instance()._currentState == _instance()._states[&typeid(T)])
-			printf("%s!\n", "State already on");
+			print("%s!\n", "State already on");
 		else{
 			if (_instance()._currentState)
 				_instance()._currentState->off();
@@ -113,7 +114,7 @@ public:
 		int id = _instance()._newID();
 
 		if (_instance()._entities[id]){
-			printf("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
+			print("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
 			_instance()._removeID(id);
 			return 0;
 		}

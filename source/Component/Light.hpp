@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "Math\Vector4.hpp"
 #include <GL\glew.h>
+#include "Static\DebugPrint.hpp"
 
 static const uint16_t GL_LIGHTS[] = { GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7 };
 
@@ -29,7 +30,7 @@ public:
 		static unsigned int count = 0;
 
 		if (count >= 8){
-			printf("%s!\n", "Max GL lights reached");
+			print("%s!\n", "Max GL lights reached");
 			return;
 		}
 

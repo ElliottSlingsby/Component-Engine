@@ -4,8 +4,9 @@
 
 #include "Component\Camera.hpp"
 #include "Component\Model.hpp"
-#include "Component\Spinner.hpp"
 #include "Component\Light.hpp"
+
+#include "..\Component\Spinner.hpp"
 
 struct Lost : public State{
 	const float boundrySize = 500.f;
@@ -34,7 +35,7 @@ struct Lost : public State{
 		face->getComponent<Transform>()->setPosition(Vector3f(0.f, -50.f, 0.f));
 		face->getComponent<Transform>()->setRotation(Vector3f(0.f, 180.f, 0.f));
 		face->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
-		face->addComponent(new Spinner(-100.f));
+		face->addComponent(new Spinner(-50.f));
 		face->addComponent(new Model("face_happy.obj", "face.png"));
 
 		face->invoke(&Component::load);
@@ -44,7 +45,7 @@ struct Lost : public State{
 
 		face->getComponent<Transform>()->setPosition(Vector3f(0.f, -50.f, 0.f));
 		face->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
-		face->addComponent(new Spinner(-100.f));
+		face->addComponent(new Spinner(-50.f));
 		face->addComponent(new Model("face_angry.obj", "face.png"));
 
 		face->invoke(&Component::load);

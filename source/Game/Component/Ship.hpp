@@ -4,7 +4,8 @@
 #include <Component\Transform.hpp>
 #include "Component\Camera.hpp"
 #include "Component\Light.hpp"
-#include "State\Lost.hpp"
+
+#include "..\State\Lost.hpp"
 
 class Ship : public HelperComponent{
 	Transform* _transform = 0;

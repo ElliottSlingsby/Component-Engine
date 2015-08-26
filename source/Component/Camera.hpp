@@ -17,8 +17,6 @@ public:
 	void render(){
 		glMatrixMode(GL_MODELVIEW);
 
-		//glPushMatrix();
-
 		glLoadIdentity();
 
 		glRotatef(_transform->rotation().x(), 1.f, 0.f, 0.f);
@@ -26,7 +24,5 @@ public:
 		glRotatef(_transform->rotation().z(), 0.f, 0.f, 1.f);
 
 		glTranslatef(_transform->position().x(), _transform->position().y(), _transform->position().z());
-
-		//glTranslatef(0.f, 0.f, -1.f);
 	}
 };

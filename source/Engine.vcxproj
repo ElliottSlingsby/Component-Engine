@@ -25,12 +25,10 @@
     <ClInclude Include="Entity\HelperComponent.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Collider.hpp" />
-    <ClInclude Include="Component\Cube.hpp" />
-    <ClInclude Include="Component\Plane.hpp" />
     <ClInclude Include="Component\Light.hpp" />
     <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Component\Model.hpp" />
-    <ClInclude Include="Game\Component\Health.hpp" />
+    <ClInclude Include="Game\Component\Face.hpp" />
     <ClInclude Include="Game\Component\Input.hpp" />
     <ClInclude Include="Game\Component\Movement.hpp" />
     <ClInclude Include="Game\Component\Ship.hpp" />
@@ -43,6 +41,7 @@
     <ClInclude Include="Game\State\Playing.hpp" />
     <ClInclude Include="Game\State\Won.hpp" />
     <ClInclude Include="Setup.hpp" />
+    <ClInclude Include="Static\DebugPrint.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />
     <ClInclude Include="Math\Quaternion.hpp" />
     <ClInclude Include="Math\MathUtils.hpp" />

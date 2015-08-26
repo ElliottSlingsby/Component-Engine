@@ -8,20 +8,22 @@
 #include "Component\Collider.hpp"
 #include "Component\Physics.hpp"
 
-#include "Prefab\Bullet.hpp"
+#include "..\Prefab\Bullet.hpp"
 
 class Input : public HelperComponent{
 	Transform* _transform = 0;
 	Physics* _physics = 0;
 
-	float _speed = 20.f;
+	float _pushSpeed = 20.f;
 	float _sensitivity = 0.2f; // Mouse sensitivity
 
 	bool _fired = false;
 
+	float _fireTimer = 0.f;
+
 public:
 	Input(float speed = 20.f){
-		_speed = speed;
+		_pushSpeed = speed;
 	}
 
 	void load(){
@@ -30,6 +32,11 @@ public:
 	}
 
 	void update(float dt){
+		_fireTimer -= dt;
+
+		if (_fireTimer < 0.f)
+			_fireTimer = 0.f;
+
 		int mouseRX, mouseRY;
 
 		SDL_GetRelativeMouseState(&mouseRX, &mouseRY);
@@ -41,18 +48,18 @@ public:
 
 		// W = forward
 		if (keyDown[SDL_SCANCODE_W]){
-			_physics->pushForce(_speed);
+			_physics->pushForce(_pushSpeed);
 		}
 
 		if (keyDown[SDL_SCANCODE_S]){
-			_physics->pushForce(-_speed / 100);
+			_physics->pushForce(-_pushSpeed / 100);
 		}
 
 		// Left Mouse = Fire bullet
-		if (SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_fired){
+		if (SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_fired && !_fireTimer){
 			Entity* bullet = EntityManager::createEntity<Bullet>("bullet", ID());
 			bullet->invoke(&Component::load);
-
+			_fireTimer = 2.f;
 			_fired = true;
 		}
 		else if (!SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && _fired){
@@ -61,7 +68,7 @@ public:
 	}
 
 	void setSpeed(float speed){
-		_speed = speed;
+		_pushSpeed = speed;
 	}
 
 	void setSensitivity(float sensitivity){

@@ -1,17 +1,23 @@
+//#ifdef _DEBUG
+//#define DEBUG_PRINT(string, ...) printf (string, __VA_ARGS__)
+//#else
+//#define DEBUG_PRINT(string, ...) (0)
+//#endif
+
 #include "Static\Renderer.hpp"
 #include "Static\EntityManager.hpp"
 #include "System\Collision.hpp"
 #include "Setup.hpp"
 #include <time.h>
 
-#define main SDL_main
-
 int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
 
 	Renderer::setWindowSize(1280, 720);
 	Renderer::setWindowMode(WINDOW_WINDOWED);
-	
+
+	//DEBUG_PRINT("%d", 1);
+
 	// Used for calculating delta time
 	int lastFrame = 0;
 	int currFrame = 0;

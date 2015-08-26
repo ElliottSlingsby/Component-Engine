@@ -1,6 +1,7 @@
 #include "Static\Renderer.hpp"
 #include <SDL.h>
 #include <stdio.h>
+#include "Static\DebugPrint.hpp"
 
 Renderer& Renderer::_instance(){
 	static Renderer instance;
@@ -17,7 +18,7 @@ Renderer::~Renderer(){
 
 bool Renderer::_setupSDL(){
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0){
-		printf("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
+		print("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -36,7 +37,7 @@ bool Renderer::_setupSDL(){
 	_window = SDL_CreateWindow(_windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _windowSize.x(), _windowSize.y(), SDL_WINDOW_OPENGL);
 
 	if (!_window){
-		printf("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
+		print("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -44,7 +45,7 @@ bool Renderer::_setupSDL(){
 	_sdlRenderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (!_sdlRenderer){
-		printf("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", SDL_GetError());
+		print("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -62,7 +63,7 @@ bool Renderer::_setupGL(){
 	_glcontext = SDL_GL_CreateContext(_window);
 
 	if (!_glcontext){
-		printf("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", SDL_GetError());
+		print("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -84,7 +85,7 @@ bool Renderer::_setupGL(){
 	GLenum error = glGetError();
 
 	if (error != GL_NO_ERROR){
-		printf("%s! %s: %s\n", "Failed to set OpenGL parameters", "OpenGL Error", gluErrorString(error));
+		print("%s! %s: %s\n", "Failed to set OpenGL parameters", "OpenGL Error", gluErrorString(error));
 		return false;
 	}
 	
@@ -92,7 +93,7 @@ bool Renderer::_setupGL(){
 	error = glewInit();
 
 	if (error != GLEW_OK){
-		printf("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", glewGetErrorString(error));
+		print("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", glewGetErrorString(error));
 		return false;
 	}
 
@@ -116,7 +117,7 @@ bool Renderer::reshape(){
 	GLenum error = glGetError();
 
 	if (error != GL_NO_ERROR){
-		printf("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", gluErrorString(error));
+		print("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", gluErrorString(error));
 		return false;
 	}
 

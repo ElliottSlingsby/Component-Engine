@@ -4,8 +4,9 @@
 
 #include "Component\Camera.hpp"
 #include "Component\Model.hpp"
-#include "Component\Spinner.hpp"
 #include "Component\Light.hpp"
+
+#include "..\Component\Spinner.hpp"
 
 struct Won : public State{
 	const float boundrySize = 500.f;
@@ -33,7 +34,7 @@ struct Won : public State{
 
 		star->getComponent<Transform>()->setPosition(Vector3f(0.f, -50.f, 0.f));
 		star->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
-		star->addComponent(new Spinner(-100.f));
+		star->addComponent(new Spinner(-50.f));
 		star->addComponent(new Model("star.obj", "star.png"));
 
 		star->invoke(&Component::load);

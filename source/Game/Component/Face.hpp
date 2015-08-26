@@ -1,29 +1,37 @@
 #pragma once
 
 #include "Entity\HelperComponent.hpp"
-#include "State\Won.hpp"
-#include "State\Lost.hpp"
 #include "Component\Model.hpp"
 #include "Static\AssetLoader.hpp"
 
-class Health : public HelperComponent{
+#include "..\State\Won.hpp"
+#include "..\State\Lost.hpp"
+
+class Face : public HelperComponent{
 	Model* _model = 0;
+	Transform* _transform = 0;
 
-	float _amount;
-	float _damage;
+	float _maxHealth;
+	float _health;
+	float _hurtAmount;
+	float _difficulty;
 
-	float _timer = 0.f;
+	float _faceTimer = 0.f;
 
 	const MeshData* _idleMesh;
 	const MeshData* _hurtMesh;
 
 public:
-	Health(float amount, float damage = 1.f){
-		_amount = amount;
-		_damage = damage;
+	Face(float amount, float difficulty = 1.f,  float damage = 1.f){
+		_maxHealth = amount;
+		_health = amount;
+		_hurtAmount = damage;
+		_difficulty = difficulty;
 	}
 
 	void load(){
+		_transform = getComponent<Transform>();
+
 		_idleMesh = AssetLoader::getAsset<MeshData>("face_happy.obj");
 		_hurtMesh = AssetLoader::getAsset<MeshData>("face_angry.obj");
 
@@ -31,21 +39,23 @@ public:
 	}
 
 	void update(float dt){
-		_timer -= dt;
+		_faceTimer -= dt;
 		
-		if (_timer < 0.f){
-			if (_amount > 1.f){
+		if (_faceTimer < 0.f){
+			if (_health > 1.f){
 				_model->setMesh(_idleMesh);
-				_timer = 0.f;
+				_faceTimer = 0.f;
 			}
 		}
 		else{
 			_model->setMesh(_hurtMesh);
 		}
+
+		_transform->push((150.f * _difficulty * ((_maxHealth - _health) / _maxHealth)) * dt);
 	}
 
 	void lateUpdate(){
-		if (_amount <= 0.f){
+		if (_health <= 0.f){
 			parent()->destroy();
 			EntityManager::changeState<Won>();
 		}
@@ -66,9 +76,9 @@ public:
 			return;
 
 		if (std::find(bullets.begin(), bullets.end(), other) != bullets.end()){
-			_amount -= _damage;
+			_health -= _hurtAmount;
 			other->destroy();
-			_timer = 0.5f;
+			_faceTimer = 2.f;
 		}
 		else if (other == EntityManager::getEntity("player")){
 			other->destroy();

@@ -22,6 +22,8 @@ public:
 	}
 
 	void lookAt(Vector3f position){
+		position = position - _position;
+
 		float yaw = atan2(position.x(), position.z()) * 180.f / (float)M_PI;
 
 		float tmp = sqrt(pow(position.x(), 2.f) + pow(position.z(), 2.f));
