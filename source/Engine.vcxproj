@@ -34,6 +34,7 @@
     <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Component\Model\Model.hpp" />
     <ClInclude Include="Prefab\Bullet.hpp" />
+    <ClInclude Include="Prefab\Player.hpp" />
     <ClInclude Include="Setup.hpp" />
     <ClInclude Include="State\Testing.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />

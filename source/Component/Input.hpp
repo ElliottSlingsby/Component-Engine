@@ -50,7 +50,7 @@ public:
 
 		// Left Mouse = Fire bullet
 		if (SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_fired){
-			Entity* bullet = EntityManager::createEntity<Bullet>("", ID());
+			Entity* bullet = EntityManager::createEntity<Bullet>("bullet", ID());
 			bullet->invoke(&Component::load);
 
 			_fired = true;

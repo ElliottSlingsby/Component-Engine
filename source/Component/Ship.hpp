@@ -45,9 +45,9 @@ public:
 		);
 
 		camRotation = Vector3f(
-			_ease(camRotation.x(), _transform->rotation().x(), 0.25f),
-			_ease(camRotation.y(), _transform->rotation().y(), 0.25f),
-			_ease(camRotation.z(), _transform->rotation().z(), 0.25f)
+			_ease(camRotation.x(), _transform->rotation().x(), 0.05f),
+			_ease(camRotation.y(), _transform->rotation().y(), 0.05f),
+			_ease(camRotation.z(), _transform->rotation().z(), 0.05f)
 		);
 
 		camTransform->setPosition(camPosition);
@@ -55,5 +55,17 @@ public:
 		
 		_camera->getComponent<Transform>()->push(3.f, 90.f);
 		_camera->getComponent<Transform>()->push(-10.f);
+	}
+
+
+	void onCollision(int id){
+		if (EntityManager::getEntity("sky") == EntityManager::getEntity(id)){
+			_camera->destroy();
+			parent()->destroy();
+		}
+	}
+
+	~Ship(){
+		_camera->destroy();
 	}
 };

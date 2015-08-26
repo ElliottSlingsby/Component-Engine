@@ -13,8 +13,7 @@ struct Bullet : public Entity{
 		_transform->setRotation(shooter->getComponent<Transform>()->rotation());
 		_transform->setScale(Vector3f(0.5f, 0.5f, 0.5f));
 
-		_transform->push(-3.f, 90.f);
-		_transform->push(10.f);
+		_transform->push(2.f);
 	}
 
 	void prefab(){

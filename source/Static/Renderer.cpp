@@ -108,7 +108,7 @@ bool Renderer::reshape(){
 
 	float ar = (float)_instance()._windowSize.x() / (float)_instance()._windowSize.y();
 
-	gluPerspective(59, ar, 0.1, 1000); // 59 vfov = ~90 hfov
+	gluPerspective(59, ar, 0.1, 1024 * 2); // 59 vfov = ~90 hfov
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
