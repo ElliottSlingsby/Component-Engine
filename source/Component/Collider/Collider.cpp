@@ -5,14 +5,14 @@ bool Box::isColliding(Collider* other){
 
 	if (box){
 		printf("IT'S A BOX!\n");
-		return true;
+		return false;
 	}
 
 	Sphere* sphere = dynamic_cast<Sphere*>(other);
 
 	if (sphere){
 		printf("IT'S A SPHERE!\n");
-		return true;
+		return false;
 	}
 
 	return false;

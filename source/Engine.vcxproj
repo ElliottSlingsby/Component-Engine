@@ -37,6 +37,7 @@
     <ClInclude Include="Prefab\Bullet.hpp" />
     <ClInclude Include="Prefab\Enemy.hpp" />
     <ClInclude Include="Prefab\Player.hpp" />
+    <ClInclude Include="Prefab\Sky.hpp" />
     <ClInclude Include="Setup.hpp" />
     <ClInclude Include="State\Lost.hpp" />
     <ClInclude Include="State\Playing.hpp" />

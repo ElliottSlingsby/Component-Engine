@@ -21,6 +21,15 @@ public:
 		_rotation = rotation;
 	}
 
+	void lookAt(Vector3f position){
+		float yaw = atan2(position.x(), position.z()) * 180.f / (float)M_PI;
+
+		float tmp = sqrt(pow(position.x(), 2.f) + pow(position.z(), 2.f));
+		float pitch = atan2(tmp, position.y()) * 180.f / (float)M_PI;
+
+		_rotation = Vector3f(-(pitch - 90.f), -yaw, 0.f);
+	}
+
 	Vector3f position(){
 		return _position;
 	}

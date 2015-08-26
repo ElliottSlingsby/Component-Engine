@@ -20,10 +20,9 @@ struct Won : public State{
 		camera->invoke(&Component::load);
 
 		// Evil face model
-		Entity* won = EntityManager::createEntity("trophy");
+		Entity* won = EntityManager::createEntity("text");
 
 		won->getComponent<Transform>()->setPosition(Vector3f(0.f, -20.f, 0.f));
-		won->getComponent<Transform>()->setRotation(Vector3f(0.f, 180.f, 0.f));
 		won->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
 		won->addComponent(new Spinner(100.f));
 		won->addComponent(new Model("won.obj", "won.png"));
@@ -33,12 +32,14 @@ struct Won : public State{
 		Entity* star = EntityManager::createEntity("trophy");
 
 		star->getComponent<Transform>()->setPosition(Vector3f(0.f, -50.f, 0.f));
-		star->getComponent<Transform>()->setRotation(Vector3f(0.f, 180.f, 0.f));
 		star->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
 		star->addComponent(new Spinner(-100.f));
 		star->addComponent(new Model("star.obj", "star.png"));
 
 		star->invoke(&Component::load);
+
+		EntityManager::getEntity("sky")->addComponent(new Spinner(10.f));
+		EntityManager::getEntity("sky")->getComponent<Spinner>()->load();
 	}
 
 	void off(){

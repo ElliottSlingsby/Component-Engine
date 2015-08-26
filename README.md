@@ -8,3 +8,4 @@
 - ~~Systems and States~~
 - Sweep and proon 
 - ~~Collision detection~~
+- Split game and engine
