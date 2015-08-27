@@ -17,5 +17,7 @@ public:
 
 	void update(float dt){
 		_transform->rotate(Vector3f(0.f, _speed * dt, 0.f));
+
+		const Uint8* keyDown = SDL_GetKeyboardState(0);
 	}
 };

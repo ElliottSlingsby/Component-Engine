@@ -36,13 +36,13 @@
     <ClInclude Include="Game\Prefab\Enemy.hpp" />
     <ClInclude Include="Game\Prefab\Player.hpp" />
     <ClInclude Include="Game\Prefab\Sky.hpp" />
+    <ClInclude Include="Game\Prefab\Trophy.hpp" />
     <ClInclude Include="Game\State\Lost.hpp" />
     <ClInclude Include="Game\State\Playing.hpp" />
     <ClInclude Include="Game\State\Won.hpp" />
     <ClInclude Include="Setup.hpp" />
     <ClInclude Include="Static\DebugPrint.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />
-    <ClInclude Include="Math\Quaternion.hpp" />
     <ClInclude Include="Math\MathUtils.hpp" />
     <ClInclude Include="Math\Vector4.hpp" />
     <ClInclude Include="Static\AssetLoader.hpp" />

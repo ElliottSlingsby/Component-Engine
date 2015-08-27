@@ -47,19 +47,17 @@ public:
 		const Uint8* keyDown = SDL_GetKeyboardState(0);
 
 		// W = forward
-		if (keyDown[SDL_SCANCODE_W]){
+		if (keyDown[SDL_SCANCODE_W])
 			_physics->pushForce(_pushSpeed);
-		}
 
-		if (keyDown[SDL_SCANCODE_S]){
+		if (keyDown[SDL_SCANCODE_S])
 			_physics->pushForce(-_pushSpeed / 100);
-		}
 
 		// Left Mouse = Fire bullet
 		if (SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_fired && !_fireTimer){
 			Entity* bullet = EntityManager::createEntity<Bullet>("bullet", ID());
 			bullet->invoke(&Component::load);
-			_fireTimer = 2.f;
+			_fireTimer = 0.1f;
 			_fired = true;
 		}
 		else if (!SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && _fired){

@@ -6,7 +6,7 @@
 #include "Game\State\Lost.hpp"
 #include "Game\State\Won.hpp"
 
-void setup(){
+void setup(int argc, char *args[]){
 	Renderer::setWindowSize(1280, 720);
 	Renderer::setWindowMode(WINDOW_WINDOWED);
 

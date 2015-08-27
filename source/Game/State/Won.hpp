@@ -3,16 +3,15 @@
 #include "Static\EntityManager.hpp"
 
 #include "Component\Camera.hpp"
-#include "Component\Model.hpp"
 #include "Component\Light.hpp"
 
-#include "..\Component\Spinner.hpp"
+#include "..\Prefab\Trophy.hpp"
 
 struct Won : public State{
 	const float boundrySize = 500.f;
 
 	void on(){
-		Entity* camera = EntityManager::createEntity("camera");
+		Entity* camera = EntityManager::createEntity();
 
 		camera->getComponent<Transform>()->setPosition(Vector3f(0.f, -35.f, -70.f));
 		camera->addComponent(new Light);
@@ -20,21 +19,11 @@ struct Won : public State{
 
 		camera->invoke(&Component::load);
 
-		Entity* won = EntityManager::createEntity("text");
-
-		won->getComponent<Transform>()->setPosition(Vector3f(0.f, -20.f, 0.f));
-		won->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
-		won->addComponent(new Spinner(100.f));
-		won->addComponent(new Model("won.obj", "won.png"));
+		Entity* won = EntityManager::createEntity<Trophy>("", Vector3f(0.f, -20.f, 0.f), "won.obj", "won.png", 100.f);
 
 		won->invoke(&Component::load);
 
-		Entity* star = EntityManager::createEntity("trophy");
-
-		star->getComponent<Transform>()->setPosition(Vector3f(0.f, -50.f, 0.f));
-		star->getComponent<Transform>()->setScale(Vector3f(0.1f, 0.1f, 0.1f));
-		star->addComponent(new Spinner(-50.f));
-		star->addComponent(new Model("star.obj", "star.png"));
+		Entity* star = EntityManager::createEntity<Trophy>("", Vector3f(0.f, -50.f, 0.f), "star.obj", "star.png", -50.f);
 
 		star->invoke(&Component::load);
 

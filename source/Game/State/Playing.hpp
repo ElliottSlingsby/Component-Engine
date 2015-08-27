@@ -13,7 +13,7 @@ struct Playing : public State{
 	void on(){
 		Entity* sky = EntityManager::createEntity<Sky>("sky");
 
-		Entity* light = EntityManager::createEntity("light");
+		Entity* light = EntityManager::createEntity();
 		light->addComponent(new Light);
 
 		Entity* player = EntityManager::createEntity<Player>("player", Vector3f(0.f, 0.f, -250.f));

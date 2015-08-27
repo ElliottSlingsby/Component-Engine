@@ -16,6 +16,6 @@ struct Enemy : public Entity{
 	void prefab(){
 		addComponent(new Model("face_happy.obj", "face.png"));
 		addComponent(new Sphere(50.f));
-		addComponent(new Face(10.f));
+		addComponent(new Face(10.f, 1.f, 0.1f));
 	}
 };

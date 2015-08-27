@@ -14,7 +14,7 @@ public:
 	}
 
 	void prefab(){
-		addComponent(new Sphere(_size, true));
+		addComponent(new Sphere(_size + 30.f, true));
 		addComponent(new Model("relaxed_cube.obj", "grid.png"));
 	}
 };
