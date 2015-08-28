@@ -19,5 +19,5 @@ void setup(int argc, char *args[]){
 	Entity* entity = EntityManager::getEntity("enemy");
 
 	if (entity)
-		entity->getComponent<Face>()->setDifficulty(1.f);
+		entity->getComponent<Face>()->setDifficulty(0.8f);
 }

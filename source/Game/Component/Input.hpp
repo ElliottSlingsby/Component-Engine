@@ -57,7 +57,7 @@ public:
 		if (SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_fired && !_fireTimer){
 			Entity* bullet = EntityManager::createEntity<Bullet>("bullet", ID());
 			bullet->invoke(&Component::load);
-			_fireTimer = 0.1f;
+			_fireTimer = 0.5f;
 			_fired = true;
 		}
 		else if (!SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && _fired){
