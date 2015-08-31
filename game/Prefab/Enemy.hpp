@@ -4,7 +4,7 @@
 #include "Component\Collider.hpp"
 #include "Component\Model.hpp"
 
-#include "..\Component\Face.hpp"
+#include "Component\Face.hpp"
 
 struct Enemy : public Entity{
 	Enemy(Vector3f spawn = Vector3f(0.f, 0.f, 0.f)){

@@ -8,7 +8,7 @@
 #include "Component\Collider.hpp"
 #include "Component\Physics.hpp"
 
-#include "..\Prefab\Bullet.hpp"
+#include "Prefab\Bullet.hpp"
 
 class Input : public HelperComponent{
 	Transform* _transform = 0;

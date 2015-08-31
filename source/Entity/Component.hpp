@@ -13,5 +13,6 @@ struct Component : public Identifier{
 	virtual void render(){} // Called every frame after update
 	virtual void lateLoad(){}
 	virtual void lateUpdate(){}
+	virtual void earlyRender(){}
 	virtual void onCollision(int id){}
 };

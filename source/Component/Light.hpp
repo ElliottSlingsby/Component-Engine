@@ -30,7 +30,7 @@ public:
 		static unsigned int count = 0;
 
 		if (count >= 8){
-			print("%s!\n", "Max GL lights reached");
+			printd("%s!\n", "Max GL lights reached");
 			return;
 		}
 

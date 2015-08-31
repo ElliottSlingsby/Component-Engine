@@ -1,11 +1,15 @@
 #include "Static\Renderer.hpp"
 #include "Static\EntityManager.hpp"
 #include "System\Collision.hpp"
-#include "Setup.hpp"
 #include <time.h>
+
+#include "Setup.hpp"
 
 int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
+
+	Renderer::setWindowSize(1280, 720);
+	Renderer::setWindowMode(WINDOW_WINDOWED);
 
 	// Used for calculating delta time
 	int lastFrame = 0;
@@ -39,8 +43,8 @@ int main(int argc, char *args[]){
 				running = false;
 
 			else if (e.type == SDL_KEYDOWN)
-				if (e.key.keysym.sym == SDLK_ESCAPE)
-					running = false;
+			if (e.key.keysym.sym == SDLK_ESCAPE)
+				running = false;
 		}
 
 		EntityManager::runSystems();
@@ -48,8 +52,9 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::update, dt);
 		EntityManager::invokeAll(&Component::lateUpdate);
 
+		EntityManager::invokeAll(&Component::earlyRender);
 		EntityManager::invokeAll(&Component::render);
-		
+
 		Renderer::swapBuffer();
 
 		EntityManager::deleteDestroyed();

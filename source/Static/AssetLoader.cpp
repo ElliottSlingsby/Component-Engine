@@ -24,7 +24,7 @@ MeshData* AssetLoader::_loadMesh(std::string filepath){
 	std::string error = tinyobj::LoadObj(shapes, materials, (_assetPath + filepath).c_str());
 
 	if (!error.empty()){
-		print("%s: %s %s!\n", "Asset Loader", "Cannot load mesh from file", (_assetPath + filepath).c_str());
+		printd("%s: %s %s!\n", "Asset Loader", "Cannot load mesh from file", (_assetPath + filepath).c_str());
 		return 0;
 	}
 
@@ -59,7 +59,7 @@ MeshData* AssetLoader::_loadMesh(std::string filepath){
 	GLenum err = glGetError();
 
 	if (err != GL_NO_ERROR){
-		print("%s: %s\n", "OpenGL Error", gluErrorString(err));
+		printd("%s: %s\n", "OpenGL Error", gluErrorString(err));
 	}
 
 	MeshData* asset = new MeshData(vertexBuffer, indexBuffer, indicesSize, positionsSize, texcoordsSize, normalsSize);
@@ -72,7 +72,7 @@ MaterialData* AssetLoader::_loadMaterial(std::string filepath){
 	SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
 
 	if (!image){
-		print("%s %s!", "Cannot load texture", (_assetPath + filepath).c_str());
+		printd("%s %s!", "Cannot load texture", (_assetPath + filepath).c_str());
 		return 0;
 	}
 	

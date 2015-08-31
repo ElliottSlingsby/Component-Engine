@@ -4,7 +4,7 @@
 #include "Component\Collider.hpp"
 #include "Component\Model.hpp"
 
-#include "..\Component\Movement.hpp"
+#include "Component\Movement.hpp"
 
 struct Bullet : public Entity{
 	Bullet(int id){

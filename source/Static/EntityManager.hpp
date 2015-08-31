@@ -19,7 +19,8 @@ struct System{
 	virtual void registerComponent(Component* component){}
 	virtual void unregisterComponent(Component* component){}
 
-	virtual void update(){};
+	virtual void update(){}
+
 	virtual ~System(){}
 };
 
@@ -79,7 +80,7 @@ public:
 		if (!_instance()._systems[&typeid(T)])
 			_instance()._systems[&typeid(T)] = system;
 		else
-			print("%s!\n", "System already added");
+			printd("%s!\n", "System already added");
 	}
 
 	template<typename T>
@@ -87,15 +88,15 @@ public:
 		if (!_instance()._states[&typeid(T)])
 			_instance()._states[&typeid(T)] = state;
 		else
-			print("%s!\n", "State already added");
+			printd("%s!\n", "State already added");
 	}
 
 	template<typename T>
 	static void changeState(){
 		if (!_instance()._states[&typeid(T)])
-			print("%s!\n", "State doesn't exist");
+			printd("%s!\n", "State doesn't exist");
 		else if (_instance()._currentState == _instance()._states[&typeid(T)])
-			print("%s!\n", "State already on");
+			printd("%s!\n", "State already on");
 		else{
 			if (_instance()._currentState)
 				_instance()._currentState->off();
@@ -114,7 +115,7 @@ public:
 		int id = _instance()._newID();
 
 		if (_instance()._entities[id]){
-			print("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
+			printd("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
 			_instance()._removeID(id);
 			return 0;
 		}
