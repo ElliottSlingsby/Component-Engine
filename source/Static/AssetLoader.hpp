@@ -99,5 +99,5 @@ public:
 		return dynamic_cast<const T*>(iter->second);
 	}
 
-	static void setLocation(std::string filepath);
+	static void setAssetLocation(std::string filepath);
 };

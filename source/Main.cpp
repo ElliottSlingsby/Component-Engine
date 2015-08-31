@@ -31,9 +31,9 @@ int main(int argc, char *args[]){
 		lastFrame = currFrame;
 		currFrame = SDL_GetTicks();
 
-		float dt = (float)(currFrame - lastFrame) / 1000.f;
+		long double dt = (long double)(currFrame - lastFrame) / 1000;
 
-		Renderer::setWindowTitle(("FPS : " + std::to_string((int)(1.f / dt))).c_str());
+		Renderer::setWindowTitle(("FPS : " + std::to_string((int)(1 / dt))).c_str());
 
 		// Checking for exit conditions
 		SDL_Event e;
@@ -50,7 +50,7 @@ int main(int argc, char *args[]){
 		EntityManager::runSystems();
 
 		EntityManager::invokeAll(&Component::update, dt);
-		EntityManager::invokeAll(&Component::lateUpdate);
+		EntityManager::invokeAll(&Component::lateUpdate, dt);
 
 		EntityManager::invokeAll(&Component::earlyRender);
 		EntityManager::invokeAll(&Component::render);

@@ -11,8 +11,8 @@ class Ship : public HelperComponent{
 	Transform* _transform = 0;
 	Entity* _camera = 0;
 
-	float _ease(float value, float target, float speed){
-		return value + (target - value) * speed;
+	float _ease(float value, float target, long double speed){
+		return (float)(value + (target - value) * speed);
 	}
 
 public:
@@ -27,44 +27,31 @@ public:
 		_camera->addComponent(new Light);
 		_camera->getComponent<Transform>()->setPosition(_transform->position());
 		_camera->getComponent<Transform>()->setRotation(_transform->rotation());
-		_camera->getComponent<Transform>()->push(-3.f, 90.f);
-		_camera->getComponent<Transform>()->push(-10.f);
+		_camera->getComponent<Transform>()->push(12.f, 90.f);
+		_camera->getComponent<Transform>()->push(-40.f);
 
 		_camera->invoke(&Component::load);
 	}
 
-	void lateUpdate(){
-
+	void lateUpdate(long double dt){
 		Transform* camTransform = _camera->getComponent<Transform>();
-
-		Vector3f camPosition = camTransform->position();
-		Vector3f camRotation = camTransform->rotation();
-		
-		camPosition = Vector3f(
-			_ease(camPosition.x(), _transform->position().x(), 0.25f),
-			_ease(camPosition.y(), _transform->position().y(), 0.25f),
-			_ease(camPosition.z(), _transform->position().z(), 0.25f)
+	
+		Vector3f camRotation = Vector3f(
+			_ease(camTransform->rotation().x(), _transform->rotation().x(), 5 * dt),
+			_ease(camTransform->rotation().y(), _transform->rotation().y(), 5 * dt),
+			_ease(camTransform->rotation().z(), _transform->rotation().z(), 5 * dt)
 		);
 
-		camRotation = Vector3f(
-			_ease(camRotation.x(), _transform->rotation().x(), 0.05f),
-			_ease(camRotation.y(), _transform->rotation().y(), 0.05f),
-			_ease(camRotation.z(), _transform->rotation().z(), 0.05f)
-		);
-
-		camTransform->setPosition(camPosition);
+		camTransform->setPosition(_transform->position());
 		camTransform->setRotation(camRotation);
 		
-		_camera->getComponent<Transform>()->push(3.f, 90.f);
-		_camera->getComponent<Transform>()->push(-10.f);
+		camTransform->push(12.f, 90.f);
+		camTransform->push(-40.f);
 	}
 
 
 	void onCollision(int id){
 		if (EntityManager::getEntity("sky") == EntityManager::getEntity(id)){
-			_camera->destroy();
-			parent()->destroy();
-
 			EntityManager::changeState<Lost>();
 		}
 	}

@@ -17,7 +17,7 @@ public:
 		_transform = getComponent<Transform>();
 	}
 	
-	void lateUpdate(){
+	void lateUpdate(long double dt){
 		if (_hasTarget)
 			_transform->lookAt(_target);
 	}

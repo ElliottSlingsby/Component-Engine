@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include "Static\DebugPrint.hpp"
 
+#include <SDL_messagebox.h>
+
 Renderer& Renderer::_instance(){
 	static Renderer instance;
 	return instance;
@@ -18,7 +20,10 @@ Renderer::~Renderer(){
 
 bool Renderer::_setupSDL(){
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0){
-		printd("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
+		std::string message = SDL_GetError();
+
+		printd("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", message.c_str());
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), 0);
 		return false;
 	}
 
@@ -37,7 +42,10 @@ bool Renderer::_setupSDL(){
 	_window = SDL_CreateWindow(_windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _windowSize.x(), _windowSize.y(), SDL_WINDOW_OPENGL);
 
 	if (!_window){
-		printd("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
+		std::string message = SDL_GetError();
+
+		printd("%s! %s: %s\n", "Failed to create renderer", "SDL Error", message.c_str());
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), 0);
 		return false;
 	}
 
@@ -45,7 +53,10 @@ bool Renderer::_setupSDL(){
 	_sdlRenderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (!_sdlRenderer){
-		printd("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", SDL_GetError());
+		std::string message = SDL_GetError();
+
+		printd("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", message.c_str());
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
 		return false;
 	}
 
@@ -63,7 +74,10 @@ bool Renderer::_setupGL(){
 	_glcontext = SDL_GL_CreateContext(_window);
 
 	if (!_glcontext){
-		printd("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", SDL_GetError());
+		std::string message = SDL_GetError();
+
+		printd("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", message.c_str());
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
 		return false;
 	}
 
@@ -73,6 +87,18 @@ bool Renderer::_setupGL(){
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_CULL_FACE);
+	glEnable(GL_ALPHA_TEST);
+	glEnable(GL_SCISSOR_TEST);
+	glEnable(GL_FOG);
+
+	int hpad = 0;
+	int vpad = 75;
+
+	glScissor(hpad, vpad, _windowSize.x() - hpad * 2, _windowSize.y() - vpad * 2);
+
+	float density = 0.f;
+
+	glFogf(GL_FOG_DENSITY, density);
 
 #ifdef _DEBUG
 	glDisable(GL_CULL_FACE);
@@ -82,10 +108,13 @@ bool Renderer::_setupGL(){
 	glColor4f(1, 1, 1, 1);
 #endif
 
-	GLenum error = glGetError();
+	 GLenum error = glGetError();
 
 	if (error != GL_NO_ERROR){
-		printd("%s! %s: %s\n", "Failed to set OpenGL parameters", "OpenGL Error", gluErrorString(error));
+		std::string message = reinterpret_cast<const char*>(gluErrorString(error));
+
+		printd("%s! %s: %s\n", "Failed to set OpenGL parameters", "OpenGL Error", message.c_str());
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
 		return false;
 	}
 	
@@ -93,9 +122,14 @@ bool Renderer::_setupGL(){
 	error = glewInit();
 
 	if (error != GLEW_OK){
-		printd("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", glewGetErrorString(error));
+		std::string message = reinterpret_cast<const char*>(glewGetErrorString(error));
+
+		printd("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", message.c_str());
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
 		return false;
 	}
+
+	// Shaders go here
 
 	return true;
 }
@@ -117,7 +151,10 @@ bool Renderer::reshape(){
 	GLenum error = glGetError();
 
 	if (error != GL_NO_ERROR){
-		printd("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", gluErrorString(error));
+		std::string message = reinterpret_cast<const char*>(gluErrorString(error));
+
+		printd("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", message.c_str());
+		//SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _instance()._window);
 		return false;
 	}
 
@@ -186,4 +223,8 @@ void Renderer::setWindowTitle(const char* title){
 
 	if (_instance()._running)
 		SDL_SetWindowTitle(_instance()._window, title);
+}
+
+void Renderer::setShaderLocation(std::string filepath){
+	_instance()._shaderPath = "../" + filepath + "/";
 }

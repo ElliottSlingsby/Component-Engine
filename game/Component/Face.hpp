@@ -42,8 +42,8 @@ public:
 		_model = getComponent<Model>();
 	}
 
-	void update(float dt){
-		_faceTimer -= dt;
+	void update(long double dt){
+		_faceTimer -= (float)dt;
 		
 		if (_faceTimer < 0.f){
 			if (_health > 1.f){
@@ -55,12 +55,11 @@ public:
 			_model->setMesh(_hurtMesh);
 		}
 
-		_transform->push((150.f * _difficulty * ((_maxHealth - _health) / _maxHealth)) * dt);
+		_transform->push((float)((150.f * _difficulty * ((_maxHealth - _health) / _maxHealth)) * dt));
 	}
 
-	void lateUpdate(){
+	void lateUpdate(long double dt){
 		if (_health <= 0.f){
-			parent()->destroy();
 			EntityManager::changeState<Won>();
 		}
 
@@ -85,7 +84,6 @@ public:
 			_faceTimer = 2.f;
 		}
 		else if (other == EntityManager::getEntity("player")){
-			other->destroy();
 			EntityManager::changeState<Lost>();
 		}
 	}

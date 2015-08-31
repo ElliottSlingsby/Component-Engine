@@ -2,7 +2,7 @@
 
 EntityManager::EntityManager(){
 	// Set initial vector size
-	_entities.resize(MAX_ENTS);
+	_entities.resize(1024);
 }
 
 EntityManager::~EntityManager(){
@@ -141,4 +141,8 @@ void EntityManager::deleteDestroyed(){
 			delete entity;
 		}
 	}
+}
+
+void EntityManager::setMaxSize(unsigned int size){
+	_instance()._entities.resize(size);
 }

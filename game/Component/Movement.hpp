@@ -19,8 +19,8 @@ public:
 		_transform = getComponent<Transform>();
 	}
 
-	void update(float dt){
-		_transform->push(_speed * dt);
+	void update(long double dt){
+		_transform->push((float)(_speed * dt));
 	}
 
 	void onCollision(int id){

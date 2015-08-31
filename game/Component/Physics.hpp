@@ -21,13 +21,13 @@ public:
 		_rotation = _transform->rotation();
 	}
 
-	void update(float dt){
-		_pushForce -= _pushFriction;
+	void update(long double dt){
+		_pushForce -= (float)(_pushFriction * dt);
 
 		if (_pushForce < 0.f)
 			_pushForce = 0.f;
 
-		_transform->push(_pushForce * dt);
+		_transform->push((float)(_pushForce * dt));
 		_transform->setRotation(_rotation);
 	}
 

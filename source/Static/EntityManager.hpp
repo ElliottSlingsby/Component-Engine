@@ -7,10 +7,6 @@
 #include <typeinfo>
 #include "Static\DebugPrint.hpp"
 
-#ifndef MAX_ENTS
-	#define MAX_ENTS 1024 //Size of initial vector
-#endif
-
 struct System{
 	const type_info* type;
 
@@ -151,6 +147,8 @@ public:
 				i->second->unregisterComponent(component);
 		}
 	}
+
+	static void setMaxSize(unsigned int size);
 
 	static void runSystems();
 

@@ -14,8 +14,8 @@ struct Player : public Entity{
 	}
 
 	void prefab(){
-		addComponent(new Input(200.f));
-		addComponent(new Physics(0.5f));
+		addComponent(new Input(40000.f, 40.f));
+		addComponent(new Physics(100.f));
 		addComponent(new Model("ship.obj", "ship.png"));
 		addComponent(new Ship);
 		addComponent(new Sphere(1.f));

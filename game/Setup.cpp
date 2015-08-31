@@ -5,7 +5,9 @@
 #include "State\Won.hpp"
 
 void setup(int argc, char *args[]){
-	AssetLoader::setLocation("asset");
+	Renderer::setWindowSize(1280, 720);
+
+	AssetLoader::setAssetLocation("asset");
 
 	EntityManager::addState(new Playing);
 	EntityManager::addState(new Lost);
@@ -16,5 +18,5 @@ void setup(int argc, char *args[]){
 	Entity* entity = EntityManager::getEntity("enemy");
 
 	if (entity)
-		entity->getComponent<Face>()->setDifficulty(0.8f);
+		entity->getComponent<Face>()->setDifficulty(1.f);
 }

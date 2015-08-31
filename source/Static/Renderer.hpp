@@ -6,6 +6,16 @@
 
 #include "Math\Vector2.hpp"
 
+struct Shader{
+	const std::string filepath;
+	const GLbyte type;
+
+	Shader(GLbyte type, std::string filepath) :
+		type(type),
+		filepath(filepath){
+	}
+};
+
 // Renderer modes, derived from SDL renderer modes
 enum WindowModes{
 	WINDOW_WINDOWED = SDL_WINDOW_SHOWN,
@@ -25,6 +35,8 @@ class Renderer{
 	Vector2i _windowSize = Vector2i(1280, 720);
 
 	WindowModes _windowMode = WINDOW_WINDOWED;
+
+	std::string _shaderPath = "../";
 
 	bool _setupSDL(); // Returns false if failed
 	bool _setupGL();  // "
@@ -51,4 +63,6 @@ public:
 
 	// Reshapes the OpenGL matrices to initial shape
 	static bool reshape(); 
+
+	static void setShaderLocation(std::string filepath);
 };

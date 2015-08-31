@@ -69,7 +69,7 @@ public:
 	}
 
 	void push(float speed, float dx = 0, float dy = 0){
-		// Pushes the Transform along the _rotation's euler angles.
+		// Pushes the Transform along double the _rotation's euler angles.
 		
 		// Somewhat temporary until the Quaternion class gets implemented
 
