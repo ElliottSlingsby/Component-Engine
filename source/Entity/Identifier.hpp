@@ -16,12 +16,12 @@ public:
 		if (_id == NULL_ID)
 			_id = id;
 		else
-			print("%s!\n", "ID already set");
+			printd("%s!\n", "ID already set");
 	}
 
 	virtual int ID(){
 		if (_id == NULL_ID)
-			print("%s!\n", "ID hasn't been set");
+			printd("%s!\n", "ID hasn't been set");
 
 		return _id;
 	}

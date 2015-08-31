@@ -10,6 +10,14 @@ bool Entity::destroyed(){
 	return _destroyed;
 }
 
+void Entity::setEnable(bool enable){
+	_enabled = enable;
+}
+
+bool Entity::enabled(){
+	return _enabled;
+}
+
 Entity::Entity(){
 	_transform = new Transform;
 	addComponent(_transform);

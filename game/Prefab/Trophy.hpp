@@ -3,7 +3,7 @@
 #include "Entity\Entity.hpp"
 #include "Component\Model.hpp"
 
-#include "..\Component\Spinner.hpp"
+#include "Component\Spinner.hpp"
 
 class Trophy : public Entity{
 	std::string _mesh;

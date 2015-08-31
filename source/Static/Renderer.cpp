@@ -18,7 +18,7 @@ Renderer::~Renderer(){
 
 bool Renderer::_setupSDL(){
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0){
-		print("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
+		printd("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -37,7 +37,7 @@ bool Renderer::_setupSDL(){
 	_window = SDL_CreateWindow(_windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _windowSize.x(), _windowSize.y(), SDL_WINDOW_OPENGL);
 
 	if (!_window){
-		print("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
+		printd("%s! %s: %s\n", "Failed to create renderer", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -45,7 +45,7 @@ bool Renderer::_setupSDL(){
 	_sdlRenderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 
 	if (!_sdlRenderer){
-		print("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", SDL_GetError());
+		printd("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -63,7 +63,7 @@ bool Renderer::_setupGL(){
 	_glcontext = SDL_GL_CreateContext(_window);
 
 	if (!_glcontext){
-		print("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", SDL_GetError());
+		printd("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", SDL_GetError());
 		return false;
 	}
 
@@ -85,7 +85,7 @@ bool Renderer::_setupGL(){
 	GLenum error = glGetError();
 
 	if (error != GL_NO_ERROR){
-		print("%s! %s: %s\n", "Failed to set OpenGL parameters", "OpenGL Error", gluErrorString(error));
+		printd("%s! %s: %s\n", "Failed to set OpenGL parameters", "OpenGL Error", gluErrorString(error));
 		return false;
 	}
 	
@@ -93,7 +93,7 @@ bool Renderer::_setupGL(){
 	error = glewInit();
 
 	if (error != GLEW_OK){
-		print("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", glewGetErrorString(error));
+		printd("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", glewGetErrorString(error));
 		return false;
 	}
 
@@ -117,7 +117,7 @@ bool Renderer::reshape(){
 	GLenum error = glGetError();
 
 	if (error != GL_NO_ERROR){
-		print("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", gluErrorString(error));
+		printd("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", gluErrorString(error));
 		return false;
 	}
 

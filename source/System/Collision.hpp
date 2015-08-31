@@ -12,11 +12,11 @@ public:
 	Collision() : System(&typeid(Collider)){}
 	
 	void registerComponent(Component* component){
-		_colliders.insert(dynamic_cast<Collider*>(component));
+		_colliders.insert(static_cast<Collider*>(component));
 	}
 
 	void unregisterComponent(Component* component){
-		_colliders.erase(dynamic_cast<Collider*>(component));
+		_colliders.erase(static_cast<Collider*>(component));
 	}
 
 	void update(){

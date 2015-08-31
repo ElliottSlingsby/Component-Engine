@@ -46,7 +46,7 @@ Entity* EntityManager::getEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
-		print("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist");
+		printd("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist");
 		return 0;
 	}
 
@@ -57,7 +57,7 @@ Entity* EntityManager::getEntity(std::string name){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
-		print("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
+		printd("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
 		return 0;
 	}
 
@@ -68,7 +68,7 @@ void EntityManager::getEntities(std::string name, EntityVector& results){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
-		print("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
+		printd("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
 		return;
 	}
 
@@ -81,7 +81,7 @@ void EntityManager::destroyEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
-		print("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist");
+		printd("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist");
 		return;
 	}
 
@@ -105,7 +105,7 @@ void EntityManager::destroyEntities(std::string name){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
-		print("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
+		printd("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
 		return;
 	}
 

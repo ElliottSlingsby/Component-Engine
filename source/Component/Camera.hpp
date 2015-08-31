@@ -9,12 +9,20 @@
 class Camera : public HelperComponent{
 	Transform* _transform = 0;
 
+	bool _hasTarget = false;
+	Vector3f _target;
+
 public:
 	void load(){
 		_transform = getComponent<Transform>();
 	}
-
-	void render(){
+	
+	void lateUpdate(){
+		if (_hasTarget)
+			_transform->lookAt(_target);
+	}
+	
+	void earlyRender(){
 		glMatrixMode(GL_MODELVIEW);
 
 		glLoadIdentity();
@@ -24,5 +32,14 @@ public:
 		glRotatef(_transform->rotation().z(), 0.f, 0.f, 1.f);
 
 		glTranslatef(_transform->position().x(), _transform->position().y(), _transform->position().z());
+	}
+
+	void setTarget(Vector3f target){
+		_hasTarget = true;
+		_target = target;
+	}
+
+	void removeTarget(){
+		_hasTarget = false;
 	}
 };

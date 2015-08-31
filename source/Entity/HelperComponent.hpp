@@ -15,7 +15,7 @@ struct HelperComponent : public Component{
 		if (ID() != NULL_ID)
 			return EntityManager::getEntity(ID())->getComponent<T>();
 
-		print("%s: %s!\n", "HelperComponent", "Cannot get component, entity ID hasn't been assigned");
+		printd("%s: %s!\n", "HelperComponent", "Cannot get component, entity ID hasn't been assigned");
 		return 0;
 	}
 
@@ -26,7 +26,7 @@ struct HelperComponent : public Component{
 			return;
 		}
 
-		print("%s: %s!\n", "HelperComponent", "Cannot add component, entity ID hasn't been assigned");
+		printd("%s: %s!\n", "HelperComponent", "Cannot add component, entity ID hasn't been assigned");
 	}
 
 	template <typename T>
@@ -36,14 +36,14 @@ struct HelperComponent : public Component{
 			return;
 		}
 		
-		print("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity ID hasn't been assigned");
+		printd("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity ID hasn't been assigned");
 	}
 
 	Entity* parent(){
 		if (ID() != NULL_ID)
 			return EntityManager::getEntity(ID());
 
-		print("%s: %s!\n", "HelperComponent", "Cannot find component, entity ID hasn't been assigned");
+		printd("%s: %s!\n", "HelperComponent", "Cannot find component, entity ID hasn't been assigned");
 		return 0;
 	}
 };

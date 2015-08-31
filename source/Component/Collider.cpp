@@ -2,15 +2,15 @@
 #include "Static\DebugPrint.hpp"
 
 bool Box::isColliding(Collider* other){
-	Box* box = dynamic_cast<Box*>(other);
-
-	if (box){
-		return false;
-	}
-
 	Sphere* sphere = dynamic_cast<Sphere*>(other);
 
 	if (sphere){
+		return false;
+	}
+
+	Box* box = dynamic_cast<Box*>(other);
+
+	if (box){
 		return false;
 	}
 
@@ -18,6 +18,12 @@ bool Box::isColliding(Collider* other){
 }
 
 bool Sphere::isColliding(Collider* other){
+	Box* box = dynamic_cast<Box*>(other);
+
+	if (box){
+		return false;
+	}
+
 	Sphere* sphere = dynamic_cast<Sphere*>(other);
 
 	if (sphere){
@@ -29,7 +35,7 @@ bool Sphere::isColliding(Collider* other){
 		if (!_inverted && !sphere->_inverted){
 			if (length - sphere->_radius <= _radius)
 				return true;
-			
+
 			return false;
 		}
 		else if (_inverted){
@@ -44,12 +50,6 @@ bool Sphere::isColliding(Collider* other){
 
 			return true;
 		}
-	}
-
-	Box* box = dynamic_cast<Box*>(other);
-
-	if (box){
-		return false;
 	}
 
 	return false;

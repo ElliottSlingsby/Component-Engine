@@ -5,7 +5,7 @@
 #include "Component\Camera.hpp"
 #include "Component\Light.hpp"
 
-#include "..\Prefab\Trophy.hpp"
+#include "Prefab\Trophy.hpp"
 
 struct Won : public State{
 	const float boundrySize = 500.f;

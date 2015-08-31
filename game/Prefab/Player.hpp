@@ -4,8 +4,8 @@
 #include "Component\Model.hpp"
 #include "Component\Physics.hpp"
 
-#include "..\Component\Input.hpp"
-#include "..\Component\Ship.hpp"
+#include "Component\Input.hpp"
+#include "Component\Ship.hpp"
 
 struct Player : public Entity{
 	Player(Vector3f spawn = Vector3f(0.f, -10.f, -75.f)){

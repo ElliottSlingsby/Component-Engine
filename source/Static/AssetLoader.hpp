@@ -90,7 +90,7 @@ public:
 				asset = _instance()._loadMaterial(filepath);
 
 			else
-				print("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
+				printd("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
 
 			return dynamic_cast<const T*>(asset);
 		}

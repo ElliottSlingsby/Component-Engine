@@ -30,6 +30,9 @@ public:
 	void destroy();
 	bool destroyed();
 
+	void setEnable(bool mode);
+	bool enabled();
+
 	template<typename... T>
 	void invoke(void (Component::* method)(T...), T... args){
 		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
@@ -54,7 +57,7 @@ public:
 				component->setID(ID());
 		}
 		else
-			print("%s!\n", "Component already exists");
+			printd("%s!\n", "Component already exists");
 	}
 
 	// getComponent<type>() - Returns corresponding component key as appropriate type
@@ -67,7 +70,7 @@ public:
 			T* casted = dynamic_cast<T*>(component->second);
 
 			if (!casted)
-				print("%s!\n", "Failed to cast component");
+				printd("%s!\n", "Failed to cast component");
 
 			return casted;
 		}
@@ -83,7 +86,7 @@ public:
 		// If component exists, erase and delete
 		if (component != _components.end()){
 			if (typeid(T) == typeid(Transform)){
-				print("%s!\n", "Cannot destroy Transform component");
+				printd("%s!\n", "Cannot destroy Transform component");
 				return;
 			}
 
@@ -91,6 +94,6 @@ public:
 			_components.erase(&typeid(T));
 		}
 		else
-			print("%s!\n", "Cannot find component");
+			printd("%s!\n", "Cannot find component");
 	}
 };

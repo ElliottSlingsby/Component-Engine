@@ -3,9 +3,9 @@
 #include "Static\EntityManager.hpp"
 #include "Component\Light.hpp"
 
-#include "..\Prefab\Player.hpp"
-#include "..\Prefab\Enemy.hpp"
-#include "..\Prefab\Sky.hpp"
+#include "Prefab\Player.hpp"
+#include "Prefab\Enemy.hpp"
+#include "Prefab\Sky.hpp"
 
 struct Playing : public State{
 	const float boundrySize = 500.f;

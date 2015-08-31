@@ -4,8 +4,8 @@
 #include "Component\Model.hpp"
 #include "Static\AssetLoader.hpp"
 
-#include "..\State\Won.hpp"
-#include "..\State\Lost.hpp"
+#include "State\Won.hpp"
+#include "State\Lost.hpp"
 
 class Face : public HelperComponent{
 	Model* _model = 0;
