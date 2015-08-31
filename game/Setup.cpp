@@ -1,5 +1,3 @@
-#pragma comment(lib, "../lib/Engine.lib")
-
 #include "Setup.hpp"
 
 #include "State\Playing.hpp"
@@ -7,6 +5,8 @@
 #include "State\Won.hpp"
 
 void setup(int argc, char *args[]){
+	AssetLoader::setLocation("asset");
+
 	EntityManager::addState(new Playing);
 	EntityManager::addState(new Lost);
 	EntityManager::addState(new Won);

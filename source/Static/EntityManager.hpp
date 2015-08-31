@@ -8,7 +8,7 @@
 #include "Static\DebugPrint.hpp"
 
 #ifndef MAX_ENTS
-#define MAX_ENTS 1024 //Size of initial vector
+	#define MAX_ENTS 1024 //Size of initial vector
 #endif
 
 struct System{

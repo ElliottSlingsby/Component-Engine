@@ -58,7 +58,7 @@ class AssetLoader{
 	typedef std::unordered_map<std::string, const Asset*> AssetMap;
 	AssetMap _assets;
 
-	const char* _assetPath = "../asset/"; // Defualt asset location
+	std::string _assetPath = "../"; // Default asset location
 
 	// Private singleton for use in static functions
 	static AssetLoader& _instance();
@@ -98,4 +98,6 @@ public:
 		// If asset is loaded, then return already loaded version
 		return dynamic_cast<const T*>(iter->second);
 	}
+
+	static void setLocation(std::string filepath);
 };

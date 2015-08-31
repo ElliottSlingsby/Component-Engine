@@ -105,3 +105,7 @@ MaterialData* AssetLoader::_loadMaterial(std::string filepath){
 
 	return asset;
 }
+
+void AssetLoader::setLocation(std::string filepath){
+	_instance()._assetPath = "../" + filepath + "/";
+}
