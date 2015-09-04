@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <stdio.h>
 #include "Static\DebugPrint.hpp"
-
+#include <fstream>
 #include <SDL_messagebox.h>
 
 Renderer& Renderer::_instance(){
@@ -16,6 +16,16 @@ Renderer::~Renderer(){
 	SDL_DestroyWindow(_window);
 	SDL_DestroyRenderer(_sdlRenderer);
 	SDL_GL_DeleteContext(_glcontext);
+
+	/*glDetachShader(_shaderProgram, _fragmentShader);
+	glDetachShader(_shaderProgram, _vertexShader);
+	//glDetachShader(_shaderProgram, _geomatryShader);
+
+	glDeleteShader(_fragmentShader);
+	glDeleteShader(_vertexShader);
+	//glDeleteShader(_geomatryShader);
+
+	glDeleteProgram(_shaderProgram);*/
 }
 
 bool Renderer::_setupSDL(){
@@ -39,7 +49,7 @@ bool Renderer::_setupSDL(){
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
 	// Renderer object
-	_window = SDL_CreateWindow(_windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _windowSize.x(), _windowSize.y(), SDL_WINDOW_OPENGL);
+	_window = SDL_CreateWindow(_windowTitle, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _windowSize.x, _windowSize.y, SDL_WINDOW_OPENGL);
 
 	if (!_window){
 		std::string message = SDL_GetError();
@@ -94,7 +104,7 @@ bool Renderer::_setupGL(){
 	int hpad = 0;
 	int vpad = 75;
 
-	glScissor(hpad, vpad, _windowSize.x() - hpad * 2, _windowSize.y() - vpad * 2);
+	glScissor(hpad, vpad, _windowSize.x - hpad * 2, _windowSize.y - vpad * 2);
 
 	float density = 0.f;
 
@@ -129,19 +139,34 @@ bool Renderer::_setupGL(){
 		return false;
 	}
 
-	// Shaders go here
+	/*
+	// Sketchy shader setup
+	_shaderProgram = glCreateProgram();
+
+	_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+	glAttachShader(_shaderProgram, _fragmentShader);
+
+	if (error != GL_NO_ERROR){
+		std::string message = reinterpret_cast<const char*>(gluErrorString(error));
+
+		printd("%s! %s: %s\n", "Failed to set initiate shader program", "OpenGL Error", message.c_str());
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
+		return false;
+	}
+	*/
 
 	return true;
 }
 
 bool Renderer::reshape(){
 	// Setting up OpenGL matrices
-	glViewport(0, 0, _instance()._windowSize.x(), _instance()._windowSize.y());
+	glViewport(0, 0, _instance()._windowSize.x, _instance()._windowSize.y);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	float ar = (float)_instance()._windowSize.x() / (float)_instance()._windowSize.y();
+	float ar = (float)_instance()._windowSize.x / (float)_instance()._windowSize.y;
 
 	gluPerspective(59, ar, 0.1, 1024 * 2); // 59 vfov = ~90 hfov
 
@@ -154,7 +179,6 @@ bool Renderer::reshape(){
 		std::string message = reinterpret_cast<const char*>(gluErrorString(error));
 
 		printd("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", message.c_str());
-		//SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _instance()._window);
 		return false;
 	}
 
@@ -195,11 +219,11 @@ SDL_Renderer* Renderer::sdlRenderer(){
 }
 
 int Renderer::windowWidth(){
-	return _instance()._windowSize.x();
+	return _instance()._windowSize.x;
 }
 
 int Renderer::windowHeight(){
-	return _instance()._windowSize.y();
+	return _instance()._windowSize.y;
 }
 
 void Renderer::setWindowMode(WindowModes mode){
@@ -210,7 +234,7 @@ void Renderer::setWindowMode(WindowModes mode){
 }
 
 void Renderer::setWindowSize(int width, int height){
-	_instance()._windowSize = Vector2i(width, height);
+	_instance()._windowSize = glm::vec2(width, height);
 
 	if (_instance()._running){
 		SDL_SetWindowSize(_instance()._window, width, height);
@@ -227,4 +251,59 @@ void Renderer::setWindowTitle(const char* title){
 
 void Renderer::setShaderLocation(std::string filepath){
 	_instance()._shaderPath = "../" + filepath + "/";
+}
+
+void Renderer::loadShader(ShaderTypes type, std::string filepath){
+	std::fstream file;
+
+	file.open((_instance()._shaderPath + filepath).c_str());
+
+	if (!file){
+		printd("Can't find shader '%s'!\n", filepath.c_str());
+		return;
+	}
+
+	std::string contents;
+
+	while (!file.eof())	{
+		std::string line;
+		std::getline(file, line);
+		contents += line + "\n";
+	}
+
+	file.close();
+
+	const GLchar* code = reinterpret_cast<const GLchar*>(contents.c_str());
+
+	GLint shader = 0;
+
+	if (type == SHADER_FRAGMENT)
+		shader = _instance()._fragmentShader;
+	else if (type == SHADER_VERTEX)
+		shader = _instance()._vertexShader;
+	else
+		return;
+
+	glShaderSource(shader, 1, &code, 0);
+	glCompileShader(shader);
+
+	GLint success;
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+
+	if (success != GL_TRUE){
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", "Shader code couldn't compile!", _instance()._window);
+	}
+}
+
+void Renderer::linkShaders(){
+	glUseProgram(_instance()._shaderProgram);
+
+	glLinkProgram(_instance()._shaderProgram);
+
+	GLint success;
+	glGetProgramiv(_instance()._shaderProgram, GL_LINK_STATUS, &success);
+
+	if (success != GL_TRUE){
+		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", "Shaders couldn't be linked!", _instance()._window);
+	}
 }

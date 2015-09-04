@@ -2,7 +2,7 @@
 
 #include "Entity\HelperComponent.hpp"
 #include <stdint.h>
-#include "Math\Vector4.hpp"
+#include <glm\vec4.hpp>
 #include <GL\glew.h>
 #include "Static\DebugPrint.hpp"
 
@@ -12,9 +12,9 @@ class Light : public HelperComponent{
 	Transform* _transform = 0;
 	unsigned int _light = 0;
 
-	Vector4f _ambient = Vector4f(0.f, 0.f, 0.f, 1.f);
-	Vector4f _diffuse = Vector4f(1.f, 1.f, 1.f, 1.f);
-	Vector4f _specular = Vector4f(1.f, 1.f, 1.f, 1.f);
+	glm::vec4 _ambient = glm::vec4(0.f, 0.f, 0.f, 1.f);
+	glm::vec4 _diffuse = glm::vec4(1.f, 1.f, 1.f, 1.f);
+	glm::vec4 _specular = glm::vec4(1.f, 1.f, 1.f, 1.f);
 	
 	bool _spot = false;
 
@@ -47,13 +47,13 @@ public:
 
 		glEnable(GL_LIGHTS[_light]);
 
-		GLfloat ambient[] = { _ambient.w(), _ambient.x(), _ambient.y(), _ambient.z() };
+		GLfloat ambient[] = { _ambient.w(), _ambient.x, _ambient.y, _ambient.z };
 		glLightfv(GL_LIGHTS[_light], GL_AMBIENT, ambient);
 
-		GLfloat diffuse[] = { _diffuse.w(), _diffuse.x(), _diffuse.y(), _diffuse.z() };
+		GLfloat diffuse[] = { _diffuse.w(), _diffuse.x, _diffuse.y, _diffuse.z };
 		glLightfv(GL_LIGHTS[_light], GL_DIFFUSE, diffuse);
 
-		GLfloat specular[] = { _specular.w(), _specular.x(), _specular.y(), _specular.z() };
+		GLfloat specular[] = { _specular.w(), _specular.x, _specular.y, _specular.z };
 		glLightfv(GL_LIGHTS[_light], GL_SPECULAR, specular);
 
 		if (_spot){
@@ -67,10 +67,10 @@ public:
 	}
 
 	void render(){
-		//GLfloat rotation[] = { -_transform->lookingAt().x(), -_transform->lookingAt().y(), -_transform->lookingAt().z() }; // Rotation
+		//GLfloat rotation[] = { -_transform->lookingAt().x, -_transform->lookingAt().y, -_transform->lookingAt().z }; // Rotation
 		//glLightfv(GL_LIGHTS[_light], GL_SPOT_DIRECTION, rotation);
 
-		GLfloat position[] = { -_transform->position().x(), -_transform->position().y(), -_transform->position().z(), 1.f }; // Position
+		GLfloat position[] = { -_transform->position().x, -_transform->position().y, -_transform->position().z, 1.f }; // Position
 		glLightfv(GL_LIGHTS[_light], GL_POSITION, position);
 	}
 
@@ -80,15 +80,15 @@ public:
 		_spot = spot;
 	}
 
-	void setAmbient(Vector4f ambient){
+	void setAmbient(glm::vec4 ambient){
 		_ambient = ambient;
 	}
 
-	void setDiffuse(Vector4f diffuse){
+	void setDiffuse(glm::vec4 diffuse){
 		_diffuse = diffuse;
 	}
 
-	void setSpecular(Vector4f specular){
+	void setSpecular(glm::vec4 specular){
 		_specular = specular;
 	}
 

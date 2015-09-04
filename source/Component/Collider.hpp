@@ -25,7 +25,7 @@ public:
 		EntityManager::unregisterFromSystem(this);
 	}
 
-	Vector3f position(){
+	glm::vec3 position(){
 		return _transform->position();
 	}
 
@@ -38,14 +38,14 @@ public:
 
 class Sphere : public Collider{
 	float _radius;
-	Vector3f _offset;
+	glm::vec3 _offset;
 
-	Vector3f _position(){
+	glm::vec3 _position(){
 		return _transform->position() - _offset;
 	}
 
 public:
-	Sphere(float radius, bool inverted = false, Vector3f offset = Vector3f(0.f, 0.f, 0.f)) : Collider(COLLIDER_SPHERE, inverted){
+	Sphere(float radius, bool inverted = false, glm::vec3 offset = glm::vec3(0.f, 0.f, 0.f)) : Collider(COLLIDER_SPHERE, inverted){
 		_radius = radius;
 		_offset = _offset;
 	}
@@ -56,35 +56,35 @@ public:
 		_radius = radius;
 	}
 
-	void setOffset(Vector3f offset){
+	void setOffset(glm::vec3 offset){
 		_offset = offset;
 	}
 };
 
 class Box : public Collider{
-	Vector3f _size;
-	Vector3f _offset;
+	glm::vec3 _size;
+	glm::vec3 _offset;
 
-	Vector3f _min(){
+	glm::vec3 _min(){
 		return _transform->position() - _offset;
 	}
 
-	Vector3f _max(){
+	glm::vec3 _max(){
 		return (_transform->position() + _size) - _offset;
 	}
 
 public:
-	Box(Vector3f size, bool inverted = false, Vector3f offset = Vector3f(0.f, 0.f, 0.f)) : Collider(COLLIDER_BOX, inverted){
+	Box(glm::vec3 size, bool inverted = false, glm::vec3 offset = glm::vec3(0.f, 0.f, 0.f)) : Collider(COLLIDER_BOX, inverted){
 		_offset = _offset;
 	}
 	
 	bool isColliding(Collider* Collider);
 
-	void setSize(Vector3f size){
+	void setSize(glm::vec3 size){
 		_size = size;
 	}
 
-	void setOffset(Vector3f offset){
+	void setOffset(glm::vec3 offset){
 		_offset = offset;
 	}
 };

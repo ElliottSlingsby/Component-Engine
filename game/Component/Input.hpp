@@ -4,70 +4,107 @@
 #include <SDL.h>
 
 #include "Component\Model.hpp"
-#include "Movement.hpp"
 #include "Component\Collider.hpp"
-#include "Component\Physics.hpp"
-
-#include "Prefab\Bullet.hpp"
+#include <glm\gtc\quaternion.hpp>
 
 class Input : public HelperComponent{
 	Transform* _transform = 0;
-	Physics* _physics = 0;
 
-	float _pushSpeed = 20.f;
-	float _sensitivity = 20.f; // Mouse sensitivity
-
-	bool _fired = false;
-
-	float _fireTimer = 0.f;
+	float _speed = 20.f;
+	float _sensitivity = 1.f;
 
 public:
 	Input(float speed, float sensitivity){
-		_pushSpeed = speed;
+		_speed = speed;
 		_sensitivity = sensitivity;
 	}
 
 	void load(){
 		_transform = getComponent<Transform>();
-		_physics = getComponent<Physics>();
 	}
 
-	void update(long double dt){
-		_fireTimer -= (float)dt;
+	void left(double dt){
+		_transform->relativePush((float)(_speed * dt), glm::quat(glm::vec3(0.f, glm::radians(90.f), 0.f)));
+	}
 
-		if (_fireTimer < 0.f)
-			_fireTimer = 0.f;
+	void right(double dt){
+		_transform->relativePush((float)(_speed * dt), glm::quat(glm::vec3(0.f, glm::radians(-90.f), 0.f)));
+	}
 
+	void forward(double dt){
+		_transform->relativePush((float)(_speed * dt));
+	}
+
+	void back(double dt){
+		_transform->relativePush((float)(_speed * dt), glm::quat(glm::vec3(0.f, glm::radians(180.f), 0.f)));
+	}
+
+	void up(double dt){
+		_transform->translate(glm::vec3(0.f, -(float)(_speed * dt), 0.f));
+	}
+
+	void down(double dt){
+		_transform->translate(glm::vec3(0.f, (float)(_speed * dt), 0.f));
+	}
+
+	void update(double dt){
 		int mouseRX, mouseRY;
 
 		SDL_GetRelativeMouseState(&mouseRX, &mouseRY);
 
-		// Rotate camera FPS style
-		_physics->rotationForce(Vector3f((float)(mouseRY * _sensitivity * dt), (float)(mouseRX * _sensitivity * dt), 0.f));
+		glm::quat lookX(glm::vec3(0.f, -(float)(mouseRX * _sensitivity * dt), 0.f));
+		_transform->rotate(lookX);
 
+		glm::quat lookY(glm::vec3(-(float)(mouseRY * _sensitivity * dt), 0.f, 0.f));
+		_transform->relativeRotate(lookY);
+		
 		const Uint8* keyDown = SDL_GetKeyboardState(0);
+		
+		if (keyDown[SDL_SCANCODE_A]){
+			left(dt);
 
-		// W = forward
-		if (keyDown[SDL_SCANCODE_W])
-			_physics->pushForce((float)(_pushSpeed * dt));
-
-		if (keyDown[SDL_SCANCODE_S])
-			_physics->pushForce((float)((-_pushSpeed / 100) * dt));
-
-		// Left Mouse = Fire bullet
-		if (SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && !_fired && !_fireTimer){
-			Entity* bullet = EntityManager::createEntity<Bullet>("bullet", ID());
-			bullet->invoke(&Component::load);
-			_fireTimer = 0.5f;
-			_fired = true;
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				left(dt);
 		}
-		else if (!SDL_GetMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT) && _fired){
-			_fired = false;
-		}		
+
+		if (keyDown[SDL_SCANCODE_D]){
+			right(dt);
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				right(dt);
+		}
+
+		if (keyDown[SDL_SCANCODE_W]){
+			forward(dt);
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				forward(dt);
+		}
+
+		if (keyDown[SDL_SCANCODE_S]){
+			back(dt);
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				back(dt);
+		}
+
+		if (keyDown[SDL_SCANCODE_SPACE]){
+			up(dt);
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				up(dt);
+		}
+
+		if (keyDown[SDL_SCANCODE_LCTRL]){
+			down(dt);
+
+			if (keyDown[SDL_SCANCODE_LSHIFT])
+				down(dt);
+		}
 	}
 
 	void setSpeed(float speed){
-		_pushSpeed = speed;
+		_speed = speed;
 	}
 
 	void setSensitivity(float sensitivity){

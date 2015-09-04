@@ -3,17 +3,14 @@
 #include <SDL.h>
 #include <GL\glew.h>
 #include <string>
+#include <unordered_map>
 
-#include "Math\Vector2.hpp"
+#include <glm\vec2.hpp>
 
-struct Shader{
-	const std::string filepath;
-	const GLbyte type;
-
-	Shader(GLbyte type, std::string filepath) :
-		type(type),
-		filepath(filepath){
-	}
+enum ShaderTypes{
+	SHADER_FRAGMENT = GL_FRAGMENT_SHADER,
+	SHADER_VERTEX = GL_VERTEX_SHADER,
+	SHADER_GEOMATRY = GL_GEOMETRY_SHADER,
 };
 
 // Renderer modes, derived from SDL renderer modes
@@ -32,11 +29,17 @@ class Renderer{
 
 	const char* _windowTitle = "3D Component Engine";
 
-	Vector2i _windowSize = Vector2i(1280, 720);
+	glm::uvec2 _windowSize = glm::uvec2(1280, 720);
 
 	WindowModes _windowMode = WINDOW_WINDOWED;
 
 	std::string _shaderPath = "../";
+
+	GLint _shaderProgram = 0;
+
+	GLint _vertexShader = 0;
+	GLint _fragmentShader = 0;
+	//GLint _geomatryShader = 0;
 
 	bool _setupSDL(); // Returns false if failed
 	bool _setupGL();  // "
@@ -65,4 +68,8 @@ public:
 	static bool reshape(); 
 
 	static void setShaderLocation(std::string filepath);
+	static void loadShader(ShaderTypes type, std::string filepath);
+	static void linkShaders();
+
+	//static void enableShader(ShaderTypes type, bool enabled);
 };

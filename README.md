@@ -7,6 +7,6 @@ Use Visual Studio 2013 or later, and compile on release with 'Game' set as the s
 # To do
 - ~~Fully split game and engine~~
 - EntityManager clean up
-- Maths improvements
+- ~~Maths overhaul~~
 - Collision system improvements
 - Shaders

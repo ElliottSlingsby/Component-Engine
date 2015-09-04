@@ -14,8 +14,6 @@ protected:
 	const MeshData* _mesh = 0;
 	const MaterialData* _material = 0;
 
-	Vector3f _offset = Vector3f(0.f, 0.f, 0.f);
-
 public:
 	Model(std::string meshSrc, std::string materialSrc = ""){
 		_meshSrc = meshSrc;
@@ -40,29 +38,23 @@ public:
 		_material = material;
 	}
 
-	void setOffset(Vector3f offset){
-		_offset = offset;
-	}
-
 	void render(){
 		glMatrixMode(GL_MODELVIEW);
 
 		glPushMatrix();
 
 		// Translate based on Transform
-		glTranslatef(
-			-_transform->position().x() - _offset.x(),
-			-_transform->position().y() - _offset.y(),
-			-_transform->position().z() - _offset.z()
-		);
+		glTranslatef(-_transform->position().x, -_transform->position().y, -_transform->position().z);
 
 		// Rotate based on Transform
-		glRotatef(_transform->rotation().z(), 0.f, 0.f, -1.f);
-		glRotatef(_transform->rotation().y(), 0.f, -1.f, 0.f);
-		glRotatef(_transform->rotation().x(), -1.f, 0.f, 0.f);
+		glm::vec3 eulerAngles = glm::eulerAngles(_transform->rotation());
+
+		glRotatef(glm::degrees(eulerAngles.x), 1.f, 0.f, 0.f);
+		glRotatef(glm::degrees(eulerAngles.y), 0.f, 1.f, 0.f);
+		glRotatef(glm::degrees(eulerAngles.z), 0.f, 0.f, 1.f);
 		
 		// Scale based on Transform
-		glScalef(_transform->scale().x(), _transform->scale().y(), _transform->scale().z());
+		glScalef(_transform->scale().x, _transform->scale().y, _transform->scale().z);
 		
 		
 		if (_material)

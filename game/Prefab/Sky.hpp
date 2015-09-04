@@ -10,7 +10,7 @@ class Sky : public Entity{
 public:
 	Sky(float size = 500.f){
 		_size = size;
-		_transform->setScale(Vector3f(_size, _size, _size));
+		_transform->setScale(glm::vec3(_size, _size, _size));
 	}
 
 	void prefab(){

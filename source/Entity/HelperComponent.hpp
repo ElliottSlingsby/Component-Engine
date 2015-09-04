@@ -7,7 +7,7 @@
 // This helper class is for deriving components, so that the derived component can get other components from it's associated entity.
 
 struct HelperComponent : public Component{
-	// Perform as long double as component has ID.
+	// Perform as double as component has ID.
 	// Otherwise printf error.
 
 	template <typename T>

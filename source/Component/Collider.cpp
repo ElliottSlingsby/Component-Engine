@@ -27,7 +27,7 @@ bool Sphere::isColliding(Collider* other){
 	Sphere* sphere = dynamic_cast<Sphere*>(other);
 
 	if (sphere){
-		float length = (position() - sphere->position()).length();
+		float length = (float)((position() - sphere->position()).length());
 
 		if (sphere->_inverted && _inverted)
 			return false;
