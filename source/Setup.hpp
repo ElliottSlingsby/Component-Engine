@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Static\AssetLoader.hpp"
-#include "Static\DebugPrint.hpp"
-#include "Static\EntityManager.hpp"
-#include "Static\Renderer.hpp"
+#include <Static\AssetLoader.hpp>
+#include <Static\DebugPrint.hpp>
+#include <Static\EntityManager.hpp>
+#include <Static\Renderer.hpp>
 
 void setup(int argc, char *args[]);
 

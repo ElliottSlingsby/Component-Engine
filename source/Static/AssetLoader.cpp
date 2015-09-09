@@ -1,7 +1,8 @@
-#include "Static\AssetLoader.hpp"
+#include "AssetLoader.hpp"
 
 #include <SDL_image.h>
 #include <tiny_obj_loader.h>
+#include <vector>
 
 AssetLoader::~AssetLoader(){
 	for (AssetMap::iterator i = _assets.begin(); i != _assets.end(); i++){

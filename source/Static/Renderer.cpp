@@ -1,9 +1,8 @@
-#include "Static\Renderer.hpp"
-#include <SDL.h>
-#include <stdio.h>
-#include "Static\DebugPrint.hpp"
+#include "Renderer.hpp"
+
 #include <fstream>
 #include <SDL_messagebox.h>
+#include <Static\DebugPrint.hpp>
 
 Renderer& Renderer::_instance(){
 	static Renderer instance;

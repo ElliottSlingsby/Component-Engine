@@ -1,30 +1,14 @@
 #pragma once
 
+#include "Module\Systems.hpp"
+#include "Module\States.hpp"
+
 #include <vector>
 #include <stack>
-#include <map>
-#include "Entity\Entity.hpp"
+#include <unordered_map>
+#include <Entity\Entity.hpp>
 #include <typeinfo>
-#include "Static\DebugPrint.hpp"
-
-struct System{
-	const type_info* type;
-
-	System(const type_info* type) : type(type){}
-
-	virtual void registerComponent(Component* component){}
-	virtual void unregisterComponent(Component* component){}
-
-	virtual void update(){}
-
-	virtual ~System(){}
-};
-
-struct State{
-	virtual void on(){}
-	virtual void off(){}
-	virtual ~State(){}
-};
+#include <Static\DebugPrint.hpp>
 
 typedef std::vector<Entity*> EntityVector;
 
@@ -35,14 +19,6 @@ class EntityManager{
 	typedef std::vector<int> IntVector;
 	typedef std::unordered_map<std::string, IntVector> EntityNameMap;
 	EntityNameMap _names;
-
-	typedef std::unordered_map<const type_info*, State*> StateMap;
-	StateMap _states;
-
-	typedef std::unordered_map<const type_info*, System*> SystemMap;
-	SystemMap _systems;
-
-	State* _currentState = 0;
 
 	// Removed ID pile
 	std::stack<int> _removed;
@@ -61,44 +37,17 @@ class EntityManager{
 public:
 	~EntityManager();
 
+	// Modules
+	static Module::Systems& Systems();
+	static Module::States& States();
+
 	template<typename... T>
 	static void invokeAll(void (Component::* method)(T...), T... args){
 		for (int i = 0; i <= _instance()._highest; i++){
 			Entity* entity = _instance()._entities[i];
-
+		
 			if (entity)
 				entity->invoke(method, args...);
-		}
-	}
-
-	template<typename T>
-	static void addSystem(T* system){
-		if (!_instance()._systems[&typeid(T)])
-			_instance()._systems[&typeid(T)] = system;
-		else
-			printd("%s!\n", "System already added");
-	}
-
-	template<typename T>
-	static void addState(T* state){
-		if (!_instance()._states[&typeid(T)])
-			_instance()._states[&typeid(T)] = state;
-		else
-			printd("%s!\n", "State already added");
-	}
-
-	template<typename T>
-	static void changeState(){
-		if (!_instance()._states[&typeid(T)])
-			printd("%s!\n", "State doesn't exist");
-		else if (_instance()._currentState == _instance()._states[&typeid(T)])
-			printd("%s!\n", "State already on");
-		else{
-			if (_instance()._currentState)
-				_instance()._currentState->off();
-
-			_instance()._currentState = _instance()._states[&typeid(T)];
-			_instance()._currentState->on();
 		}
 	}
 
@@ -132,25 +81,7 @@ public:
 		return entity;
 	}
 
-	template<typename T>
-	static void	registerToSystem(T* component){
-		for (SystemMap::iterator i = _instance()._systems.begin(); i != _instance()._systems.end(); i++){
-			if (i->second->type == &typeid(T))
-				i->second->registerComponent(component);
-		}
-	}
-
-	template<typename T>
-	static void unregisterFromSystem(T* component){
-		for (SystemMap::iterator i = _instance()._systems.begin(); i != _instance()._systems.end(); i++){
-			if (i->second->type == &typeid(T))
-				i->second->unregisterComponent(component);
-		}
-	}
-
 	static void setMaxSize(unsigned int size);
-
-	static void runSystems();
 
 	static Entity* getEntity(int id);
 	static Entity* getEntity(std::string name);

@@ -1,10 +1,9 @@
 #pragma once
 
-#include <stdio.h>
 #include <typeinfo>
 #include <unordered_map>
-#include "Component\Transform.hpp"
-#include "Static\DebugPrint.hpp"
+#include <Component\Transform.hpp>
+#include <Static\DebugPrint.hpp>
 
 class Entity : public Identifier{
 protected:

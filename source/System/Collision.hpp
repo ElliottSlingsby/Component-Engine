@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Static\EntityManager.hpp"
-#include "Component\Collider.hpp"
+#include <Static\EntityManager.hpp>
+#include <Component\Collider.hpp>
 #include <set>
 
 class Collision : public System{
@@ -9,23 +9,10 @@ class Collision : public System{
 	ColliderSet _colliders;
 
 public:
-	Collision() : System(&typeid(Collider)){}
+	Collision();
 	
-	void registerComponent(Component* component){
-		_colliders.insert(static_cast<Collider*>(component));
-	}
+	void update();
 
-	void unregisterComponent(Component* component){
-		_colliders.erase(static_cast<Collider*>(component));
-	}
-
-	void update(){
-		// Stupid-style collision detection
-		for (ColliderSet::iterator x = _colliders.begin(); x != _colliders.end(); x++){
-			for (ColliderSet::iterator y = _colliders.begin(); y != _colliders.end(); y++){
-				if ((*x) != (*y) && (*x)->isColliding(*y))
-					(*x)->parent()->invoke(&Component::onCollision, (*y)->ID());
-			}
-		}
-	};
+	void registerComponent(Component* component);
+	void unregisterComponent(Component* component);
 };

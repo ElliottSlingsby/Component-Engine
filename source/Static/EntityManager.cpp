@@ -1,4 +1,4 @@
-#include "Static\EntityManager.hpp"
+#include "EntityManager.hpp"
 
 EntityManager::EntityManager(){
 	// Set initial vector size
@@ -14,6 +14,16 @@ EntityManager& EntityManager::_instance(){
 	// Singleton implementation
 	static EntityManager instance;
 	return instance;
+}
+
+Module::Systems& EntityManager::Systems(){
+	static Module::Systems systems;
+	return systems;
+}
+
+Module::States& EntityManager::States(){
+	static Module::States states;
+	return states;
 }
 
 int EntityManager::_newID(){
@@ -125,11 +135,11 @@ void EntityManager::destroyAll(){
 	}
 }
 
-void EntityManager::runSystems(){
-	for (SystemMap::iterator i = _instance()._systems.begin(); i != _instance()._systems.end(); i++){
-		i->second->update();
-	}
-}
+//void EntityManager::runSystems(){
+//	for (SystemMap::iterator i = _instance()._systems.begin(); i != _instance()._systems.end(); i++){
+//		i->second->update();
+//	}
+//}
 
 void EntityManager::deleteDestroyed(){
 	for (int i = 0; i <= _instance()._highest; i++){

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Component.hpp"
-#include "Static\EntityManager.hpp"
-#include "Static\DebugPrint.hpp"
+#include <Static\EntityManager.hpp>
+#include <Static\DebugPrint.hpp>
 
 // This helper class is for deriving components, so that the derived component can get other components from it's associated entity.
 

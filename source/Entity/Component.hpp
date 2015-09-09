@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Identifier.hpp"
-#include <SDL.h>
 
 struct Component : public Identifier{
 	Component(){}

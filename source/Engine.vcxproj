@@ -11,28 +11,44 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Component\Collider.cpp" />
-    <ClCompile Include="Entity\Entity.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Static\EntityManager.cpp" />
-    <ClCompile Include="Static\AssetLoader.cpp" />
-    <ClCompile Include="Static\Renderer.cpp" />
+    <None Include="Shader\shader.vert" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Entity\Component.hpp" />
-    <ClInclude Include="Entity\HelperComponent.hpp" />
+    <ClCompile Include="Component\Box.cpp" />
+    <ClCompile Include="Component\Camera.cpp" />
+    <ClCompile Include="Component\Collider.cpp" />
+    <ClCompile Include="Component\Input.cpp" />
+    <ClCompile Include="Component\Light.cpp" />
+    <ClCompile Include="Component\Model.cpp" />
+    <ClCompile Include="Component\Sphere.cpp" />
+    <ClCompile Include="Component\Transform.cpp" />
+    <ClCompile Include="Entity\Entity.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Static\AssetLoader.cpp" />
+    <ClCompile Include="Static\EntityManager.cpp" />
+    <ClCompile Include="Static\Renderer.cpp" />
+    <ClCompile Include="System\Collision.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component\Box.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Collider.hpp" />
+    <ClInclude Include="Component\Input.hpp" />
     <ClInclude Include="Component\Light.hpp" />
-    <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Component\Model.hpp" />
+    <ClInclude Include="Component\Sphere.hpp" />
+    <ClInclude Include="Component\Transform.hpp" />
+    <ClInclude Include="Entity\Component.hpp" />
+    <ClInclude Include="Entity\Entity.hpp" />
+    <ClInclude Include="Entity\HelperComponent.hpp" />
+    <ClInclude Include="Entity\Identifier.hpp" />
     <ClInclude Include="Setup.hpp" />
+    <ClInclude Include="Static\AssetLoader.hpp" />
     <ClInclude Include="Static\DebugPrint.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />
-    <ClInclude Include="Static\AssetLoader.hpp" />
+    <ClInclude Include="Static\Module\States.hpp" />
+    <ClInclude Include="Static\Module\Systems.hpp" />
     <ClInclude Include="Static\Renderer.hpp" />
-    <ClInclude Include="Entity\Identifier.hpp" />
-    <ClInclude Include="Component\Transform.hpp" />
     <ClInclude Include="System\Collision.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

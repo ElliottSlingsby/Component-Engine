@@ -1,56 +1,20 @@
-#include "Collider.hpp"
-#include "Static\DebugPrint.hpp"
+#include "Sphere.hpp"
 
-bool Box::isColliding(Collider* other){
-	Sphere* sphere = dynamic_cast<Sphere*>(other);
+#include <Static\DebugPrint.hpp>
 
-	if (sphere){
-		return false;
-	}
-
-	Box* box = dynamic_cast<Box*>(other);
-
-	if (box){
-		return false;
-	}
-
-	return false;
+Collider::Collider(ColliderType type, bool inverted) : type(type){
+	EntityManager::Systems().registerToSystem(this);
+	_inverted = inverted;
 }
 
-bool Sphere::isColliding(Collider* other){
-	Box* box = dynamic_cast<Box*>(other);
+Collider::~Collider(){
+	EntityManager::Systems().unregisterFromSystem(this);
+}
 
-	if (box){
-		return false;
-	}
+glm::vec3 Collider::position(){
+	return _transform->position();
+}
 
-	Sphere* sphere = dynamic_cast<Sphere*>(other);
-
-	if (sphere){
-		float length = (float)((position() - sphere->position()).length());
-
-		if (sphere->_inverted && _inverted)
-			return false;
-
-		if (!_inverted && !sphere->_inverted){
-			if (length - sphere->_radius <= _radius)
-				return true;
-
-			return false;
-		}
-		else if (_inverted){
-			if (length + sphere->_radius <= _radius)
-				return false;
-
-			return true;
-		}
-		else if (sphere->_inverted){
-			if (length + _radius <= sphere->_radius)
-				return false;
-
-			return true;
-		}
-	}
-
-	return false;
+void Collider::load(){
+	_transform = getComponent<Transform>();
 }

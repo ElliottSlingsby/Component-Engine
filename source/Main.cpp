@@ -1,10 +1,9 @@
-#include "Static\Renderer.hpp"
-#include "Static\EntityManager.hpp"
-#include "System\Collision.hpp"
-#include <time.h>
-#include <chrono>
-
 #include "Setup.hpp"
+
+#include <Static\Renderer.hpp>
+#include <Static\EntityManager.hpp>
+#include <System\Collision.hpp>
+#include <chrono>
 
 int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
@@ -12,7 +11,7 @@ int main(int argc, char *args[]){
 	Renderer::setWindowSize(1280, 720);
 	Renderer::setWindowMode(WINDOW_WINDOWED);
 
-	EntityManager::addSystem(new Collision);
+	EntityManager::Systems().addSystem(new Collision);
 
 	setup(argc, args);
 
@@ -28,17 +27,13 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::lateLoad);
 	}
 
-	// Used for calculating delta time
+	auto start = std::chrono::steady_clock::now();
+	auto end = start;
 
-	auto start = std::chrono::high_resolution_clock::now();
-	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> difference = end - start;
 
 	while (running){
-		std::chrono::duration<double> dt = end - start;
-
-		start = std::chrono::high_resolution_clock::now();
-
-		Renderer::setWindowTitle(("FPS : " + std::to_string((int)(1 / dt.count()))).c_str());
+		start = std::chrono::steady_clock::now();
 
 		// Checking for exit conditions
 		SDL_Event e;
@@ -52,10 +47,10 @@ int main(int argc, char *args[]){
 				running = false;
 		}
 
-		EntityManager::runSystems();
+		EntityManager::Systems().runSystems();
 
-		EntityManager::invokeAll(&Component::update, dt.count());
-		EntityManager::invokeAll(&Component::lateUpdate, dt.count());
+		EntityManager::invokeAll(&Component::update, difference.count());
+		EntityManager::invokeAll(&Component::lateUpdate, difference.count());
 
 		EntityManager::invokeAll(&Component::preRender);
 		EntityManager::invokeAll(&Component::render);
@@ -64,7 +59,8 @@ int main(int argc, char *args[]){
 
 		EntityManager::deleteDestroyed();
 
-		end = std::chrono::high_resolution_clock::now();
+		end = std::chrono::steady_clock::now();
+		difference = end - start;
 	}
 
 	EntityManager::destroyAll();

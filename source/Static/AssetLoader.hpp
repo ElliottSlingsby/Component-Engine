@@ -1,12 +1,10 @@
 #pragma once
 
-#include <string>
+#include <GL\glew.h>
 #include <unordered_map>
-#include <GL\glew.h>
-#include <vector>
-#include <GL\glew.h>
 #include <algorithm>
-#include "Static\DebugPrint.hpp"
+#include <Static\DebugPrint.hpp>
+#include <string>
 
 struct Asset{
 	virtual ~Asset(){}

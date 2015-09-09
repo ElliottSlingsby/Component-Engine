@@ -1,6 +1,6 @@
 #include "Entity.hpp"
 
-#include "Static\EntityManager.hpp"
+#include <Static\EntityManager.hpp>
 
 void Entity::destroy(){
 	_destroyed = true;

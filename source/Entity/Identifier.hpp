@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdio.h>
-#include "Static\DebugPrint.hpp"
+#include <Static\DebugPrint.hpp>
 
 // This is the base class for both Component and Entity classes.
 // This is so Components know what Entity they're attached to, and also so that the EntityManager can keep track of the entity.
