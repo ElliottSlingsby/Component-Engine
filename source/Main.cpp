@@ -7,11 +7,9 @@
 
 int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
+	//Renderer::Window().setWindowMode(SDL);
 
-	Renderer::setWindowSize(1280, 720);
-	Renderer::setWindowMode(WINDOW_WINDOWED);
-
-	EntityManager::Systems().addSystem(new Collision);
+	EntityManager::SystemHandler().addSystem(new Collision);
 
 	setup(argc, args);
 
@@ -31,9 +29,6 @@ int main(int argc, char *args[]){
 	auto end = start;
 
 	std::chrono::duration<double> difference = end - start;
-		
-	error_out("Everything is fine!\nDon't worry, OK?");
-	warning_out("I said don't worry!");
 
 	while (running){
 		start = std::chrono::steady_clock::now();
@@ -50,7 +45,7 @@ int main(int argc, char *args[]){
 				running = false;
 		}
 
-		EntityManager::Systems().runSystems();
+		EntityManager::SystemHandler().runSystems();
 
 		EntityManager::invokeAll(&Component::update, difference.count());
 		EntityManager::invokeAll(&Component::lateUpdate, difference.count());
@@ -58,7 +53,7 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::preRender);
 		EntityManager::invokeAll(&Component::render);
 
-		Renderer::swapBuffer();
+		Renderer::Window().swapBuffer();
 
 		EntityManager::deleteDestroyed();
 

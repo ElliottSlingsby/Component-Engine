@@ -16,13 +16,13 @@ EntityManager& EntityManager::_instance(){
 	return instance;
 }
 
-Module::Systems& EntityManager::Systems(){
-	static Module::Systems systems;
+Module::SystemHandler& EntityManager::SystemHandler(){
+	static Module::SystemHandler systems;
 	return systems;
 }
 
-Module::States& EntityManager::States(){
-	static Module::States states;
+Module::StateMachine& EntityManager::StateMachine(){
+	static Module::StateMachine states;
 	return states;
 }
 

@@ -11,8 +11,26 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Setup.cpp">
+    <ClCompile Include="Prefab\Player.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="Prefab\Sky.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="State\Playing.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Setup.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Prefab\Player.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Prefab\Sky.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="State\Playing.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

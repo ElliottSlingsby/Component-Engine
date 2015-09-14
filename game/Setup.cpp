@@ -4,11 +4,12 @@
 #include <System\Collision.hpp>
 
 void setup(int argc, char *args[]){
-	Renderer::setWindowSize(1280, 720);
+	Renderer::Window().setSize(1280, 720);
+	Renderer::Window().setFixedMouse(true);
 
 	AssetLoader::setAssetLocation("asset");
 
-	EntityManager::States().addState(new Playing);
+	EntityManager::StateMachine().addState(new Playing);
 
-	EntityManager::States().changeState<Playing>();
+	EntityManager::StateMachine().changeState<Playing>();
 }

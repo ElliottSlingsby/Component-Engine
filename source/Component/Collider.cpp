@@ -3,12 +3,12 @@
 #include <Static\DebugOutput.hpp>
 
 Collider::Collider(ColliderType type, bool inverted) : type(type){
-	EntityManager::Systems().registerToSystem(this);
+	EntityManager::SystemHandler().registerToSystem(this);
 	_inverted = inverted;
 }
 
 Collider::~Collider(){
-	EntityManager::Systems().unregisterFromSystem(this);
+	EntityManager::SystemHandler().unregisterFromSystem(this);
 }
 
 glm::vec3 Collider::position(){

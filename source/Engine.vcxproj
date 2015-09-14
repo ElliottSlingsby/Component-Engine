@@ -23,7 +23,8 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Static\AssetLoader.cpp" />
     <ClCompile Include="Static\EntityManager.cpp" />
-    <ClCompile Include="Static\Module\Screen.cpp" />
+    <ClCompile Include="Static\Module\ShaderManager.cpp" />
+    <ClCompile Include="Static\Module\Window.cpp" />
     <ClCompile Include="Static\Renderer.cpp" />
     <ClCompile Include="System\Collision.cpp" />
   </ItemGroup>
@@ -44,9 +45,10 @@
     <ClInclude Include="Static\AssetLoader.hpp" />
     <ClInclude Include="Static\DebugOutput.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />
-    <ClInclude Include="Static\Module\Screen.hpp" />
-    <ClInclude Include="Static\Module\States.hpp" />
-    <ClInclude Include="Static\Module\Systems.hpp" />
+    <ClInclude Include="Static\Module\Window.hpp" />
+    <ClInclude Include="Static\Module\ShaderManager.hpp" />
+    <ClInclude Include="Static\Module\StateMachine.hpp" />
+    <ClInclude Include="Static\Module\SystemHandler.hpp" />
     <ClInclude Include="Static\Renderer.hpp" />
     <ClInclude Include="System\Collision.hpp" />
   </ItemGroup>

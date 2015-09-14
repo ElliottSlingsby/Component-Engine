@@ -11,7 +11,7 @@ struct State{
 };
 
 namespace Module{
-	class States{
+	class StateMachine{
 		typedef std::unordered_map<const type_info*, State*> StateMap;
 		StateMap _states;
 

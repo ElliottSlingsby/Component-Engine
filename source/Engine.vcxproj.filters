@@ -81,17 +81,14 @@
     <ClCompile Include="System\Collision.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="Static\Module\Screen.cpp">
+    <ClCompile Include="Static\Module\Window.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Static\Module\ShaderManager.cpp">
       <Filter>Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Static\Module\States.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Static\Module\Systems.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
     <ClInclude Include="Static\AssetLoader.hpp">
       <Filter>Public</Filter>
     </ClInclude>
@@ -140,13 +137,20 @@
     <ClInclude Include="System\Collision.hpp">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="Setup.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
     <ClInclude Include="Static\DebugOutput.hpp">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="Static\Module\Screen.hpp">
+    <ClInclude Include="Setup.hpp" />
+    <ClInclude Include="Static\Module\ShaderManager.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Static\Module\StateMachine.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Static\Module\SystemHandler.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Static\Module\Window.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Module\Systems.hpp"
-#include "Module\States.hpp"
+#include "Module\SystemHandler.hpp"
+#include "Module\StateMachine.hpp"
 
 #include <vector>
 #include <stack>
@@ -38,8 +38,8 @@ public:
 	~EntityManager();
 
 	// Modules
-	static Module::Systems& Systems();
-	static Module::States& States();
+	static Module::SystemHandler& SystemHandler();
+	static Module::StateMachine& StateMachine();
 
 	template<typename... T>
 	static void invokeAll(void (Component::* method)(T...), T... args){

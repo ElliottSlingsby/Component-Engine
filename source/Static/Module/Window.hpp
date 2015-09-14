@@ -4,7 +4,7 @@
 #include <string>
 
 namespace Module{
-	class Screen{
+	class Window{
 		std::string _title = "";
 
 		unsigned int _width;
@@ -16,20 +16,20 @@ namespace Module{
 
 		SDL_Window* _window = 0;
 		SDL_Renderer* _renderer = 0;
-		SDL_GLContext _glContext = 0;
 
 		bool _running = false;
 		bool _glEnabled;
 
 	public:
-		Screen(bool glEnabled = false);
-		~Screen();
+		Window(bool glEnabled = false);
+		~Window();
 
 		// Setters
 		void setFixedMouse(bool fixedMouse);
 		void setSize(unsigned int width, unsigned int height);
 		void setTitle(const char* title);
 		void setWindowMode(int windowMode);
+		void setGlContext(SDL_GLContext context);
 
 		bool initiate();
 
@@ -37,7 +37,7 @@ namespace Module{
 		int width();
 		int height();
 		SDL_Renderer* renderer();
-		SDL_GLContext glContext();
+		SDL_Window* window();
 
 		void swapBuffer();
 	};

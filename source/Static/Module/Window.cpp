@@ -1,22 +1,19 @@
-#include "Screen.hpp"
+#include "Window.hpp"
 #include <Static\DebugOutput.hpp>
 #include <GL\glew.h>
 
 using namespace Module;
 
-Screen::Screen(bool glEnabled){
+Window::Window(bool glEnabled){
 	_glEnabled = glEnabled;
 }
 
-Screen::~Screen(){
+Window::~Window(){
 	SDL_DestroyWindow(_window);
 }
 
-bool Screen::initiate(){
+bool Window::initiate(){
 	if (_running){
-		SDL_GL_DeleteContext(_glContext);
-		_glContext = 0;
-
 		SDL_DestroyRenderer(_renderer);
 		_renderer = 0;
 
@@ -40,17 +37,6 @@ bool Screen::initiate(){
 		return false;
 	}
 
-	if (_glEnabled){
-		_glContext = SDL_GL_CreateContext(_window);
-
-		if (!_glContext){
-			std::string message = SDL_GetError();
-
-			error_out(message.c_str());
-			return false;
-		}
-	}
-
 	// Renderer object (for 2D graphics only)
 	_renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
 	
@@ -72,18 +58,18 @@ bool Screen::initiate(){
 	return true;
 }
 
-void Screen::swapBuffer(){
+void Window::swapBuffer(){
 	SDL_GL_SwapWindow(_window);
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
 	SDL_RenderClear(_renderer);;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Screen::setFixedMouse(bool fixedMouse){
+void Window::setFixedMouse(bool fixedMouse){
 	_fixedMouse = fixedMouse;
 }
 
-void Screen::setSize(unsigned int width, unsigned int height){
+void Window::setSize(unsigned int width, unsigned int height){
 	_width = width;
 	_height = height;
 
@@ -93,32 +79,36 @@ void Screen::setSize(unsigned int width, unsigned int height){
 	}
 }
 
-void Screen::setTitle(const char* title){
+void Window::setTitle(const char* title){
 	_title = title;
 
 	if (_running)
 		SDL_SetWindowTitle(_window, title);
 }
 
-void Screen::setWindowMode(int windowMode){
+void Window::setWindowMode(int windowMode){
 	_windowMode = windowMode;
 
 	if (_running)
 		SDL_SetWindowFullscreen(_window, windowMode);
 }
 
-int Screen::width(){
+void Window::setGlContext(SDL_GLContext glContext){
+	SDL_GL_MakeCurrent(_window, glContext);
+}
+
+int Window::width(){
 	return _width;
 }
 
-int Screen::height(){
+int Window::height(){
 	return _height;
 }
 
-SDL_Renderer* Screen::renderer(){
+SDL_Renderer* Window::renderer(){
 	return _renderer;
 }
 
-SDL_GLContext Screen::glContext(){
-	return _glContext;
+SDL_Window* Window::window(){
+	return _window;
 }

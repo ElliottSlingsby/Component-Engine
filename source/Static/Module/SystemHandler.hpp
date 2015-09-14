@@ -18,7 +18,7 @@ struct System{
 };
 
 namespace Module{
-	class Systems{
+	class SystemHandler{
 		typedef std::unordered_map<const type_info*, System*> SystemMap;
 		SystemMap _systems;
 
