@@ -31,6 +31,9 @@ int main(int argc, char *args[]){
 	auto end = start;
 
 	std::chrono::duration<double> difference = end - start;
+		
+	error_out("Everything is fine!\nDon't worry, OK?");
+	warning_out("I said don't worry!");
 
 	while (running){
 		start = std::chrono::steady_clock::now();
