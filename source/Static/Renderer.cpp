@@ -77,15 +77,6 @@ bool Renderer::_setupGL(){
 	glEnable(GL_SCISSOR_TEST);
 	glEnable(GL_FOG);
 
-	int hpad = 0;
-	int vpad = 75;
-
-	glScissor(hpad, vpad, Window().width() - hpad * 2, Window().height() - vpad * 2);
-
-	float density = 0.f;
-
-	glFogf(GL_FOG_DENSITY, density);
-
 #ifdef _DEBUG
 	glDisable(GL_CULL_FACE);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -127,19 +118,10 @@ bool Renderer::reshape(){
 
 	float ar = (float)Window().width() / (float)Window().height();
 
-	gluPerspective(59, ar, 0.1, 1024 * 2); // 59 vfov = ~90 hfov
+	gluPerspective(90 / ar, ar, 0.1, 2048); // 59 vfov = ~90 hfov
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	GLenum error = glGetError();
-
-	if (error != GL_NO_ERROR){
-		std::string message = reinterpret_cast<const char*>(gluErrorString(error));
-
-		error_out(message.c_str());
-		return false;
-	}
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

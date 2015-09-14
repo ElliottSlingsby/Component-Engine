@@ -87,6 +87,9 @@
     <ClCompile Include="Static\Module\ShaderManager.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="Static\Module\NameBank.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Static\AssetLoader.hpp">
@@ -151,6 +154,9 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Static\Module\Window.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Static\Module\NameBank.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

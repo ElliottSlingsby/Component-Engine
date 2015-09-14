@@ -3,11 +3,11 @@
 #include <Static\Renderer.hpp>
 #include <Static\EntityManager.hpp>
 #include <System\Collision.hpp>
+
 #include <chrono>
 
 int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
-	//Renderer::Window().setWindowMode(SDL);
 
 	EntityManager::SystemHandler().addSystem(new Collision);
 
@@ -16,11 +16,6 @@ int main(int argc, char *args[]){
 	bool running = Renderer::initiate();
 
 	if (running){
-		//Renderer::setShaderLocation("source/Shader");
-		//Renderer::loadShader(SHADER_VERTEX, "shader.vert");
-
-		//Renderer::linkShaders();
-
 		EntityManager::invokeAll(&Component::load);
 		EntityManager::invokeAll(&Component::lateLoad);
 	}
@@ -32,6 +27,8 @@ int main(int argc, char *args[]){
 
 	while (running){
 		start = std::chrono::steady_clock::now();
+
+		Renderer::Window().setTitle(std::to_string(1.0 / difference.count()).c_str());
 
 		// Checking for exit conditions
 		SDL_Event e;

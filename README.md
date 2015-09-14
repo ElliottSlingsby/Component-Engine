@@ -5,8 +5,8 @@
 Use Visual Studio 2013 or later, and compile on release with 'Game' set as the startup project.
 
 # To do
-- ~~Fully split game and engine~~
-- EntityManager clean up
-- ~~Maths overhaul~~
-- Collision system improvements
-- Shaders
+- Implement ID control module for EntityManager
+- Implement shaders module for Renderer
+- Implement specular maps
+- Implement positional audio
+- Implement complex collision detection
