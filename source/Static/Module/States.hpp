@@ -2,7 +2,7 @@
 
 #include <typeinfo>
 #include <unordered_map>
-#include <Static\DebugPrint.hpp>
+#include <Static\DebugOutput.hpp>
 
 struct State{
 	virtual void on(){}
@@ -24,15 +24,15 @@ namespace Module{
 			if (!_states[&typeid(T)])
 				_states[&typeid(T)] = state;
 			else
-				printd("%s!\n", "State already added");
+				message_out("%s!\n", "State already added");
 		}
 
 		template<typename T>
 		void changeState(){
 			if (!_states[&typeid(T)])
-				printd("%s!\n", "State doesn't exist");
+				message_out("%s!\n", "State doesn't exist");
 			else if (_currentState == _states[&typeid(T)])
-				printd("%s!\n", "State already on");
+				message_out("%s!\n", "State already on");
 			else{
 				if (_currentState)
 					_currentState->off();

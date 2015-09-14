@@ -3,7 +3,7 @@
 #include <GL\glew.h>
 #include <unordered_map>
 #include <algorithm>
-#include <Static\DebugPrint.hpp>
+#include <Static\DebugOutput.hpp>
 #include <string>
 
 struct Asset{
@@ -88,7 +88,7 @@ public:
 				asset = _instance()._loadMaterial(filepath);
 
 			else
-				printd("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
+				message_out("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
 
 			return dynamic_cast<const T*>(asset);
 		}

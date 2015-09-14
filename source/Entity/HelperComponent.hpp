@@ -2,7 +2,7 @@
 
 #include "Component.hpp"
 #include <Static\EntityManager.hpp>
-#include <Static\DebugPrint.hpp>
+#include <Static\DebugOutput.hpp>
 
 // This helper class is for deriving components, so that the derived component can get other components from it's associated entity.
 
@@ -15,7 +15,7 @@ struct HelperComponent : public Component{
 		if (ID() != NULL_ID)
 			return EntityManager::getEntity(ID())->getComponent<T>();
 
-		printd("%s: %s!\n", "HelperComponent", "Cannot get component, entity ID hasn't been assigned");
+		message_out("%s: %s!\n", "HelperComponent", "Cannot get component, entity ID hasn't been assigned");
 		return 0;
 	}
 
@@ -26,7 +26,7 @@ struct HelperComponent : public Component{
 			return;
 		}
 
-		printd("%s: %s!\n", "HelperComponent", "Cannot add component, entity ID hasn't been assigned");
+		message_out("%s: %s!\n", "HelperComponent", "Cannot add component, entity ID hasn't been assigned");
 	}
 
 	template <typename T>
@@ -36,14 +36,14 @@ struct HelperComponent : public Component{
 			return;
 		}
 		
-		printd("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity ID hasn't been assigned");
+		message_out("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity ID hasn't been assigned");
 	}
 
 	Entity* parent(){
 		if (ID() != NULL_ID)
 			return EntityManager::getEntity(ID());
 
-		printd("%s: %s!\n", "HelperComponent", "Cannot find component, entity ID hasn't been assigned");
+		message_out("%s: %s!\n", "HelperComponent", "Cannot find component, entity ID hasn't been assigned");
 		return 0;
 	}
 };

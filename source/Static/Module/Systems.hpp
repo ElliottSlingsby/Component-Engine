@@ -28,7 +28,7 @@ namespace Module{
 			if (!_systems[&typeid(T)])
 				_systems[&typeid(T)] = system;
 			else
-				printd("%s!\n", "System already added");
+				message_out("%s!\n", "System already added");
 		}
 
 		template<typename T>

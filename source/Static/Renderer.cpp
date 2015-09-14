@@ -2,7 +2,7 @@
 
 #include <fstream>
 #include <SDL_messagebox.h>
-#include <Static\DebugPrint.hpp>
+#include <Static\DebugOutput.hpp>
 
 Renderer& Renderer::_instance(){
 	static Renderer instance;
@@ -31,7 +31,7 @@ bool Renderer::_setupSDL(){
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0){
 		std::string message = SDL_GetError();
 
-		printd("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", message.c_str());
+		message_out("%s! %s: %s\n", "Failed to initialize SDL", "SDL Error", message.c_str());
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), 0);
 		return false;
 	}
@@ -53,7 +53,7 @@ bool Renderer::_setupSDL(){
 	if (!_window){
 		std::string message = SDL_GetError();
 
-		printd("%s! %s: %s\n", "Failed to create renderer", "SDL Error", message.c_str());
+		message_out("%s! %s: %s\n", "Failed to create renderer", "SDL Error", message.c_str());
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), 0);
 		return false;
 	}
@@ -64,7 +64,7 @@ bool Renderer::_setupSDL(){
 	if (!_sdlRenderer){
 		std::string message = SDL_GetError();
 
-		printd("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", message.c_str());
+		message_out("%s! %s: %s\n", "Failed to create SDL renderer", "SDL Error", message.c_str());
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
 		return false;
 	}
@@ -85,7 +85,7 @@ bool Renderer::_setupGL(){
 	if (!_glcontext){
 		std::string message = SDL_GetError();
 
-		printd("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", message.c_str());
+		message_out("%s! %s: %s\n", "Failed to create OpenGL context", "SDL Error", message.c_str());
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
 		return false;
 	}
@@ -122,7 +122,7 @@ bool Renderer::_setupGL(){
 	if (error != GL_NO_ERROR){
 		std::string message = reinterpret_cast<const char*>(gluErrorString(error));
 
-		printd("%s! %s: %s\n", "Failed to set OpenGL parameters", "OpenGL Error", message.c_str());
+		message_out("%s! %s: %s\n", "Failed to set OpenGL parameters", "OpenGL Error", message.c_str());
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
 		return false;
 	}
@@ -133,7 +133,7 @@ bool Renderer::_setupGL(){
 	if (error != GLEW_OK){
 		std::string message = reinterpret_cast<const char*>(glewGetErrorString(error));
 
-		printd("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", message.c_str());
+		message_out("%s! %s: %s\n", "Failed to initiate Glew", "Glew Error", message.c_str());
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
 		return false;
 	}
@@ -149,7 +149,7 @@ bool Renderer::_setupGL(){
 	if (error != GL_NO_ERROR){
 		std::string message = reinterpret_cast<const char*>(gluErrorString(error));
 
-		printd("%s! %s: %s\n", "Failed to set initiate shader program", "OpenGL Error", message.c_str());
+		message_out("%s! %s: %s\n", "Failed to set initiate shader program", "OpenGL Error", message.c_str());
 		SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
 		return false;
 	}
@@ -177,7 +177,7 @@ bool Renderer::reshape(){
 	if (error != GL_NO_ERROR){
 		std::string message = reinterpret_cast<const char*>(gluErrorString(error));
 
-		printd("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", message.c_str());
+		message_out("%s! %s: %s\n", "Failed to reshape OpenGL matrices", "OpenGL Error", message.c_str());
 		return false;
 	}
 
@@ -258,7 +258,7 @@ void Renderer::loadShader(ShaderTypes type, std::string filepath){
 	file.open((_instance()._shaderPath + filepath).c_str());
 
 	if (!file){
-		printd("Can't find shader '%s'!\n", filepath.c_str());
+		message_out("Can't find shader '%s'!\n", filepath.c_str());
 		return;
 	}
 

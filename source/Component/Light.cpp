@@ -1,7 +1,7 @@
 #include "Light.hpp"
 
 #include <GL\glew.h>
-#include <Static\DebugPrint.hpp>
+#include <Static\DebugOutput.hpp>
 
 static const uint16_t GL_LIGHTS[] = { GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3, GL_LIGHT4, GL_LIGHT5, GL_LIGHT6, GL_LIGHT7 };
 

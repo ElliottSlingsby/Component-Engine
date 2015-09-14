@@ -11,9 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\shader.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Component\Box.cpp" />
     <ClCompile Include="Component\Camera.cpp" />
     <ClCompile Include="Component\Collider.cpp" />
@@ -26,6 +23,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Static\AssetLoader.cpp" />
     <ClCompile Include="Static\EntityManager.cpp" />
+    <ClCompile Include="Static\Module\Screen.cpp" />
     <ClCompile Include="Static\Renderer.cpp" />
     <ClCompile Include="System\Collision.cpp" />
   </ItemGroup>
@@ -44,8 +42,9 @@
     <ClInclude Include="Entity\Identifier.hpp" />
     <ClInclude Include="Setup.hpp" />
     <ClInclude Include="Static\AssetLoader.hpp" />
-    <ClInclude Include="Static\DebugPrint.hpp" />
+    <ClInclude Include="Static\DebugOutput.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />
+    <ClInclude Include="Static\Module\Screen.hpp" />
     <ClInclude Include="Static\Module\States.hpp" />
     <ClInclude Include="Static\Module\Systems.hpp" />
     <ClInclude Include="Static\Renderer.hpp" />

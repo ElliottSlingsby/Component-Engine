@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <Entity\Entity.hpp>
 #include <typeinfo>
-#include <Static\DebugPrint.hpp>
+#include <Static\DebugOutput.hpp>
 
 typedef std::vector<Entity*> EntityVector;
 
@@ -60,7 +60,7 @@ public:
 		int id = _instance()._newID();
 
 		if (_instance()._entities[id]){
-			printd("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
+			message_out("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
 			_instance()._removeID(id);
 			return 0;
 		}

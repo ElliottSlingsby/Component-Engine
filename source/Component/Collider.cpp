@@ -1,6 +1,6 @@
 #include "Sphere.hpp"
 
-#include <Static\DebugPrint.hpp>
+#include <Static\DebugOutput.hpp>
 
 Collider::Collider(ColliderType type, bool inverted) : type(type){
 	EntityManager::Systems().registerToSystem(this);
