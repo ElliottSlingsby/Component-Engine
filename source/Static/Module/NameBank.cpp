@@ -9,7 +9,7 @@ int Identifier::id(){
 	return _id;
 }
 
-void Identifier::setName(std::string name){
+void Identifier::setName(const std::string& name){
 	_name = name;
 }
 
@@ -25,14 +25,14 @@ std::string Module::NameBank::getName(int id){
 	return "";
 }
 
-void Module::NameBank::getIds(std::string name, IntVector& intVector){
+void Module::NameBank::getIds(const std::string& name, IntVector& intVector){
 
 }
 
-void Module::NameBank::bindName(int id, std::string name){
+void Module::NameBank::bindName(int id, const std::string& name){
 
 }
 
-void Module::NameBank::unbindName(int id, std::string name){
+void Module::NameBank::unbindName(int id, const std::string& name){
 
 }

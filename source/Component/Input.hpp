@@ -5,8 +5,8 @@
 class Input : public HelperComponent{
 	Transform* _transform = 0;
 
-	float _speed = 20.f;
-	float _sensitivity = 1.f;
+	float _speed;
+	float _sensitivity;
 
 public:
 	Input(float speed, float sensitivity);

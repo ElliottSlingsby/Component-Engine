@@ -26,8 +26,8 @@ namespace Module{
 		//bool compile();
 		//bool load();
 
-		void setShaderLocation(std::string filepath);
-		void loadShader(ShaderTypes type, std::string filepath);
+		void setShaderLocation(const std::string& filepath);
+		void loadShader(ShaderTypes type, const std::string& filepath);
 		void linkShaders();
 
 		void enableShader(ShaderTypes type, bool enabled);

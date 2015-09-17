@@ -6,7 +6,6 @@
 
 void Camera::load(){
 	_transform = getComponent<Transform>();
-	
 	reshape();
 }
 

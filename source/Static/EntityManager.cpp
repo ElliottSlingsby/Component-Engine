@@ -63,7 +63,7 @@ Entity* EntityManager::getEntity(int id){
 	return entity;
 }
 
-Entity* EntityManager::getEntity(std::string name){
+Entity* EntityManager::getEntity(const std::string& name){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
@@ -74,7 +74,7 @@ Entity* EntityManager::getEntity(std::string name){
 	return getEntity(_instance()._names[name][0]);
 }
 
-void EntityManager::getEntities(std::string name, EntityVector& results){
+void EntityManager::getEntities(const std::string& name, EntityVector& results){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){
@@ -111,7 +111,7 @@ void EntityManager::destroyEntity(int id){
 	entity->destroy();
 }
 
-void EntityManager::destroyEntities(std::string name){
+void EntityManager::destroyEntities(const std::string& name){
 	EntityNameMap::iterator container = _instance()._names.find(name);
 
 	if (container == _instance()._names.end() || container->second.size() == 0){

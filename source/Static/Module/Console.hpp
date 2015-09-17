@@ -18,9 +18,9 @@ public:
 		EXIT_CODE
 	};
 
-	void setPrefix(std::string prefix);
+	void setPrefix(const std::string& prefix);
 
 	std::string getInput();
 
-	int interpretInput(std::string input);
+	int interpretInput(const std::string& input);
 };

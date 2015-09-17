@@ -18,9 +18,9 @@ void Input::update(double dt){
 	SDL_GetRelativeMouseState(&mouseRX, &mouseRY);
 
 	glm::quat lookX(glm::vec3(0.f, -(float)(mouseRX * _sensitivity * dt), 0.f));
-	_transform->rotate(lookX);
-
 	glm::quat lookY(glm::vec3(-(float)(mouseRY * _sensitivity * dt), 0.f, 0.f));
+
+	_transform->rotate(lookX);
 	_transform->localRotate(lookY);
 
 	const Uint8* keyDown = SDL_GetKeyboardState(0);
@@ -69,20 +69,19 @@ void Input::update(double dt){
 }
 
 void Input::left(double dt){
-	_transform->localTranslate((float)(_speed * dt), glm::quat(glm::vec3(0.f, glm::radians(90.f), 0.f)));
+	_transform->localTranslate(glm::vec3((float)(_speed * dt), 0, 0));
 }
 
 void Input::right(double dt){
-	_transform->localTranslate((float)(_speed * dt), glm::quat(glm::vec3(0.f, glm::radians(-90.f), 0.f)));
+	_transform->localTranslate(glm::vec3(-(float)(_speed * dt), 0, 0));
 }
 
 void Input::forward(double dt){
-	float movement = (float)(_speed * dt);
-	_transform->localTranslate(movement);
+	_transform->localTranslate(glm::vec3(0, 0, (float)(_speed * dt)));
 }
 
 void Input::back(double dt){
-	_transform->localTranslate((float)(_speed * dt), glm::quat(glm::vec3(0.f, glm::radians(180.f), 0.f)));
+	_transform->localTranslate(glm::vec3(0, 0, -(float)(_speed * dt)));
 }
 
 void Input::up(double dt){

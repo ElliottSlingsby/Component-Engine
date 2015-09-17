@@ -61,8 +61,8 @@ class AssetLoader{
 	// Private singleton for use in static functions
 	static AssetLoader& _instance();
 
-	MeshData* _loadMesh(std::string filepath);
-	MaterialData* _loadMaterial(std::string filepath);
+	MeshData* _loadMesh(const std::string& filepath);
+	MaterialData* _loadMaterial(const std::string& filepath);
 
 	~AssetLoader();
 
@@ -97,5 +97,5 @@ public:
 		return dynamic_cast<const T*>(iter->second);
 	}
 
-	static void setAssetLocation(std::string filepath);
+	static void setAssetLocation(const std::string& filepath);
 };

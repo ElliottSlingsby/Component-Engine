@@ -46,9 +46,8 @@ void Transform::rotate(const glm::quat& rotation){
 	_rotation = rotation * _rotation;
 }
 
-void Transform::localTranslate(float speed, const glm::quat& offset){
-	glm::vec3 vector(0.f, 0.f, speed);
-	translate(_rotation * offset * vector);
+void Transform::localTranslate(const glm::vec3& translation){
+	translate(_rotation *  translation);
 }
 
 void Transform::localRotate(const glm::quat& rotation){

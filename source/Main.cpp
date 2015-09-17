@@ -56,6 +56,12 @@ int main(int argc, char *args[]){
 
 		EntityManager::deleteDestroyed();
 
+		//int n = 0;
+		//
+		//for (int i = 0; i < 10000000; i++){
+		//	n *= i;
+		//}
+
 		end = SDL_GetTicks();
 		difference = (end - start) / 1000.0;
 	}

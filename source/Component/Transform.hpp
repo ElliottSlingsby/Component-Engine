@@ -35,6 +35,6 @@ public:
 	void rotate(const glm::quat& rotation);
 
 	// Local movements
-	void localTranslate(float speed, const glm::quat& offset = glm::quat(1.f, 0.f, 0.f, 0.f));
+	void localTranslate(const glm::vec3& translation);
 	void localRotate(const glm::quat& rotation);
 };

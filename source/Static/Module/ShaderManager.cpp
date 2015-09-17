@@ -35,11 +35,11 @@ bool Module::ShaderManager::initiate(){
 	return true;
 }
 
-void Module::ShaderManager::setShaderLocation(std::string filepath){
+void Module::ShaderManager::setShaderLocation(const std::string& filepath){
 	_shaderPath = "../" + filepath + "/";
 }
 
-void Module::ShaderManager::loadShader(ShaderTypes type, std::string filepath){
+void Module::ShaderManager::loadShader(ShaderTypes type, const std::string& filepath){
 	std::fstream file;
 
 	file.open((_shaderPath + filepath).c_str());

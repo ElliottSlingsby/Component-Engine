@@ -13,7 +13,7 @@ public:
 	std::string name();
 	int id();
 
-	void setName(std::string name);
+	void setName(const std::string& name);
 	void setId(int id);
 };
 
@@ -31,9 +31,9 @@ namespace Module{
 		void deleteId(int id);
 
 		std::string getName(int id);
-		void getIds(std::string name, IntVector& intVector);
+		void getIds(const std::string& name, IntVector& intVector);
 
-		void bindName(int id, std::string name);
-		void unbindName(int id, std::string name = "");
+		void bindName(int id, const std::string& name);
+		void unbindName(int id, const std::string& name = "");
 	};
 }

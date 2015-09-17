@@ -15,6 +15,4 @@ void Player::prefab(){
 	addComponent(new Model("ship.obj", "ship.png"));
 	addComponent(new Sphere(1.f));
 	addComponent(new Camera);
-
-	getComponent<Camera>()->setVerticalPadding(75);
 }

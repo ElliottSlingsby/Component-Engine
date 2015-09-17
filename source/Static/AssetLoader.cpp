@@ -16,7 +16,7 @@ AssetLoader& AssetLoader::_instance(){
 	return instance;
 }
 
-MeshData* AssetLoader::_loadMesh(std::string filepath){
+MeshData* AssetLoader::_loadMesh(const std::string& filepath){
 	// tinyobj containers
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
@@ -69,7 +69,7 @@ MeshData* AssetLoader::_loadMesh(std::string filepath){
 	return asset;
 }
 
-MaterialData* AssetLoader::_loadMaterial(std::string filepath){
+MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 	SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
 
 	if (!image){
@@ -107,6 +107,6 @@ MaterialData* AssetLoader::_loadMaterial(std::string filepath){
 	return asset;
 }
 
-void AssetLoader::setAssetLocation(std::string filepath){
+void AssetLoader::setAssetLocation(const std::string& filepath){
 	_instance()._assetPath = "../" + filepath + "/";
 }

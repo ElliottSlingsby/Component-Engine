@@ -2,7 +2,7 @@
 
 #include <GL\glew.h>
 
-Model::Model(std::string meshSrc, std::string materialSrc){
+Model::Model(const std::string& meshSrc, const std::string& materialSrc){
 	_meshSrc = meshSrc;
 	_materialSrc = materialSrc;
 }

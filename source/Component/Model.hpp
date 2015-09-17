@@ -14,7 +14,7 @@ protected:
 	const MaterialData* _material = 0;
 
 public:
-	Model(std::string meshSrc, std::string materialSrc = "");
+	Model(const std::string& meshSrc, const std::string& materialSrc = "");
 
 	void load();
 	void render();

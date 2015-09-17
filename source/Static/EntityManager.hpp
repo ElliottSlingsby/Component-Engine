@@ -52,7 +52,7 @@ public:
 	}
 
 	template<typename T = Entity, typename... U> 
-	static Entity* createEntity(std::string name = "", U... args){
+	static Entity* createEntity(const std::string& name = "", U... args){
 		// Pass any potential constructor args (if any)
 		Entity* entity = new T(args...);
 
@@ -84,11 +84,11 @@ public:
 	static void setMaxSize(unsigned int size);
 
 	static Entity* getEntity(int id);
-	static Entity* getEntity(std::string name);
-	static void getEntities(std::string name, EntityVector& results);
+	static Entity* getEntity(const std::string& name);
+	static void getEntities(const std::string& name, EntityVector& results);
 
 	static void destroyEntity(int id);
-	static void destroyEntities(std::string name);
+	static void destroyEntities(const std::string& name);
 	static void destroyAll();
 
 	static void deleteDestroyed();

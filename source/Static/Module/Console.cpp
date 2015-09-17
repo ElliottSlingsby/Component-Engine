@@ -5,6 +5,8 @@
 #include <Static\Renderer.hpp>
 #include <Static\AssetLoader.hpp>
 
+// Currently this is a regex mess, but will eventually be replaced with Lua
+
 void setEntityPosition(const std::string& entityName, const glm::vec3& position){
 	Entity* entity = EntityManager::getEntity(entityName);
 
@@ -23,7 +25,7 @@ Console::Console(){
 	_patternMap["position"] = std::regex("^(?:position|pos|move) +(\\S+) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+))$", std::regex_constants::icase | std::regex_constants::ECMAScript);
 }
 
-void Console::setPrefix(std::string prefix){
+void Console::setPrefix(const std::string& prefix){
 	_prefix = prefix;
 }
 
@@ -38,7 +40,7 @@ std::string Console::getInput(){
 	return input;
 }
 
-int Console::interpretInput(std::string input){
+int Console::interpretInput(const std::string& input){
 	std::smatch results;
 
 	if (std::regex_match(input, results, _patternMap["null"])){
