@@ -25,6 +25,7 @@ namespace Module{
 		~Window();
 
 		// Setters
+		void setRunning(bool running);
 		void setFixedMouse(bool fixedMouse);
 		void setSize(unsigned int width, unsigned int height);
 		void setTitle(const char* title);
@@ -32,8 +33,10 @@ namespace Module{
 		void setGlContext(SDL_GLContext context);
 
 		bool initiate();
+		void startConsole();
 
 		// Getters
+		bool running();
 		int width();
 		int height();
 		SDL_Renderer* renderer();

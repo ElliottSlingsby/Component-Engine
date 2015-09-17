@@ -5,6 +5,7 @@
 Use Visual Studio 2013 or later, and compile on release with 'Game' set as the startup project.
 
 # To do
+- Fix delta time and timing control
 - Implement ID control module for EntityManager
 - Implement shaders module for Renderer
 - Implement specular maps

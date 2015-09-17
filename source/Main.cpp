@@ -4,7 +4,7 @@
 #include <Static\EntityManager.hpp>
 #include <System\Collision.hpp>
 
-#include <chrono>
+#include <ctime>
 
 int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
@@ -18,17 +18,19 @@ int main(int argc, char *args[]){
 	if (running){
 		EntityManager::invokeAll(&Component::load);
 		EntityManager::invokeAll(&Component::lateLoad);
+
+		Renderer::Window().startConsole();
 	}
 
-	auto start = std::chrono::steady_clock::now();
-	auto end = start;
+	double start = SDL_GetTicks();
+	double end = start;
 
-	std::chrono::duration<double> difference = end - start;
+	double difference = 0.0;
 
-	while (running){
-		start = std::chrono::steady_clock::now();
+	while (running && Renderer::Window().running()){
+		start = SDL_GetTicks();
 
-		Renderer::Window().setTitle(std::to_string(1.0 / difference.count()).c_str());
+		Renderer::Window().setTitle(std::to_string(1.0 / difference).c_str());
 
 		// Checking for exit conditions
 		SDL_Event e;
@@ -44,8 +46,8 @@ int main(int argc, char *args[]){
 
 		EntityManager::SystemHandler().runSystems();
 
-		EntityManager::invokeAll(&Component::update, difference.count());
-		EntityManager::invokeAll(&Component::lateUpdate, difference.count());
+		EntityManager::invokeAll(&Component::update, difference);
+		EntityManager::invokeAll(&Component::lateUpdate, difference);
 
 		EntityManager::invokeAll(&Component::preRender);
 		EntityManager::invokeAll(&Component::render);
@@ -54,8 +56,8 @@ int main(int argc, char *args[]){
 
 		EntityManager::deleteDestroyed();
 
-		end = std::chrono::steady_clock::now();
-		difference = end - start;
+		end = SDL_GetTicks();
+		difference = (end - start) / 1000.0;
 	}
 
 	EntityManager::destroyAll();

@@ -77,7 +77,8 @@ void Input::right(double dt){
 }
 
 void Input::forward(double dt){
-	_transform->localTranslate((float)(_speed * dt));
+	float movement = (float)(_speed * dt);
+	_transform->localTranslate(movement);
 }
 
 void Input::back(double dt){

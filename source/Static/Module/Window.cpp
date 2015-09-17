@@ -1,8 +1,29 @@
 #include "Window.hpp"
+
 #include <Static\DebugOutput.hpp>
 #include <GL\glew.h>
+#include "Console.hpp"
+#include "SDL_thread.h"
 
 using namespace Module;
+
+static int consoleThread(void* data){
+	Window* window = static_cast<Window*>(data);
+
+	Console console;
+	console.setPrefix(">>>");
+
+	while (window->running()){
+		std::string input = console.getInput();
+
+		int code = console.interpretInput(input);
+
+		if (code == Console::EXIT_CODE)
+			window->setRunning(false);
+	}
+
+	return 0;
+}
 
 Window::Window(bool glEnabled){
 	_glEnabled = glEnabled;
@@ -24,9 +45,9 @@ bool Window::initiate(){
 	int flags;
 
 	if (_glEnabled)
-		flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+		flags = SDL_WINDOW_OPENGL | _windowMode;
 	else
-		flags = SDL_WINDOW_SHOWN;
+		flags = _windowMode;
 
 	_window = SDL_CreateWindow(_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _width, _height, flags);
 
@@ -54,8 +75,11 @@ bool Window::initiate(){
 		SDL_SetRelativeMouseMode(SDL_TRUE);
 
 	_running = true;
-
 	return true;
+}
+
+bool Window::running(){
+	return _running;
 }
 
 void Window::swapBuffer(){
@@ -63,6 +87,10 @@ void Window::swapBuffer(){
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
 	SDL_RenderClear(_renderer);;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Window::setRunning(bool running){
+	_running = running;
 }
 
 void Window::setFixedMouse(bool fixedMouse){
@@ -95,6 +123,10 @@ void Window::setWindowMode(int windowMode){
 
 void Window::setGlContext(SDL_GLContext glContext){
 	SDL_GL_MakeCurrent(_window, glContext);
+}
+
+void Window::startConsole(){
+	SDL_CreateThread(consoleThread, "console", this);
 }
 
 int Window::width(){

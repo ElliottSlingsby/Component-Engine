@@ -23,6 +23,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Static\AssetLoader.cpp" />
     <ClCompile Include="Static\EntityManager.cpp" />
+    <ClCompile Include="Static\Module\Console.cpp" />
     <ClCompile Include="Static\Module\NameBank.cpp" />
     <ClCompile Include="Static\Module\ShaderManager.cpp" />
     <ClCompile Include="Static\Module\Window.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="Static\AssetLoader.hpp" />
     <ClInclude Include="Static\DebugOutput.hpp" />
     <ClInclude Include="Static\EntityManager.hpp" />
+    <ClInclude Include="Static\Module\Console.hpp" />
     <ClInclude Include="Static\Module\NameBank.hpp" />
     <ClInclude Include="Static\Module\Window.hpp" />
     <ClInclude Include="Static\Module\ShaderManager.hpp" />
