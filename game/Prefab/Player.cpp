@@ -11,8 +11,7 @@ Player::Player(const glm::vec3& spawn){
 }
 
 void Player::prefab(){
-	addComponent(new Input(100.f, 0.2f));
+	addComponent(new Input(200.f, 0.075f));
 	addComponent(new Model("ship.obj", "ship.png"));
 	addComponent(new Sphere(1.f));
-	addComponent(new Camera);
 }

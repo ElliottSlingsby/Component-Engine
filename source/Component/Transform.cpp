@@ -94,10 +94,12 @@ void Transform::localRotate(const glm::quat& rotation){
 	_rotation *= rotation;
 }
 
-//void Transform::lookAt(const glm::vec3& position){
-//	//glm::lookAt(_position, position, glm::ve)
-//}
-//
-//glm::vec3 Transform::lookingAt(){
-//	return glm::vec3();
-//}
+void Transform::lookAt(const glm::vec3& position){
+	// Not implemented
+	//glm::lookAt(_position, position, glm::ve)
+}
+
+glm::vec3 Transform::lookingAt(){
+	// Not implemented
+	return glm::vec3();
+}

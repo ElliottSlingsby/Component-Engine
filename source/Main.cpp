@@ -19,7 +19,9 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::load);
 		EntityManager::invokeAll(&Component::lateLoad);
 
+#ifdef _DEBUG
 		Renderer::Console().setRunning(true);
+#endif
 	}
 
 	double start = SDL_GetTicks();
@@ -27,12 +29,15 @@ int main(int argc, char *args[]){
 
 	double difference = 0.0;
 
+#ifndef _DEBUG
 	while (running && Renderer::Window().running()){
+#else
+	while (running && Renderer::Window().running() && Renderer::Console().running()){
+#endif
 		start = SDL_GetTicks();
 
 		Renderer::Window().setTitle(std::to_string(1.0 / difference).c_str());
 
-		// Checking for exit conditions
 		SDL_Event e;
 
 		while (SDL_PollEvent(&e) != 0){

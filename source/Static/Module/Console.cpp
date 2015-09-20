@@ -36,7 +36,7 @@ Console::Console(){
 	_patternMap["hello"] = std::regex("^(?:hello|hey|hi)(?: +.*$|$)", std::regex_constants::icase);
 	_patternMap["you"] = std::regex("^(?:you|yourself)$", std::regex_constants::icase);
 	_patternMap["position"] = std::regex("^(?:position|pos|move) +(\\S+) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+))$", std::regex_constants::icase | std::regex_constants::ECMAScript);
-	_patternMap["delete"] = std::regex("^(?:delete|kill|destroy) +(\\S+) *$", std::regex_constants::icase | std::regex_constants::ECMAScript);
+	_patternMap["delete"] = std::regex("^(?:delete|kill|destroy|remove|rm) +(\\S+) *$", std::regex_constants::icase | std::regex_constants::ECMAScript);
 }
 
 void Console::setPrefix(const std::string& prefix){
@@ -67,15 +67,12 @@ int Console::interpretInput(const std::string& input){
 	else if (std::regex_match(input, results, _patternMap["help"])){
 		std::smatch subResults;
 
-		if (std::regex_match(results[1].str(), subResults, _patternMap["you"])){
+		if (std::regex_match(results[1].str(), subResults, _patternMap["you"]))
 			std::cout << "I don't want to do that." << std::endl;
-		}
-		else if (results[1].str() != ""){
+		else if (results[1].str() != "")
 			std::cout << "I can't help " << results[1].str() << "." << std::endl;
-		}
-		else{
+		else
 			std::cout << "Help who?" << std::endl;
-		}
 
 		return VALID_CODE;
 	}
@@ -97,14 +94,12 @@ int Console::interpretInput(const std::string& input){
 }
 
 void Console::setRunning(bool running){
-#ifdef _DEBUG
 	_running = running;
 
 	if (running && _thread == 0)
 		_thread = SDL_CreateThread(consoleThread, "console", this);
 	else if (!running && _thread)
 		SDL_WaitThread(_thread, 0);
-#endif
 }
 
 bool Console::running(){

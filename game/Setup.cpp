@@ -5,6 +5,7 @@
 
 void setup(int argc, char *args[]){
 	Renderer::Window().setSize(1280, 720);
+
 	Renderer::Window().setFixedMouse(true);
 
 	AssetLoader::setAssetLocation("asset");

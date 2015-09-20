@@ -49,6 +49,6 @@ public:
 	void localRotate(const glm::quat& rotation);
 
 	// Look methods
-	//void lookAt(const glm::vec3& position);
-	//glm::vec3 lookingAt();
+	void lookAt(const glm::vec3& position);
+	glm::vec3 lookingAt();
 };

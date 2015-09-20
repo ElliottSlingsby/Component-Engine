@@ -10,14 +10,9 @@ void Light::load(){
 
 	glEnable(GL_LIGHTS[_light]);
 
-	GLfloat ambient[] = { _ambient.w, _ambient.x, _ambient.y, _ambient.z };
-	glLightfv(GL_LIGHTS[_light], GL_AMBIENT, ambient);
-
-	GLfloat diffuse[] = { _diffuse.w, _diffuse.x, _diffuse.y, _diffuse.z };
-	glLightfv(GL_LIGHTS[_light], GL_DIFFUSE, diffuse);
-
-	GLfloat specular[] = { _specular.w, _specular.x, _specular.y, _specular.z };
-	glLightfv(GL_LIGHTS[_light], GL_SPECULAR, specular);
+	glLightfv(GL_LIGHTS[_light], GL_AMBIENT, &_ambient.x);
+	glLightfv(GL_LIGHTS[_light], GL_DIFFUSE, &_diffuse.x);
+	glLightfv(GL_LIGHTS[_light], GL_SPECULAR, &_specular.x);
 
 	if (_spot){
 		glLightf(GL_LIGHTS[_light], GL_SPOT_CUTOFF, _cutoff);
@@ -43,15 +38,15 @@ void Light::setSpot(bool spot){
 	_spot = spot;
 }
 
-void Light::setAmbient(const glm::vec4& ambient){
+void Light::setAmbient(const glm::vec3& ambient){
 	_ambient = ambient;
 }
 
-void Light::setDiffuse(const glm::vec4& diffuse){
+void Light::setDiffuse(const glm::vec3& diffuse){
 	_diffuse = diffuse;
 }
 
-void Light::setSpecular(const glm::vec4& specular){
+void Light::setSpecular(const glm::vec3& specular){
 	_specular = specular;
 }
 

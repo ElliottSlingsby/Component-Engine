@@ -17,8 +17,8 @@ void Input::update(double dt){
 
 	SDL_GetRelativeMouseState(&mouseRX, &mouseRY);
 
-	glm::quat lookX(glm::vec3(0.f, -(float)(mouseRX * _sensitivity * dt), 0.f));
-	glm::quat lookY(glm::vec3(-(float)(mouseRY * _sensitivity * dt), 0.f, 0.f));
+	glm::quat lookX(glm::vec3(0.f, glm::radians(-(float)(mouseRX * _sensitivity)), 0.f));
+	glm::quat lookY(glm::vec3(glm::radians(-(float)(mouseRY * _sensitivity)), 0.f, 0.f));
 
 	_transform->rotate(lookX);
 	_transform->localRotate(lookY);
