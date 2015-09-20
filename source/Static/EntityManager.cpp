@@ -149,6 +149,7 @@ void EntityManager::deleteDestroyed(){
 			_instance()._removeID(entity->ID());
 			_instance()._entities[entity->ID()] = 0;
 			delete entity;
+			entity = 0;
 		}
 	}
 }

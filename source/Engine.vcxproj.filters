@@ -43,127 +43,127 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Static\AssetLoader.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Static</Filter>
     </ClCompile>
     <ClCompile Include="Static\EntityManager.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Static</Filter>
     </ClCompile>
     <ClCompile Include="Static\Renderer.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Box.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Camera.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Collider.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Input.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Light.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Model.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Sphere.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Transform.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\Entity.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="System\Collision.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Static</Filter>
     </ClCompile>
     <ClCompile Include="Static\Module\Window.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Static\Module</Filter>
     </ClCompile>
     <ClCompile Include="Static\Module\ShaderManager.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Static\Module</Filter>
     </ClCompile>
     <ClCompile Include="Static\Module\NameBank.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Static\Module</Filter>
     </ClCompile>
     <ClCompile Include="Static\Module\Console.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Static\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Box.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Camera.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Collider.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Input.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Light.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Model.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sphere.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Transform.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Collision.cpp">
+      <Filter>Private\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Entity.cpp">
+      <Filter>Private\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Setup.hpp" />
     <ClInclude Include="Static\AssetLoader.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Static\EntityManager.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Static\Renderer.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Box.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Camera.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Collider.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Input.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Light.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Model.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Sphere.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Transform.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\Component.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\Entity.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\HelperComponent.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\Identifier.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="System\Collision.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Static</Filter>
     </ClInclude>
     <ClInclude Include="Static\DebugOutput.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Static</Filter>
     </ClInclude>
-    <ClInclude Include="Setup.hpp" />
-    <ClInclude Include="Static\Module\ShaderManager.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Static\Module\StateMachine.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Static\Module\SystemHandler.hpp">
-      <Filter>Public</Filter>
+    <ClInclude Include="Static\Renderer.hpp">
+      <Filter>Public\Static</Filter>
     </ClInclude>
     <ClInclude Include="Static\Module\Window.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Static\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Static\Module\SystemHandler.hpp">
+      <Filter>Public\Static\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Static\Module\StateMachine.hpp">
+      <Filter>Public\Static\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Static\Module\ShaderManager.hpp">
+      <Filter>Public\Static\Module</Filter>
     </ClInclude>
     <ClInclude Include="Static\Module\NameBank.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Static\Module</Filter>
     </ClInclude>
     <ClInclude Include="Static\Module\Console.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Static\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Box.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Camera.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Collider.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Input.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Light.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Model.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sphere.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Transform.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Static\EntityManager.hpp">
+      <Filter>Public\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Identifier.hpp">
+      <Filter>Public\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Collision.hpp">
+      <Filter>Public\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Component.hpp">
+      <Filter>Public\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Entity.hpp">
+      <Filter>Public\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\HelperComponent.hpp">
+      <Filter>Public\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

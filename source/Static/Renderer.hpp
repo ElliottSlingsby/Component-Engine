@@ -2,6 +2,7 @@
 
 #include "Module\Window.hpp"
 #include "Module\ShaderManager.hpp"
+#include "Module\Console.hpp"
 
 class Renderer{
 	bool _running = false;
@@ -23,6 +24,7 @@ public:
 
 	static Module::Window& Window();
 	static Module::ShaderManager& ShaderManager();
+	static Module::Console& Console();
 	
 	static bool initiate();
 

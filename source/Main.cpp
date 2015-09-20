@@ -19,7 +19,7 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::load);
 		EntityManager::invokeAll(&Component::lateLoad);
 
-		Renderer::Window().startConsole();
+		Renderer::Console().setRunning(true);
 	}
 
 	double start = SDL_GetTicks();
@@ -52,15 +52,9 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::preRender);
 		EntityManager::invokeAll(&Component::render);
 
-		Renderer::Window().swapBuffer();
+		Renderer::Window().flip();
 
 		EntityManager::deleteDestroyed();
-
-		//int n = 0;
-		//
-		//for (int i = 0; i < 10000000; i++){
-		//	n *= i;
-		//}
 
 		end = SDL_GetTicks();
 		difference = (end - start) / 1000.0;

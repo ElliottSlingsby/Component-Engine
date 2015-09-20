@@ -15,7 +15,6 @@ namespace Module{
 		bool _fixedMouse = false;
 
 		SDL_Window* _window = 0;
-		SDL_Renderer* _renderer = 0;
 
 		bool _running = false;
 		bool _glEnabled;
@@ -25,7 +24,6 @@ namespace Module{
 		~Window();
 
 		// Setters
-		void setRunning(bool running);
 		void setFixedMouse(bool fixedMouse);
 		void setSize(unsigned int width, unsigned int height);
 		void setTitle(const char* title);
@@ -33,15 +31,14 @@ namespace Module{
 		void setGlContext(SDL_GLContext context);
 
 		bool initiate();
-		void startConsole();
+		void close();
 
 		// Getters
 		bool running();
 		int width();
 		int height();
-		SDL_Renderer* renderer();
 		SDL_Window* window();
 
-		void swapBuffer();
+		void flip();
 	};
 }

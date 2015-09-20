@@ -19,7 +19,7 @@ protected:
 public:
 	Entity();
 	// Destroys all components
-	~Entity();
+	virtual ~Entity();
 
 	// Called just before loading, as to be overridden for prefabs
 	virtual void prefab(){};
@@ -88,9 +88,10 @@ public:
 				message_out("%s!\n", "Cannot destroy Transform component");
 				return;
 			}
+			_components.erase(&typeid(T));
 
 			delete component->second;
-			_components.erase(&typeid(T));
+			component->second = 0;
 		}
 		else
 			message_out("%s!\n", "Cannot find component");

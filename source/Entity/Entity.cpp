@@ -32,6 +32,8 @@ Entity::~Entity(){
 	// Destroy all components
 	for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++){
 		_components.erase(&typeid(i->second));
+
 		delete i->second;
+		i->second = 0;
 	}
 }

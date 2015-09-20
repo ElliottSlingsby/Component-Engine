@@ -17,6 +17,11 @@ Module::Window& Renderer::Window(){
 	return *_instance()._screen;
 }
 
+Module::Console& Renderer::Console(){
+	static Module::Console instance;
+	return instance;
+}
+
 Module::ShaderManager& Renderer::ShaderManager(){
 	static Module::ShaderManager instance;
 	return instance;
@@ -131,7 +136,8 @@ bool Renderer::reshape(){
 bool Renderer::initiate(){
 	// If already running, reset
 	if (_instance()._running){
-		delete _instance()._screen;
+		
+ _instance()._screen;
 		_instance()._screen = new Module::Window(true);
 
 		SDL_GL_DeleteContext(_instance()._glcontext);
