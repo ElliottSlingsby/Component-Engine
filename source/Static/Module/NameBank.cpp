@@ -1,25 +1,6 @@
 #include "NameBank.hpp"
 #include <Static\DebugOutput.hpp>
 
-std::string Identifier::name(){
-	return _name;
-}
-
-int Identifier::id(){
-	return _id;
-}
-
-void Identifier::setName(const std::string& name){
-	_name = name;
-}
-
-void Identifier::setId(int id){
-	if (_id == -1 && id != -1)
-		_id = id;
-	else
-		message_out("%s: %s!\n", "Name Bank", "ID already been set");
-}
-
 int Module::NameBank::generateId(){
 	if (_removed.empty()){
 		// Create new one
@@ -51,14 +32,33 @@ void Module::NameBank::deleteId(int id){
 }
 
 std::string Module::NameBank::getName(int id){
-	return "";
+	IdNameMap::iterator nameIter = _idsToName.find(id);
+
+	if (nameIter == _idsToName.end()){
+		message_out("%s: %s!\n", "Name Bank", "ID isn't bound to a name");
+		return "";
+	}
+
+	return nameIter->second;
 }
 
 void Module::NameBank::getIds(const std::string& name, IntVector& intVector){
+	NameIdMap::iterator idContainer = _nameToIds.find(name);
 
+	if (idContainer == _nameToIds.end()){
+		message_out("%s: %s!\n", "Name Bank", "Name isn't bound to an ID");
+		return;
+	}
+
+	intVector = idContainer->second;
 }
 
 void Module::NameBank::bindName(int id, const std::string& name){
+	IdNameMap::iterator nameIter = _idsToName.find(id);
+	
+	if (nameIter != _idsToName.end())
+		_nameToIds.erase(nameIter->second);
+
 	NameIdMap::iterator idContainer = _nameToIds.find(name);
 
 	if (idContainer == _nameToIds.end()){
@@ -98,5 +98,10 @@ void Module::NameBank::unbindName(int id, const std::string& name){
 	}
 	
 	_idsToName.erase(nameIter);
-	_nameToIds[name].erase(idIter);
+	idContainer->second.erase(idIter);
+
+
+
+	if (_nameToIds[name].size() == 0)
+		_nameToIds.erase(name);
 }

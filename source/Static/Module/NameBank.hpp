@@ -6,18 +6,6 @@
 #include <stack>
 #include <set>
 
-class Identifier{
-	std::string _name = "";
-	int _id = -1;
-
-public:
-	std::string name();
-	int id();
-
-	void setName(const std::string& name);
-	void setId(int id);
-};
-
 namespace Module{
 	class NameBank{
 		typedef std::vector<int> IntVector;
