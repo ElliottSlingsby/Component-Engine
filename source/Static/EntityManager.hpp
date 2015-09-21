@@ -2,6 +2,7 @@
 
 #include "Module\SystemHandler.hpp"
 #include "Module\StateMachine.hpp"
+#include "Module\NameBank.hpp"
 
 #include <vector>
 #include <stack>
@@ -15,16 +16,9 @@ typedef std::vector<Entity*> EntityVector;
 class EntityManager{
 	// Collection of entities
 	EntityVector _entities;
-	
-	typedef std::vector<int> IntVector;
-	typedef std::unordered_map<std::string, IntVector> EntityNameIdMap;
-	EntityNameIdMap _nameToIds;
 
-	// Removed ID pile
-	std::stack<int> _removed;
-
-	// Highest ID
-	int _highest = 0;
+	std::stack<int> _removed; // Removed ID pile
+	int _highest = 0; // Highest ID
 
 	EntityManager();
 
@@ -40,6 +34,7 @@ public:
 	// Modules
 	static Module::SystemHandler& SystemHandler();
 	static Module::StateMachine& StateMachine();
+	static Module::NameBank& NameBank();
 
 	template<typename... T>
 	static void invokeAll(void (Component::* method)(T...), T... args){
@@ -65,12 +60,8 @@ public:
 			return 0;
 		}
 
-		if (name != ""){
-			if (_instance()._nameToIds.find(name) == _instance()._nameToIds.end())
-				_instance()._nameToIds[name] = IntVector();
-
-			_instance()._nameToIds[name].push_back(id);
-		}
+		if (name != "")
+			NameBank().bindName(id, name);
 
 		entity->setID(id);
 		_instance()._entities[id] = entity;
@@ -84,8 +75,9 @@ public:
 	static void setMaxSize(unsigned int size);
 
 	static Entity* getEntity(int id);
-	static Entity* getEntity(const std::string& name);
+	static Entity* getEntity(const std::string& name, unsigned int i = 0);
 	static void getEntities(const std::string& name, EntityVector& results);
+	static void getEntities(IntVector& ids);
 
 	static void destroyEntity(int id);
 	static void destroyEntities(const std::string& name);

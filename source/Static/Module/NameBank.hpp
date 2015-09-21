@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
-#include <stack>
 #include <set>
 
 namespace Module{
@@ -14,14 +13,8 @@ namespace Module{
 
 		typedef std::unordered_map<int, std::string> IdNameMap;
 		IdNameMap _idsToName;
-		
-		std::stack<int> _removed;
-		int _highest = 0;
 
 	public:
-		int generateId();
-		void deleteId(int id);
-
 		std::string getName(int id);
 		void getIds(const std::string& name, IntVector& intVector);
 

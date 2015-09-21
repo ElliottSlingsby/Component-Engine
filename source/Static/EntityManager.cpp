@@ -26,6 +26,11 @@ Module::StateMachine& EntityManager::StateMachine(){
 	return states;
 }
 
+Module::NameBank& EntityManager::NameBank(){
+	static Module::NameBank names;
+	return names;
+}
+
 int EntityManager::_newID(){
 	// If no removed IDs available
 	if (_removed.empty()){
@@ -63,26 +68,23 @@ Entity* EntityManager::getEntity(int id){
 	return entity;
 }
 
-Entity* EntityManager::getEntity(const std::string& name){
-	EntityNameIdMap::iterator container = _instance()._nameToIds.find(name);
+Entity* EntityManager::getEntity(const std::string& name, unsigned int i){
+	IntVector ids;
+	NameBank().getIds(name, ids);
 
-	if (container == _instance()._nameToIds.end() || container->second.size() == 0){
-		message_out("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
+	if (i >= ids.size()){
+		message_out("%s: %s %s %s %d!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't have index", i);
 		return 0;
 	}
 
-	return getEntity(_instance()._nameToIds[name][0]);
+	return getEntity(ids[i]);
 }
 
 void EntityManager::getEntities(const std::string& name, EntityVector& results){
-	EntityNameIdMap::iterator container = _instance()._nameToIds.find(name);
+	IntVector ids;
+	NameBank().getIds(name, ids);
 
-	if (container == _instance()._nameToIds.end() || container->second.size() == 0){
-		message_out("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
-		return;
-	}
-
-	for (IntVector::iterator i = container->second.begin(); i != container->second.end(); i++){
+	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++){
 		results.push_back(getEntity(*i));
 	}
 }
@@ -95,35 +97,30 @@ void EntityManager::destroyEntity(int id){
 		return;
 	}
 
-	EntityNameIdMap::iterator x;
+	std::string name = NameBank().getName(id);
 
-	for (x = _instance()._nameToIds.begin(); x != _instance()._nameToIds.end(); x++){
-		if (x->second.size() != 0){
-			for (IntVector::iterator y = x->second.begin(); y != x->second.end(); y++){
-				if (*y = id){
-					x->second.erase(y);
-					break;
-				}
-			}
-		}
-	}
+	if (name != "")
+		NameBank().unbindName(id, name);
 
 	entity->destroy();
 }
 
 void EntityManager::destroyEntities(const std::string& name){
-	EntityNameIdMap::iterator container = _instance()._nameToIds.find(name);
+	IntVector ids;
+	NameBank().getIds(name, ids);
 
-	if (container == _instance()._nameToIds.end() || container->second.size() == 0){
-		message_out("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
-		return;
+	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++){
+		destroyEntity(*i);
 	}
+}
 
-	for (IntVector::iterator i = container->second.begin(); i != container->second.end(); i++){
-		_instance()._entities[*i]->destroy();
+void EntityManager::getEntities(IntVector& ids){
+	for (int i = 0; i <= _instance()._highest; i++){
+		Entity* entity = _instance()._entities[i];
+
+		if (entity)
+			ids.push_back(entity->ID());
 	}
-
-	container->second.clear();
 }
 
 void EntityManager::destroyAll(){
@@ -134,12 +131,6 @@ void EntityManager::destroyAll(){
 			entity->destroy();
 	}
 }
-
-//void EntityManager::runSystems(){
-//	for (SystemMap::iterator i = _instance()._systems.begin(); i != _instance()._systems.end(); i++){
-//		i->second->update();
-//	}
-//}
 
 void EntityManager::deleteDestroyed(){
 	for (int i = 0; i <= _instance()._highest; i++){

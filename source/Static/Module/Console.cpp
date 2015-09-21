@@ -37,6 +37,7 @@ Console::Console(){
 	_patternMap["you"] = std::regex("^(?:you|yourself)$", std::regex_constants::icase);
 	_patternMap["position"] = std::regex("^(?:position|pos|move) +(\\S+) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+))$", std::regex_constants::icase | std::regex_constants::ECMAScript);
 	_patternMap["delete"] = std::regex("^(?:delete|kill|destroy|remove|rm) +(\\S+) *$", std::regex_constants::icase | std::regex_constants::ECMAScript);
+	_patternMap["list"] = std::regex("^(?:list|ls|entities|ents)$", std::regex_constants::icase);
 }
 
 void Console::setPrefix(const std::string& prefix){
@@ -82,6 +83,15 @@ int Console::interpretInput(const std::string& input){
 	}
 	else if (std::regex_match(input, results, _patternMap["delete"])){
 		EntityManager::destroyEntities(results[1].str());
+		return VALID_CODE;
+	}
+	else if (std::regex_match(input, results, _patternMap["list"])){
+		IntVector ids;
+		EntityManager::getEntities(ids);
+
+		for (IntVector::iterator i = ids.begin(); i != ids.end(); i++)
+			std::cout << *i << " : " << EntityManager::NameBank().getName(*i) << std::endl;
+
 		return VALID_CODE;
 	}
 	else if (std::regex_match(input, results, _patternMap["hello"])){

@@ -6,7 +6,7 @@
 #include <set>
 #include <vector>
 
-typedef std::vector<int> intVector;
+typedef std::vector<int> IntVector;
 
 class Transform : public Component{
 	Transform* _parent = 0;
@@ -32,7 +32,7 @@ public:
 
 	// Getters
 	Transform* parent();
-	void childrenIDs(intVector& intVector);
+	void childrenIDs(IntVector& intVector);
 
 	glm::vec3 position();
 	glm::quat rotation();

@@ -2,7 +2,9 @@
 
 #include <fstream>
 
-Module::ShaderManager::~ShaderManager(){
+using namespace Module;
+
+ShaderManager::~ShaderManager(){
 	glDetachShader(_shaderProgram, _fragmentShader);
 	glDetachShader(_shaderProgram, _vertexShader);
 	//glDetachShader(_shaderProgram, _geomatryShader);
@@ -14,7 +16,7 @@ Module::ShaderManager::~ShaderManager(){
 	glDeleteProgram(_shaderProgram);
 }
 
-bool Module::ShaderManager::initiate(){
+bool ShaderManager::initiate(){
 	/*
 	// Sketchy shader setup
 	_shaderProgram = glCreateProgram();
@@ -35,11 +37,11 @@ bool Module::ShaderManager::initiate(){
 	return true;
 }
 
-void Module::ShaderManager::setShaderLocation(const std::string& filepath){
+void ShaderManager::setShaderLocation(const std::string& filepath){
 	_shaderPath = "../" + filepath + "/";
 }
 
-void Module::ShaderManager::loadShader(ShaderTypes type, const std::string& filepath){
+void ShaderManager::loadShader(ShaderTypes type, const std::string& filepath){
 	std::fstream file;
 
 	file.open((_shaderPath + filepath).c_str());
@@ -81,7 +83,7 @@ void Module::ShaderManager::loadShader(ShaderTypes type, const std::string& file
 	}
 }
 
-void Module::ShaderManager::linkShaders(){
+void ShaderManager::linkShaders(){
 	glUseProgram(_shaderProgram);
 
 	glLinkProgram(_shaderProgram);

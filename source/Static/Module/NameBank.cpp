@@ -1,59 +1,27 @@
 #include "NameBank.hpp"
 #include <Static\DebugOutput.hpp>
 
-int Module::NameBank::generateId(){
-	if (_removed.empty()){
-		// Create new one
-		_highest++;
-		return _highest - 1;
-	}
+using namespace Module;
 
-	// Otherwise pop off used one
-	int id = _removed.top();
-	_removed.pop();
-
-	return id;
-}
-
-void Module::NameBank::deleteId(int id){
-	if (id == -1){
-		message_out("%s: %s!\n", "Name Bank", "Can't delete null ID");
-		return;
-	}
-	
-	// If id was at the top
-	if (id == _highest - 1){
-		_highest--;
-		return;
-	}
-
-	// Otherwise add it to the removed pile
-	_removed.push(id);
-}
-
-std::string Module::NameBank::getName(int id){
+std::string NameBank::getName(int id){
 	IdNameMap::iterator nameIter = _idsToName.find(id);
 
-	if (nameIter == _idsToName.end()){
-		message_out("%s: %s!\n", "Name Bank", "ID isn't bound to a name");
+	if (nameIter == _idsToName.end())
 		return "";
-	}
 
 	return nameIter->second;
 }
 
-void Module::NameBank::getIds(const std::string& name, IntVector& intVector){
+void NameBank::getIds(const std::string& name, IntVector& intVector){
 	NameIdMap::iterator idContainer = _nameToIds.find(name);
 
-	if (idContainer == _nameToIds.end()){
-		message_out("%s: %s!\n", "Name Bank", "Name isn't bound to an ID");
+	if (idContainer == _nameToIds.end())
 		return;
-	}
 
 	intVector = idContainer->second;
 }
 
-void Module::NameBank::bindName(int id, const std::string& name){
+void NameBank::bindName(int id, const std::string& name){
 	IdNameMap::iterator nameIter = _idsToName.find(id);
 	
 	if (nameIter != _idsToName.end())
@@ -75,7 +43,7 @@ void Module::NameBank::bindName(int id, const std::string& name){
 	_idsToName[id] = name;
 }
 
-void Module::NameBank::unbindName(int id, const std::string& name){
+void NameBank::unbindName(int id, const std::string& name){
 	NameIdMap::iterator idContainer = _nameToIds.find(name);
 
 	if (idContainer == _nameToIds.end()){
@@ -99,9 +67,7 @@ void Module::NameBank::unbindName(int id, const std::string& name){
 	
 	_idsToName.erase(nameIter);
 	idContainer->second.erase(idIter);
-
-
-
+	
 	if (_nameToIds[name].size() == 0)
 		_nameToIds.erase(name);
 }

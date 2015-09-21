@@ -78,7 +78,7 @@ Entity* Entity::getChild(unsigned int i){
 		return 0;
 	}
 
-	intVector children;
+	IntVector children;
 	_transform->childrenIDs(children);
 
 	return EntityManager::getEntity(children[i]);
