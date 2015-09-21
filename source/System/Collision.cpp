@@ -7,7 +7,7 @@ void Collision::update(){
 	for (ColliderSet::iterator x = _colliders.begin(); x != _colliders.end(); x++){
 		for (ColliderSet::iterator y = _colliders.begin(); y != _colliders.end(); y++){
 			if ((*x) != (*y) && (*x)->isColliding(*y))
-				(*x)->parent()->invoke(&Component::onCollision, (*y)->ID());
+				(*x)->componentOwner()->invoke(&Component::onCollision, (*y)->ID());
 		}
 	}
 }

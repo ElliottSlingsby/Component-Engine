@@ -4,6 +4,9 @@
 #include <glm\vec3.hpp>
 #include <glm\gtc\quaternion.hpp>
 #include <set>
+#include <vector>
+
+typedef std::vector<int> intVector;
 
 class Transform : public Component{
 	Transform* _parent = 0;
@@ -29,10 +32,13 @@ public:
 
 	// Getters
 	Transform* parent();
+	void childrenIDs(intVector& intVector);
 
 	glm::vec3 position();
 	glm::quat rotation();
 	glm::vec3 scale();
+
+	unsigned int childrenSize();
 
 	// Setters
 	void setParent(Transform* parent);

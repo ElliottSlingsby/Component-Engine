@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <stack>
+#include <set>
 
 class Identifier{
 	std::string _name = "";
@@ -20,9 +21,12 @@ public:
 namespace Module{
 	class NameBank{
 		typedef std::vector<int> IntVector;
-		typedef std::unordered_map<std::string, IntVector> EntityNameMap;
-		EntityNameMap _names;
+		typedef std::unordered_map<std::string, IntVector> NameIdMap;
+		NameIdMap _nameToIds;
 
+		typedef std::unordered_map<int, std::string> IdNameMap;
+		IdNameMap _idsToName;
+		
 		std::stack<int> _removed;
 		int _highest = 0;
 

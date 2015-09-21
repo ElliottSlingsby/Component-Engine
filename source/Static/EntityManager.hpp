@@ -17,8 +17,8 @@ class EntityManager{
 	EntityVector _entities;
 	
 	typedef std::vector<int> IntVector;
-	typedef std::unordered_map<std::string, IntVector> EntityNameMap;
-	EntityNameMap _names;
+	typedef std::unordered_map<std::string, IntVector> EntityNameIdMap;
+	EntityNameIdMap _nameToIds;
 
 	// Removed ID pile
 	std::stack<int> _removed;
@@ -66,10 +66,10 @@ public:
 		}
 
 		if (name != ""){
-			if (_instance()._names.find(name) == _instance()._names.end())
-				_instance()._names[name] = IntVector();
+			if (_instance()._nameToIds.find(name) == _instance()._nameToIds.end())
+				_instance()._nameToIds[name] = IntVector();
 
-			_instance()._names[name].push_back(id);
+			_instance()._nameToIds[name].push_back(id);
 		}
 
 		entity->setID(id);

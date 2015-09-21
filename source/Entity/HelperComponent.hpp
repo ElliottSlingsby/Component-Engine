@@ -39,7 +39,7 @@ struct HelperComponent : public Component{
 		message_out("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity ID hasn't been assigned");
 	}
 
-	Entity* parent(){
+	Entity* componentOwner(){
 		if (ID() != NULL_ID)
 			return EntityManager::getEntity(ID());
 

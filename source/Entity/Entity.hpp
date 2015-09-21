@@ -26,11 +26,18 @@ public:
 
 	void setID(int id);
 
-	void destroy();
+	void destroy(bool recursive = true, unsigned int delay = 0);
 	bool destroyed();
 
 	void setEnable(bool mode);
 	bool enabled();
+
+	Entity* getParent();
+	Entity* getChild(unsigned int i = 0);
+	Entity* getChild(std::string name, bool recursive = false);
+
+	int componentSize();
+	int childrenSize();
 
 	template<typename... T>
 	void invoke(void (Component::* method)(T...), T... args){
@@ -73,7 +80,6 @@ public:
 
 			return casted;
 		}
-
 		return 0;
 	}
 
@@ -95,5 +101,11 @@ public:
 		}
 		else
 			message_out("%s!\n", "Cannot find component");
+	}
+
+	template <typename T>
+	T* getComponentInChildren(unsigned int i = 0){
+		// Not yet implemented
+		return 0;
 	}
 };

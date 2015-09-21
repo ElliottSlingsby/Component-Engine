@@ -64,20 +64,20 @@ Entity* EntityManager::getEntity(int id){
 }
 
 Entity* EntityManager::getEntity(const std::string& name){
-	EntityNameMap::iterator container = _instance()._names.find(name);
+	EntityNameIdMap::iterator container = _instance()._nameToIds.find(name);
 
-	if (container == _instance()._names.end() || container->second.size() == 0){
+	if (container == _instance()._nameToIds.end() || container->second.size() == 0){
 		message_out("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
 		return 0;
 	}
 
-	return getEntity(_instance()._names[name][0]);
+	return getEntity(_instance()._nameToIds[name][0]);
 }
 
 void EntityManager::getEntities(const std::string& name, EntityVector& results){
-	EntityNameMap::iterator container = _instance()._names.find(name);
+	EntityNameIdMap::iterator container = _instance()._nameToIds.find(name);
 
-	if (container == _instance()._names.end() || container->second.size() == 0){
+	if (container == _instance()._nameToIds.end() || container->second.size() == 0){
 		message_out("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
 		return;
 	}
@@ -95,9 +95,9 @@ void EntityManager::destroyEntity(int id){
 		return;
 	}
 
-	EntityNameMap::iterator x;
+	EntityNameIdMap::iterator x;
 
-	for (x = _instance()._names.begin(); x != _instance()._names.end(); x++){
+	for (x = _instance()._nameToIds.begin(); x != _instance()._nameToIds.end(); x++){
 		if (x->second.size() != 0){
 			for (IntVector::iterator y = x->second.begin(); y != x->second.end(); y++){
 				if (*y = id){
@@ -112,9 +112,9 @@ void EntityManager::destroyEntity(int id){
 }
 
 void EntityManager::destroyEntities(const std::string& name){
-	EntityNameMap::iterator container = _instance()._names.find(name);
+	EntityNameIdMap::iterator container = _instance()._nameToIds.find(name);
 
-	if (container == _instance()._names.end() || container->second.size() == 0){
+	if (container == _instance()._nameToIds.end() || container->second.size() == 0){
 		message_out("%s: %s %s %s!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't exist");
 		return;
 	}

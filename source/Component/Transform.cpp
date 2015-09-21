@@ -22,6 +22,16 @@ Transform* Transform::parent(){
 	return _parent;
 }
 
+unsigned int Transform::childrenSize(){
+	return _children.size();
+}
+
+void Transform::childrenIDs(intVector& intVector){
+	for (TransformSet::iterator i = _children.begin(); i != _children.end(); i++){
+		intVector.push_back((*i)->ID());
+	}
+}
+
 void Transform::_addChild(Transform* child){
 	_children.insert(child);
 }

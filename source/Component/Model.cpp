@@ -39,7 +39,6 @@ void Model::render(){
 	// Scale based on Transform
 	glScalef(_transform->scale().x, _transform->scale().y, _transform->scale().z);
 
-
 	if (_material)
 		glBindTexture(GL_TEXTURE_2D, _material->diffuse);
 	else
