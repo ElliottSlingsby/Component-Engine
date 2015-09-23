@@ -11,12 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Follow.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Setup.cpp" />
     <ClCompile Include="Playing.cpp" />
     <ClCompile Include="Velocity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Follow.hpp" />
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Playing.hpp" />
     <ClInclude Include="Velocity.hpp" />

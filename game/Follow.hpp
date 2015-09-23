@@ -13,8 +13,8 @@ class Follow : public HelperComponent{
 	float _ease;
 
 public:
-	Follow(int id, float ease, const glm::vec3& offset = glm::vec3());
-	Follow(std::string name, float ease, const glm::vec3& offset = glm::vec3());
+	Follow(int id, float ease, const glm::vec3& offset = glm::vec3(0, 0, 0));
+	Follow(std::string name, float ease, const glm::vec3& offset = glm::vec3(0, 0, 0));
 
 	void load();
 	void lateLoad();

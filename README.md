@@ -5,7 +5,7 @@
 Use Visual Studio 2013 or later, and compile on release with 'Game' set as the startup project.
 
 # To do
-- Fix delta time and timing control
+- Fix delta time and timing control (Currently broken!)
 - ~~Implement NameBank module~~
 - Implement shaders
 - Implement OpenAL

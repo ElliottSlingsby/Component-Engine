@@ -4,37 +4,44 @@
 #include <Static\EntityManager.hpp>
 #include <System\Collision.hpp>
 
-#include <ctime>
+#include <chrono>
+#include <list>
+
+void stress(int big){
+	int x = 0;
+	
+	for (int i = 0; i <= big; i++){
+		x *= i;
+	}
+}
 
 int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
 
-	//setup(argc, args);
-
 	bool running = setup(argc, args);
 
-	if (running){
-		//EntityManager::invokeAll(&Component::load);
-		//EntityManager::invokeAll(&Component::lateLoad);
-
 #ifdef _DEBUG
+	if (running)
 		Renderer::Console().setRunning(true);
 #endif
-	}
-
-	double start = SDL_GetTicks();
-	double end = start;
-
+	
+	auto start = std::chrono::high_resolution_clock::now().time_since_epoch();
 	double difference = 0.0;
+	
+	const int sampleRange = 50;
+	int rangeCounter = 0;
+
+	typedef std::list<double> doubleList;
+	doubleList times;
 
 #ifndef _DEBUG
 	while (running && Renderer::Window().running()){
 #else
 	while (running && Renderer::Window().running() && Renderer::Console().running()){
 #endif
-		start = SDL_GetTicks();
+		start = std::chrono::high_resolution_clock::now().time_since_epoch();
 
-		Renderer::Window().setTitle(std::to_string(1.0 / difference).c_str());
+		Renderer::Window().setTitle(std::to_string(difference).c_str());
 
 		SDL_Event e;
 
@@ -58,9 +65,28 @@ int main(int argc, char *args[]){
 		Renderer::Window().flip();
 
 		EntityManager::deleteDestroyed();
+		
+		difference = (std::chrono::high_resolution_clock::now().time_since_epoch() - start).count() / 10000000.0;
 
-		end = SDL_GetTicks();
-		difference = (end - start) / 1000.0;
+		times.insert(times.begin(), difference);
+
+		if (rangeCounter <= sampleRange)
+			rangeCounter += 1;
+		else
+			times.pop_back();
+
+		doubleList::iterator i;
+		double average = 0.0;
+
+		for (i = times.begin(); i != times.end(); i++){
+			average += *i;
+		}
+
+		difference = average / times.size();
+
+		//stress(10000000);
+
+		//message_out("%G\n", difference);
 	}
 
 	EntityManager::destroyAll();

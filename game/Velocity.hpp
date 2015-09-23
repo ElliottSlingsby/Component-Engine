@@ -8,8 +8,10 @@ class Velocity : public HelperComponent{
 	glm::vec3 _velocity = glm::vec3(0, 0, 0);
 	float _friction;
 
+	float _tolerance;
+
 public:
-	Velocity(float friction);
+	Velocity(float friction, float tolerance = 0.001f);
 
 	void load();
 	void update(double dt);

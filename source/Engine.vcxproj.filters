@@ -90,9 +90,6 @@
     <ClCompile Include="Entity\Entity.cpp">
       <Filter>Private\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Follow.cpp">
-      <Filter>Private\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\Identifier.cpp">
       <Filter>Private\Entity</Filter>
     </ClCompile>
@@ -164,9 +161,6 @@
     </ClInclude>
     <ClInclude Include="System\Collision.hpp">
       <Filter>Public\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Follow.hpp">
-      <Filter>Public\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
