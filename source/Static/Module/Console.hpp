@@ -8,10 +8,12 @@
 namespace Module{
 	class Console{
 		std::unordered_map<std::string, std::regex> _patternMap;
-		std::string _prefix = ">>>";
+		std::string _prefix = "";
 
 		bool _running = false;
 		SDL_Thread* _thread = 0;
+
+		std::string _input = "";
 
 	public:
 		Console();
@@ -24,8 +26,10 @@ namespace Module{
 		};
 
 		void setPrefix(const std::string& prefix);
+
 		std::string getInput();
-		int interpretInput(const std::string& input);
+		void feedInput(const std::string& input);
+		int interpretInput();
 
 		void setRunning(bool running);
 		bool running();

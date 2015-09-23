@@ -28,17 +28,13 @@ int main(int argc, char *args[]){
 	auto start = std::chrono::high_resolution_clock::now().time_since_epoch();
 	double difference = 0.0;
 	
-	const int sampleRange = 50;
+	const int sampleRange = 100;
 	int rangeCounter = 0;
 
 	typedef std::list<double> doubleList;
 	doubleList times;
 
-#ifndef _DEBUG
 	while (running && Renderer::Window().running()){
-#else
-	while (running && Renderer::Window().running() && Renderer::Console().running()){
-#endif
 		start = std::chrono::high_resolution_clock::now().time_since_epoch();
 
 		Renderer::Window().setTitle(std::to_string(difference).c_str());
@@ -65,6 +61,9 @@ int main(int argc, char *args[]){
 		Renderer::Window().flip();
 
 		EntityManager::deleteDestroyed();
+
+		if (Renderer::Console().interpretInput() == Module::Console::EXIT_CODE)
+			running = false;
 		
 		difference = (std::chrono::high_resolution_clock::now().time_since_epoch() - start).count() / 10000000.0;
 

@@ -12,9 +12,7 @@ static int consoleThread(void* data){
 
 	while (console.running()){
 		std::string input = console.getInput();
-
-		if (console.interpretInput(input) == Console::EXIT_CODE)
-			console.setRunning(false);
+		console.feedInput(input);
 	}
 
 	return 0;
@@ -23,10 +21,8 @@ static int consoleThread(void* data){
 void setEntityPosition(const std::string& entityName, const glm::vec3& position){
 	Entity* entity = EntityManager::getEntity(entityName);
 
-	if (entity){
+	if (entity)
 		entity->getComponent<Transform>()->setPosition(position);
-		return;
-	}
 }
 
 Console::Console(){
@@ -56,15 +52,22 @@ std::string Console::getInput(){
 	return input;
 }
 
-int Console::interpretInput(const std::string& input){
+void Console::feedInput(const std::string& input){
+	_input = input;
+}
+
+int Console::interpretInput(){
+	std::string input = _input;
+
+	_input = "";
+
 	std::smatch results;
 
 	if (std::regex_match(input, results, _patternMap["null"])){
 		return NULL_CODE;
 	}
 	else if (std::regex_match(input, results, _patternMap["exit"])){
-		Renderer::Window().close();
-
+		_running = false;
 		return EXIT_CODE;
 	}
 	else if (std::regex_match(input, results, _patternMap["help"])){
