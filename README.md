@@ -6,8 +6,7 @@ Use Visual Studio 2013 or later, and compile on release with 'Game' set as the s
 
 # To do
 - Fix delta time and timing control
-- Implement ID control module for EntityManager
-- Implement shaders module for Renderer
-- Implement specular maps
-- Implement positional audio
-- Implement complex collision detection
+- ~~Implement NameBank module~~
+- Implement shaders
+- Implement OpenAL
+- Implement Bullet3 collision

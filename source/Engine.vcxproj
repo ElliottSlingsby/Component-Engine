@@ -14,12 +14,13 @@
     <ClCompile Include="Component\Box.cpp" />
     <ClCompile Include="Component\Camera.cpp" />
     <ClCompile Include="Component\Collider.cpp" />
-    <ClCompile Include="Component\Input.cpp" />
+    <ClCompile Include="Component\Follow.cpp" />
     <ClCompile Include="Component\Light.cpp" />
     <ClCompile Include="Component\Model.cpp" />
     <ClCompile Include="Component\Sphere.cpp" />
     <ClCompile Include="Component\Transform.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
+    <ClCompile Include="Entity\Identifier.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Static\AssetLoader.cpp" />
     <ClCompile Include="Static\EntityManager.cpp" />
@@ -34,7 +35,7 @@
     <ClInclude Include="Component\Box.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Collider.hpp" />
-    <ClInclude Include="Component\Input.hpp" />
+    <ClInclude Include="Component\Follow.hpp" />
     <ClInclude Include="Component\Light.hpp" />
     <ClInclude Include="Component\Model.hpp" />
     <ClInclude Include="Component\Sphere.hpp" />

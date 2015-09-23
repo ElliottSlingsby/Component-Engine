@@ -60,10 +60,8 @@ void EntityManager::_removeID(int id){
 Entity* EntityManager::getEntity(int id){
 	Entity* entity = _instance()._entities[id];
 
-	if (!entity){
-		message_out("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist");
+	if (!entity)
 		return 0;
-	}
 
 	return entity;
 }
@@ -72,10 +70,8 @@ Entity* EntityManager::getEntity(const std::string& name, unsigned int i){
 	IntVector ids;
 	NameBank().getIds(name, ids);
 
-	if (i >= ids.size()){
-		message_out("%s: %s %s %s %d!\n", "Entity Manager", "Entity with name", name.c_str(), "doesn't have index", i);
+	if (i >= ids.size() || ids.size() == 0)
 		return 0;
-	}
 
 	return getEntity(ids[i]);
 }
@@ -85,11 +81,14 @@ void EntityManager::getEntities(const std::string& name, EntityVector& results){
 	NameBank().getIds(name, ids);
 
 	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++){
-		results.push_back(getEntity(*i));
+		Entity* entity = getEntity(*i);
+
+		if (!entity->destroyed())
+			results.push_back(getEntity(*i));
 	}
 }
 
-void EntityManager::destroyEntity(int id){
+void EntityManager::destroyEntity(int id, bool recursive){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
@@ -102,15 +101,15 @@ void EntityManager::destroyEntity(int id){
 	if (name != "")
 		NameBank().unbindName(id, name);
 
-	entity->destroy();
+	entity->destroy(recursive);
 }
 
-void EntityManager::destroyEntities(const std::string& name){
+void EntityManager::destroyEntities(const std::string& name, bool recursive){
 	IntVector ids;
 	NameBank().getIds(name, ids);
 
 	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++){
-		destroyEntity(*i);
+		destroyEntity(*i, recursive);
 	}
 }
 
@@ -118,17 +117,17 @@ void EntityManager::getEntities(IntVector& ids){
 	for (int i = 0; i <= _instance()._highest; i++){
 		Entity* entity = _instance()._entities[i];
 
-		if (entity)
+		if (entity && !entity->destroyed())
 			ids.push_back(entity->ID());
 	}
 }
 
 void EntityManager::destroyAll(){
-	for (int i = 0; i <= _instance()._highest; i++){
-		Entity* entity = _instance()._entities[i];
+	IntVector ids;
+	getEntities(ids);
 
-		if (entity)
-			entity->destroy();
+	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++){
+		destroyEntity(*i, false);
 	}
 }
 

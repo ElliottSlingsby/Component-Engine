@@ -79,8 +79,8 @@ public:
 	static void getEntities(const std::string& name, EntityVector& results);
 	static void getEntities(IntVector& ids);
 
-	static void destroyEntity(int id);
-	static void destroyEntities(const std::string& name);
+	static void destroyEntity(int id, bool recursive = true);
+	static void destroyEntities(const std::string& name, bool recursive = true);
 	static void destroyAll();
 
 	static void deleteDestroyed();

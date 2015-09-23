@@ -41,5 +41,10 @@ namespace Module{
 				_currentState->on();
 			}
 		}
+
+		void reload(){
+			_currentState->off();
+			_currentState->on();
+		}
 	};
 }

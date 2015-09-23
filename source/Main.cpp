@@ -9,15 +9,13 @@
 int main(int argc, char *args[]){
 	srand((unsigned int)time(0));
 
-	EntityManager::SystemHandler().addSystem(new Collision);
+	//setup(argc, args);
 
-	setup(argc, args);
-
-	bool running = Renderer::initiate();
+	bool running = setup(argc, args);
 
 	if (running){
-		EntityManager::invokeAll(&Component::load);
-		EntityManager::invokeAll(&Component::lateLoad);
+		//EntityManager::invokeAll(&Component::load);
+		//EntityManager::invokeAll(&Component::lateLoad);
 
 #ifdef _DEBUG
 		Renderer::Console().setRunning(true);

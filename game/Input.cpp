@@ -2,6 +2,7 @@
 
 #include <glm\gtc\quaternion.hpp>
 #include <SDL.h>
+#include "Velocity.hpp"
 
 Input::Input(float speed, float sensitivity){
 	_speed = speed;
@@ -77,10 +78,24 @@ void Input::right(double dt){
 }
 
 void Input::forward(double dt){
+	Velocity* component = getComponent<Velocity>();
+
+	if (component){
+		component->localPush(glm::vec3(0.f, 0.f, _speed / 50.f));
+		return;
+	}
+
 	_transform->localTranslate(glm::vec3(0, 0, (float)(_speed * dt)));
 }
 
 void Input::back(double dt){
+	Velocity* component = getComponent<Velocity>();
+
+	if (component){
+		component->localPush(glm::vec3(0.f, 0.f, -_speed / 50.f));
+		return;
+	}
+
 	_transform->localTranslate(glm::vec3(0, 0, -(float)(_speed * dt)));
 }
 

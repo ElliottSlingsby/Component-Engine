@@ -38,6 +38,7 @@ Console::Console(){
 	_patternMap["position"] = std::regex("^(?:position|pos|move) +(\\S+) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+))$", std::regex_constants::icase | std::regex_constants::ECMAScript);
 	_patternMap["delete"] = std::regex("^(?:delete|kill|destroy|remove|rm) +(\\S+) *$", std::regex_constants::icase | std::regex_constants::ECMAScript);
 	_patternMap["list"] = std::regex("^(?:list|ls|entities|ents)$", std::regex_constants::icase);
+	_patternMap["reload"] = std::regex("^(?:reload|reset)$", std::regex_constants::icase);
 }
 
 void Console::setPrefix(const std::string& prefix){
@@ -63,6 +64,7 @@ int Console::interpretInput(const std::string& input){
 	}
 	else if (std::regex_match(input, results, _patternMap["exit"])){
 		Renderer::Window().close();
+
 		return EXIT_CODE;
 	}
 	else if (std::regex_match(input, results, _patternMap["help"])){
@@ -79,10 +81,12 @@ int Console::interpretInput(const std::string& input){
 	}
 	else if (std::regex_match(input, results, _patternMap["position"])){
 		setEntityPosition(results[1].str(), glm::vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str())));
+
 		return VALID_CODE;
 	}
 	else if (std::regex_match(input, results, _patternMap["delete"])){
 		EntityManager::destroyEntities(results[1].str());
+
 		return VALID_CODE;
 	}
 	else if (std::regex_match(input, results, _patternMap["list"])){
@@ -94,19 +98,24 @@ int Console::interpretInput(const std::string& input){
 
 		return VALID_CODE;
 	}
+	else if (std::regex_match(input, results, _patternMap["reload"])){
+		EntityManager::StateMachine().reload();
+
+		return VALID_CODE;
+	}
 	else if (std::regex_match(input, results, _patternMap["hello"])){
 		std::cout << "Hello." << std::endl;
 		return VALID_CODE;
 	}
-
 	std::cout << "I don't understand." << std::endl;
+
 	return INVALID_CODE;
 }
 
 void Console::setRunning(bool running){
 	_running = running;
 
-	if (running && _thread == 0)
+	if (running && !_thread)
 		_thread = SDL_CreateThread(consoleThread, "console", this);
 	else if (!running && _thread)
 		SDL_WaitThread(_thread, 0);

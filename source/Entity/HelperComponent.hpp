@@ -4,12 +4,9 @@
 #include <Static\EntityManager.hpp>
 #include <Static\DebugOutput.hpp>
 
-// This helper class is for deriving components, so that the derived component can get other components from it's associated entity.
+// This helper class is for deriving components, so that the derived component can get other components from it's associated entity
 
 struct HelperComponent : public Component{
-	// Perform as double as component has ID.
-	// Otherwise printf error.
-
 	template <typename T>
 	T* getComponent(){
 		if (ID() != NULL_ID)
@@ -39,21 +36,15 @@ struct HelperComponent : public Component{
 		message_out("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity ID hasn't been assigned");
 	}
 
-	Entity* componentOwner(){
+	Entity* owner(){
 		if (ID() != NULL_ID)
 			return EntityManager::getEntity(ID());
 
 		message_out("%s: %s!\n", "HelperComponent", "Cannot find component, entity ID hasn't been assigned");
 		return 0;
 	}
-};
 
-// Addexceptions for when components can't find other required components in the same entity.
-// Example below...
-
-/*struct Example : public HelperComponent{
-	void load(){
-		if (!getComponent<Other>())
-			throw invalid_components;
+	std::string name(){
+		return EntityManager::NameBank().getName(ID());
 	}
-}*/
+};

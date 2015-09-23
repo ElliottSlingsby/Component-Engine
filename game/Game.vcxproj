@@ -11,15 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Prefab\Player.cpp" />
-    <ClCompile Include="Prefab\Sky.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Setup.cpp" />
-    <ClCompile Include="State\Playing.cpp" />
+    <ClCompile Include="Playing.cpp" />
+    <ClCompile Include="Velocity.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Prefab\Player.hpp" />
-    <ClInclude Include="Prefab\Sky.hpp" />
-    <ClInclude Include="State\Playing.hpp" />
+    <ClInclude Include="Input.hpp" />
+    <ClInclude Include="Playing.hpp" />
+    <ClInclude Include="Velocity.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D723C848-82C1-43DD-917D-66B54A51DA04}</ProjectGuid>

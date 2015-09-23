@@ -5,7 +5,7 @@
 static int destroyThread(void* data){
 	Entity* entity = static_cast<Entity*>(data);
 
-	// time
+	// wait time
 
 	return 0;
 }
@@ -13,7 +13,7 @@ static int destroyThread(void* data){
 void Entity::destroy(bool recursive, unsigned int delay){
 	if (recursive){
 		for (int i = 0; i < childrenSize(); i++){
-			getChild(i)->destroy(true);
+			EntityManager::destroyEntity(getChild(i)->ID());
 		}
 	}
 
@@ -63,6 +63,9 @@ Entity* Entity::getParent(){
 		message_out("%s!\n", "Entity doesn't have a transform yet");
 		return 0;
 	}
+
+	if (!_transform->parent())
+		return 0;
 
 	return EntityManager::getEntity(_transform->parent()->ID());
 }

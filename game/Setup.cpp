@@ -1,15 +1,25 @@
-#include "Setup.hpp"
-
-#include <State\Playing.hpp>
+#include <Setup.hpp>
 #include <System\Collision.hpp>
 
-void setup(int argc, char *args[]){
+#include "Playing.hpp"
+
+bool setup(int argc, char *args[]){
 	Renderer::Window().setSize(1280, 720);
 	Renderer::Window().setFixedMouse(true);
 
-	AssetLoader::setAssetLocation("data");
-	Renderer::ShaderManager().setShaderLocation("data");
+	EntityManager::SystemHandler().addSystem(new Collision);
 
-	EntityManager::StateMachine().addState(new Playing);
-	EntityManager::StateMachine().changeState<Playing>();
+	AssetLoader::setAssetLocation("data/assets");
+	Renderer::ShaderManager().setShaderLocation("data/shaders");
+
+	bool success = Renderer::initiate();
+
+	if (success){
+		EntityManager::StateMachine().addState(new Playing);
+		EntityManager::StateMachine().changeState<Playing>();
+
+		return true;
+	}
+
+	return false;
 }

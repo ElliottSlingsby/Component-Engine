@@ -7,15 +7,15 @@ Transform::Transform(const glm::vec3& position, const glm::quat& rotation, const
 }
 
 Transform::~Transform(){
+	if (_parent)
+		_parent->_removeChild(this);
+
 	TransformSet::iterator i = _children.begin();
 
 	while (i != _children.end()){
 		(*i)->setParent(0);
 		i = _children.begin();
 	}
-
-	if (_parent)
-		_parent->_removeChild(this);
 }
 
 Transform* Transform::parent(){

@@ -5,7 +5,7 @@
 #include <Static\EntityManager.hpp>
 #include <Static\Renderer.hpp>
 
-void setup(int argc, char *args[]);
+bool setup(int argc, char *args[]);
 
 #ifdef _DEBUG
 	#pragma comment(lib, "../lib/Engine-Debug.lib")
