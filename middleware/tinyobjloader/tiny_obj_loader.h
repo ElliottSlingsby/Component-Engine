@@ -3,6 +3,27 @@
 //
 // Licensed under 2-clause BSD liecense.
 //
+//
+// version 0.9.14: Support specular highlight, bump, displacement and alpha map(#53)
+// version 0.9.13: Report "Material file not found message" in `err`(#46)
+// version 0.9.12: Fix groups being ignored if they have 'usemtl' just before 'g' (#44)
+// version 0.9.11: Invert `Tr` parameter(#43)
+// version 0.9.10: Fix seg fault on windows.
+// version 0.9.9 : Replace atof() with custom parser.
+// version 0.9.8 : Fix multi-materials(per-face material ID).
+// version 0.9.7 : Support multi-materials(per-face material ID) per
+// object/group.
+// version 0.9.6 : Support Ni(index of refraction) mtl parameter.
+//                 Parse transmittance material parameter correctly.
+// version 0.9.5 : Parse multiple group name.
+//                 Add support of specifying the base path to load material file.
+// version 0.9.4 : Initial suupport of group tag(g)
+// version 0.9.3 : Fix parsing triple 'x/y/z'
+// version 0.9.2 : Add more .mtl load support
+// version 0.9.1 : Add initial .mtl load support
+// version 0.9.0 : Initial
+//
+
 #ifndef _TINY_OBJ_LOADER_H
 #define _TINY_OBJ_LOADER_H
 
@@ -17,6 +38,9 @@
 #include <cstddef>
 #include <cctype>
 
+#include <string>
+#include <vector>
+#include <map>
 #include <fstream>
 #include <sstream>
 
