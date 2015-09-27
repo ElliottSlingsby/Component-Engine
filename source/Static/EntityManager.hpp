@@ -17,8 +17,8 @@ class EntityManager{
 	// Collection of entities
 	EntityVector _entities;
 
-	std::stack<int> _removed; // Removed ID pile
-	int _highest = 0; // Highest ID
+	std::stack<int> _removed; // Removed id pile
+	int _highest = 0; // Highest id
 
 	EntityManager();
 
@@ -36,11 +36,13 @@ public:
 	static Module::StateMachine& StateMachine();
 	static Module::NameBank& NameBank();
 
+	static void triggerAll(Entity::Triggers type);
+
 	template<typename... T>
 	static void invokeAll(void (Component::* method)(T...), T... args){
 		for (int i = 0; i <= _instance()._highest; i++){
 			Entity* entity = _instance()._entities[i];
-		
+
 			if (entity)
 				entity->invoke(method, args...);
 		}
@@ -51,11 +53,11 @@ public:
 		// Pass any potential constructor args (if any)
 		Entity* entity = new T(args...);
 
-		// Make a new ID
+		// Make a new id
 		int id = _instance()._newID();
 
 		if (_instance()._entities[id]){
-			message_out("%s: %s!\n", "Entity Manager", "New ID clashed with existing entity");
+			message_out("%s: %s!\n", "Entity Manager", "New id clashed with existing entity");
 			_instance()._removeID(id);
 			return 0;
 		}
@@ -66,7 +68,7 @@ public:
 		entity->setID(id);
 		_instance()._entities[id] = entity;
 
-		// Now that the ID has been set, it's safe to start adding components
+		// Now that the id has been set, it's safe to start adding components
 		entity->prefab();
 		
 		return entity;

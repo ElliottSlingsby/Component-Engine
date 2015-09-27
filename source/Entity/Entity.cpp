@@ -11,11 +11,9 @@ static int destroyThread(void* data){
 }
 
 void Entity::destroy(bool recursive, unsigned int delay){
-	if (recursive){
-		for (int i = 0; i < childrenSize(); i++){
-			EntityManager::destroyEntity(getChild(i)->ID());
-		}
-	}
+	if (recursive)
+		for (int i = 0; i < childrenSize(); i++)
+			EntityManager::destroyEntity(getChild(i)->id());
 
 	if (delay == 0){
 		_destroyed = true;
@@ -26,16 +24,28 @@ void Entity::destroy(bool recursive, unsigned int delay){
 	// SDL_Thread a delayed deletion
 }
 
+void Entity::trigger(Triggers type){
+	if (type == TRIGGER_ENABLE && !_enabled){
+		_enabled = true;
+		invoke(&Component::enable);
+	}
+	else if (type == TRIGGER_LOAD && !_loaded && !_enabled){
+		_loaded = true;
+		trigger(TRIGGER_ENABLE);
+		invoke(&Component::load);
+	}
+}
+
 bool Entity::destroyed(){
 	return _destroyed;
 }
 
-void Entity::setEnable(bool enable){
-	_enabled = enable;
-}
-
 bool Entity::enabled(){
 	return _enabled;
+}
+
+bool Entity::loaded(){
+	return _loaded;
 }
 
 Entity::Entity(){
@@ -67,7 +77,7 @@ Entity* Entity::getParent(){
 	if (!_transform->parent())
 		return 0;
 
-	return EntityManager::getEntity(_transform->parent()->ID());
+	return EntityManager::getEntity(_transform->parent()->id());
 }
 
 Entity* Entity::getChild(unsigned int i){

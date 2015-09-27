@@ -24,7 +24,7 @@
     <ClCompile Include="Follow.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="Axis.cpp">
+    <ClCompile Include="Axes.cpp">
       <Filter>Private</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="Follow.hpp">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="Axis.hpp">
+    <ClInclude Include="Axes.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

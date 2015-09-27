@@ -20,6 +20,8 @@ public:
 	void lateLoad();
 	void lateUpdate(double dt);
 
+	void zoom(float difference);
+
 	void setId(int id = NULL_ID);
 	void setName(std::string name = "");
 	void setOffset(const glm::vec3& offset = glm::vec3());

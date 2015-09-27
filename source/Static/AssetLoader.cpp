@@ -77,7 +77,7 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 		return 0;
 	}
 	
-	// Gl ID creation
+	// Gl id creation
 	GLuint id = 0;
 	glGenTextures(1, &id);
 	glBindTexture(GL_TEXTURE_2D, id);

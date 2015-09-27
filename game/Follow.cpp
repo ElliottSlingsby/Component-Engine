@@ -47,13 +47,17 @@ void Follow::lateUpdate(double dt){
 		position = glm::mix(_transform->position(), position - _transform->rotation() * -_offset, (float)(_ease * dt));
 		rotation = glm::slerp(_transform->rotation(), rotation, (float)((_ease / 5.0) * dt));
 
-		//glm::smoothstep(_transform->position(), _transform->position() - _transform->rotation() * -_offset, _transform->position())
-
 		_transform->setPosition(position);
 		_transform->setRotation(rotation);
-
-		//_transform->localTranslate(_offset);
 	}
+}
+
+void Follow::zoom(float difference){
+	glm::vec3 ratio = glm::normalize(_offset);
+
+	_offset.x += ratio.x * difference;
+	_offset.y += ratio.y * difference;
+	_offset.z += ratio.z * difference;
 }
 
 void Follow::setId(int id){

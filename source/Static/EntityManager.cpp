@@ -92,7 +92,7 @@ void EntityManager::destroyEntity(int id, bool recursive){
 	Entity* entity = _instance()._entities[id];
 
 	if (!entity){
-		message_out("%s: %s %d %s!\n", "Entity Manager", "Entity with ID", id, "doesn't exist");
+		message_out("%s: %s %d %s!\n", "Entity Manager", "Entity with id", id, "doesn't exist");
 		return;
 	}
 
@@ -118,7 +118,7 @@ void EntityManager::getEntities(IntVector& ids){
 		Entity* entity = _instance()._entities[i];
 
 		if (entity && !entity->destroyed())
-			ids.push_back(entity->ID());
+			ids.push_back(entity->id());
 	}
 }
 
@@ -131,13 +131,25 @@ void EntityManager::destroyAll(){
 	}
 }
 
+void EntityManager::triggerAll(Entity::Triggers type){
+	IntVector ids;
+	getEntities(ids);
+
+	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++)
+		getEntity(*i)->trigger(type);
+
+	if (type == Entity::TRIGGER_LOAD)
+		for (IntVector::iterator i = ids.begin(); i != ids.end(); i++)
+			getEntity(*i)->invoke(&Component::lateLoad);
+}
+
 void EntityManager::deleteDestroyed(){
 	for (int i = 0; i <= _instance()._highest; i++){
 		Entity* entity = _instance()._entities[i];
 
 		if (entity && entity->destroyed()){
-			_instance()._removeID(entity->ID());
-			_instance()._entities[entity->ID()] = 0;
+			_instance()._removeID(entity->id());
+			_instance()._entities[entity->id()] = 0;
 			delete entity;
 			entity = 0;
 		}

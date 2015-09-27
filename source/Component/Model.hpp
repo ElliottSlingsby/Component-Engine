@@ -13,7 +13,11 @@ protected:
 	const MeshData* _mesh = 0;
 	const MaterialData* _material = 0;
 
+	bool _unlit = false;
+	bool _fixedRotation = false;
+
 public:
+	Model(){}
 	Model(const std::string& meshSrc, const std::string& materialSrc = "");
 
 	void load();
@@ -25,4 +29,6 @@ public:
 	// Setters
 	void setMesh(const MeshData* mesh);
 	void setMaterial(const MaterialData* material);
+	void setUnlit(bool unlit);
+	void setFixedRotation(bool fixedRotation);
 };

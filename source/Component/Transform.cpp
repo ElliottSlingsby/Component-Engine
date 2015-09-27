@@ -28,7 +28,7 @@ unsigned int Transform::childrenSize(){
 
 void Transform::childrenIDs(IntVector& intVector){
 	for (TransformSet::iterator i = _children.begin(); i != _children.end(); i++){
-		intVector.push_back((*i)->ID());
+		intVector.push_back((*i)->id());
 	}
 }
 

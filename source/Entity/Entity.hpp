@@ -12,6 +12,7 @@ protected:
 	
 	bool _enabled = false;
 	bool _destroyed = false;
+	bool _loaded = false;
 
 	// Transform is here as to be edited by prefabs in their constructor if needed
 	Transform* _transform = 0;
@@ -21,15 +22,22 @@ public:
 	// Destroys all components
 	virtual ~Entity();
 
+	enum Triggers{
+		TRIGGER_ENABLE,
+		TRIGGER_LOAD,
+		TRIGGER_DESTROY
+	};
+
 	// Called just before loading, as to be overridden for prefabs
 	virtual void prefab(){};
 
 	void setID(int id);
 
 	void destroy(bool recursive = true, unsigned int delay = 0);
-	bool destroyed();
+	void trigger(Triggers type);
 
-	void setEnable(bool mode);
+	bool destroyed();
+	bool loaded();
 	bool enabled();
 
 	Entity* getParent();
@@ -41,13 +49,12 @@ public:
 
 	template<typename... T>
 	void invoke(void (Component::* method)(T...), T... args){
-		for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
-			(i->second->*method)(args...);
+		if (_enabled && _loaded && !_destroyed){
+			for (ComponentMap::iterator i = _components.begin(); i != _components.end(); i++)
+				(i->second->*method)(args...);
 
-		if (typeid(method) == typeid((&Component::enable)))
-			_enabled = true;
-		else if (typeid(method) == typeid((&Component::load)))
-			invoke(&Component::enable);
+			return;
+		}
 	}
 
 	// addComponent(component) - Adds a component using typeid as key
@@ -60,7 +67,7 @@ public:
 
 			// Make an exception for Transform
 			if (typeid(T) != typeid(Transform))
-				component->setID(ID());
+				component->setID(id());
 		}
 		else
 			message_out("%s!\n", "Component already exists");

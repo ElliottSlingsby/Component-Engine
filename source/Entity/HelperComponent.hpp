@@ -9,42 +9,42 @@
 struct HelperComponent : public Component{
 	template <typename T>
 	T* getComponent(){
-		if (ID() != NULL_ID)
-			return EntityManager::getEntity(ID())->getComponent<T>();
+		if (id() != NULL_ID)
+			return EntityManager::getEntity(id())->getComponent<T>();
 
-		message_out("%s: %s!\n", "HelperComponent", "Cannot get component, entity ID hasn't been assigned");
+		message_out("%s: %s!\n", "HelperComponent", "Cannot get component, entity id hasn't been assigned");
 		return 0;
 	}
 
 	template <typename T>
 	void addComponent(T* component){
-		if (ID() != NULL_ID){
-			EntityManager::getEntity(ID())->addComponent(component);
+		if (id() != NULL_ID){
+			EntityManager::getEntity(id())->addComponent(component);
 			return;
 		}
 
-		message_out("%s: %s!\n", "HelperComponent", "Cannot add component, entity ID hasn't been assigned");
+		message_out("%s: %s!\n", "HelperComponent", "Cannot add component, entity id hasn't been assigned");
 	}
 
 	template <typename T>
 	void destroyComponent(){
-		if (ID() != NULL_ID){
-			EntityManager::getEntity(ID())->destroyComponent(component);
+		if (id() != NULL_ID){
+			EntityManager::getEntity(id())->destroyComponent(component);
 			return;
 		}
 		
-		message_out("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity ID hasn't been assigned");
+		message_out("%s: %s!\n", "HelperComponent", "Cannot destroy component, entity id hasn't been assigned");
 	}
 
 	Entity* owner(){
-		if (ID() != NULL_ID)
-			return EntityManager::getEntity(ID());
+		if (id() != NULL_ID)
+			return EntityManager::getEntity(id());
 
-		message_out("%s: %s!\n", "HelperComponent", "Cannot find component, entity ID hasn't been assigned");
+		message_out("%s: %s!\n", "HelperComponent", "Cannot find component, entity id hasn't been assigned");
 		return 0;
 	}
 
 	std::string name(){
-		return EntityManager::NameBank().getName(ID());
+		return EntityManager::NameBank().getName(id());
 	}
 };

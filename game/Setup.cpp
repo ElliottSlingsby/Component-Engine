@@ -3,6 +3,8 @@
 
 #include "Playing.hpp"
 
+#include <BulletCollision\CollisionShapes\btCapsuleShape.h>
+
 bool setup(int argc, char *args[]){
 	Renderer::Window().setSize(1280, 720);
 	Renderer::Window().setFixedMouse(true);
@@ -12,14 +14,17 @@ bool setup(int argc, char *args[]){
 	AssetLoader::setAssetLocation("data/assets");
 	Renderer::ShaderManager().setShaderLocation("data/shaders");
 
-	bool success = Renderer::initiate();
+	if (!Renderer::initiate())
+		return false;
 
-	if (success){
-		EntityManager::StateMachine().addState(new Playing);
-		EntityManager::StateMachine().changeState<Playing>();
+	EntityManager::StateMachine().addState(new Playing);
+	EntityManager::StateMachine().changeState<Playing>();
 
-		return true;
-	}
+#ifdef _DEBUG
+	Renderer::Console().setRunning(true);
+#endif
 
-	return false;
+	btCapsuleShape test(2.5, 10); // Testing bullet lib
+
+	return true;
 }

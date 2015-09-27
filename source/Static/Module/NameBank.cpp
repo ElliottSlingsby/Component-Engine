@@ -34,7 +34,7 @@ void NameBank::bindName(int id, const std::string& name){
 	}
 	else{
 		if (std::find(_nameToIds[name].begin(), _nameToIds[name].end(), id) != _nameToIds[name].end()){
-			message_out("%s: %s!\n", "Name Bank", "Name already bound to ID");
+			message_out("%s: %s!\n", "Name Bank", "Name already bound to id");
 			return;
 		}
 	}
@@ -47,21 +47,21 @@ void NameBank::unbindName(int id, const std::string& name){
 	NameIdMap::iterator idContainer = _nameToIds.find(name);
 
 	if (idContainer == _nameToIds.end()){
-		message_out("%s: %s!\n", "Name Bank", "Name not bound to ID");
+		message_out("%s: %s!\n", "Name Bank", "Name not bound to id");
 		return;
 	}
 
 	IntVector::iterator idIter = std::find(_nameToIds[name].begin(), _nameToIds[name].end(), id);
 
 	if (idIter == _nameToIds[name].end()){
-		message_out("%s: %s!\n", "Name Bank", "Name not bound to ID");
+		message_out("%s: %s!\n", "Name Bank", "Name not bound to id");
 		return;
 	}
 
 	IdNameMap::iterator nameIter = _idsToName.find(id);
 
 	if (nameIter == _idsToName.end()){
-		message_out("%s: %s!\n", "Name Bank", "ID not bound to name");
+		message_out("%s: %s!\n", "Name Bank", "id not bound to name");
 		return;
 	}
 	
