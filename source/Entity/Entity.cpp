@@ -17,6 +17,7 @@ void Entity::destroy(bool recursive, unsigned int delay){
 
 	if (delay == 0){
 		_destroyed = true;
+		_enabled = false;
 		return;
 	}
 

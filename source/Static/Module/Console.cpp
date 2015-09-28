@@ -18,13 +18,6 @@ static int consoleThread(void* data){
 	return 0;
 }
 
-void setEntityPosition(const std::string& entityName, const glm::vec3& position){
-	Entity* entity = EntityManager::getEntity(entityName);
-
-	if (entity)
-		entity->getComponent<Transform>()->setPosition(position);
-}
-
 Console::Console(){
 	_patternMap["null"] = std::regex("^ *$", std::regex_constants::basic);
 	_patternMap["exit"] = std::regex("^(?:exit|quit|close)$", std::regex_constants::icase);
@@ -32,6 +25,8 @@ Console::Console(){
 	_patternMap["hello"] = std::regex("^(?:hello|hey|hi)(?: +.*$|$)", std::regex_constants::icase);
 	_patternMap["you"] = std::regex("^(?:you|yourself)$", std::regex_constants::icase);
 	_patternMap["position"] = std::regex("^(?:position|pos|move) +(\\S+) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+))$", std::regex_constants::icase | std::regex_constants::ECMAScript);
+	_patternMap["rotation"] = std::regex("^(?:rotation|rotate|turn) +(\\S+) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+))$", std::regex_constants::icase | std::regex_constants::ECMAScript);
+	_patternMap["scale"] = std::regex("^(?:scale|size) +(\\S+) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+))$", std::regex_constants::icase | std::regex_constants::ECMAScript);
 	_patternMap["delete"] = std::regex("^(?:delete|kill|destroy|remove|rm) +(\\S+) *$", std::regex_constants::icase | std::regex_constants::ECMAScript);
 	_patternMap["list"] = std::regex("^(?:list|ls|entities|ents)$", std::regex_constants::icase);
 	_patternMap["reload"] = std::regex("^(?:reload|reset)$", std::regex_constants::icase);
@@ -83,7 +78,26 @@ int Console::interpretInput(){
 		return VALID_CODE;
 	}
 	else if (std::regex_match(input, results, _patternMap["position"])){
-		setEntityPosition(results[1].str(), glm::vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str())));
+		Entity* entity = EntityManager::getEntity(results[1].str());
+
+		if (entity)
+			entity->getComponent<Transform>()->setPosition(glm::vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str())));
+
+		return VALID_CODE;
+	}
+	else if (std::regex_match(input, results, _patternMap["rotation"])){
+		Entity* entity = EntityManager::getEntity(results[1].str());
+
+		if (entity)
+			entity->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(std::stof(results[2].str())),glm::radians(std::stof(results[3].str())),glm::radians(std::stof(results[4].str())))));
+
+		return VALID_CODE;
+	}
+	else if (std::regex_match(input, results, _patternMap["scale"])){
+		Entity* entity = EntityManager::getEntity(results[1].str());
+
+		if (entity)
+			entity->getComponent<Transform>()->setScale(glm::vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str())));
 
 		return VALID_CODE;
 	}

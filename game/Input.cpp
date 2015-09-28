@@ -25,7 +25,7 @@ void Input::update(double dt){
 	glm::quat lookX(glm::vec3(0.f, glm::radians(-(float)(mouseRX * _sensitivity)), 0.f));
 	glm::quat lookY(glm::vec3(glm::radians(-(float)(mouseRY * _sensitivity)), 0.f, 0.f));
 
-	_transform->rotate(lookX);
+	_transform->localRotate(lookX);
 	_transform->localRotate(lookY);
 
 	const Uint8* keyDown = SDL_GetKeyboardState(0);
@@ -35,6 +35,12 @@ void Input::update(double dt){
 
 	if (keyDown[SDL_SCANCODE_UP])
 		_follow->zoom((float)(-100.0 * dt));
+
+	if (keyDown[SDL_SCANCODE_Q])
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)(_speed / 100.f)))));
+
+	if (keyDown[SDL_SCANCODE_E])
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)(_speed / 100.f)))));
 
 	if (keyDown[SDL_SCANCODE_W]){
 		forward();
