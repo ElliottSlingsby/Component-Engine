@@ -13,6 +13,10 @@ void Input::load(){
 	_velocity = getComponent<Velocity>();
 }
 
+void Input::lateLoad(){
+	_follow = EntityManager::getEntity("camera")->getComponent<Follow>();
+}
+
 void Input::update(double dt){
 	int mouseRX, mouseRY;
 
@@ -21,31 +25,43 @@ void Input::update(double dt){
 	glm::quat lookX(glm::vec3(0.f, glm::radians(-(float)(mouseRX * _sensitivity)), 0.f));
 	glm::quat lookY(glm::vec3(glm::radians(-(float)(mouseRY * _sensitivity)), 0.f, 0.f));
 
-	_transform->rotate(lookX);
+	_transform->localRotate(lookX);
 	_transform->localRotate(lookY);
 
 	const Uint8* keyDown = SDL_GetKeyboardState(0);
 
+	if (keyDown[SDL_SCANCODE_DOWN])
+		_follow->zoom((float)(100.0 * dt));
+
+	if (keyDown[SDL_SCANCODE_UP])
+		_follow->zoom((float)(-100.0 * dt));
+
+	if (keyDown[SDL_SCANCODE_Q])
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)(_speed / 100.f)))));
+
+	if (keyDown[SDL_SCANCODE_E])
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)(_speed / 100.f)))));
+
 	if (keyDown[SDL_SCANCODE_W]){
-		forward(dt);
+		forward();
 
 		if (keyDown[SDL_SCANCODE_LSHIFT])
-			forward(dt);
+			forward();
 	}
 
 	if (keyDown[SDL_SCANCODE_S]){
-		back(dt);
+		back();
 
 		if (keyDown[SDL_SCANCODE_LSHIFT])
-			back(dt);
+			back();
 	}
 }
 
-void Input::forward(double dt){
+void Input::forward(){
 	_velocity->localPush(glm::vec3(0.f, 0.f, _speed / 50.f));
 }
 
-void Input::back(double dt){
+void Input::back(){
 	_velocity->localPush(glm::vec3(0.f, 0.f, -_speed / 50.f));
 }
 

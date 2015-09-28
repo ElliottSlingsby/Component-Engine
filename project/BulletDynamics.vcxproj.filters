@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{62494B2A-75F4-F14B-9833-C278DC9A9BAD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletDynamics">
+      <UniqueIdentifier>{02BE3562-B4F5-4846-82A9-99F7D4F3E571}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletDynamics\Dynamics">
+      <UniqueIdentifier>{65DCEDAF-B63D-514B-A33B-9399AA8A5944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletDynamics\ConstraintSolver">
+      <UniqueIdentifier>{42434FF1-3286-124F-B25C-241BD3CF4449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletDynamics\Featherstone">
+      <UniqueIdentifier>{21FC45E9-E005-914D-9A47-40612BF9AB86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletDynamics\MLCPSolvers">
+      <UniqueIdentifier>{5D173CAC-44B5-3A4A-8F11-FEDEA3D17EC1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletDynamics\Vehicle">
+      <UniqueIdentifier>{04D35C59-856D-3644-BB13-C2748D6927F8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BulletDynamics\Character">
+      <UniqueIdentifier>{F453D72E-9BFC-B44E-A7EA-34AE825467AC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btActionInterface.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btDynamicsWorld.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btRigidBody.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btSimpleDynamicsWorld.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btConeTwistConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btConstraintSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btContactConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btContactSolverInfo.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btFixedConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGearConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofSpring2Constraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofSpringConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btHinge2Constraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btHingeConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btJacobianEntry.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btNNCGConstraintSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btPoint2PointConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSliderConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSolve2LinearConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSolverBody.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSolverConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btTypedConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btUniversalConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBody.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyConstraintSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyDynamicsWorld.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointFeedback.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointLimitConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointMotor.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyLink.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyLinkCollider.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyPoint2Point.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodySolverConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btDantzigLCP.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btDantzigSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btLemkeAlgorithm.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btLemkeSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btMLCPSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btMLCPSolverInterface.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btPATHSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btSolveProjectedGaussSeidel.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btRaycastVehicle.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btVehicleRaycaster.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btWheelInfo.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Character\btCharacterControllerInterface.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Character\btKinematicCharacterController.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btDiscreteDynamicsWorld.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btRigidBody.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btSimpleDynamicsWorld.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btConeTwistConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btContactConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btFixedConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGearConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofSpring2Constraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofSpringConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btHinge2Constraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btHingeConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btNNCGConstraintSolver.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btPoint2PointConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSliderConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSolve2LinearConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btTypedConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btUniversalConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBody.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyConstraintSolver.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyDynamicsWorld.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointLimitConstraint.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointMotor.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyPoint2Point.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btDantzigLCP.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btLemkeAlgorithm.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btMLCPSolver.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btRaycastVehicle.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btWheelInfo.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Character\btKinematicCharacterController.cpp" />
+  </ItemGroup>
+</Project>

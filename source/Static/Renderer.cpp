@@ -82,14 +82,6 @@ bool Renderer::_setupGL(){
 	glEnable(GL_SCISSOR_TEST);
 	glEnable(GL_FOG);
 
-#ifdef _DEBUG
-	glDisable(GL_CULL_FACE);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_TEXTURE_2D);
-	glColor4f(1, 1, 1, 1);
-#endif
-
 	 GLenum error = glGetError();
 
 	if (error != GL_NO_ERROR){

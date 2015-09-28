@@ -10,5 +10,5 @@ public:
 	virtual ~Identifier(){}
 
 	void setID(int id);
-	int ID();
+	int id();
 };

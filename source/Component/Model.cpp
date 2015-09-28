@@ -34,7 +34,8 @@ void Model::render(){
 	glTranslatef(-_transform->position().x, -_transform->position().y, -_transform->position().z);
 
 	// Rotate based on Transform
-	glMultMatrixf(&glm::mat4_cast(_transform->rotation())[0][0]);
+	if (!_fixedRotation)
+		glMultMatrixf(&glm::mat4_cast(_transform->rotation())[0][0]);
 
 	// Scale based on Transform
 	glScalef(_transform->scale().x, _transform->scale().y, _transform->scale().z);
@@ -44,7 +45,17 @@ void Model::render(){
 	else
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+	bool switched = false;
+
+	if (glIsEnabled(GL_LIGHTING) && _unlit){
+		switched = true;
+		glDisable(GL_LIGHTING);
+	}
+
 	draw();
+
+	if (switched && _unlit)
+		glEnable(GL_LIGHTING);
 
 	glPopMatrix();
 }
@@ -72,4 +83,12 @@ void Model::draw(){
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
+}
+
+void Model::setUnlit(bool unlit){
+	_unlit = unlit;
+}
+
+void Model::setFixedRotation(bool fixedRotation){
+	_fixedRotation = fixedRotation;
 }

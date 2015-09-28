@@ -7,8 +7,4 @@
 
 bool setup(int argc, char *args[]);
 
-#ifdef _DEBUG
-	#pragma comment(lib, "../lib/Engine-Debug.lib")
-#else
-	#pragma comment(lib, "../lib/Engine.lib")
-#endif
+#pragma comment(lib, "../bin/Engine.lib")

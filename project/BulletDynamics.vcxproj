@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BC431F33-E058-A943-BDE3-93D005674941}</ProjectGuid>
+    <RootNamespace>BulletDynamics</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build\Release\BulletDynamics\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BulletDynamics</TargetName>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">obj\x64\Release\BulletDynamics\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">BulletDynamics_vs2010_x64_release</TargetName>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build\Debug\BulletDynamics\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BulletDynamics</TargetName>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">obj\x64\Debug\BulletDynamics\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BulletDynamics_vs2010_x64_debug</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)middleware\bullet3-2.83.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)middleware\bullet3-2.83.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)BulletDynamics.lib</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)middleware\bullet3-2.83.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>
+      </PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)middleware\bullet3-2.83.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)BulletDynamics_vs2010_x64_release.lib</OutputFile>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)middleware\bullet3-2.83.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)BulletDynamics.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)middleware\bullet3-2.83.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)BulletDynamics.lib</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(SolutionDir)middleware\bullet3-2.83.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ProgramDataBaseFileName>$(OutDir)BulletDynamics_vs2010_x64.pdb</ProgramDataBaseFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)middleware\bullet3-2.83.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)BulletDynamics_vs2010_x64_debug.lib</OutputFile>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btActionInterface.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btDynamicsWorld.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btRigidBody.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btSimpleDynamicsWorld.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btConeTwistConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btConstraintSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btContactConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btContactSolverInfo.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btFixedConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGearConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofSpring2Constraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofSpringConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btHinge2Constraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btHingeConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btJacobianEntry.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btNNCGConstraintSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btPoint2PointConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSliderConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSolve2LinearConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSolverBody.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSolverConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btTypedConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btUniversalConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBody.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyConstraintSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyDynamicsWorld.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointFeedback.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointLimitConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointMotor.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyLink.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyLinkCollider.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyPoint2Point.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodySolverConstraint.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btDantzigLCP.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btDantzigSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btLemkeAlgorithm.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btLemkeSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btMLCPSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btMLCPSolverInterface.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btPATHSolver.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btSolveProjectedGaussSeidel.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btRaycastVehicle.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btVehicleRaycaster.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btWheelInfo.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Character\btCharacterControllerInterface.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Character\btKinematicCharacterController.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btDiscreteDynamicsWorld.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btRigidBody.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Dynamics\btSimpleDynamicsWorld.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btConeTwistConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btContactConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btFixedConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGearConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofSpring2Constraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btGeneric6DofSpringConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btHinge2Constraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btHingeConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btNNCGConstraintSolver.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btPoint2PointConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSliderConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btSolve2LinearConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btTypedConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\ConstraintSolver\btUniversalConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBody.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyConstraintSolver.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyDynamicsWorld.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointLimitConstraint.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyJointMotor.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Featherstone\btMultiBodyPoint2Point.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btDantzigLCP.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btLemkeAlgorithm.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\MLCPSolvers\btMLCPSolver.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btRaycastVehicle.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Vehicle\btWheelInfo.cpp">
+    </ClCompile>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\BulletDynamics\Character\btKinematicCharacterController.cpp">
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

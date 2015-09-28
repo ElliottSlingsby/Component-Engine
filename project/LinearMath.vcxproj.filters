@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{CAB10A90-0A4C-F849-A813-E6FE8D531844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\LinearMath">
+      <UniqueIdentifier>{65EDF883-DE85-E847-8C9A-FF67B1B38070}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btAabbUtil2.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btAlignedAllocator.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btAlignedObjectArray.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btConvexHull.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btConvexHullComputer.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btCpuFeatureUtility.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btDefaultMotionState.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btGeometryUtil.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btGrahamScan2dConvexHull.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btHashMap.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btIDebugDraw.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btList.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btMatrix3x3.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btMatrixX.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btMinMax.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btMotionState.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btPolarDecomposition.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btPoolAllocator.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btQuadWord.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btQuaternion.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btQuickprof.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btRandom.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btScalar.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btSerializer.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btSpatialAlgebra.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btStackAlloc.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btTransform.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btTransformUtil.h" />
+    <ClInclude Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btVector3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btAlignedAllocator.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btConvexHull.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btConvexHullComputer.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btGeometryUtil.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btPolarDecomposition.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btQuickprof.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btSerializer.cpp" />
+    <ClCompile Include="$(SolutionDir)middleware\bullet3-2.83.6\LinearMath\btVector3.cpp" />
+  </ItemGroup>
+</Project>

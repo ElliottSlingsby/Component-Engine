@@ -12,14 +12,15 @@ bool setup(int argc, char *args[]){
 	AssetLoader::setAssetLocation("data/assets");
 	Renderer::ShaderManager().setShaderLocation("data/shaders");
 
-	bool success = Renderer::initiate();
+	if (!Renderer::initiate())
+		return false;
 
-	if (success){
-		EntityManager::StateMachine().addState(new Playing);
-		EntityManager::StateMachine().changeState<Playing>();
+	EntityManager::StateMachine().addState(new Playing);
+	EntityManager::StateMachine().changeState<Playing>();
 
-		return true;
-	}
+#ifdef _DEBUG
+	Renderer::Console().setRunning(true);
+#endif
 
-	return false;
+	return true;
 }
