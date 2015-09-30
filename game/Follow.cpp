@@ -54,10 +54,7 @@ void Follow::lateUpdate(double dt){
 
 void Follow::zoom(float difference){
 	glm::vec3 ratio = glm::normalize(_offset);
-
-	_offset.x += ratio.x * difference;
-	_offset.y += ratio.y * difference;
-	_offset.z += ratio.z * difference;
+	_offset += ratio * difference;
 }
 
 void Follow::setId(int id){

@@ -53,6 +53,7 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::render);
 
 		//stress(5000000);
+		//stress(5000000);
 
 		// Update window and console
 		Renderer::Window().flip();
