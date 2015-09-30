@@ -1,5 +1,5 @@
-build
-bin
+/build
+/bin
 
 *.csproj
 *.unityproj
@@ -14,11 +14,3 @@ bin
 *.pdb
 *.opensdf
 *.user
-
-.DS_Store*
-._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
-[Tt]humbs.db
