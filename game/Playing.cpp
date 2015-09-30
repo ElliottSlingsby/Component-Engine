@@ -17,8 +17,8 @@ void Playing::on(){
 	sky->getComponent<Model>()->setUnlit(true);
 	
 	Entity* player = EntityManager::createEntity("player");
-	player->addComponent(new Velocity(0.005f));
-	player->addComponent(new Input(20000.f, 0.075f));
+	player->addComponent(new Velocity(1.f));
+	player->addComponent(new Input(35000.f, 0.1f));
 
 	Entity* model = EntityManager::createEntity("model");
 	model->getComponent<Transform>()->setParent(player->getComponent<Transform>());
