@@ -3,7 +3,6 @@
 #include <Static\Renderer.hpp>
 #include <Static\EntityManager.hpp>
 
-#include <chrono>
 #include <time.h>
 #include <list>
 
@@ -19,9 +18,7 @@ int main(int argc, char *args[]){
 
 	bool running = setup(argc, args);
 	
-	std::chrono::duration<double, std::micro> chstart;
-
-	//std::clock_t start;
+	std::clock_t start;
 	double difference = 0.0;
 	
 	const int sampleRange = 100;
@@ -30,11 +27,12 @@ int main(int argc, char *args[]){
 	typedef std::list<double> doubleList;
 	doubleList times;
 
+	double fps = 200;
+	double maxFrame = (double)CLOCKS_PER_SEC / fps;
+
 	while (running && Renderer::Window().running()){
 		// Start timer and check for exit conditions
-		//start = std::clock();
-
-		chstart = std::chrono::system_clock::now().time_since_epoch();
+		start = std::clock();
 
 		SDL_Event e;
 
@@ -57,8 +55,8 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::preRender);
 		EntityManager::invokeAll(&Component::render);
 
-		stress(5000000);
-		stress(5000000);
+		//stress(5000000);
+		//stress(5000000);
 
 		// Update window and console
 		Renderer::Window().flip();
@@ -69,17 +67,15 @@ int main(int argc, char *args[]){
 			running = false;
 		
 		// Delta time calculations and averaging
-		//difference = (std::clock() - start) / (double)CLOCKS_PER_SEC;
+		difference = (double)(std::clock() - start) / (double)CLOCKS_PER_SEC;
 
+		if (difference < maxFrame){
+			double delay = maxFrame - difference;
 
-		std::chrono::duration<double, std::micro> chend = std::chrono::system_clock::now().time_since_epoch();
+			SDL_Delay(delay);
 
-		std::chrono::duration<double, std::micro> microsecond(1000000);
-
-		difference = (chend - chstart).count() / microsecond.count();
-
-
-
+			difference += ((double)(std::clock() - start) / (double)CLOCKS_PER_SEC) - difference;
+		}
 
 		times.insert(times.begin(), difference);
 
