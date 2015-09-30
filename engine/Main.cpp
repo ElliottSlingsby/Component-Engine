@@ -29,6 +29,7 @@ int main(int argc, char *args[]){
 	doubleList times;
 
 	while (running && Renderer::Window().running()){
+		// Start timer and check for exit conditions
 		start = std::chrono::high_resolution_clock::now().time_since_epoch();
 
 		SDL_Event e;
@@ -43,8 +44,7 @@ int main(int argc, char *args[]){
 			}
 		}
 
-		Renderer::Window().setTitle(std::to_string(1.0 / difference).c_str());
-
+		// Invoke entities and systems
 		EntityManager::SystemHandler().runSystems();
 
 		EntityManager::invokeAll(&Component::update, difference);
@@ -53,14 +53,18 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::preRender);
 		EntityManager::invokeAll(&Component::render);
 
+		//stress(10000000);
+
+		// Update window and console
 		Renderer::Window().flip();
 
-		EntityManager::deleteDestroyed();
+		Renderer::Window().setTitle(std::to_string(1.0 / difference).c_str());
 
 		if (Renderer::Console().interpretInput() == Module::Console::EXIT_CODE)
 			running = false;
 		
-		difference = (std::chrono::high_resolution_clock::now().time_since_epoch() - start).count() / 10000000.0;	
+		// Delta time calculations and averaging
+		difference = (std::chrono::high_resolution_clock::now().time_since_epoch() - start).count() / 10000000.0;
 
 		times.insert(times.begin(), difference);
 

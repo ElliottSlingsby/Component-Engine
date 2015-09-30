@@ -37,10 +37,10 @@ void Input::update(double dt){
 		_follow->zoom((float)(-100.0 * dt));
 
 	if (keyDown[SDL_SCANCODE_Q])
-		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)(_speed / 100.f)))));
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)(_speed / 250.f)))));
 
 	if (keyDown[SDL_SCANCODE_E])
-		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)(_speed / 100.f)))));
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)(_speed / 250.f)))));
 
 	if (keyDown[SDL_SCANCODE_W]){
 		forward();

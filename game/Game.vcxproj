@@ -57,14 +57,14 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)source;$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)engine;$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)source;$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)engine;$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
