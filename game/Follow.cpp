@@ -44,8 +44,8 @@ void Follow::lateUpdate(double dt){
 		glm::vec3 position = target->getComponent<Transform>()->position();
 		glm::quat rotation = target->getComponent<Transform>()->rotation();
 		
-		position = glm::mix(_transform->position(), position - _transform->rotation() * -_offset, (float)(_ease * dt));
-		rotation = glm::slerp(_transform->rotation(), rotation, (float)((_ease / 5.0) * dt));
+		position = glm::mix(_transform->position(), position - _transform->rotation() * -_offset, (float)((_ease * 0.8) * dt));
+		rotation = glm::slerp(_transform->rotation(), rotation, (float)((_ease * 0.15) * dt));
 
 		_transform->setPosition(position);
 		_transform->setRotation(rotation);

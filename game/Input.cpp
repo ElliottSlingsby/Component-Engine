@@ -31,16 +31,16 @@ void Input::update(double dt){
 	const Uint8* keyDown = SDL_GetKeyboardState(0);
 
 	if (keyDown[SDL_SCANCODE_DOWN])
-		_follow->zoom((float)(100.0 * dt));
+		_follow->zoom((float)((_speed / 500.0) * dt));
 
 	if (keyDown[SDL_SCANCODE_UP])
-		_follow->zoom((float)(-100.0 * dt));
+		_follow->zoom((float)(-(_speed / 500.0) * dt));
 
 	if (keyDown[SDL_SCANCODE_Q])
-		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)(_speed / 250.f)))));
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)((_speed / 250.0) * dt)))));
 
 	if (keyDown[SDL_SCANCODE_E])
-		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)(_speed / 250.f)))));
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)((_speed / 250.0) * dt)))));
 
 	if (keyDown[SDL_SCANCODE_W]){
 		forward();

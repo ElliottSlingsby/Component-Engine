@@ -125,7 +125,7 @@
       <OutputFile>.\Debug/SDL2_image.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>xcopy /y $(SolutionDir)middleware\SDL2_image-2.0.0\external\lib\x86\*.dll $(SolutionDir)bin</Command>
+      <Command>xcopy /y "$(SolutionDir)middleware\SDL2_image-2.0.0\external\lib\x86\*.dll" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -198,7 +198,7 @@
       <OutputFile>.\Release/SDL2_image.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>xcopy /y $(SolutionDir)middleware\SDL2_image-2.0.0\external\lib\x86\*.dll $(SolutionDir)bin</Command>
+      <Command>xcopy /y "$(SolutionDir)middleware\SDL2_image-2.0.0\external\lib\x86\*.dll" "$(SolutionDir)bin"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

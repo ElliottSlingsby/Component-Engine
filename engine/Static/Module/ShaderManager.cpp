@@ -1,4 +1,5 @@
 #include "ShaderManager.hpp"
+#include <Static\DebugOutput.hpp>
 
 #include <fstream>
 
@@ -47,7 +48,7 @@ void ShaderManager::loadShader(ShaderTypes type, const std::string& filepath){
 	file.open((_shaderPath + filepath).c_str());
 
 	if (!file){
-
+		error_out((std::string("Can't find shader file ") + _shaderPath + filepath).c_str());
 		return;
 	}
 

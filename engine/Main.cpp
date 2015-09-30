@@ -3,15 +3,14 @@
 #include <Static\Renderer.hpp>
 #include <Static\EntityManager.hpp>
 
-#include <chrono>
+#include <time.h>
 #include <list>
 
 void stress(int big){
 	int x = 0;
 
-	for (int i = 0; i <= big; i++){
+	for (int i = 0; i <= big; i++)
 		x *= i;
-	}
 }
 
 int main(int argc, char *args[]){
@@ -19,7 +18,7 @@ int main(int argc, char *args[]){
 
 	bool running = setup(argc, args);
 	
-	std::chrono::high_resolution_clock::duration start;
+	std::clock_t start;
 	double difference = 0.0;
 	
 	const int sampleRange = 100;
@@ -30,7 +29,7 @@ int main(int argc, char *args[]){
 
 	while (running && Renderer::Window().running()){
 		// Start timer and check for exit conditions
-		start = std::chrono::high_resolution_clock::now().time_since_epoch();
+		start = std::clock();
 
 		SDL_Event e;
 
@@ -64,7 +63,7 @@ int main(int argc, char *args[]){
 			running = false;
 		
 		// Delta time calculations and averaging
-		difference = (std::chrono::high_resolution_clock::now().time_since_epoch() - start).count() / 10000000.0;
+		difference = (std::clock() - start) / (double)CLOCKS_PER_SEC;
 
 		times.insert(times.begin(), difference);
 

@@ -1,16 +1,8 @@
 /build
 /bin
 
-*.csproj
-*.unityproj
-*.suo
-*.tmp
-*.userprefs
-*.pidb
-*.booproj
-*.sdf
-*.exe
-*.ilk
-*.pdb
 *.opensdf
+*.sdf
 *.user
+*.suo
+*.zip

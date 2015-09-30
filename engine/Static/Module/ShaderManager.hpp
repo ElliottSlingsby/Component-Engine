@@ -4,12 +4,6 @@
 #include <string>
 
 namespace Module{
-	enum ShaderTypes{
-		SHADER_FRAGMENT = GL_FRAGMENT_SHADER,
-		SHADER_VERTEX = GL_VERTEX_SHADER,
-		SHADER_GEOMATRY = GL_GEOMETRY_SHADER,
-	};
-
 	class ShaderManager{
 		std::string _shaderPath = "../";
 
@@ -20,6 +14,12 @@ namespace Module{
 		GLint _geomatryShader = 0;
 
 	public:
+		enum ShaderTypes{
+			SHADER_FRAGMENT = GL_FRAGMENT_SHADER,
+			SHADER_VERTEX = GL_VERTEX_SHADER,
+			SHADER_GEOMATRY = GL_GEOMETRY_SHADER,
+		};
+
 		~ShaderManager();
 
 		bool initiate();

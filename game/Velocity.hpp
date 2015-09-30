@@ -5,6 +5,8 @@
 class Velocity : public HelperComponent{
 	Transform* _transform = 0;
 
+	glm::vec3 _push = glm::vec3(0, 0, 0);
+
 	glm::vec3 _velocity = glm::vec3(0, 0, 0);
 	float _friction;
 

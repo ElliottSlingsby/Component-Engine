@@ -21,6 +21,6 @@ bool setup(int argc, char *args[]){
 #ifdef _DEBUG
 	Renderer::Console().setRunning(true);
 #endif
-
+	
 	return true;
 }
