@@ -93,6 +93,12 @@
     <ClCompile Include="Entity\Identifier.cpp">
       <Filter>Private\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Axes.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Line.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Setup.hpp" />
@@ -161,6 +167,12 @@
     </ClInclude>
     <ClInclude Include="System\Collision.hpp">
       <Filter>Public\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Line.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Axes.hpp">
+      <Filter>Public\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

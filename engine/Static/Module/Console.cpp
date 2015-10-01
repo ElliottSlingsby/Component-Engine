@@ -5,6 +5,8 @@
 #include <Static\Renderer.hpp>
 #include <Static\AssetLoader.hpp>
 
+#include <Component\Line.hpp>
+
 using namespace Module;
 
 static int consoleThread(void* data){
@@ -30,6 +32,9 @@ Console::Console(){
 	_patternMap["delete"] = std::regex("^(?:delete|kill|destroy|remove|rm) +(\\S+) *$", std::regex_constants::icase | std::regex_constants::ECMAScript);
 	_patternMap["list"] = std::regex("^(?:list|ls|entities|ents)$", std::regex_constants::icase);
 	_patternMap["reload"] = std::regex("^(?:reload|reset)$", std::regex_constants::icase);
+	_patternMap["draw"] = std::regex("^(?:draw|line) +(\\S+) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+)) +([-+]?(?:[0-9]*\\.[0-9]+|[0-9]+))$", std::regex_constants::icase | std::regex_constants::ECMAScript);
+	_patternMap["cross"] = std::regex("^cross +(\\S+) +(\\S+) +(\\S+)$", std::regex_constants::icase | std::regex_constants::ECMAScript);
+	_patternMap["dot"] = std::regex("^dot +(\\S+) +(\\S+)$", std::regex_constants::icase | std::regex_constants::ECMAScript);
 }
 
 void Console::setPrefix(const std::string& prefix){
@@ -114,6 +119,57 @@ int Console::interpretInput(){
 			std::cout << *i << " : " << EntityManager::NameBank().getName(*i) << std::endl;
 
 		return VALID_CODE;
+	}
+	else if (std::regex_match(input, results, _patternMap["draw"])){
+		Entity* line = EntityManager::createEntity(results[1].str());
+
+		if (line)
+			line->addComponent(new Line(glm::vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str()))));
+
+		line->trigger(Entity::TRIGGER_LOAD);
+
+		return VALID_CODE;
+	}
+	else if (std::regex_match(input, results, _patternMap["cross"])){
+		Entity* entityFirst = EntityManager::getEntity(results[1].str());
+		Entity* entitySecond = EntityManager::getEntity(results[2].str());
+
+		if (entityFirst && entitySecond){
+			Line* lineFirst = entityFirst->getComponent<Line>();
+			Line* lineSecond = entitySecond->getComponent<Line>();
+
+			if (lineFirst && lineSecond){
+				Entity* line = EntityManager::createEntity(results[3].str());
+
+				if (line){
+					glm::vec3 cross = glm::cross(lineFirst->vector(), lineSecond->vector());
+
+					line->addComponent(new Line(cross));
+					line->trigger(Entity::TRIGGER_LOAD);
+
+					return VALID_CODE;
+				}
+			}
+		}
+
+		return INVALID_CODE;
+	}
+	else if (std::regex_match(input, results, _patternMap["dot"])){
+		Entity* entityFirst = EntityManager::getEntity(results[1].str());
+		Entity* entitySecond = EntityManager::getEntity(results[2].str());
+
+		if (entityFirst && entitySecond){
+			Line* lineFirst = entityFirst->getComponent<Line>();
+			Line* lineSecond = entitySecond->getComponent<Line>();
+
+			float length = glm::dot(glm::normalize(lineFirst->vector()), glm::normalize(lineSecond->vector()));
+
+			lineSecond->setVector(lineSecond->vector() * length);
+
+			return VALID_CODE;
+		}
+
+		return INVALID_CODE;
 	}
 	else if (std::regex_match(input, results, _patternMap["reload"])){
 		EntityManager::StateMachine().reload();

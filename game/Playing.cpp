@@ -4,11 +4,11 @@
 #include <Component\Light.hpp>
 #include <Component\Model.hpp>
 #include <Component\Camera.hpp>
+#include <Component\Axes.hpp>
 
 #include "Follow.hpp"
 #include "Input.hpp"
 #include "Velocity.hpp"
-#include "Axes.hpp"
 
 void Playing::on(){
 	Entity* sky = EntityManager::createEntity("sky");
