@@ -56,7 +56,7 @@ typedef struct SDL_hapticlist_item
 struct haptic_hwdata
 {
     LPDIRECTINPUTDEVICE8 device;
-    DWORD axes[3];              /* Axes to use. */
+    DWORD axes[3];              /* Axis to use. */
     SDL_bool is_joystick;       /* Device is loaded as joystick. */
     Uint8 bXInputHaptic; /* Supports force feedback via XInput. */
     Uint8 userid; /* XInput userid index for this joystick */
@@ -1083,7 +1083,7 @@ SDL_SYS_ToDIEFFECT(SDL_Haptic * haptic, DIEFFECT * dest,
     dest->lpEnvelope = envelope;
     envelope->dwSize = sizeof(DIENVELOPE);      /* Always should be this. */
 
-    /* Axes. */
+    /* Axis. */
     dest->cAxes = haptic->naxes;
     if (dest->cAxes > 0) {
         axes = SDL_malloc(sizeof(DWORD) * dest->cAxes);

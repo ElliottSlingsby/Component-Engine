@@ -1,15 +1,17 @@
-#include "Axes.hpp"
+#include "Axis.hpp"
 
 #include <GL\glew.h>
 
-Axes::Axes(float length, bool fixedRotation){
+Axis::Axis(float length, bool fixedRotation){
 	_length = length;
 	
 	setUnlit(true);
 	setFixedRotation(fixedRotation);
 }
 
-void Axes::draw(){
+void Axis::draw(){
+	glLineWidth(2.5f);
+
 	glBegin(GL_LINES);
 
 	glColor3f(1.f, 0.f, 0.f);
@@ -27,4 +29,6 @@ void Axes::draw(){
 	glColor3f(1.f, 1.f, 1.f);
 
 	glEnd();
+
+	glLineWidth(1.f);
 }

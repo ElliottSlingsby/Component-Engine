@@ -15,12 +15,14 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Setup.cpp" />
     <ClCompile Include="Playing.cpp" />
+    <ClCompile Include="TestCamera.cpp" />
     <ClCompile Include="Velocity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Follow.hpp" />
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Playing.hpp" />
+    <ClInclude Include="TestCamera.hpp" />
     <ClInclude Include="Velocity.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

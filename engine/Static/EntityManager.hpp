@@ -27,7 +27,6 @@ class EntityManager{
 
 	int _newID();
 	void _removeID(int id);
-	void _deleteDestroyed();
 
 public:
 	~EntityManager();
@@ -81,6 +80,8 @@ public:
 	static Entity* getEntity(const std::string& name, unsigned int i = 0);
 	static void getEntities(const std::string& name, EntityVector& results);
 	static void getEntities(IntVector& results);
+
+	static void deleteDestroyed();
 
 	static void destroyEntity(int id, bool recursive = true);
 	static void destroyEntities(const std::string& name, bool recursive = true);

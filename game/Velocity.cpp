@@ -21,5 +21,5 @@ void Velocity::update(double dt){
 }
 
 void Velocity::localPush(const glm::vec3& push){
-	_push = push;
+	_push += push;
 }

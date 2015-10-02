@@ -703,7 +703,7 @@ typedef struct SDL_HapticCustom
     Uint16 interval;        /**< How soon it can be triggered again after button. */
 
     /* Custom */
-    Uint8 channels;         /**< Axes to use, minimum of one. */
+    Uint8 channels;         /**< Axis to use, minimum of one. */
     Uint16 period;          /**< Sample periods. */
     Uint16 samples;         /**< Amount of samples. */
     Uint16 *data;           /**< Should contain channels*samples items. */

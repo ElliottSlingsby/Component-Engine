@@ -5,7 +5,7 @@
 #include <Static\Renderer.hpp>
 #include <Static\AssetLoader.hpp>
 
-#include <Component\Line.hpp>
+#include <Component\Debug\Line.hpp>
 
 using namespace Module;
 
@@ -142,9 +142,9 @@ int Console::interpretInput(){
 				Entity* line = EntityManager::createEntity(results[3].str());
 
 				if (line){
-					glm::vec3 cross = glm::cross(lineFirst->vector(), lineSecond->vector());
+					glm::vec3 cross = glm::cross(glm::normalize(lineFirst->vector()), glm::normalize(lineSecond->vector()));
 
-					line->addComponent(new Line(cross));
+					line->addComponent(new Line(cross * 10.f));
 					line->trigger(Entity::TRIGGER_LOAD);
 
 					return VALID_CODE;

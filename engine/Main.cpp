@@ -55,6 +55,8 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::preRender);
 		EntityManager::invokeAll(&Component::render);
 
+		EntityManager::deleteDestroyed();
+
 		// Update window and console
 		Renderer::Window().flip();
 
@@ -90,6 +92,7 @@ int main(int argc, char *args[]){
 	}
 
 	EntityManager::destroyAll();
+	EntityManager::deleteDestroyed();
 
 	return 0;
 }

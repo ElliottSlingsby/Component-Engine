@@ -11,13 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Component\Axes.cpp" />
+    <ClCompile Include="Component\Debug\Axis.cpp" />
     <ClCompile Include="Component\Box.cpp" />
     <ClCompile Include="Component\Camera.cpp" />
     <ClCompile Include="Component\Collider.cpp" />
+    <ClCompile Include="Component\Debug\Grid.cpp" />
     <ClCompile Include="Component\Light.cpp" />
-    <ClCompile Include="Component\Line.cpp" />
+    <ClCompile Include="Component\Debug\Line.cpp" />
     <ClCompile Include="Component\Model.cpp" />
+    <ClCompile Include="Component\Debug\Noclip.cpp" />
     <ClCompile Include="Component\Sphere.cpp" />
     <ClCompile Include="Component\Transform.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
@@ -33,13 +35,15 @@
     <ClCompile Include="System\Collision.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component\Axes.hpp" />
+    <ClInclude Include="Component\Debug\Axis.hpp" />
     <ClInclude Include="Component\Box.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Collider.hpp" />
+    <ClInclude Include="Component\Debug\Grid.hpp" />
     <ClInclude Include="Component\Light.hpp" />
-    <ClInclude Include="Component\Line.hpp" />
+    <ClInclude Include="Component\Debug\Line.hpp" />
     <ClInclude Include="Component\Model.hpp" />
+    <ClInclude Include="Component\Debug\Noclip.hpp" />
     <ClInclude Include="Component\Sphere.hpp" />
     <ClInclude Include="Component\Transform.hpp" />
     <ClInclude Include="Entity\Component.hpp" />

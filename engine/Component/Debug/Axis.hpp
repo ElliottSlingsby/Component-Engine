@@ -2,11 +2,11 @@
 
 #include <Component\Model.hpp>
 
-class Axes : public Model{
+class Axis : public Model{
 	float _length;
 
 public:
-	Axes(float length, bool fixedRotation = true);
+	Axis(float length, bool fixedRotation = true);
 	
 	void draw();
 };

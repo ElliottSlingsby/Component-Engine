@@ -102,8 +102,6 @@ void EntityManager::destroyEntity(int id, bool recursive){
 		NameBank().unbindName(id, name);
 
 	entity->destroy(recursive);
-
-	_instance()._deleteDestroyed();
 }
 
 void EntityManager::destroyEntities(const std::string& name, bool recursive){
@@ -113,8 +111,6 @@ void EntityManager::destroyEntities(const std::string& name, bool recursive){
 	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++){
 		destroyEntity(*i, recursive);
 	}
-
-	_instance()._deleteDestroyed();
 }
 
 void EntityManager::getEntities(IntVector& results){
@@ -133,8 +129,6 @@ void EntityManager::destroyAll(){
 	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++){
 		destroyEntity(*i, false);
 	}
-
-	_instance()._deleteDestroyed();
 }
 
 void EntityManager::triggerAll(Entity::Triggers type){
@@ -149,7 +143,7 @@ void EntityManager::triggerAll(Entity::Triggers type){
 			getEntity(*i)->invoke(&Component::lateLoad);
 }
 
-void EntityManager::_deleteDestroyed(){
+void EntityManager::deleteDestroyed(){
 	for (int i = 0; i <= _instance()._highest; i++){
 		Entity* entity = _instance()._entities[i];
 
