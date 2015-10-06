@@ -71,7 +71,7 @@ int main(int argc, char *args[]){
 		if (difference < maxFrame){
 			double delay = maxFrame - difference;
 
-			SDL_Delay(delay);
+			SDL_Delay((Uint32)delay);
 
 			difference += ((double)(std::clock() - start) / (double)CLOCKS_PER_SEC) - difference;
 		}

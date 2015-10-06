@@ -96,14 +96,14 @@
     <ClCompile Include="Component\Debug\Line.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Debug\Noclip.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
     <ClCompile Include="Component\Debug\Axis.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
     <ClCompile Include="Component\Debug\Grid.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Debug\Noclip.cpp">
+      <Filter>Private\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,13 +177,13 @@
     <ClInclude Include="Component\Debug\Line.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Debug\Axis.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
     <ClInclude Include="Component\Debug\Noclip.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\Debug\Grid.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Debug\Axis.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
   </ItemGroup>

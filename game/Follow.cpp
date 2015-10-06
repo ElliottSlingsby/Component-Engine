@@ -57,12 +57,14 @@ void Follow::zoom(float difference){
 	_offset += ratio * difference;
 }
 
-void Follow::setId(int id){
+void Follow::setTarget(int id){
 	_id = id;
+	_name = "";
 }
 
-void Follow::setName(std::string name){
+void Follow::setTarget(std::string name){
 	_name = name;
+	_id = NULL_ID;
 }
 
 void Follow::setOffset(const glm::vec3& offset){

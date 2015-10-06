@@ -12,7 +12,7 @@ class Camera : public HelperComponent{
 	float _fogDensity = 0.f;
 
 	unsigned int _fov = 90;
-	unsigned int _drawDistance = 4096;
+	unsigned int _drawDistance = 16384;
 
 public:
 	void load();

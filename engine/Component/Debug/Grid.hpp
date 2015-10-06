@@ -8,9 +8,9 @@ class Grid : public Model{
 	int _majorLine;
 
 public:
-	enum GridAxis{ X, Y, Z };
+	enum GridAxis{ AxisX, AxisY, AxisZ };
 
-	Grid(int size = 512, float spacing = 64, int majorLine = 16, GridAxis plane = Y);
+	Grid(int size = 512, float spacing = 64, int majorLine = 16, GridAxis plane = AxisY);
 	
 	void draw();
 

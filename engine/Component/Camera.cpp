@@ -53,12 +53,10 @@ void Camera::setHorizontalPadding(unsigned int horizontalPadding){
 
 void Camera::setFov(unsigned int fov){
 	_fov = fov;
-
-	float ar = (float)Renderer::Window().width() / (float)Renderer::Window().height();
-	gluPerspective(fov / ar, ar, 0.1, _drawDistance);
+	reshape();
 }
 
 void Camera::setDrawDistance(unsigned int drawDistance){
 	_drawDistance = drawDistance;
-	setFov(_fov);
+	reshape();
 }

@@ -22,8 +22,8 @@ public:
 
 	void zoom(float difference);
 
-	void setId(int id = NULL_ID);
-	void setName(std::string name = "");
+	void setTarget(int id = NULL_ID);
+	void setTarget(std::string name = "");
 	void setOffset(const glm::vec3& offset = glm::vec3());
 	void setEase(float ease);
 };
