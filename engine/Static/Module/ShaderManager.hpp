@@ -30,6 +30,6 @@ namespace Module{
 		void loadShader(ShaderTypes type, const std::string& filepath);
 		void linkShaders();
 
-		void enableShader(ShaderTypes type, bool enabled);
+		void enableShader(ShaderTypes type, bool enabled = true);
 	};
 }

@@ -14,9 +14,14 @@ void Camera::preRender(){
 
 	glLoadIdentity();
 
-	glMultMatrixf(&glm::inverse(glm::mat4_cast(_transform->rotation()))[0][0]);
-
-	glTranslatef(_transform->position().x, _transform->position().y, _transform->position().z);
+	if (!_2d){
+		glMultMatrixf(&glm::inverse(glm::mat4_cast(_transform->rotation()))[0][0]);
+		glTranslatef(_transform->position().x, _transform->position().y, _transform->position().z);
+	}
+	else{
+		glMultMatrixf(&glm::inverse(glm::mat4_cast(glm::quat(glm::vec3(0, 0, glm::eulerAngles(_transform->rotation()).z))))[0][0]);
+		glTranslatef(_transform->position().x, _transform->position().y, 0);
+	}
 }
 
 void Camera::reshape(){
@@ -24,16 +29,30 @@ void Camera::reshape(){
 	glLoadIdentity();
 
 	float ar = (float)Renderer::Window().width() / (float)Renderer::Window().height();
-	gluPerspective(_fov / ar, ar, 0.1, _drawDistance);
+
+	if (!_2d){
+		gluPerspective(_fov / ar, ar, 0.1, _drawDistance);
+	}
+	else{
+		glOrtho(0, Renderer::Window().width() * _zoom, 0, Renderer::Window().height() * _zoom, -1, 1);
+		glTranslatef((Renderer::Window().width() * _zoom) / 2, (Renderer::Window().height() * _zoom) / 2, 0);
+	}
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	int hpad = 0;
-	int vpad = 75;
-
 	glScissor(_horizontalPadding, _verticalPadding, Renderer::Window().width() - _horizontalPadding * 2, Renderer::Window().height() - _verticalPadding * 2);
 	glFogf(GL_FOG_DENSITY, _fogDensity);
+}
+
+void Camera::set2d(bool mode){
+	_2d = mode;
+	reshape();
+}
+
+void Camera::setZoom(float zoom){
+	_zoom = zoom;
+	reshape();
 }
 
 void Camera::setFogDensity(float fogDensity){

@@ -131,7 +131,7 @@ void EntityManager::destroyAll(){
 	}
 }
 
-void EntityManager::triggerAll(Entity::Triggers type){
+void EntityManager::invokeAll(Entity::Triggers type){
 	IntVector ids;
 	getEntities(ids);
 

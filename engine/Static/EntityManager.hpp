@@ -36,7 +36,7 @@ public:
 	static Module::StateMachine& StateMachine();
 	static Module::NameBank& NameBank();
 
-	static void triggerAll(Entity::Triggers type);
+	static void invokeAll(Entity::Triggers type);
 
 	template<typename... T>
 	static void invokeAll(void (Component::* method)(T...), T... args){

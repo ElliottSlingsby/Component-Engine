@@ -35,6 +35,7 @@
     <ClCompile Include="System\Collision.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Box2d.hpp" />
     <ClInclude Include="Component\Debug\Axis.hpp" />
     <ClInclude Include="Component\Box.hpp" />
     <ClInclude Include="Component\Camera.hpp" />

@@ -46,6 +46,9 @@ public:
 	void setRotation(const glm::quat& vector);
 	void setScale(const glm::vec3& scale);
 
+	glm::vec3 apply(const glm::vec3& vector);
+	glm::vec2 apply2d(const glm::vec2& vector);
+
 	// Global movements
 	void translate(const glm::vec3& vector);
 	void rotate(const glm::quat& rotation);

@@ -87,6 +87,21 @@ void Transform::setScale(const glm::vec3& scale){
 	_scale = scale;
 }
 
+glm::vec3 Transform::apply(const glm::vec3& vector){
+	return (vector * glm::inverse(_rotation)) - _position;
+}
+
+glm::vec2 Transform::apply2d(const glm::vec2& vector){
+	float rotation = glm::eulerAngles(_rotation).z;
+
+	glm::vec3 vecTemp(vector.x, vector.y, 0);
+	glm::quat quatTemp(glm::vec3(0, 0, rotation));
+
+	vecTemp = vecTemp * glm::inverse(quatTemp) - _position;
+
+	return glm::vec2(vecTemp.x, vecTemp.y);
+}
+
 void Transform::translate(const glm::vec3& vector){
 	_position += vector;
 }

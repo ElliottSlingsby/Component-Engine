@@ -2,7 +2,8 @@
 
 #include "Identifier.hpp"
 
-struct Component : public Identifier{
+class Component : public Identifier{
+public:
 	Component(){}
 	virtual ~Component(){}
 
@@ -16,4 +17,7 @@ struct Component : public Identifier{
 	virtual void lateUpdate(double dt){}
 	virtual void preRender(){}
 	virtual void onCollision(int id){}
+
+	friend class EntityManager;
+	friend class Entity;
 };

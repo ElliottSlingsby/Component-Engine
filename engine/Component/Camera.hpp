@@ -14,12 +14,17 @@ class Camera : public HelperComponent{
 	unsigned int _fov = 90;
 	unsigned int _drawDistance = 16384;
 
+	bool _2d = false;
+	float _zoom = 1.f;
+
 public:
 	void load();
 	void preRender();
 
 	void reshape();
 
+	void set2d(bool mode);
+	void setZoom(float zoom);
 	void setFogDensity(float fogDensity);
 	void setVerticalPadding(unsigned int verticalPadding);
 	void setHorizontalPadding(unsigned int horizontalPadding);

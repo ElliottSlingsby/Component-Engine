@@ -186,5 +186,8 @@
     <ClInclude Include="Component\Debug\Grid.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Box2d.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

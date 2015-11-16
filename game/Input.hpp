@@ -13,6 +13,9 @@ class Input : public HelperComponent{
 	float _speed;
 	float _sensitivity;
 
+	bool _2d = false;
+	float _zoom = 1.f;
+
 public:
 	Input(float speed, float sensitivity);
 
@@ -24,7 +27,13 @@ public:
 	void forward();
 	void back();
 
+	void up(double dt);
+	void down(double dt);
+	void left(double dt);
+	void right(double dt);
+
 	// Setters
+	void set2d(bool mode);
 	void setSpeed(float speed);
 	void setSensitivity(float sensitivity);
 };

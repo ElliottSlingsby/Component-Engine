@@ -7,7 +7,7 @@
 class Renderer{
 	bool _running = false;
 
-	SDL_GLContext _glcontext = 0;
+	SDL_GLContext _glContext = 0;
 
 	Module::Window* _screen = 0;
 

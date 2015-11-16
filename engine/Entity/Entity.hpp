@@ -115,4 +115,6 @@ public:
 		// Not yet implemented
 		return 0;
 	}
+
+	friend class EntityManager;
 };

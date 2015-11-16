@@ -33,8 +33,8 @@ Renderer::~Renderer(){
 	delete _screen;
 	_screen = 0;
 
-	SDL_GL_DeleteContext(_glcontext);
-	_glcontext = 0;
+	SDL_GL_DeleteContext(_glContext);
+	_glContext = 0;
 }
 
 bool Renderer::_setupSDL(){
@@ -64,9 +64,9 @@ bool Renderer::_setupSDL(){
 
 bool Renderer::_setupGL(){
 	// OpenGl context object
-	_glcontext = SDL_GL_CreateContext(Window().window());
+	_glContext = SDL_GL_CreateContext(Window().window());
 
-	if (!_glcontext){
+	if (!_glContext){
 		std::string message = SDL_GetError();
 		error_out(message.c_str());
 		return false;
@@ -113,10 +113,6 @@ bool Renderer::reshape(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	float ar = (float)Window().width() / (float)Window().height();
-
-	gluPerspective(90 / ar, ar, 0.1, 2048); // 59 vfov = ~90 hfov
-
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -132,7 +128,7 @@ bool Renderer::initiate(){
  _instance()._screen;
 		_instance()._screen = new Module::Window(true);
 
-		SDL_GL_DeleteContext(_instance()._glcontext);
+		SDL_GL_DeleteContext(_instance()._glContext);
 	}
 	else{
 		_instance()._running = true;
