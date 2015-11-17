@@ -18,10 +18,13 @@
     <ClCompile Include="Velocity.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
+    <ClCompile Include="Follow.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="Follow.cpp">
+    <ClCompile Include="Movement.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
       <Filter>Private</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +35,13 @@
     <ClInclude Include="Velocity.hpp">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="Input.hpp">
+    <ClInclude Include="Follow.hpp">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="Follow.hpp">
+    <ClInclude Include="Movement.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

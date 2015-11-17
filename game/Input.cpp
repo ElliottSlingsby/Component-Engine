@@ -1,147 +1,46 @@
 #include "Input.hpp"
 
-#include <glm\gtc\quaternion.hpp>
-#include <SDL.h>
-#include <Component\Camera.hpp>
-
-Input::Input(float speed, float sensitivity){
-	_speed = speed;
-	_sensitivity = sensitivity;
-}
-
-void Input::load(){
-	_transform = getComponent<Transform>();
-	_velocity = getComponent<Velocity>();
-}
-
-void Input::lateLoad(){
-	Entity* camera = EntityManager::getEntity("camera");
-
-	if (camera)
-		_follow = camera->getComponent<Follow>();
+Input::Input(){
+	_keybinds.insert({
+		{ "up", SDL_SCANCODE_UP },
+		{ "down", SDL_SCANCODE_DOWN },
+		{ "left", SDL_SCANCODE_LEFT },
+		{ "right", SDL_SCANCODE_RIGHT },
+		{ "w", SDL_SCANCODE_W },
+		{ "s", SDL_SCANCODE_S },
+		{ "a", SDL_SCANCODE_A },
+		{ "d", SDL_SCANCODE_D },
+		{ "z", SDL_SCANCODE_Z },
+		{ "x", SDL_SCANCODE_X },
+		{ "q", SDL_SCANCODE_Q },
+		{ "e", SDL_SCANCODE_E },
+		{ "ctrl", SDL_SCANCODE_LCTRL },
+		{ "shift", SDL_SCANCODE_LSHIFT }
+	});
 }
 
 void Input::update(double dt){
-	const Uint8* keyDown = SDL_GetKeyboardState(0);
+	const Uint8* keysDown = SDL_GetKeyboardState(0);
 
-	if (keyDown[SDL_SCANCODE_Q])
-		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)((_speed / 200.0) * dt)))));
+	for (KeyMap::iterator i = _keybinds.begin(); i != _keybinds.end(); i++){
+		StringSet::iterator keyString = _down.find(i->first);
 
-	if (keyDown[SDL_SCANCODE_E])
-		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)((_speed / 200) * dt)))));
-
-	if (keyDown[SDL_SCANCODE_A]){
-		left(dt);
-
-		if (keyDown[SDL_SCANCODE_LSHIFT])
-			left(dt);
-	}
-
-	if (keyDown[SDL_SCANCODE_D]){
-		right(dt);
-
-		if (keyDown[SDL_SCANCODE_LSHIFT])
-			right(dt);
-	}
-
-	if (!_2d){
-		int mouseRX, mouseRY;
-
-		SDL_GetRelativeMouseState(&mouseRX, &mouseRY);
-
-		glm::quat lookX(glm::vec3(0.f, glm::radians(-(float)(mouseRX * _sensitivity)), 0.f));
-		glm::quat lookY(glm::vec3(glm::radians(-(float)(mouseRY * _sensitivity)), 0.f, 0.f));
-
-		_transform->localRotate(lookX);
-		_transform->localRotate(lookY);
-
-		if (_follow && keyDown[SDL_SCANCODE_DOWN])
-			_follow->zoom((float)((_speed / 500.0) * dt));
-
-		if (_follow && keyDown[SDL_SCANCODE_UP])
-			_follow->zoom((float)(-(_speed / 500.0) * dt));
-
-		if (keyDown[SDL_SCANCODE_W]){
-			forward();
-
-			if (keyDown[SDL_SCANCODE_LSHIFT])
-				forward();
+		if (keysDown[i->second]){
+			if (keyString == _down.end())
+				_down.insert(i->first);
 		}
-
-		if (keyDown[SDL_SCANCODE_S]){
-			back();
-
-			if (keyDown[SDL_SCANCODE_LSHIFT])
-				back();
-		}
-	}
-	else{
-		if (keyDown[SDL_SCANCODE_UP]){
-			_zoom -= 0.01f;
-			Entity* entity = EntityManager::getEntity("player");
-
-			if (entity)
-				entity->getComponent<Camera>()->setZoom(_zoom);
-		}
-
-		if (keyDown[SDL_SCANCODE_DOWN]){
-			_zoom += 0.01f;
-			Entity* entity = EntityManager::getEntity("player");
-
-			if (entity)
-				entity->getComponent<Camera>()->setZoom(_zoom);
-		}
-
-		if (keyDown[SDL_SCANCODE_W]){
-			up(dt);
-
-			if (keyDown[SDL_SCANCODE_LSHIFT])
-				up(dt);
-		}
-
-		if (keyDown[SDL_SCANCODE_S]){
-			down(dt);
-
-			if (keyDown[SDL_SCANCODE_LSHIFT])
-				down(dt);
+		else{
+			if (keyString != _down.end())
+				_down.erase(i->first);
 		}
 	}
 }
 
-void Input::forward(){
-	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, _speed / 50.f));
-}
+bool Input::isDown(const std::string& key){
+	StringSet::iterator keyString = _down.find(key);
 
-void Input::back(){
-	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, -_speed / 50.f));
-}
+	if (keyString == _down.end())
+		return false;
 
-void Input::up(double dt){
-	_velocity->localPush(glm::vec3(0.f, -_speed / 50.f, 0.f));
-}
-
-void Input::down(double dt){
-	_velocity->localPush(glm::vec3(0.f, _speed / 50.f, 0.f));
-}
-
-void Input::left(double dt){
-	_velocity->localPush(glm::vec3(_speed / 50.f, 0.f, 0.f));
-}
-
-void Input::right(double dt){
-	_velocity->localPush(glm::vec3(-_speed / 50.f, 0.f, 0.f));
-}
-
-void Input::set2d(bool mode){
-	_2d = mode;
-}
-
-void Input::setSpeed(float speed){
-	_speed = speed;
-}
-
-void Input::setSensitivity(float sensitivity){
-	_sensitivity = sensitivity;
+	return true;
 }

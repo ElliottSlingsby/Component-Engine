@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Box2d.cpp" />
     <ClCompile Include="Component\Debug\Axis.cpp" />
     <ClCompile Include="Component\Box.cpp" />
     <ClCompile Include="Component\Camera.cpp" />

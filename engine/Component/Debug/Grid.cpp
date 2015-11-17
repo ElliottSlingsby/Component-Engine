@@ -20,6 +20,8 @@ void Grid::draw(){
 		if (i % _majorLine)
 			glColor3f(0.65f, 0.65f, 0.65f);
 
+		glLineWidth(1);
+
 		glBegin(GL_LINES);
 
 		switch (_plane){
@@ -46,7 +48,7 @@ void Grid::draw(){
 		glEnd();
 
 		if (i % _majorLine)
-			glColor3f(1.f, 1.f, 1.f);
+			glColor3f(0.9f, 0.9f, 0.9f);
 	}
 	
 }

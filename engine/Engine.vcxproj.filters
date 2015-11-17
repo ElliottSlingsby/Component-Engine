@@ -105,6 +105,9 @@
     <ClCompile Include="Component\Debug\Noclip.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Box2d.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Setup.hpp" />

@@ -2,38 +2,22 @@
 
 #include <Entity\HelperComponent.hpp>
 
-#include "Velocity.hpp"
-#include "Follow.hpp"
+#include <unordered_map>
+#include <set>
+#include <SDL.h>
 
 class Input : public HelperComponent{
-	Transform* _transform = 0;
-	Velocity* _velocity = 0;
-	Follow* _follow = 0;
+	typedef std::unordered_map<std::string, int> KeyMap;
+	typedef std::set<std::string> StringSet;
 
-	float _speed;
-	float _sensitivity;
+	KeyMap _keybinds;
 
-	bool _2d = false;
-	float _zoom = 1.f;
-
+	StringSet _down;
+	
 public:
-	Input(float speed, float sensitivity);
+	Input();
 
-	void load();
-	void lateLoad();
 	void update(double dt);
 
-	// Movements
-	void forward();
-	void back();
-
-	void up(double dt);
-	void down(double dt);
-	void left(double dt);
-	void right(double dt);
-
-	// Setters
-	void set2d(bool mode);
-	void setSpeed(float speed);
-	void setSensitivity(float sensitivity);
+	bool isDown(const std::string& key);
 };

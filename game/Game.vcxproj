@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="Follow.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Movement.cpp" />
     <ClCompile Include="Setup.cpp" />
     <ClCompile Include="Playing.cpp" />
     <ClCompile Include="Velocity.cpp" />
@@ -20,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Follow.hpp" />
     <ClInclude Include="Input.hpp" />
+    <ClInclude Include="Movement.hpp" />
     <ClInclude Include="Playing.hpp" />
     <ClInclude Include="Velocity.hpp" />
   </ItemGroup>

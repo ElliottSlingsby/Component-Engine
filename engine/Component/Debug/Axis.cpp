@@ -10,7 +10,7 @@ Axis::Axis(float length, bool fixedRotation){
 }
 
 void Axis::draw(){
-	glLineWidth(2);
+	glLineWidth(4);
 
 	glBegin(GL_LINES);
 
