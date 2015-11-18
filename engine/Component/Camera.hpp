@@ -6,13 +6,13 @@
 class Camera : public HelperComponent{
 	Transform* _transform = 0;
 
-	unsigned int _verticalPadding = 0;
-	unsigned int _horizontalPadding = 0;
+	int _verticalPadding = 0;
+	int _horizontalPadding = 0;
 
 	float _fogDensity = 0.f;
 
-	unsigned int _fov = 90;
-	unsigned int _drawDistance = 16384;
+	int _fov = 90;
+	int _drawDistance = 16384;
 
 	bool _2d = false;
 	float _zoom = 1.f;

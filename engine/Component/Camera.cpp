@@ -34,7 +34,7 @@ void Camera::reshape(){
 		gluPerspective(_fov / ar, ar, 0.1, _drawDistance);
 	}
 	else{
-		glOrtho(0, Renderer::Window().width() * _zoom, Renderer::Window().height() * _zoom, 0, -1, 1);
+		glOrtho(0, Renderer::Window().width() * _zoom, Renderer::Window().height() * _zoom, 0, -_drawDistance, _drawDistance);
 		glTranslatef((Renderer::Window().width() * _zoom) / 2, (Renderer::Window().height() * _zoom) / 2, 0);
 	}
 

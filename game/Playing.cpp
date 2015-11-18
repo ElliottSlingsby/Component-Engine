@@ -17,12 +17,13 @@ void Playing::on(){
 	origin->addComponent(new Input);
 	
 	Entity* player = EntityManager::createEntity("player");
+	player->getComponent<Transform>()->setPosition(glm::vec3(0, 0, -1024));
 	player->addComponent(new Velocity(1.f));
 	player->addComponent(new Movement(35000.f, 0.1f));
 	player->getComponent<Movement>()->set2d(_2d);
 	player->addComponent(new Camera);
 	player->getComponent<Camera>()->set2d(_2d);
-	player->addComponent(new Box2d(128, 256));
+	player->addComponent(new Box2d(512, 32));
 	
 	Entity* box0 = EntityManager::createEntity("box0");
 	box0->getComponent<Transform>()->setPosition(glm::vec3(512, 512, 0));

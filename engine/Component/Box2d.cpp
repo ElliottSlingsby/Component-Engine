@@ -10,7 +10,28 @@ void Box2d::load(){
 	_transform = getComponent<Transform>();
 }
 
-void Box2d::update(double dt){
+void Box2d::lateUpdate(double dt){
+	// Updating this world coordinates for each corner
+	glm::vec2 half(_size.x / 2, _size.y / 2);
+
+	_corners[0] = _transform->apply2d(glm::vec2(-half.x, -half.y));
+	_corners[1] = _transform->apply2d(glm::vec2(half.x, -half.y));
+	_corners[2] = _transform->apply2d(glm::vec2(half.x, half.y));
+	_corners[3] = _transform->apply2d(glm::vec2(-half.x, half.y));
+
+	// Updating this axes rotation
+	_axes[0] = glm::vec2(0, 1);
+	_axes[1] = glm::vec2(1, 0);
+
+	glm::quat rotation(glm::vec3(0, 0, glm::eulerAngles(_transform->rotation()).z));
+
+	for (int i = 0; i < 2; i++){
+		glm::vec3 axis = glm::vec3(_axes[i].x, _axes[i].y, 0) * glm::inverse(rotation);
+		_axes[i] = glm::vec2(axis.x, axis.y);
+	}
+
+	_testColliding = false;
+
 	if (EntityManager::NameBank().getName(id()) == "player" || EntityManager::NameBank().getName(id()) == "box0"){
 		Entity* entity = EntityManager::getEntity("box0");
 
@@ -109,6 +130,7 @@ void Box2d::render(){
 	glEnd();
 
 	glLineWidth(1);
+	glColor3f(1.f, 1.f, 1.f);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_CULL_FACE);
@@ -128,25 +150,6 @@ bool Box2d::overlapping(const glm::vec2& first, const glm::vec2& second){
 }
 
 bool Box2d::isColliding(Box2d* other, bool recurse){
-	// Updating this world coordinates for each corner
-	glm::vec2 half(_size.x / 2, _size.y / 2);
-
-	_corners[0] = _transform->apply2d(glm::vec2(-half.x, -half.y));
-	_corners[1] = _transform->apply2d(glm::vec2(half.x, -half.y));
-	_corners[2] = _transform->apply2d(glm::vec2(half.x, half.y));
-	_corners[3] = _transform->apply2d(glm::vec2(-half.x, half.y));
-
-	// Updating this axes rotation
-	_axes[0] = glm::vec2(0, 1);
-	_axes[1] = glm::vec2(1, 0);
-
-	glm::quat rotation(glm::vec3(0, 0, glm::eulerAngles(_transform->rotation()).z));
-
-	for (int i = 0; i < 2; i++){
-		glm::vec3 axis = glm::vec3(_axes[i].x, _axes[i].y, 0) * glm::inverse(rotation);
-		_axes[i] = glm::vec2(axis.x, axis.y);
-	}
-
 	// Projecting other onto this axes and updating magnitudes
 	Box2d* targets[2] = { this, other };
 
