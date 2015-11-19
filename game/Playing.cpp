@@ -1,5 +1,7 @@
 #include "Playing.hpp"
 
+#include <Static\Renderer.hpp>
+
 #include <Component\Box2d.hpp>
 #include <Component\Camera.hpp>
 #include <Component\Debug\Axis.hpp>
@@ -31,6 +33,9 @@ void Playing::on(){
 	box0->addComponent(new Box2d(256, 128));
 
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
+
+	Renderer::ShaderManager().createProgram("red_shader", "simple_vertex.gls", "simple_fragment.gls");
+	//Renderer::ShaderManager().bindProgram("red_shader");
 }
 
 void Playing::off(){

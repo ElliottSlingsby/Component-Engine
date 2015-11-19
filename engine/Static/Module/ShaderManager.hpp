@@ -2,34 +2,35 @@
 
 #include <GL\glew.h>
 #include <string>
+#include <unordered_map>
+#include <stdint.h>
 
 namespace Module{
 	class ShaderManager{
 		std::string _shaderPath = "../";
 
-		GLint _shaderProgram = 0;
+		typedef std::unordered_map<std::string, int> GLintMap;
+		typedef std::vector<GLchar> CharVector;
+		
+		GLintMap _shaders;
+		GLintMap _programs;
 
-		GLint _vertexShader = 0;
-		GLint _fragmentShader = 0;
-		GLint _geomatryShader = 0;
+		std::string _loadText(const std::string& filename);
+		bool _glErrorCheck(const std::string& message, GLint target, int check, bool program = false);
+		bool _glErrorCheck();
 
 	public:
-		enum ShaderTypes{
-			SHADER_FRAGMENT = GL_FRAGMENT_SHADER,
-			SHADER_VERTEX = GL_VERTEX_SHADER,
-			SHADER_GEOMATRY = GL_GEOMETRY_SHADER,
+		enum ShaderType{
+			FRAGMENT = GL_FRAGMENT_SHADER,
+			VERTEX = GL_VERTEX_SHADER
 		};
 
 		~ShaderManager();
 
-		bool initiate();
-		//bool compile();
-		//bool load();
-
 		void setShaderLocation(const std::string& filepath);
-		void loadShader(ShaderTypes type, const std::string& filepath);
-		void linkShaders();
+		bool loadShader(const std::string& filename, ShaderType type);
 
-		void enableShader(ShaderTypes type, bool enabled = true);
+		void createProgram(const std::string& name, const std::string& vertexFilename, const std::string& fragmentFilename);
+		void bindProgram(const std::string& name);
 	};
 }

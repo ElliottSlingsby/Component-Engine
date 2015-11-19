@@ -101,7 +101,7 @@ bool Renderer::_setupGL(){
 		return false;
 	}
 
-	ShaderManager().initiate();
+	//ShaderManager().initiate();
 
 	return true;
 }
@@ -127,7 +127,6 @@ bool Renderer::initiate(){
 		
  _instance()._screen;
 		_instance()._screen = new Module::Window(true);
-
 		SDL_GL_DeleteContext(_instance()._glContext);
 	}
 	else{

@@ -5,51 +5,14 @@
 
 using namespace Module;
 
-ShaderManager::~ShaderManager(){
-	glDetachShader(_shaderProgram, _fragmentShader);
-	glDetachShader(_shaderProgram, _vertexShader);
-	//glDetachShader(_shaderProgram, _geomatryShader);
-
-	glDeleteShader(_fragmentShader);
-	glDeleteShader(_vertexShader);
-	//glDeleteShader(_geomatryShader);
-
-	glDeleteProgram(_shaderProgram);
-}
-
-bool ShaderManager::initiate(){
-	/*
-	// Sketchy shader setup
-	_shaderProgram = glCreateProgram();
-
-	_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-
-	glAttachShader(_shaderProgram, _fragmentShader);
-
-	if (error != GL_NO_ERROR){
-	std::string message = reinterpret_cast<const char*>(gluErrorString(error));
-
-	message_out("%s! %s: %s\n", "Failed to set initiate shader program", "OpenGL Error", message.c_str());
-	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Renderer Error", message.c_str(), _window);
-	return false;
-	}
-	*/
-
-	return true;
-}
-
-void ShaderManager::setShaderLocation(const std::string& filepath){
-	_shaderPath = "../" + filepath + "/";
-}
-
-void ShaderManager::loadShader(ShaderTypes type, const std::string& filepath){
+std::string ShaderManager::_loadText(const std::string& filename){
 	std::fstream file;
 
-	file.open((_shaderPath + filepath).c_str());
+	file.open((_shaderPath + filename).c_str());
 
 	if (!file){
-		error_out((std::string("Can't find shader file ") + _shaderPath + filepath).c_str());
-		return;
+		error_out((std::string("Can't find shader file ") + _shaderPath + filename).c_str());
+		return "";
 	}
 
 	std::string contents;
@@ -62,37 +25,130 @@ void ShaderManager::loadShader(ShaderTypes type, const std::string& filepath){
 
 	file.close();
 
-	const GLchar* code = reinterpret_cast<const GLchar*>(contents.c_str());
+	return contents;
+}
 
-	GLint shader = 0;
+bool ShaderManager::_glErrorCheck(){
+	GLenum err = glGetError();
 
-	if (type == SHADER_FRAGMENT)
-		shader = _fragmentShader;
-	else if (type == SHADER_VERTEX)
-		shader = _vertexShader;
-	else
-		return;
+	if (err != GL_NO_ERROR){
+		message_out("%s: %s\n", "OpenGL Error", gluErrorString(err));
+		return true;
+	}
+
+	return false;
+}
+
+ShaderManager::~ShaderManager(){
+	for (GLintMap::iterator i = _shaders.begin(); i != _shaders.end(); i++){
+		glDeleteShader(i->second);
+	}
+
+	for (GLintMap::iterator i = _programs.begin(); i != _programs.end(); i++){
+		glDeleteProgram(i->second);
+	}
+}
+
+void ShaderManager::setShaderLocation(const std::string& filepath){
+	_shaderPath = "../" + filepath + "/";
+}
+
+bool ShaderManager::loadShader(const std::string& filename, ShaderType type){
+	GLint shader = glCreateShader(type);
+
+	std::string string = _loadText(filename).c_str();
+	const char* code = string.c_str();
 
 	glShaderSource(shader, 1, &code, 0);
 	glCompileShader(shader);
 
-	GLint success;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-
-	if (success != GL_TRUE){
-
+	if (_glErrorCheck("GL_COMPILE_STATUS", shader, GL_COMPILE_STATUS)){
+		glDeleteShader(shader);
+		return false;
 	}
+
+	_shaders[filename] = shader;
+	return true;
 }
 
-void ShaderManager::linkShaders(){
-	glUseProgram(_shaderProgram);
-
-	glLinkProgram(_shaderProgram);
-
+bool ShaderManager::_glErrorCheck(const std::string& message, GLint target, int check, bool program){
 	GLint success;
-	glGetProgramiv(_shaderProgram, GL_LINK_STATUS, &success);
 
-	if (success != GL_TRUE){
+	if (program)
+		glGetProgramiv(target, check, &success);
+	else
+		glGetShaderiv(target, check, &success);
 
+	if (success == GL_FALSE){
+		GLint length = 0;
+
+		if (program)
+			glGetProgramiv(target, GL_INFO_LOG_LENGTH, &length);
+		else
+			glGetShaderiv(target, GL_INFO_LOG_LENGTH, &length);
+
+		CharVector error(length);
+
+		if (program)
+			glGetProgramInfoLog(target, length, &length, &error[0]);
+		else
+			glGetShaderInfoLog(target, length, &length, &error[0]);
+
+		message_out("%s:\n%s\n", message.c_str(), &error[0]);
+		
+		return true;
 	}
+
+	return false;
+}
+
+void ShaderManager::createProgram(const std::string& name, const std::string& vertexFilename, const std::string& fragmentFilename){
+	GLint program = glCreateProgram();
+
+
+	if (_shaders.find(vertexFilename) == _shaders.end()){
+		if (loadShader(vertexFilename, VERTEX) == false){
+			glDeleteProgram(program);
+			return;
+		}
+	}
+
+	if (_shaders.find(fragmentFilename) == _shaders.end()){
+		if (loadShader(fragmentFilename, FRAGMENT) == false){
+			glDeleteProgram(program);
+			return;
+		}
+	}
+
+	
+	glAttachShader(program, _shaders[vertexFilename]);
+	if (_glErrorCheck("GL_COMPILE_STATUS", program, GL_COMPILE_STATUS, true)){
+		glDeleteProgram(program);
+		return;
+	}
+
+	glAttachShader(program, _shaders[fragmentFilename]);
+	if (_glErrorCheck("GL_COMPILE_STATUS", program, GL_COMPILE_STATUS, true)){
+		glDeleteProgram(program);
+		return;
+	}
+	
+
+	glLinkProgram(program);
+	if (_glErrorCheck("GL_LINK_STATUS", program, GL_LINK_STATUS, true)){
+		glDeleteProgram(program);
+		return;
+	}
+
+	glValidateProgram(program);
+	if (_glErrorCheck("GL_VALIDATE_STATUS", program, GL_VALIDATE_STATUS, true)){
+		glDeleteProgram(program);
+		return;
+	}
+
+	_programs[name] = program;
+}
+
+void ShaderManager::bindProgram(const std::string& name){
+	glUseProgram(_programs[name]);
 }

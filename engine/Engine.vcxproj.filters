@@ -63,13 +63,7 @@
     <ClCompile Include="Static\Module\Console.cpp">
       <Filter>Private\Static\Module</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Box.cpp">
-      <Filter>Private\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Component\Camera.cpp">
-      <Filter>Private\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Collider.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
     <ClCompile Include="Component\Light.cpp">
@@ -78,14 +72,8 @@
     <ClCompile Include="Component\Model.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Sphere.cpp">
-      <Filter>Private\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Component\Transform.cpp">
       <Filter>Private\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="System\Collision.cpp">
-      <Filter>Private\System</Filter>
     </ClCompile>
     <ClCompile Include="Entity\Entity.cpp">
       <Filter>Private\Entity</Filter>
@@ -138,22 +126,13 @@
     <ClInclude Include="Static\Module\Console.hpp">
       <Filter>Public\Static\Module</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Box.hpp">
-      <Filter>Public\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Camera.hpp">
-      <Filter>Public\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Collider.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\Light.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\Model.hpp">
-      <Filter>Public\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Sphere.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\Transform.hpp">
@@ -173,9 +152,6 @@
     </ClInclude>
     <ClInclude Include="Entity\HelperComponent.hpp">
       <Filter>Public\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="System\Collision.hpp">
-      <Filter>Public\System</Filter>
     </ClInclude>
     <ClInclude Include="Component\Debug\Line.hpp">
       <Filter>Public\Component</Filter>
