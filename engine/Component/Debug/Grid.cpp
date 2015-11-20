@@ -50,5 +50,6 @@ void Grid::draw(){
 		if (i % _majorLine)
 			glColor3f(0.9f, 0.9f, 0.9f);
 	}
-	
+
+	glColor3f(1.f, 1.f, 1.f);
 }

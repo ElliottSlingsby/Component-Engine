@@ -28,18 +28,30 @@ void Camera::reshape(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	float ar = (float)Renderer::Window().width() / (float)Renderer::Window().height();
+	float aspectRatio = ((float)Renderer::Window().width() / (float)Renderer::Window().height());
+
+	glm::mat4 matrix(
+		-1,	0,	0,	0,
+		0,	-1,	0,	0,
+		0,	0,	1,	0,
+		0,	0,	0,	1
+	);
+
+	glMultMatrixf(&matrix[0][0]);
 
 	if (!_2d){
-		gluPerspective(_fov / ar, ar, 0.1, _drawDistance);
+		gluPerspective(_fov / aspectRatio, aspectRatio, 0.1, _drawDistance);
+		glRotatef(90.f, 1.f, 0.f, 0.f);
 	}
 	else{
-		glOrtho(0, Renderer::Window().width() * _zoom, Renderer::Window().height() * _zoom, 0, -_drawDistance, _drawDistance);
-		glTranslatef((Renderer::Window().width() * _zoom) / 2, (Renderer::Window().height() * _zoom) / 2, 0);
+		glOrtho(0, Renderer::Window().width() * _zoom, 0, Renderer::Window().height() * _zoom, -_drawDistance, _drawDistance);
+		//glTranslatef(Renderer::Window().width() * _zoom, Renderer::Window().height() * _zoom, 0);	//true 2d mode
+		glTranslatef((Renderer::Window().width() / 2) * _zoom, (Renderer::Window().height() / 2) * _zoom, 0);
 	}
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
 
 	glScissor(_horizontalPadding, _verticalPadding, Renderer::Window().width() - _horizontalPadding * 2, Renderer::Window().height() - _verticalPadding * 2);
 	glFogf(GL_FOG_DENSITY, _fogDensity);

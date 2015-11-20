@@ -28,17 +28,6 @@ std::string ShaderManager::_loadText(const std::string& filename){
 	return contents;
 }
 
-bool ShaderManager::_glErrorCheck(){
-	GLenum err = glGetError();
-
-	if (err != GL_NO_ERROR){
-		message_out("%s: %s\n", "OpenGL Error", gluErrorString(err));
-		return true;
-	}
-
-	return false;
-}
-
 ShaderManager::~ShaderManager(){
 	for (GLintMap::iterator i = _shaders.begin(); i != _shaders.end(); i++){
 		glDeleteShader(i->second);
@@ -104,8 +93,7 @@ bool ShaderManager::_glErrorCheck(const std::string& message, GLint target, int 
 
 void ShaderManager::createProgram(const std::string& name, const std::string& vertexFilename, const std::string& fragmentFilename){
 	GLint program = glCreateProgram();
-
-
+	
 	if (_shaders.find(vertexFilename) == _shaders.end()){
 		if (loadShader(vertexFilename, VERTEX) == false){
 			glDeleteProgram(program);
@@ -119,28 +107,30 @@ void ShaderManager::createProgram(const std::string& name, const std::string& ve
 			return;
 		}
 	}
-
-	
+		
 	glAttachShader(program, _shaders[vertexFilename]);
+
 	if (_glErrorCheck("GL_COMPILE_STATUS", program, GL_COMPILE_STATUS, true)){
 		glDeleteProgram(program);
 		return;
 	}
 
 	glAttachShader(program, _shaders[fragmentFilename]);
+
 	if (_glErrorCheck("GL_COMPILE_STATUS", program, GL_COMPILE_STATUS, true)){
 		glDeleteProgram(program);
 		return;
-	}
-	
+	}	
 
 	glLinkProgram(program);
+
 	if (_glErrorCheck("GL_LINK_STATUS", program, GL_LINK_STATUS, true)){
 		glDeleteProgram(program);
 		return;
 	}
 
 	glValidateProgram(program);
+
 	if (_glErrorCheck("GL_VALIDATE_STATUS", program, GL_VALIDATE_STATUS, true)){
 		glDeleteProgram(program);
 		return;

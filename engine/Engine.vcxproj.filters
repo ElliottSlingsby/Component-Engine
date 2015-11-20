@@ -168,5 +168,8 @@
     <ClInclude Include="Component\Box2d.hpp">
       <Filter>Public</Filter>
     </ClInclude>
+    <ClInclude Include="Static\Module\SDLFunctions.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

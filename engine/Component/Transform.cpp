@@ -107,11 +107,11 @@ void Transform::translate(const glm::vec3& vector){
 }
 
 void Transform::rotate(const glm::quat& rotation){
-	_rotation = rotation * _rotation;
+	_rotation = rotation * glm::inverse(_rotation);
 }
 
 void Transform::localTranslate(const glm::vec3& translation){
-	translate(_rotation *  translation);
+	translate(glm::inverse(_rotation) *  translation);
 }
 
 void Transform::localRotate(const glm::quat& rotation){

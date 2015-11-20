@@ -12,7 +12,7 @@ class Camera : public HelperComponent{
 	float _fogDensity = 0.f;
 
 	int _fov = 90;
-	int _drawDistance = 16384;
+	int _drawDistance = 2048;
 
 	bool _2d = false;
 	float _zoom = 1.f;

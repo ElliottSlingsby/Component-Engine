@@ -38,7 +38,7 @@ void Model::render(){
 		glMultMatrixf(&glm::mat4_cast(_transform->rotation())[0][0]);
 
 	// Scale based on Transform
-	glScalef(_transform->scale().x, _transform->scale().y, _transform->scale().z);
+	glScalef(-_transform->scale().x, -_transform->scale().y, _transform->scale().z);
 
 	if (_material)
 		glBindTexture(GL_TEXTURE_2D, _material->diffuse);

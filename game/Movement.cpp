@@ -45,11 +45,19 @@ void Movement::update(double dt){
 	if (!input)
 		return;
 
-	if (input->isDown("e"))
-		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)((_speed / 400.0) * dt)))));
+	if (input->isDown("e")){
+		_transform->localRotate(glm::quat(glm::vec3(0.f, glm::radians(-(float)((_speed / 512) * dt)), 0.f)));
 
-	if (input->isDown("q"))
-		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)((_speed / 400) * dt)))));
+		if (input->isDown("shift"))
+			_transform->localRotate(glm::quat(glm::vec3(0.f, glm::radians(-(float)((_speed / 512) * dt)), 0.f)));
+	}
+
+	if (input->isDown("q")){
+		_transform->localRotate(glm::quat(glm::vec3(0.f, glm::radians((float)((_speed / 512) * dt)), 0.f)));
+
+		if (input->isDown("shift"))
+			_transform->localRotate(glm::quat(glm::vec3(0.f, glm::radians((float)((_speed / 512) * dt)), 0.f)));
+	}
 
 	if (input->isDown("a")){
 		left();
@@ -88,7 +96,22 @@ void Movement::update(double dt){
 	}
 	else{
 		if (input->isDown("up")){
-			_zoom -= 0.01f;
+			up();
+
+			if (input->isDown("shift"))
+				up();
+		}
+
+		if (input->isDown("down")){
+			down();
+
+			if (input->isDown("shift"))
+				down();
+		}
+
+		if (input->isDown("up")){
+			_zoom *= 0.995f;
+
 			Entity* entity = EntityManager::getEntity("player");
 
 			if (entity){
@@ -100,7 +123,8 @@ void Movement::update(double dt){
 		}
 
 		if (input->isDown("down")){
-			_zoom += 0.01f;
+			_zoom /= 0.995f;
+
 			Entity* entity = EntityManager::getEntity("player");
 
 			if (entity){
@@ -112,29 +136,29 @@ void Movement::update(double dt){
 		}
 
 		if (input->isDown("w")){
-			up();
+			forward();
 
 			if (input->isDown("shift"))
-				up();
+				forward();
 		}
 
 		if (input->isDown("s")){
-			down();
+			back();
 
 			if (input->isDown("shift"))
-				down();
+				back();
 		}
 	}
 }
 
 void Movement::forward(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, _speed / 50.f));
+		_velocity->localPush(glm::vec3(0.f, 0.f, -_speed / 50.f));
 }
 
 void Movement::back(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, -_speed / 50.f));
+		_velocity->localPush(glm::vec3(0.f, 0.f, _speed / 50.f));
 }
 
 void Movement::up(){
@@ -149,12 +173,12 @@ void Movement::down(){
 
 void Movement::left(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(_speed / 50.f, 0.f, 0.f));
+		_velocity->localPush(glm::vec3(-_speed / 50.f, 0.f, 0.f));
 }
 
 void Movement::right(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(-_speed / 50.f, 0.f, 0.f));
+		_velocity->localPush(glm::vec3(_speed / 50.f, 0.f, 0.f));
 }
 
 void Movement::set2d(bool mode){

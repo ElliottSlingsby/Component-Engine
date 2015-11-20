@@ -5,6 +5,9 @@
 #include <algorithm>
 #include <Static\DebugOutput.hpp>
 #include <string>
+#include <glm\vec3.hpp>
+#include <glm\vec2.hpp>
+#include <SDL.h>
 
 struct Asset{
 	virtual ~Asset(){}
@@ -19,13 +22,16 @@ struct MeshData : public Asset{
 	const unsigned int textureSize;
 	const unsigned int normalSize;
 
-	MeshData(GLuint vertexBuffer, GLuint indexBuffer, unsigned int indicesSize, unsigned int vertexSize, unsigned int textureSize, unsigned int normalSize) :
+	const glm::vec3 size;
+
+	MeshData(GLuint vertexBuffer, GLuint indexBuffer, unsigned int indicesSize, unsigned int vertexSize, unsigned int textureSize, unsigned int normalSize, glm::vec3 size) :
 		vertexBuffer(vertexBuffer), 
 		indexBuffer(indexBuffer), 
 		indicesSize(indicesSize),
 		vertexSize(vertexSize),
 		textureSize(textureSize),
-		normalSize(normalSize){
+		normalSize(normalSize),
+		size(size){
 	}
 
 	~MeshData(){
@@ -39,10 +45,13 @@ struct MaterialData : public Asset{
 	const GLuint diffuse;
 	const GLuint ambient;
 
-	MaterialData(GLuint specular , GLuint diffuse, GLuint ambient) : 
+	const glm::vec2 size;
+
+	MaterialData(GLuint specular, GLuint diffuse, GLuint ambient, glm::vec2 size) :
 		specular(specular), 
 		diffuse(diffuse), 
-		ambient(ambient){
+		ambient(ambient),
+		size(size){
 	}
 
 	~MaterialData(){
@@ -53,10 +62,12 @@ struct MaterialData : public Asset{
 };
 
 class AssetLoader{
-	typedef std::unordered_map<std::string, const Asset*> AssetMap;
+	typedef std::unordered_map<std::string, Asset*> AssetMap;
 	AssetMap _assets;
 
 	std::string _assetPath = "../"; // Default asset location
+
+	SDL_Renderer* _renderer = 0;
 
 	// Private singleton for use in static functions
 	static AssetLoader& _instance();

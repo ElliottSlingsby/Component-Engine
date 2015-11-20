@@ -12,7 +12,7 @@ void Box2d::load(){
 
 void Box2d::lateUpdate(double dt){
 	// Updating this world coordinates for each corner
-	glm::vec2 half(_size.x / 2, _size.y / 2);
+	glm::vec2 half((_size.x * _transform->scale().x) / 2, (_size.y * _transform->scale().y) / 2);
 
 	_corners[0] = _transform->apply2d(glm::vec2(-half.x, -half.y));
 	_corners[1] = _transform->apply2d(glm::vec2(half.x, -half.y));

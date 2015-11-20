@@ -3,7 +3,6 @@
 #include <GL\glew.h>
 #include <string>
 #include <unordered_map>
-#include <stdint.h>
 
 namespace Module{
 	class ShaderManager{
@@ -17,7 +16,6 @@ namespace Module{
 
 		std::string _loadText(const std::string& filename);
 		bool _glErrorCheck(const std::string& message, GLint target, int check, bool program = false);
-		bool _glErrorCheck();
 
 	public:
 		enum ShaderType{

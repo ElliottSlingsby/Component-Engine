@@ -13,7 +13,7 @@ class Movement : public HelperComponent{
 	float _speed;
 	float _sensitivity;
 
-	bool _2d = false;
+	bool _2d = true;
 	float _zoom = 1.f;
 
 public:

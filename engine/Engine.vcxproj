@@ -45,6 +45,7 @@
     <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Entity\HelperComponent.hpp" />
     <ClInclude Include="Entity\Identifier.hpp" />
+    <ClInclude Include="Static\Module\SDLFunctions.hpp" />
     <ClInclude Include="Setup.hpp" />
     <ClInclude Include="Static\AssetLoader.hpp" />
     <ClInclude Include="Static\DebugOutput.hpp" />

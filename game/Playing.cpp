@@ -12,25 +12,31 @@
 #include "Input.hpp"
 
 void Playing::on(){
-	bool _2d = true;
-
 	Entity* origin = EntityManager::createEntity("main");
+	//origin->getComponent<Transform>()->setScale(glm::vec3(10, 10, 10));
+	//origin->addComponent(new Model("axis.obj", "rgb.png"));
+	//origin->getComponent<Model>()->setUnlit(true);
 	origin->addComponent(new Grid(512, 8, 8, Grid::AxisZ));
+	//origin->addComponent(new Axis(64));
 	origin->addComponent(new Input);
-	
+
 	Entity* player = EntityManager::createEntity("player");
 	player->getComponent<Transform>()->setPosition(glm::vec3(0, 0, -1024));
+	player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
 	player->addComponent(new Velocity(1.f));
-	player->addComponent(new Movement(35000.f, 0.1f));
-	player->getComponent<Movement>()->set2d(_2d);
+	player->addComponent(new Movement(25000.f, 0.1f));
 	player->addComponent(new Camera);
-	player->getComponent<Camera>()->set2d(_2d);
-	player->addComponent(new Box2d(512, 32));
+	player->getComponent<Camera>()->set2d(true);
+	player->getComponent<Camera>()->setFov(90);
+	player->addComponent(new Box2d(32, 64));
 	
 	Entity* box0 = EntityManager::createEntity("box0");
-	box0->getComponent<Transform>()->setPosition(glm::vec3(512, 512, 0));
-	box0->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(0, 0, 85)));
-	box0->addComponent(new Box2d(256, 128));
+	box0->addComponent(new Model("cube.obj", "test.jpg"));
+	box0->getComponent<Model>()->setUnlit(true);
+	box0->getComponent<Transform>()->setScale(glm::vec3(4, 4, 4));
+	box0->getComponent<Transform>()->setPosition(glm::vec3(512, 512, -2));
+	box0->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(0, 0, glm::radians(10.f))));
+	box0->addComponent(new Box2d(65, 65));
 
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 
