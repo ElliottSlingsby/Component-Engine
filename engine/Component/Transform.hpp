@@ -37,6 +37,8 @@ public:
 	glm::vec3 position();
 	glm::quat rotation();
 	glm::vec3 scale();
+	glm::vec3 localPosition();
+	glm::quat localRotation();
 
 	unsigned int childrenSize();
 

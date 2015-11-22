@@ -21,7 +21,7 @@ void Playing::on(){
 	origin->addComponent(new Input);
 
 	Entity* player = EntityManager::createEntity("player");
-	player->getComponent<Transform>()->setPosition(glm::vec3(0, 0, -1024));
+	player->getComponent<Transform>()->setPosition(glm::vec3(-256, 0, -1024));
 	player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
 	player->addComponent(new Velocity(1.f));
 	player->addComponent(new Movement(25000.f, 0.1f));
@@ -38,10 +38,14 @@ void Playing::on(){
 	box0->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(0, 0, glm::radians(10.f))));
 	box0->addComponent(new Box2d(65, 65));
 
+	player->getComponent<Transform>()->setParent(box0->getComponent<Transform>());
+
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 
 	Renderer::ShaderManager().createProgram("red_shader", "simple_vertex.gls", "simple_fragment.gls");
-	//Renderer::ShaderManager().bindProgram("red_shader");
+	//Renderer::ShaderManager().useProgram("red_shader");
+
+	//Renderer::ShaderManager()
 }
 
 void Playing::off(){

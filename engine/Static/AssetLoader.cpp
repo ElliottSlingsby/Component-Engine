@@ -126,7 +126,7 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 
 	SDL_Surface* flipped = flipVertical(image);
 	
-	SDL_FreeSurface(image);
+	//SDL_FreeSurface(image);
 
 	// Upload pixels
 	glTexImage2D(GL_TEXTURE_2D, 0, format, flipped->w, flipped->h, 0, format, GL_UNSIGNED_BYTE, flipped->pixels);

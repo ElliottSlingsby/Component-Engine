@@ -3,6 +3,7 @@
 #include <GL\glew.h>
 #include <string>
 #include <unordered_map>
+#include <glm\vec3.hpp>
 
 namespace Module{
 	class ShaderManager{
@@ -29,6 +30,8 @@ namespace Module{
 		bool loadShader(const std::string& filename, ShaderType type);
 
 		void createProgram(const std::string& name, const std::string& vertexFilename, const std::string& fragmentFilename);
-		void bindProgram(const std::string& name);
+		void useProgram(const std::string& name = "");
+
+		void attribute(const glm::vec3& vector);
 	};
 }

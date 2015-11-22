@@ -16,7 +16,7 @@ class Camera : public HelperComponent{
 
 	bool _2d = false;
 	float _zoom = 1.f;
-
+	
 public:
 	void load();
 	void preRender();

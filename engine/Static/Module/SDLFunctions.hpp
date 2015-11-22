@@ -27,16 +27,16 @@ SDL_Surface* flipVertical(SDL_Surface* surface) {
 	SDL_LockSurface(flipped);
 
 	const int pitch = surface->pitch;
-	const int pixelLength = pitch * surface->h;
+	const int pixelsLength = pitch * surface->h;
 
-	PixelFormat* pixels = (PixelFormat*)(surface->pixels) + pixelLength;
-	PixelFormat* pixelsFlipped = (PixelFormat*)(flipped->pixels);
+	PixelFormat* pixels = (PixelFormat*)(surface->pixels) + pixelsLength - pitch;
+	PixelFormat* rPixels = (PixelFormat*)(flipped->pixels);
 
 	for (int i = 0; i < surface->h; i++) {
-		memcpy(pixelsFlipped, pixels, pitch);
+		memcpy(rPixels, pixels, pitch);
 
 		pixels -= pitch;
-		pixelsFlipped += pitch;
+		rPixels += pitch;
 	}
 
 	return flipped;

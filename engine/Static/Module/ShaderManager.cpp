@@ -139,6 +139,13 @@ void ShaderManager::createProgram(const std::string& name, const std::string& ve
 	_programs[name] = program;
 }
 
-void ShaderManager::bindProgram(const std::string& name){
-	glUseProgram(_programs[name]);
+void ShaderManager::useProgram(const std::string& name){
+	if (name != "")
+		glUseProgram(_programs[name]);
+	else
+		glUseProgram(0);
+}
+
+void ShaderManager::attribute(const glm::vec3& vector){
+	glVertexAttribLPointer(0, 3, GL_FLOAT, sizeof(GL_FLOAT) * 3, &vector.x);
 }

@@ -10,7 +10,7 @@ void Velocity::load(){
 }
 
 void Velocity::update(double dt){
-	_velocity = glm::mix(_velocity, _transform->rotation() * _push, (float)dt);
+	_velocity = glm::mix(_velocity, _transform->localRotation() * _push, (float)dt);
 
 	_push = glm::vec3(0, 0, 0);
 

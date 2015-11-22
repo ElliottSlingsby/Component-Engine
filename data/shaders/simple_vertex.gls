@@ -1,5 +1,11 @@
-attribute vec3 position;
+#version 420
+
+in vec3 position;
+in vec2 in_coords
+
+out highp vec2 out_coords
 
 void main(){
+	out_coords = in_coords;
 	gl_Position = vec4(position, 1.0);
 }
