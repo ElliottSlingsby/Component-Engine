@@ -153,12 +153,12 @@ void Movement::update(double dt){
 
 void Movement::forward(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, -_speed * _zoom / 50.f));
+		_velocity->localPush(glm::vec3(0.f, 0.f, -_speed / 50.f));
 }
 
 void Movement::back(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, _speed * _zoom / 50.f));
+		_velocity->localPush(glm::vec3(0.f, 0.f, _speed / 50.f));
 }
 
 void Movement::up(){
