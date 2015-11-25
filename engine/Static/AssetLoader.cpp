@@ -101,7 +101,7 @@ MeshData* AssetLoader::_loadMesh(const std::string& filepath){
 
 MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 	if (!_renderer)
-		_renderer = SDL_CreateRenderer(Renderer::Window().window(), -1, SDL_RENDERER_ACCELERATED);
+		_renderer = SDL_CreateRenderer(Renderer::window().sdlWindow(), -1, SDL_RENDERER_ACCELERATED);
 
 	SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
 

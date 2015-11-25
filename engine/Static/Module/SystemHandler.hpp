@@ -17,40 +17,38 @@ struct System{
 	virtual ~System(){}
 };
 
-namespace Module{
-	class SystemHandler{
-		typedef std::unordered_map<const type_info*, System*> SystemMap;
-		SystemMap _systems;
+class SystemHandler{
+	typedef std::unordered_map<const type_info*, System*> SystemMap;
+	SystemMap _systems;
 
-	public:
-		template<typename T>
-		void addSystem(T* system){
-			if (!_systems[&typeid(T)])
-				_systems[&typeid(T)] = system;
-			else
-				message_out("%s!\n", "System already added");
-		}
+public:
+	template<typename T>
+	void addSystem(T* system){
+		if (!_systems[&typeid(T)])
+			_systems[&typeid(T)] = system;
+		else
+			message_out("%s!\n", "System already added");
+	}
 
-		template<typename T>
-		void registerToSystem(T* component){
-			for (SystemMap::iterator i = _systems.begin(); i != _systems.end(); i++){
-				if (i->second->type == &typeid(T))
-					i->second->registerComponent(component);
-			}
+	template<typename T>
+	void registerToSystem(T* component){
+		for (SystemMap::iterator i = _systems.begin(); i != _systems.end(); i++){
+			if (i->second->type == &typeid(T))
+				i->second->registerComponent(component);
 		}
+	}
 
-		template<typename T>
-		void unregisterFromSystem(T* component){
-			for (SystemMap::iterator i = _systems.begin(); i != _systems.end(); i++){
-				if (i->second->type == &typeid(T))
-					i->second->unregisterComponent(component);
-			}
+	template<typename T>
+	void unregisterFromSystem(T* component){
+		for (SystemMap::iterator i = _systems.begin(); i != _systems.end(); i++){
+			if (i->second->type == &typeid(T))
+				i->second->unregisterComponent(component);
 		}
+	}
 
-		void runSystems(){
-			for (SystemMap::iterator i = _systems.begin(); i != _systems.end(); i++){
-				i->second->update();
-			}
+	void runSystems(){
+		for (SystemMap::iterator i = _systems.begin(); i != _systems.end(); i++){
+			i->second->update();
 		}
-	};
-}
+	}
+};

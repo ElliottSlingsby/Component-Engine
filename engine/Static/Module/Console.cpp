@@ -7,8 +7,6 @@
 
 #include <Component\Debug\Line.hpp>
 
-using namespace Module;
-
 static int consoleThread(void* data){
 	Console& console = *static_cast<Console*>(data);
 
@@ -116,7 +114,7 @@ int Console::interpretInput(){
 		EntityManager::getEntities(ids);
 
 		for (IntVector::iterator i = ids.begin(); i != ids.end(); i++)
-			std::cout << *i << " : " << EntityManager::NameBank().getName(*i) << std::endl;
+			std::cout << *i << " : " << EntityManager::nameBank().getName(*i) << std::endl;
 
 		return VALID_CODE;
 	}
@@ -172,7 +170,7 @@ int Console::interpretInput(){
 		return INVALID_CODE;
 	}
 	else if (std::regex_match(input, results, _patternMap["reload"])){
-		EntityManager::StateMachine().reload();
+		EntityManager::stateMachine().reload();
 
 		return VALID_CODE;
 	}

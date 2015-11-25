@@ -35,12 +35,7 @@ void Movement::update(double dt){
 		_transform->localRotate(lookY);
 	}
 
-	Entity* entity = EntityManager::getEntity("main");
-
-	if (!entity)
-		return;
-
-	Input* input = entity->getComponent<Input>();
+	Input* input = getComponent<Input>();
 
 	if (!input)
 		return;

@@ -30,7 +30,7 @@ int main(int argc, char *args[]){
 	double fps = 200;
 	double maxFrame = (double)CLOCKS_PER_SEC / fps;
 
-	while (running && Renderer::Window().running()){
+	while (running && Renderer::window().running()){
 		// Start timer and check for exit conditions
 		start = std::clock();
 
@@ -47,7 +47,7 @@ int main(int argc, char *args[]){
 		}
 
 		// Invoke entities and systems
-		EntityManager::SystemHandler().runSystems();
+		EntityManager::systemHandler().runSystems();
 
 		EntityManager::invokeAll(&Component::update, difference);
 		EntityManager::invokeAll(&Component::lateUpdate, difference);
@@ -58,11 +58,11 @@ int main(int argc, char *args[]){
 		EntityManager::deleteDestroyed();
 
 		// Update window and console
-		Renderer::Window().flip();
+		Renderer::window().flip();
 
-		Renderer::Window().setTitle(std::to_string(1.0 / difference).c_str());
+		Renderer::window().setTitle(std::to_string(1.0 / difference).c_str());
 
-		if (Renderer::Console().interpretInput() == Module::Console::EXIT_CODE)
+		if (Renderer::console().interpretInput() == Console::EXIT_CODE)
 			running = false;
 		
 		// Delta time calculations and averaging

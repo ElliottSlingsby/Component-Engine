@@ -45,6 +45,6 @@ struct HelperComponent : public Component{
 	}
 
 	std::string name(){
-		return EntityManager::NameBank().getName(id());
+		return EntityManager::nameBank().getName(id());
 	}
 };

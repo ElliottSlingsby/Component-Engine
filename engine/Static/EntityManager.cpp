@@ -16,18 +16,18 @@ EntityManager& EntityManager::_instance(){
 	return instance;
 }
 
-Module::SystemHandler& EntityManager::SystemHandler(){
-	static Module::SystemHandler systems;
+SystemHandler& EntityManager::systemHandler(){
+	static SystemHandler systems;
 	return systems;
 }
 
-Module::StateMachine& EntityManager::StateMachine(){
-	static Module::StateMachine states;
+StateMachine& EntityManager::stateMachine(){
+	static StateMachine states;
 	return states;
 }
 
-Module::NameBank& EntityManager::NameBank(){
-	static Module::NameBank names;
+NameBank& EntityManager::nameBank(){
+	static NameBank names;
 	return names;
 }
 

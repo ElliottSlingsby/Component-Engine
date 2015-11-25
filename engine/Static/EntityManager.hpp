@@ -32,9 +32,9 @@ public:
 	~EntityManager();
 
 	// Modules
-	static Module::SystemHandler& SystemHandler();
-	static Module::StateMachine& StateMachine();
-	static Module::NameBank& NameBank();
+	static SystemHandler& systemHandler();
+	static StateMachine& stateMachine();
+	static NameBank& nameBank();
 
 	static void invokeAll(Entity::Triggers type);
 

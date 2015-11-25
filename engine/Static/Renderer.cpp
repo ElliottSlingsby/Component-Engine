@@ -5,7 +5,7 @@
 #include <Static\DebugOutput.hpp>
 
 Renderer::Renderer(){
-	_screen = new Module::Window(true);
+	_window = new Window();
 }
 
 Renderer& Renderer::_instance(){
@@ -13,25 +13,25 @@ Renderer& Renderer::_instance(){
 	return instance;
 }
 
-Module::Window& Renderer::Window(){
-	return *_instance()._screen;
+Window& Renderer::window(){
+	return *_instance()._window;
 }
 
-Module::Console& Renderer::Console(){
-	static Module::Console instance;
+Console& Renderer::console(){
+	static Console instance;
 	return instance;
 }
 
-Module::ShaderManager& Renderer::ShaderManager(){
-	static Module::ShaderManager instance;
+ShaderManager& Renderer::shaderManager(){
+	static ShaderManager instance;
 	return instance;
 }
 
 Renderer::~Renderer(){
 	_running = false;
 
-	delete _screen;
-	_screen = 0;
+	delete _window;
+	_window = 0;
 
 	SDL_GL_DeleteContext(_glContext);
 	_glContext = 0;
@@ -57,14 +57,14 @@ bool Renderer::_setupSDL(){
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	
-	Window().initiate();
+	_window->initiate();
 
 	return true;
 }
 
 bool Renderer::_setupGL(){
 	// OpenGl context object
-	_glContext = SDL_GL_CreateContext(Window().window());
+	_glContext = SDL_GL_CreateContext(_window->sdlWindow());
 
 	if (!_glContext){
 		std::string message = SDL_GetError();
@@ -101,14 +101,12 @@ bool Renderer::_setupGL(){
 		return false;
 	}
 
-	//ShaderManager().initiate();
-
 	return true;
 }
 
-bool Renderer::reshape(){
+void Renderer::reshape(){
 	// Setting up OpenGL matrices
-	glViewport(0, 0, Window().width(), Window().height());
+	glViewport(0, 0, window().width(), window().height());
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -117,20 +115,16 @@ bool Renderer::reshape(){
 	glLoadIdentity();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	return true;
 }
 
 bool Renderer::initiate(){
 	// If already running, reset
 	if (_instance()._running){
-		
- _instance()._screen;
-		_instance()._screen = new Module::Window(true);
+		_instance()._window->initiate();
 		SDL_GL_DeleteContext(_instance()._glContext);
-	}
-	else{
-		_instance()._running = true;
+
+		//_instance()._window = new Window();
+		//SDL_GL_DeleteContext(_instance()._glContext);
 	}
 
 	// Returns false if failed to setup
@@ -140,5 +134,9 @@ bool Renderer::initiate(){
 	if (!_instance()._setupGL())
 		return false;
 
-	return reshape();
+	_instance()._running = true;
+
+	reshape();
+
+	return true;
 }

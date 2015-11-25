@@ -9,7 +9,7 @@ class Renderer{
 
 	SDL_GLContext _glContext = 0;
 
-	Module::Window* _screen = 0;
+	Window* _window = 0;
 
 	bool _setupSDL();
 	bool _setupGL(); 
@@ -22,12 +22,12 @@ class Renderer{
 public:	
 	~Renderer();
 
-	static Module::Window& Window();
-	static Module::ShaderManager& ShaderManager();
-	static Module::Console& Console();
+	static Window& window();
+	static ShaderManager& shaderManager();
+	static Console& console();
 	
 	static bool initiate();
 
 	// Reshapes the OpenGL matrices to initial shape
-	static bool reshape(); 
+	static void reshape(); 
 };

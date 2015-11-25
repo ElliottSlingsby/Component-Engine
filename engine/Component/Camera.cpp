@@ -28,7 +28,7 @@ void Camera::reshape(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	float aspectRatio = ((float)Renderer::Window().width() / (float)Renderer::Window().height());
+	float aspectRatio = ((float)Renderer::window().width() / (float)Renderer::window().height());
 
 	glm::mat4 matrix(
 		-1,	0,	0,	0,
@@ -44,16 +44,16 @@ void Camera::reshape(){
 		glRotatef(90.f, 1.f, 0.f, 0.f);
 	}
 	else{
-		glOrtho(0, Renderer::Window().width() * _zoom, 0, Renderer::Window().height() * _zoom, -_drawDistance, _drawDistance);
+		glOrtho(0, Renderer::window().width() * _zoom, 0, Renderer::window().height() * _zoom, -_drawDistance, _drawDistance);
 		//glTranslatef(Renderer::Window().width() * _zoom, Renderer::Window().height() * _zoom, 0);	//true 2d mode
-		glTranslatef((Renderer::Window().width() / 2) * _zoom, (Renderer::Window().height() / 2) * _zoom, 0);
+		glTranslatef((Renderer::window().width() / 2) * _zoom, (Renderer::window().height() / 2) * _zoom, 0);
 	}
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
 
-	glScissor(_horizontalPadding, _verticalPadding, Renderer::Window().width() - _horizontalPadding * 2, Renderer::Window().height() - _verticalPadding * 2);
+	glScissor(_horizontalPadding, _verticalPadding, Renderer::window().width() - _horizontalPadding * 2, Renderer::window().height() - _verticalPadding * 2);
 	glFogf(GL_FOG_DENSITY, _fogDensity);
 }
 
@@ -74,7 +74,7 @@ void Camera::setFogDensity(float fogDensity){
 
 void Camera::setVerticalPadding(unsigned int verticalPadding){
 	_verticalPadding = verticalPadding;
-	glScissor(_horizontalPadding, _verticalPadding, Renderer::Window().width() - _horizontalPadding * 2, Renderer::Window().height() - _verticalPadding * 2);
+	glScissor(_horizontalPadding, _verticalPadding, Renderer::window().width() - _horizontalPadding * 2, Renderer::window().height() - _verticalPadding * 2);
 }
 
 void Camera::setHorizontalPadding(unsigned int horizontalPadding){

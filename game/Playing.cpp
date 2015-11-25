@@ -13,17 +13,13 @@
 
 void Playing::on(){
 	Entity* origin = EntityManager::createEntity("main");
-	//origin->getComponent<Transform>()->setScale(glm::vec3(10, 10, 10));
-	//origin->addComponent(new Model("axis.obj", "rgb.png"));
-	//origin->getComponent<Model>()->setUnlit(true);
 	origin->addComponent(new Grid(512, 8, 8, Grid::AxisZ));
-	//origin->addComponent(new Axis(64));
-	origin->addComponent(new Input);
 
 	Entity* player = EntityManager::createEntity("player");
 	player->getComponent<Transform>()->setPosition(glm::vec3(-256, 0, -1024));
 	player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
 	player->addComponent(new Velocity(1.f));
+	player->addComponent(new Input);
 	player->addComponent(new Movement(25000.f, 0.1f));
 	player->addComponent(new Camera);
 	player->getComponent<Camera>()->set2d(false);
@@ -42,10 +38,8 @@ void Playing::on(){
 
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 
-	Renderer::ShaderManager().createProgram("red_shader", "simple_vertex.gls", "simple_fragment.gls");
-	//Renderer::ShaderManager().useProgram("red_shader");
-
-	//Renderer::ShaderManager()
+	//Renderer::shaderManager().createProgram("shader", "simple_vertex.gls", "simple_fragment.gls");
+	//Renderer::shaderManager().useProgram("shader");
 }
 
 void Playing::off(){

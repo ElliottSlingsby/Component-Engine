@@ -3,22 +3,20 @@
 #include "Playing.hpp"
 
 bool setup(int argc, char *args[]){
-	Renderer::Window().setSize(1280, 720);
-	Renderer::Window().setFixedMouse(true);
-
-	//EntityManager::SystemHandler().addSystem(new Collision);
+	Renderer::window().setSize(1280, 720);
+	Renderer::window().setFixedMouse(true);
 
 	AssetLoader::setAssetLocation("data/assets");
-	Renderer::ShaderManager().setShaderLocation("data/shaders");
+	Renderer::shaderManager().setShaderLocation("data/shaders");
 
 	if (!Renderer::initiate())
 		return false;
 
-	EntityManager::StateMachine().addState(new Playing);
-	EntityManager::StateMachine().changeState<Playing>();
+	EntityManager::stateMachine().addState(new Playing);
+	EntityManager::stateMachine().changeState<Playing>();
 
 #ifdef _DEBUG
-	Renderer::Console().setRunning(true);
+	Renderer::console().setRunning(true);
 #endif
 	
 	return true;

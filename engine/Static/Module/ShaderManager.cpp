@@ -3,8 +3,6 @@
 
 #include <fstream>
 
-using namespace Module;
-
 std::string ShaderManager::_loadText(const std::string& filename){
 	std::fstream file;
 

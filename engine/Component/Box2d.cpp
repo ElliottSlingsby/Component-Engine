@@ -32,7 +32,7 @@ void Box2d::lateUpdate(double dt){
 
 	_testColliding = false;
 
-	if (EntityManager::NameBank().getName(id()) == "player" || EntityManager::NameBank().getName(id()) == "box0"){
+	if (EntityManager::nameBank().getName(id()) == "player" || EntityManager::nameBank().getName(id()) == "box0"){
 		Entity* entity = EntityManager::getEntity("box0");
 
 		if (!entity)
@@ -53,14 +53,14 @@ void Box2d::lateUpdate(double dt){
 		if (!player)
 			return;
 
-		if (EntityManager::NameBank().getName(id()) == "player"){
+		if (EntityManager::nameBank().getName(id()) == "player"){
 			if (isColliding(box))
 				_testColliding = true;
 			else
 				_testColliding = false;
 		}
 
-		if (EntityManager::NameBank().getName(id()) == "box0"){
+		if (EntityManager::nameBank().getName(id()) == "box0"){
 			if (isColliding(player))
 				_testColliding = true;
 			else
@@ -75,7 +75,7 @@ void Box2d::render(){
 	glDisable(GL_LIGHTING);
 	glDisable(GL_CULL_FACE);
 
-	if (EntityManager::NameBank().getName(id()) == "player" || EntityManager::NameBank().getName(id()) == "box0"){
+	if (EntityManager::nameBank().getName(id()) == "player" || EntityManager::nameBank().getName(id()) == "box0"){
 		// Rotating debug axes
 		float length = 2056;
 

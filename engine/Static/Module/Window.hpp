@@ -3,42 +3,38 @@
 #include <SDL.h>
 #include <string>
 
-namespace Module{
-	class Window{
-		std::string _title = "";
+class Window{
+	std::string _title = "";
 
-		unsigned int _width;
-		unsigned int _height;
+	unsigned int _width;
+	unsigned int _height;
 
-		int _windowMode = SDL_WINDOW_SHOWN;
+	int _windowMode = SDL_WINDOW_SHOWN;
 
-		bool _fixedMouse = false;
+	bool _fixedMouse = false;
 
-		SDL_Window* _window = 0;
+	SDL_Window* _sdlWindow = 0;
 
-		bool _running = false;
-		bool _glEnabled;
+	bool _running = false;
 
-	public:
-		Window(bool glEnabled = false);
-		~Window();
+public:
+	~Window();
 
-		// Setters
-		void setFixedMouse(bool fixedMouse);
-		void setSize(unsigned int width, unsigned int height);
-		void setTitle(const char* title);
-		void setWindowMode(int windowMode);
-		void setGlContext(SDL_GLContext context);
+	// Setters
+	void setFixedMouse(bool fixedMouse);
+	void setSize(unsigned int width, unsigned int height);
+	void setTitle(const char* title);
+	void setWindowMode(int windowMode);
+	void setGlContext(SDL_GLContext context);
 
-		bool initiate();
-		void close();
+	bool initiate();
+	void close();
 
-		// Getters
-		bool running();
-		int width();
-		int height();
-		SDL_Window* window();
+	// Getters
+	bool running();
+	int width();
+	int height();
+	SDL_Window* sdlWindow();
 
-		void flip();
-	};
-}
+	void flip();
+};

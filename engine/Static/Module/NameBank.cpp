@@ -1,8 +1,6 @@
 #include "NameBank.hpp"
 #include <Static\DebugOutput.hpp>
 
-using namespace Module;
-
 std::string NameBank::getName(int id){
 	IdNameMap::iterator nameIter = _idsToName.find(id);
 
