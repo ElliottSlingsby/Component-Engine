@@ -22,7 +22,7 @@ void Playing::on(){
 	player->addComponent(new Input);
 	player->addComponent(new Movement(25000.f, 0.1f));
 	player->addComponent(new Camera);
-	player->getComponent<Camera>()->set2d(false);
+	player->getComponent<Camera>()->set2d(true);
 	player->getComponent<Camera>()->setFov(90);
 	player->addComponent(new Box2d(32, 64));
 	

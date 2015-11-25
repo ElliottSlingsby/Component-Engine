@@ -6,6 +6,8 @@
 
 Renderer::Renderer(){
 	_window = new Window();
+	_shaderManager = new ShaderManager();
+	_console = new Console();
 }
 
 Renderer& Renderer::_instance(){
@@ -18,23 +20,22 @@ Window& Renderer::window(){
 }
 
 Console& Renderer::console(){
-	static Console instance;
-	return instance;
+	return *_instance()._console;
 }
 
 ShaderManager& Renderer::shaderManager(){
-	static ShaderManager instance;
-	return instance;
+	return *_instance()._shaderManager;
 }
 
 Renderer::~Renderer(){
 	_running = false;
 
-	delete _window;
-	_window = 0;
-
 	SDL_GL_DeleteContext(_glContext);
 	_glContext = 0;
+
+	delete _window;
+	delete _shaderManager;
+	delete _console;
 }
 
 bool Renderer::_setupSDL(){

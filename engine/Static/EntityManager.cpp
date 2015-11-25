@@ -3,11 +3,19 @@
 EntityManager::EntityManager(){
 	// Set initial vector size
 	_entities.resize(1024);
+
+	_systemHandler = new SystemHandler;
+	_stateMachine = new StateMachine;
+	_nameBank = new NameBank;
 }
 
 EntityManager::~EntityManager(){
 	// Purge!
 	destroyAll();
+
+	delete _systemHandler;
+	delete _stateMachine;
+	delete _nameBank;
 }
 
 EntityManager& EntityManager::_instance(){
@@ -17,18 +25,15 @@ EntityManager& EntityManager::_instance(){
 }
 
 SystemHandler& EntityManager::systemHandler(){
-	static SystemHandler systems;
-	return systems;
+	return *_instance()._systemHandler;
 }
 
 StateMachine& EntityManager::stateMachine(){
-	static StateMachine states;
-	return states;
+	return *_instance()._stateMachine;
 }
 
 NameBank& EntityManager::nameBank(){
-	static NameBank names;
-	return names;
+	return *_instance()._nameBank;
 }
 
 int EntityManager::_newID(){
@@ -68,7 +73,7 @@ Entity* EntityManager::getEntity(int id){
 
 Entity* EntityManager::getEntity(const std::string& name, unsigned int i){
 	IntVector ids;
-	NameBank().getIds(name, ids);
+	nameBank().getIds(name, ids);
 
 	if (i >= ids.size() || ids.size() == 0)
 		return 0;
@@ -78,7 +83,7 @@ Entity* EntityManager::getEntity(const std::string& name, unsigned int i){
 
 void EntityManager::getEntities(const std::string& name, EntityVector& results){
 	IntVector ids;
-	NameBank().getIds(name, ids);
+	nameBank().getIds(name, ids);
 
 	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++){
 		Entity* entity = getEntity(*i);
@@ -96,17 +101,17 @@ void EntityManager::destroyEntity(int id, bool recursive){
 		return;
 	}
 
-	std::string name = NameBank().getName(id);
+	std::string name = nameBank().getName(id);
 
 	if (name != "")
-		NameBank().unbindName(id, name);
+		nameBank().unbindName(id, name);
 
 	entity->destroy(recursive);
 }
 
 void EntityManager::destroyEntities(const std::string& name, bool recursive){
 	IntVector ids;
-	NameBank().getIds(name, ids);
+	nameBank().getIds(name, ids);
 
 	for (IntVector::iterator i = ids.begin(); i != ids.end(); i++){
 		destroyEntity(*i, recursive);

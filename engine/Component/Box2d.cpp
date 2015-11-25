@@ -32,7 +32,9 @@ void Box2d::lateUpdate(double dt){
 
 	_testColliding = false;
 
-	if (EntityManager::nameBank().getName(id()) == "player" || EntityManager::nameBank().getName(id()) == "box0"){
+	std::string name = EntityManager::nameBank().getName(id());
+
+	if (name == "player" || name == "box0"){
 		Entity* entity = EntityManager::getEntity("box0");
 
 		if (!entity)
@@ -53,14 +55,14 @@ void Box2d::lateUpdate(double dt){
 		if (!player)
 			return;
 
-		if (EntityManager::nameBank().getName(id()) == "player"){
+		if (name == "player"){
 			if (isColliding(box))
 				_testColliding = true;
 			else
 				_testColliding = false;
 		}
 
-		if (EntityManager::nameBank().getName(id()) == "box0"){
+		if (name == "box0"){
 			if (isColliding(player))
 				_testColliding = true;
 			else

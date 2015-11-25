@@ -9,7 +9,9 @@ class Renderer{
 
 	SDL_GLContext _glContext = 0;
 
-	Window* _window = 0;
+	Window* _window;
+	ShaderManager* _shaderManager;
+	Console* _console;
 
 	bool _setupSDL();
 	bool _setupGL(); 

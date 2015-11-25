@@ -20,6 +20,10 @@ class EntityManager{
 	std::stack<int> _removed; // Removed id pile
 	int _highest = 0; // Highest id
 
+	SystemHandler* _systemHandler;
+	StateMachine* _stateMachine;
+	NameBank* _nameBank;
+
 	EntityManager();
 
 	// Private singleton, used by static functions only
@@ -63,7 +67,7 @@ public:
 		}
 
 		if (name != "")
-			NameBank().bindName(id, name);
+			nameBank().bindName(id, name);
 
 		entity->setID(id);
 		_instance()._entities[id] = entity;
