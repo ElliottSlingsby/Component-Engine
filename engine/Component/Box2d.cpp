@@ -138,7 +138,7 @@ void Box2d::render(){
 	glEnable(GL_CULL_FACE);
 }
 
-bool Box2d::overlapping(const glm::vec2& first, const glm::vec2& second){
+bool Box2d::_overlapping(const glm::vec2& first, const glm::vec2& second){
 	if (first.x <= second.x && first.y >= second.x)
 		return true;
 	if (first.x <= second.y && first.y >= second.y)
@@ -182,10 +182,10 @@ bool Box2d::isColliding(Box2d* other, bool recurse){
 	}
 
 	// Check for overlaps
-	if (!overlapping(_magnitudes[0], _magnitudes[2]))
+	if (!_overlapping(_magnitudes[0], _magnitudes[2]))
 		return false;
 
-	if (!overlapping(_magnitudes[1], _magnitudes[3]))
+	if (!_overlapping(_magnitudes[1], _magnitudes[3]))
 		return false;
 
 	return true;

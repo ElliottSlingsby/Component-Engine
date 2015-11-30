@@ -53,12 +53,12 @@ void Movement::back(){
 
 void Movement::left(){
 	if (_velocity)
-		_velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(_speed * 0.0000005), 0.f)));
+		_velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(_speed * 0.000001), 0.f)));
 }
 
 void Movement::right(){
 	if (_velocity)
-		_velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(-_speed * 0.0000005), 0.f)));
+		_velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(-_speed * 0.000001), 0.f)));
 }
 
 void Movement::setSpeed(float speed){

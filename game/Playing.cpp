@@ -3,6 +3,7 @@
 #include <Static\Renderer.hpp>
 
 #include <Component\Box2d.hpp>
+#include <Component\Circle2d.hpp>
 #include <Component\Camera.hpp>
 #include <Component\Debug\Axis.hpp>
 #include <Component\Debug\Grid.hpp>
@@ -24,6 +25,11 @@ void Playing::on(){
 	player->addComponent(new Input);
 	player->addComponent(new Movement(25000.f));
 	player->addComponent(new Axis(128.f, false));
+	player->addComponent(new Circle2d(128.f));
+
+	Entity* circle = EntityManager::createEntity("circle");
+	circle->getComponent<Transform>()->setPosition(glm::vec3(1024, 1024, 0));
+	circle->addComponent(new Circle2d(128.f));
 
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 }

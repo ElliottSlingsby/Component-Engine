@@ -19,10 +19,7 @@ void Velocity::update(double dt){
 	if (glm::length(_velocity) > _tolerance)
 		_transform->translate(_velocity * (float)dt);
 
-
-
-
-	_torque = glm::mix(_torque, glm::quat(), (float)dt);
+	_torque = glm::mix(_torque, glm::quat(), 0.025f);
 
 	_transform->localRotate(_torque);
 }

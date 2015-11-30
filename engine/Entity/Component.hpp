@@ -4,8 +4,8 @@
 
 class Component : public Identifier{
 public:
-	Component(){}
-	virtual ~Component(){}
+	Component();
+	virtual ~Component();
 
 	bool active = true;
 

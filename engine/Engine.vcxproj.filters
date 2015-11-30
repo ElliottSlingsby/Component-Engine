@@ -96,6 +96,12 @@
     <ClCompile Include="Component\Box2d.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Circle2d.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Component.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Setup.hpp" />
@@ -169,6 +175,9 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Static\Module\SDLFunctions.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Circle2d.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>
