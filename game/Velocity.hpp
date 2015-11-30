@@ -5,9 +5,12 @@
 class Velocity : public HelperComponent{
 	Transform* _transform = 0;
 
-	glm::vec3 _push = glm::vec3(0, 0, 0);
+	glm::vec3 _push;
+	glm::quat _torque;
+	
+	glm::quat _rotation;
+	glm::vec3 _velocity;
 
-	glm::vec3 _velocity = glm::vec3(0, 0, 0);
 	float _friction;
 
 	float _tolerance;
@@ -19,4 +22,5 @@ public:
 	void update(double dt);
 
 	void localPush(const glm::vec3& push);
+	void localTorque(const glm::quat& torque);
 };

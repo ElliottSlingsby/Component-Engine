@@ -3,6 +3,7 @@
 #include <Static\Renderer.hpp>
 #include <Static\EntityManager.hpp>
 
+#include <glm\gtc\matrix_transform.hpp>
 #include <time.h>
 #include <list>
 
@@ -56,7 +57,7 @@ int main(int argc, char *args[]){
 		EntityManager::invokeAll(&Component::render);
 
 		EntityManager::deleteDestroyed();
-
+		
 		// Update window and console
 		Renderer::window().flip();
 

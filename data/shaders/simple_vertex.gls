@@ -1,11 +1,11 @@
 #version 420
 
-in vec3 position;
-in vec2 in_coords
+layout(location = 0) in vec3 position;
 
-out highp vec2 out_coords
+uniform mat4 view;
+uniform mat4 model;
+uniform mat4 projection;
 
 void main(){
-	out_coords = in_coords;
-	gl_Position = vec4(position, 1.0);
+	gl_Position = projection * view * model * vec4(position, 1.0);
 }

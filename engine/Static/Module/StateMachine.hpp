@@ -20,10 +20,12 @@ public:
 	
 	template<typename T>
 	void addState(T* state){
-		if (!_states[&typeid(T)])
+		if (!_states[&typeid(T)]){
 			_states[&typeid(T)] = state;
-		else
+		}
+		else{
 			message_out("%s!\n", "State already added");
+		}
 	}
 
 	template<typename T>

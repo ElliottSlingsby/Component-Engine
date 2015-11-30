@@ -22,6 +22,25 @@ void Camera::preRender(){
 		glMultMatrixf(&glm::inverse(glm::mat4_cast(glm::quat(glm::vec3(0, 0, glm::eulerAngles(_transform->rotation()).z))))[0][0]);
 		glTranslatef(_transform->position().x, _transform->position().y, 0);
 	}
+
+
+	glm::mat4 model;
+	glm::mat4 view;
+	glm::mat4 projection;
+	
+	model = model * glm::inverse(glm::mat4_cast(_transform->rotation()));
+	model = glm::translate(view, _transform->position());
+
+	projection = glm::ortho(0.f, 1280.f, 0.f, 720.f);
+	
+	//float aspectRatio = ((float)Renderer::window().width() / (float)Renderer::window().height());
+	//
+	//projection = glm::perspective(_fov / aspectRatio, aspectRatio, 0.1f, (float)_drawDistance);
+	//projection= glm::rotate(projection, glm::radians(90.f), glm::vec3(1, 0, 0));
+
+	Renderer::shaderManager().uniform("model", model);
+	Renderer::shaderManager().uniform("view", view);
+	Renderer::shaderManager().uniform("projection", projection);
 }
 
 void Camera::reshape(){

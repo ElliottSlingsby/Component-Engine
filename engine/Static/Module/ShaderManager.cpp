@@ -58,13 +58,13 @@ bool ShaderManager::loadShader(const std::string& filename, ShaderType type){
 	return true;
 }
 
-bool ShaderManager::_glErrorCheck(const std::string& message, GLint target, int check, bool program){
+bool ShaderManager::_glErrorCheck(const std::string& message, GLuint target, GLenum error, bool program){
 	GLint success;
 
 	if (program)
-		glGetProgramiv(target, check, &success);
+		glGetProgramiv(target, error, &success);
 	else
-		glGetShaderiv(target, check, &success);
+		glGetShaderiv(target, error, &success);
 
 	if (success == GL_FALSE){
 		GLint length = 0;
@@ -81,7 +81,7 @@ bool ShaderManager::_glErrorCheck(const std::string& message, GLint target, int 
 		else
 			glGetShaderInfoLog(target, length, &length, &error[0]);
 
-		message_out("%s:\n%s\n", message.c_str(), &error[0]);
+		error_out(("Shader Compile Error " + message + "\n" + &error[0] + "\n").c_str());
 		
 		return true;
 	}
@@ -89,7 +89,23 @@ bool ShaderManager::_glErrorCheck(const std::string& message, GLint target, int 
 	return false;
 }
 
+bool ShaderManager::_glSimpleErrorCheck(){
+	GLenum err = glGetError();
+
+	if (err != GL_NO_ERROR){
+		message_out("%s: %s\n", "- OpenGL Error", gluErrorString(err));
+		return true;
+	}
+
+	return false;
+}
+
 void ShaderManager::createProgram(const std::string& name, const std::string& vertexFilename, const std::string& fragmentFilename){
+	if (_programs[name]){
+		message_out("Shader Manager: '%s, %s, %s' already loaded!\n", name.c_str(), vertexFilename.c_str(), vertexFilename.c_str());
+		return;
+	}
+
 	GLint program = glCreateProgram();
 	
 	if (_shaders.find(vertexFilename) == _shaders.end()){
@@ -108,12 +124,18 @@ void ShaderManager::createProgram(const std::string& name, const std::string& ve
 		
 	glAttachShader(program, _shaders[vertexFilename]);
 
+	//_glSimpleErrorCheck();
+
 	if (_glErrorCheck("GL_COMPILE_STATUS", program, GL_COMPILE_STATUS, true)){
 		glDeleteProgram(program);
 		return;
 	}
 
+	//_glSimpleErrorCheck();
+
 	glAttachShader(program, _shaders[fragmentFilename]);
+
+	//_glSimpleErrorCheck();
 
 	if (_glErrorCheck("GL_COMPILE_STATUS", program, GL_COMPILE_STATUS, true)){
 		glDeleteProgram(program);
@@ -137,12 +159,50 @@ void ShaderManager::createProgram(const std::string& name, const std::string& ve
 	_programs[name] = program;
 }
 
+void ShaderManager::useProgram(GLuint program){
+	glUseProgram(program);
+	_activeProgram = program;
+}
+
 void ShaderManager::useProgram(const std::string& name){
 	if (name != "")
-		glUseProgram(_programs[name]);
+		useProgram(_programs[name]);
 	else
-		glUseProgram(0);
+		useProgram(0);
 }
+
+GLuint ShaderManager::currentProgram(){
+	return _activeProgram;
+}
+
+GLuint ShaderManager::_indexU(const std::string& name){
+	return glGetUniformLocation(_activeProgram, name.c_str());
+}
+
+GLuint ShaderManager::_indexA(const std::string& name){
+	return glGetAttribLocation(_activeProgram, name.c_str());
+}
+
+void ShaderManager::uniform(unsigned int index, const glm::mat4& value){
+	glUniformMatrix4fv(index, 1, true, &value[0][0]);
+}
+void ShaderManager::uniform(const std::string& name, const glm::mat4& value){
+	uniform(_indexU(name), value);
+}
+
+void ShaderManager::attribute(unsigned int index, const glm::vec4& value){
+	glVertexAttrib4fv(index, &value.x);
+}
+void ShaderManager::attribute(const std::string& name, const glm::vec4& value){
+	attribute(_indexA(name), value);
+}
+
+
+
+
+
+
+
 
 /*
 // Float Vectors

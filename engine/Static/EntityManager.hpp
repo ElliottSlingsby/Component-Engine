@@ -11,6 +11,8 @@
 #include <typeinfo>
 #include <Static\DebugOutput.hpp>
 
+#define MAX_SIZE 1024
+
 typedef std::vector<Entity*> EntityVector;
 
 class EntityManager{

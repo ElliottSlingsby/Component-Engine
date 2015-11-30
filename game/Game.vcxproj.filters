@@ -18,9 +18,6 @@
     <ClCompile Include="Velocity.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="Follow.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
     <ClCompile Include="Movement.cpp">
       <Filter>Private</Filter>
     </ClCompile>
@@ -33,9 +30,6 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Velocity.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Follow.hpp">
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Movement.hpp">

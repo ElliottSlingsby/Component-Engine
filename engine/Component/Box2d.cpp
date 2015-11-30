@@ -34,8 +34,8 @@ void Box2d::lateUpdate(double dt){
 
 	std::string name = EntityManager::nameBank().getName(id());
 
-	if (name == "player" || name == "box0"){
-		Entity* entity = EntityManager::getEntity("box0");
+	if (name == "player" || name == "box"){
+		Entity* entity = EntityManager::getEntity("box");
 
 		if (!entity)
 			return;
@@ -62,7 +62,7 @@ void Box2d::lateUpdate(double dt){
 				_testColliding = false;
 		}
 
-		if (name == "box0"){
+		if (name == "box"){
 			if (isColliding(player))
 				_testColliding = true;
 			else
@@ -77,7 +77,7 @@ void Box2d::render(){
 	glDisable(GL_LIGHTING);
 	glDisable(GL_CULL_FACE);
 
-	if (EntityManager::nameBank().getName(id()) == "player" || EntityManager::nameBank().getName(id()) == "box0"){
+	if (EntityManager::nameBank().getName(id()) == "player" || EntityManager::nameBank().getName(id()) == "box"){
 		// Rotating debug axes
 		float length = 2056;
 

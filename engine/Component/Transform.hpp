@@ -14,9 +14,9 @@ class Transform : public Component{
 	typedef std::set<Transform*> TransformSet;
 	TransformSet _children;
 
-	glm::vec3 _position;
-	glm::quat _rotation;
-	glm::vec3 _scale;
+	glm::vec3 _position = glm::vec3(0, 0, 0);
+	glm::quat _rotation = glm::quat(1, 0, 0, 0);
+	glm::vec3 _scale = glm::vec3(1, 1, 1);
 
 	void _addChild(Transform* child);
 	void _removeChild(Transform* child);

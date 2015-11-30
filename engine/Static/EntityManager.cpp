@@ -2,7 +2,7 @@
 
 EntityManager::EntityManager(){
 	// Set initial vector size
-	_entities.resize(1024);
+	_entities.resize(MAX_SIZE);
 
 	_systemHandler = new SystemHandler;
 	_stateMachine = new StateMachine;

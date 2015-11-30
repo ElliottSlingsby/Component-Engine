@@ -63,11 +63,11 @@ MeshData* AssetLoader::_loadMesh(const std::string& filepath){
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, &(mesh.indices[0]), GL_STATIC_DRAW);
 	
 	// Error checking and storing data
-	GLenum err = glGetError();
-
-	if (err != GL_NO_ERROR){
-		message_out("%s: %s\n", "OpenGL Error", gluErrorString(err));
-	}
+	//GLenum err = glGetError();
+	//
+	//if (err != GL_NO_ERROR){
+	//	message_out("%s: %s\n", "OpenGL Error", gluErrorString(err));
+	//}
 
 	// Getting min and max of mesh
 	glm::vec3 min(mesh.positions[0], mesh.positions[1], mesh.positions[2]);
