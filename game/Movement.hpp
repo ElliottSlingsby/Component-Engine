@@ -8,7 +8,6 @@
 
 class Movement : public HelperComponent{
 	Transform* _transform = 0;
-	Velocity* _velocity = 0;
 
 	float _speed;
 	bool _player;

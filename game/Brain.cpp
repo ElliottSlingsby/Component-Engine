@@ -35,24 +35,3 @@ void Brain::update(double dt){
 			_movement->right();
 	}
 }
-
-void Brain::onCollision(int id){
-	//std::string name = EntityManager::nameBank().getName(id);
-	//
-	//if (name == "food"){
-	//	Entity* other = EntityManager::getEntity(id);
-	//
-	//	if (!other)
-	//		return;
-	//
-	//	Circle2d* circle = other->getComponent<Circle2d>();
-	//
-	//	if (!circle)
-	//		return;
-	//
-	//	circle->setRadius(circle->radius() - 0.5f);
-	//
-	//	if (circle->radius() <= 0.f)
-	//		EntityManager::destroyEntity(id);
-	//}
-}

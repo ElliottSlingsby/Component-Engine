@@ -13,5 +13,4 @@ class Brain : public HelperComponent{
 public:
 	void load();
 	void update(double dt);
-	void onCollision(int id);
 };

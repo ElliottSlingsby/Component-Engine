@@ -11,7 +11,6 @@ Movement::Movement(float speed, bool player){
 
 void Movement::load(){
 	_transform = getComponent<Transform>();
-	_velocity = getComponent<Velocity>();
 }
 
 void Movement::update(double dt){
@@ -22,8 +21,6 @@ void Movement::update(double dt){
 
 	if (!input)
 		return;
-
-	_velocity = getComponent<Velocity>();
 
 	if (input->isDown("w")){
 		forward();
@@ -55,23 +52,31 @@ void Movement::update(double dt){
 }
 
 void Movement::forward(){
-	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, -_speed / 25.f));
+	Velocity* velocity = getComponent<Velocity>();
+
+	if (velocity)
+		velocity->localPush(glm::vec3(0.f, 0.f, -_speed / 25.f));
 }
 
 void Movement::back(){
-	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, _speed / 25.f));
+	Velocity* velocity = getComponent<Velocity>();
+
+	if (velocity)
+		velocity->localPush(glm::vec3(0.f, 0.f, _speed / 25.f));
 }
 
 void Movement::left(){
-	if (_velocity)
-		_velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(_speed * 0.000001), 0.f)));
+	Velocity* velocity = getComponent<Velocity>();
+
+	if (velocity)
+		velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(_speed * 0.000001), 0.f)));
 }
 
 void Movement::right(){
-	if (_velocity)
-		_velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(-_speed * 0.000001), 0.f)));
+	Velocity* velocity = getComponent<Velocity>();
+
+	if (velocity)
+		velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(-_speed * 0.000001), 0.f)));
 }
 
 void Movement::setSpeed(float speed){
