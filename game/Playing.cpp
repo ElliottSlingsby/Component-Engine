@@ -14,8 +14,8 @@
 #include "Brain.hpp"
 #include "Feeder.hpp"
 
-int random(int range, int spread){
-	return (rand() % range * spread) - (range / 2) * spread;
+float random(int range, int spread){
+	return (float)((rand() % range * spread) - (range / 2) * spread);
 }
 
 void Playing::on(){
@@ -36,16 +36,12 @@ void Playing::on(){
 	player->addComponent(new Axis(256.f, false));
 	player->addComponent(new Circle2d(256.f));
 	player->addComponent(new Feeder);
+	player->addComponent(new Brain);
 
 	for (int i = 0; i < 10; i++){
-		int x = random(_width, _spread);
-		int y = random(_height, _spread);
-
-		float rotation = random(360, 1);
-
 		Entity* computer = EntityManager::createEntity("computer");
-		computer->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, glm::radians(rotation))));
-		computer->getComponent<Transform>()->setPosition(glm::vec3(x, y, 0));
+		computer->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, glm::radians(random(360, 1)))));
+		computer->getComponent<Transform>()->setPosition(glm::vec3(random(_width, _spread), random(_height, _spread), 0));
 		computer->addComponent(new Circle2d(256.f));
 		computer->addComponent(new Velocity(1.f));
 		computer->addComponent(new Movement(25000.f));
@@ -55,12 +51,9 @@ void Playing::on(){
 	}
 
 	for (int i = 0; i < 25; i++){
-		int x = random(_width, _spread);
-		int y = random(_height, _spread);
-
 		Entity* food = EntityManager::createEntity("food");
 		food->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
-		food->getComponent<Transform>()->setPosition(glm::vec3(x, y, 0));
+		food->getComponent<Transform>()->setPosition(glm::vec3(random(_width, _spread), random(_height, _spread), 0));
 		food->addComponent(new Circle2d(128.f));
 	}
 

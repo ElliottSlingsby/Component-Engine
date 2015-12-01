@@ -27,11 +27,11 @@ void Feeder::update(double dt){
 	_eating = 0;
 
 
-	// REMOVE THIS
-	std::string name = EntityManager::nameBank().getName(id());
-
-	if (name == "player")
-		message_out("%f\n", capacity());
+	//// REMOVE THIS
+	//std::string name = EntityManager::nameBank().getName(id());
+	//
+	//if (name == "player")
+	//	message_out("%f\n", capacity());
 }
 
 void Feeder::onCollision(int id){
