@@ -14,15 +14,13 @@ class Box2d : public HelperComponent{
 	glm::vec2 _axes[2];
 	glm::vec2 _magnitudes[4];
 
-	bool _testColliding = false;
-
 	bool _overlapping(const glm::vec2& first, const glm::vec2& second);
+	void _updateValues();
 
 public:
 	Box2d(float width, float height);
 
 	void load();
-	void lateUpdate(double dt);
 	void render();
 
 	bool isColliding(Box2d* other, bool recurse = true);

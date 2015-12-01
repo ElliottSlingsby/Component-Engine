@@ -35,9 +35,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component\Box2d.hpp" />
+    <ClInclude Include="Component\Circle2d.hpp" />
     <ClInclude Include="Component\Debug\Axis.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
-    <ClInclude Include="Component\Circle2d.hpp" />
     <ClInclude Include="Component\Debug\Grid.hpp" />
     <ClInclude Include="Component\Light.hpp" />
     <ClInclude Include="Component\Debug\Line.hpp" />

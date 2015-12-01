@@ -15,22 +15,4 @@ public:
 	void render();
 
 	bool isColliding(Circle2d* other);
-
-	void lateUpdate(double dt){
-		if (EntityManager::nameBank().getName(id()) != "player")
-			return;
-
-		Entity* other = EntityManager::getEntity("circle");
-
-		if (!other)
-			return;
-
-		Circle2d* circle = other->getComponent<Circle2d>();
-
-		if (!circle)
-			return;
-
-		if (isColliding(circle))
-			message_out(".");
-	}
 };

@@ -11,25 +11,53 @@
 #include "Movement.hpp"
 #include "Velocity.hpp"
 #include "Input.hpp"
+#include "Brain.hpp"
 
 void Playing::on(){
+	srand(time(0));
+
 	Entity* origin = EntityManager::createEntity("main");
-	origin->addComponent(new Grid(512, 32, 8, Grid::AxisZ));
+	origin->getComponent<Transform>()->setPosition(glm::vec3(0, 0, 1));
+	origin->addComponent(new Grid(512, 64, 8, Grid::AxisZ));
 	origin->addComponent(new Camera);
 	origin->getComponent<Camera>()->set2d(true);
-	origin->getComponent<Camera>()->setZoom(5.f);
+	origin->getComponent<Camera>()->setZoom(10.f);
 	
 	Entity* player = EntityManager::createEntity("player");
 	player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
 	player->addComponent(new Velocity(1.f));
 	player->addComponent(new Input);
-	player->addComponent(new Movement(25000.f));
+	player->addComponent(new Movement(25000.f, true));
 	player->addComponent(new Axis(128.f, false));
 	player->addComponent(new Circle2d(128.f));
 
-	Entity* circle = EntityManager::createEntity("circle");
-	circle->getComponent<Transform>()->setPosition(glm::vec3(1024, 1024, 0));
-	circle->addComponent(new Circle2d(128.f));
+	int spread = 5;
+	int width = 2048;
+	int height = 2048;
+
+	for (int i = 0; i < 10; i++){
+		int x = (rand() % width * spread) - (width / 2) * spread;
+		int y = (rand() % height * spread) - (height / 2) * spread;
+
+		Entity* computer = EntityManager::createEntity("computer");
+		computer->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
+		computer->getComponent<Transform>()->setPosition(glm::vec3(x, y, 0));
+		computer->addComponent(new Circle2d(128.f));
+		computer->addComponent(new Velocity(1.f));
+		computer->addComponent(new Movement(25000.f));
+		computer->addComponent(new Axis(128.f, false));
+		computer->addComponent(new Brain);
+	}
+
+	for (int i = 0; i < 25; i++){
+		int x = (rand() % width * spread) - (width / 2) * spread;
+		int y = (rand() % height * spread) - (height / 2) * spread;
+
+		Entity* food = EntityManager::createEntity("food");
+		food->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
+		food->getComponent<Transform>()->setPosition(glm::vec3(x, y, 0));
+		food->addComponent(new Circle2d(128.f));
+	}
 
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 }

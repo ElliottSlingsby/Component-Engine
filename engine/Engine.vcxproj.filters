@@ -93,13 +93,13 @@
     <ClCompile Include="Component\Debug\Noclip.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Box2d.cpp">
-      <Filter>Private</Filter>
+    <ClCompile Include="Entity\Component.cpp">
+      <Filter>Private\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Component\Circle2d.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\Component.cpp">
+    <ClCompile Include="Component\Box2d.cpp">
       <Filter>Private</Filter>
     </ClCompile>
   </ItemGroup>
@@ -171,13 +171,13 @@
     <ClInclude Include="Component\Debug\Grid.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Box2d.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
     <ClInclude Include="Static\Module\SDLFunctions.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Static\Module</Filter>
     </ClInclude>
     <ClInclude Include="Component\Circle2d.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Box2d.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

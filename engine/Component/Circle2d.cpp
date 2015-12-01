@@ -11,9 +11,17 @@ void Circle2d::load(){
 }
 
 void Circle2d::render(){
-	glColor3f(1.f, 1.f, 1.f);
-	glLineWidth(1.f);
+	glLineWidth(2.f);
 	glDisable(GL_LIGHTING);
+
+	std::string name = EntityManager::nameBank().getName(id());
+
+	if (name == "computer")
+		glColor3f(1.f, 0.5f, 0.5f);
+	else if (name == "player")
+		glColor3f(1.f, 1.f, 1.f);
+	else if(name == "food")
+		glColor3f(0.5f, 1.f, 0.5f);
 
 	float step = 1.f;
 
@@ -39,6 +47,7 @@ void Circle2d::render(){
 	glEnd();
 
 	glEnable(GL_LIGHTING);
+	glLineWidth(1.f);
 }
 
 bool Circle2d::isColliding(Circle2d* other){

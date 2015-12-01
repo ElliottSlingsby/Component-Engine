@@ -9,12 +9,12 @@
 class Movement : public HelperComponent{
 	Transform* _transform = 0;
 	Velocity* _velocity = 0;
-	Input* _input = 0;
 
 	float _speed;
+	bool _player;
 
 public:
-	Movement(float speed);
+	Movement(float speed, bool player = false);
 
 	void load();
 	void update(double dt);

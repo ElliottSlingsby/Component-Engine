@@ -4,40 +4,45 @@
 #include <SDL.h>
 #include <Component\Camera.hpp>
 
-Movement::Movement(float speed){
+Movement::Movement(float speed, bool player){
 	_speed = speed;
+	_player = player;
 }
 
 void Movement::load(){
 	_transform = getComponent<Transform>();
+	_velocity = getComponent<Velocity>();
 }
 
 void Movement::update(double dt){
-	_input = getComponent<Input>();
+	if (!_player)
+		return;
 
-	if (!_input)
+	Input* input = getComponent<Input>();
+
+	if (!input)
 		return;
 
 	_velocity = getComponent<Velocity>();
 
-	if (_input->isDown("w")){
+	if (input->isDown("w")){
 		forward();
 
-		if (_input->isDown("shift"))
+		if (input->isDown("shift"))
 			forward();
 	}
 
-	if (_input->isDown("s")){
+	if (input->isDown("s")){
 		back();
 
-		if (_input->isDown("shift"))
+		if (input->isDown("shift"))
 			back();
 	}
 	
-	if (_input->isDown("a"))
+	if (input->isDown("a"))
 		left();	
 
-	if (_input->isDown("d"))
+	if (input->isDown("d"))
 		right();
 }
 

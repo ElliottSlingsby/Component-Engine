@@ -10,7 +10,7 @@ void Box2d::load(){
 	_transform = getComponent<Transform>();
 }
 
-void Box2d::lateUpdate(double dt){
+void Box2d::_updateValues(){
 	// Updating this world coordinates for each corner
 	glm::vec2 half((_size.x * _transform->scale().x) / 2, (_size.y * _transform->scale().y) / 2);
 
@@ -28,46 +28,6 @@ void Box2d::lateUpdate(double dt){
 	for (int i = 0; i < 2; i++){
 		glm::vec3 axis = glm::vec3(_axes[i].x, _axes[i].y, 0) * glm::inverse(rotation);
 		_axes[i] = glm::vec2(axis.x, axis.y);
-	}
-
-	_testColliding = false;
-
-	std::string name = EntityManager::nameBank().getName(id());
-
-	if (name == "player" || name == "box"){
-		Entity* entity = EntityManager::getEntity("box");
-
-		if (!entity)
-			return;
-
-		Box2d* box = entity->getComponent<Box2d>();
-
-		if (!box)
-			return;
-
-		entity = EntityManager::getEntity("player");
-
-		if (!entity)
-			return;
-
-		Box2d* player = entity->getComponent<Box2d>();
-
-		if (!player)
-			return;
-
-		if (name == "player"){
-			if (isColliding(box))
-				_testColliding = true;
-			else
-				_testColliding = false;
-		}
-
-		if (name == "box"){
-			if (isColliding(player))
-				_testColliding = true;
-			else
-				_testColliding = false;
-		}
 	}
 }
 
@@ -119,10 +79,7 @@ void Box2d::render(){
 
 	glBegin(GL_QUADS);
 
-	if (_testColliding)
-		glColor3f(1.f, 1.f, 0.f);
-	else
-		glColor3f(1.f, 1.f, 1.f);
+	glColor3f(1.f, 1.f, 1.f);
 
 	glVertex3f(_corners[0].x, _corners[0].y, 1.f);
 	glVertex3f(_corners[1].x, _corners[1].y, 1.f);
@@ -152,6 +109,8 @@ bool Box2d::_overlapping(const glm::vec2& first, const glm::vec2& second){
 }
 
 bool Box2d::isColliding(Box2d* other, bool recurse){
+	_updateValues();
+
 	// Projecting other onto this axes and updating magnitudes
 	Box2d* targets[2] = { this, other };
 
