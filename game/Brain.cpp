@@ -1,74 +1,42 @@
 #include "Brain.hpp"
 
-#include <Component\Circle2d.hpp>
-#include <glm\gtx\vector_angle.hpp>
-
 void Brain::load(){
 	_transform = getComponent<Transform>();
 	_movement = getComponent<Movement>();
+	_feeder = getComponent<Feeder>();
+}
+
+float changeRange(float oldMin, float oldMax, float newMin, float newMax, float oldValue){
+	return (((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin;
 }
 
 void Brain::update(double dt){
-	//if (rand() % 100 == 0){
-	//	_mode = rand() % 4;
-	//
-	//	if (rand() % 2 == 0)
-	//		_boost = true;
-	//	else
-	//		_boost = false;
-	//}
+	// Nearest input
+	glm::vec3 nearest = _feeder->nearestFood();
 
-	if (_mode == 1){
-		_movement->forward();
-
-		if (_boost)
-			_movement->forward();
-	}
-	else if (_mode == 2){
-		_movement->left();
-
-		if (_boost)
-			_movement->left();
-	}
-	else if (_mode == 3){
-		_movement->right();
-
-		if (_boost)
-			_movement->right();
-	}
-
-
-	EntityVector food;
-	EntityManager::getEntities("food", food);
-
-	glm::vec3 nearestFood = food[0]->getComponent<Transform>()->position();
-	float distance = glm::distance(_transform->position(), nearestFood);
-
-	for (Entity* entity : food){
-		Transform* foodTransform = entity->getComponent<Transform>();
-
-		float tempDistance = glm::distance(_transform->position(), foodTransform->position());
-
-		if (distance > tempDistance){
-			distance = tempDistance;
-			nearestFood = foodTransform->position();
-		}
-	}
-
-	//float angleBetween = glm::degrees(glm::angle(_transform->position(), nearestFood));
-
-	glm::vec3 difference = glm::normalize(_transform->position() - nearestFood);
+	glm::vec3 difference = glm::normalize(_transform->position() - nearest);
 	
 	float differenceAngle = glm::atan(difference.x, difference.y);
 	float facingAngle = glm::eulerAngles(_transform->rotation()).z;
 
+	_nearestFood = glm::abs(glm::degrees(facingAngle + differenceAngle));
 
+	if (glm::sign(_nearestFood) == -1.f)
+		_nearestFood += 360;
 
-	//// REMOVE THIS
+	_nearestFood = changeRange(0, 360, -1, 1, _nearestFood);
+	
+	// Eating input
+	if (_feeder->eating())
+		_eating = 1.f;
+	else
+		_eating = -1.f;
+	
+	// REMOVE THIS
 	std::string name = EntityManager::nameBank().getName(id());
 	
 	if (name != "player")
 		return;
 	
-	message_out("%f %f\n", glm::abs(glm::degrees(facingAngle + differenceAngle)) - 180, glm::distance(_transform->position(), nearestFood));
+	message_out("%f %f\n", _nearestFood, _eating);
 }

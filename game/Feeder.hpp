@@ -5,6 +5,8 @@
 #include <Component\Circle2d.hpp>
 
 class Feeder : public HelperComponent{
+	Transform* _transform = 0;
+
 	Circle2d* _eating = 0;
 
 	float _speed = 75.f;
@@ -15,9 +17,11 @@ class Feeder : public HelperComponent{
 	float _capacity = 100.f;
 
 public:
+	void load();
 	void update(double dt);
 	void onCollision(int id);
 
 	bool eating();
 	float capacity();
+	glm::vec3 nearestFood();
 };

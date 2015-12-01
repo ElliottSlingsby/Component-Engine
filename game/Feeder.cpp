@@ -1,5 +1,9 @@
 #include "Feeder.hpp"
 
+void Feeder::load(){
+	_transform = getComponent<Transform>();
+}
+
 void Feeder::update(double dt){
 	if (_eating){
 		Circle2d* circle = _eating->getComponent<Circle2d>();
@@ -59,4 +63,25 @@ float Feeder::capacity(){
 		return 0.f;
 
 	return _capacity / _max;
+}
+
+glm::vec3 Feeder::nearestFood(){
+	EntityVector food;
+	EntityManager::getEntities("food", food);
+
+	glm::vec3 nearestFood = food[0]->getComponent<Transform>()->position();
+	float distance = glm::distance(_transform->position(), nearestFood);
+
+	for (Entity* entity : food){
+		Transform* foodTransform = entity->getComponent<Transform>();
+
+		float tempDistance = glm::distance(_transform->position(), foodTransform->position());
+
+		if (distance > tempDistance){
+			distance = tempDistance;
+			nearestFood = foodTransform->position();
+		}
+	}
+
+	return nearestFood;
 }
