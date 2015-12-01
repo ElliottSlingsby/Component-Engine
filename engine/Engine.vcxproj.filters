@@ -97,10 +97,10 @@
       <Filter>Private\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Component\Circle2d.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Component</Filter>
     </ClCompile>
     <ClCompile Include="Component\Box2d.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,13 +175,11 @@
       <Filter>Public\Static\Module</Filter>
     </ClInclude>
     <ClInclude Include="Component\Circle2d.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\Box2d.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Component</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleCollision.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
+    <ClInclude Include="SimpleCollision.hpp" />
   </ItemGroup>
 </Project>
