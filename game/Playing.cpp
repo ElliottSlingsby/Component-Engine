@@ -14,19 +14,17 @@
 #include "Brain.hpp"
 #include "Feeder.hpp"
 
-float random(int range, int spread){
+float Playing::_random(int range, int spread){
 	return (float)((rand() % range * spread) - (range / 2) * spread);
 }
 
 void Playing::on(){
-	srand((unsigned int)time(0));
-
 	Entity* origin = EntityManager::createEntity("origin");
 	origin->getComponent<Transform>()->setPosition(glm::vec3(0, 0, 1));
 	origin->addComponent(new Grid(512, 128, 8, Grid::AxisZ));
 	origin->addComponent(new Camera);
 	origin->getComponent<Camera>()->set2d(true);
-	origin->getComponent<Camera>()->setZoom(10.f);
+	origin->getComponent<Camera>()->setZoom(20.f);
 	
 	Entity* player = EntityManager::createEntity("player");
 	player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
@@ -40,20 +38,20 @@ void Playing::on(){
 
 	for (int i = 0; i < 10; i++){
 		Entity* computer = EntityManager::createEntity("computer");
-		computer->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, glm::radians(random(360, 1)))));
-		computer->getComponent<Transform>()->setPosition(glm::vec3(random(_width, _spread), random(_height, _spread), 0));
+		computer->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, glm::radians(_random(360, 1)))));
+		computer->getComponent<Transform>()->setPosition(glm::vec3(_random(_width, _spread), _random(_height, _spread), 0));
 		computer->addComponent(new Circle2d(256.f));
 		computer->addComponent(new Velocity(1.f));
 		computer->addComponent(new Movement(25000.f));
 		computer->addComponent(new Axis(256.f, false));
-		computer->addComponent(new Brain);
 		computer->addComponent(new Feeder);
+		computer->addComponent(new Brain);
 	}
 
 	for (int i = 0; i < 25; i++){
 		Entity* food = EntityManager::createEntity("food");
 		food->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
-		food->getComponent<Transform>()->setPosition(glm::vec3(random(_width, _spread), random(_height, _spread), 0));
+		food->getComponent<Transform>()->setPosition(glm::vec3(_random(_width, _spread), _random(_height, _spread), 0));
 		food->addComponent(new Circle2d(128.f));
 	}
 

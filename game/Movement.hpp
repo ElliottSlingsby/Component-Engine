@@ -19,11 +19,11 @@ public:
 	void update(double dt);
 
 	// Movements
-	void forward();
-	void back();
+	void forward(float scalar = 1.f);
+	void back(float scalar = 1.f);
 
-	void left();
-	void right();
+	void left(float scalar = 1.f);
+	void right(float scalar = 1.f);
 
 	// Setters
 	void setSpeed(float speed);

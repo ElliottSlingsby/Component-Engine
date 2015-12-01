@@ -51,32 +51,32 @@ void Movement::update(double dt){
 	}
 }
 
-void Movement::forward(){
+void Movement::forward(float scalar){
 	Velocity* velocity = getComponent<Velocity>();
 
 	if (velocity)
-		velocity->localPush(glm::vec3(0.f, 0.f, -_speed / 25.f));
+		velocity->localPush(glm::vec3(0.f, 0.f, (-_speed / 25.f) * scalar));
 }
 
-void Movement::back(){
+void Movement::back(float scalar){
 	Velocity* velocity = getComponent<Velocity>();
 
 	if (velocity)
-		velocity->localPush(glm::vec3(0.f, 0.f, _speed / 25.f));
+		velocity->localPush(glm::vec3(0.f, 0.f, (_speed / 25.f) * scalar));
 }
 
-void Movement::left(){
+void Movement::left(float scalar){
 	Velocity* velocity = getComponent<Velocity>();
 
 	if (velocity)
-		velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(_speed * 0.000001), 0.f)));
+		velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(_speed * 0.000002) * scalar, 0.f)));
 }
 
-void Movement::right(){
+void Movement::right(float scalar){
 	Velocity* velocity = getComponent<Velocity>();
 
 	if (velocity)
-		velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(-_speed * 0.000001), 0.f)));
+		velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(-_speed * 0.000002) * scalar, 0.f)));
 }
 
 void Movement::setSpeed(float speed){

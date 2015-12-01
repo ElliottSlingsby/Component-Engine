@@ -7,6 +7,8 @@ class Playing : public State{
 	int _width = 2048;
 	int _height = 2048;
 
+	float _random(int range, int spread);
+
 public:
 	void on();
 	void off();

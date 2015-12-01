@@ -4,7 +4,9 @@
 
 #include "Movement.hpp"
 #include "Feeder.hpp"
-#include <fann.h>
+
+#include <floatfann.h>
+#include <fann_cpp.h>
 
 class Brain : public HelperComponent{
 	Transform* _transform = 0;
@@ -14,7 +16,13 @@ class Brain : public HelperComponent{
 	float _nearestFood;
 	float _eating;
 
+	FANN::neural_net _network;
+
+	float _changeRange(float oldMin, float oldMax, float newMin, float newMax, float oldValue);
+
 public:
+	~Brain();
+
 	void load();
 	void update(double dt);
 };
