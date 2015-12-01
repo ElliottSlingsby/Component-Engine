@@ -180,5 +180,8 @@
     <ClInclude Include="Component\Box2d.hpp">
       <Filter>Public</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleCollision.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,7 +23,7 @@ void Circle2d::render(){
 	else if(name == "food")
 		glColor3f(0.5f, 1.f, 0.5f);
 
-	float step = 1.f;
+	float step = 16.f;
 
 	glBegin(GL_LINES);
 
@@ -58,4 +58,12 @@ bool Circle2d::isColliding(Circle2d* other){
 		return true;
 
 	return false;
+}
+
+void Circle2d::setRadius(float radius){
+	_radius = radius;
+}
+
+float Circle2d::radius(){
+	return _radius;
 }

@@ -12,13 +12,14 @@
 #include "Velocity.hpp"
 #include "Input.hpp"
 #include "Brain.hpp"
+#include "Feeder.hpp"
 
 void Playing::on(){
-	srand(time(0));
+	srand((unsigned int)time(0));
 
-	Entity* origin = EntityManager::createEntity("main");
+	Entity* origin = EntityManager::createEntity("origin");
 	origin->getComponent<Transform>()->setPosition(glm::vec3(0, 0, 1));
-	origin->addComponent(new Grid(512, 64, 8, Grid::AxisZ));
+	origin->addComponent(new Grid(512, 128, 8, Grid::AxisZ));
 	origin->addComponent(new Camera);
 	origin->getComponent<Camera>()->set2d(true);
 	origin->getComponent<Camera>()->setZoom(10.f);
@@ -28,8 +29,9 @@ void Playing::on(){
 	player->addComponent(new Velocity(1.f));
 	player->addComponent(new Input);
 	player->addComponent(new Movement(25000.f, true));
-	player->addComponent(new Axis(128.f, false));
-	player->addComponent(new Circle2d(128.f));
+	player->addComponent(new Axis(256.f, false));
+	player->addComponent(new Circle2d(256.f));
+	player->addComponent(new Feeder);
 
 	int spread = 5;
 	int width = 2048;
@@ -39,14 +41,17 @@ void Playing::on(){
 		int x = (rand() % width * spread) - (width / 2) * spread;
 		int y = (rand() % height * spread) - (height / 2) * spread;
 
+		float rotation = (float)(rand() % 360);
+
 		Entity* computer = EntityManager::createEntity("computer");
-		computer->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
+		computer->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, glm::radians(rotation))));
 		computer->getComponent<Transform>()->setPosition(glm::vec3(x, y, 0));
-		computer->addComponent(new Circle2d(128.f));
+		computer->addComponent(new Circle2d(256.f));
 		computer->addComponent(new Velocity(1.f));
 		computer->addComponent(new Movement(25000.f));
-		computer->addComponent(new Axis(128.f, false));
+		computer->addComponent(new Axis(256.f, false));
 		computer->addComponent(new Brain);
+		computer->addComponent(new Feeder);
 	}
 
 	for (int i = 0; i < 25; i++){

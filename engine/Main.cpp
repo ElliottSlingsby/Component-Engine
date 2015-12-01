@@ -7,6 +7,8 @@
 #include <time.h>
 #include <list>
 
+#include "SimpleCollision.hpp" // REMOVE THIS
+
 void stress(int big){
 	int x = 0;
 
@@ -49,6 +51,8 @@ int main(int argc, char *args[]){
 
 		// Invoke entities and systems
 		EntityManager::systemHandler().runSystems();
+
+		runCollisions(); // REMOVE THIS
 
 		EntityManager::invokeAll(&Component::update, difference);
 		EntityManager::invokeAll(&Component::lateUpdate, difference);

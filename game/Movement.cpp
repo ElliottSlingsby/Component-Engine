@@ -39,11 +39,19 @@ void Movement::update(double dt){
 			back();
 	}
 	
-	if (input->isDown("a"))
-		left();	
+	if (input->isDown("a")){
+		left();
 
-	if (input->isDown("d"))
+		if (input->isDown("shift"))
+			left();
+	}
+
+	if (input->isDown("d")){
 		right();
+
+		if (input->isDown("shift"))
+			right();
+	}
 }
 
 void Movement::forward(){

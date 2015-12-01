@@ -27,6 +27,9 @@
     <ClCompile Include="Brain.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="Feeder.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Playing.hpp">
@@ -42,6 +45,9 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Brain.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Feeder.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

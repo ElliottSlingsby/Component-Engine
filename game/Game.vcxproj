@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brain.cpp" />
+    <ClCompile Include="Feeder.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Movement.cpp" />
     <ClCompile Include="Setup.cpp" />
@@ -20,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brain.hpp" />
+    <ClInclude Include="Feeder.hpp" />
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Movement.hpp" />
     <ClInclude Include="Playing.hpp" />
