@@ -54,7 +54,12 @@ void Vision::update(double dt){
 
 	glm::vec3 nearestFood = _feeder->nearestFood(otherFood);
 	glm::vec3 nearestThreat = _feeder->nearestThreat(otherThreats);
+	
+	if (_feeder->eating())
+		_plot(_transform->position().x, _transform->position().y, -1);
 
+	if (_feeder->beingEaten())
+		_plot(_transform->position().x, _transform->position().y, 1);
 
 	for (glm::vec3 position : otherFood){
 		_plot(position.x, position.y, -1.f);
@@ -64,27 +69,6 @@ void Vision::update(double dt){
 		_plot(position.x, position.y, 1.f);
 	}
 
-	//_plot(_transform->position().x, _transform->position().y, 1);
-
-
-
-	//EntityVector food;
-	//EntityManager::getEntities("food", food);
-	//
-	//EntityVector computers;
-	//EntityManager::getEntities("computer", computers);
-	//
-	//for (Entity* entity : food){
-	//	glm::vec3 position = entity->getComponent<Transform>()->position();
-	//	_plot(position.x, position.y, -1.f);
-	//}
-	//
-	//for (Entity* entity : computers){
-	//	glm::vec3 position = entity->getComponent<Transform>()->position();
-	//
-	//	_plot(position.x, position.y, 1.f);
-	//}
-	
 
 	_plot(nearestFood.x, nearestFood.y, -1.f, true);
 
@@ -99,10 +83,6 @@ unsigned int Vision::length(){
 	return _resolution.x * _resolution.y;
 }
 
-const float* Vision::begin(){
-	return &_array[0];
-}
-
 void Vision::_print(){
 	for (int y = 0; y < _resolution.y; y++){
 		for (int x = 0; x < _resolution.x; x++){
@@ -111,4 +91,9 @@ void Vision::_print(){
 		}
 		message_out("\n");
 	}
+}
+
+void Vision::get(FloatVector& vector){
+	vector.resize(_resolution.x * _resolution.y);
+	vector.insert(vector.begin(), _array.begin(), _array.end());
 }

@@ -53,8 +53,8 @@ void Playing::on(){
 	player->addComponent(new Axis(256.f, false));
 	player->addComponent(new Circle2d(256.f));
 	player->addComponent(new Feeder(2.f, 10.f, 100.f));
-	player->addComponent(new Vision(glm::vec2(2046, 2046), glm::vec2(9, 9)));
-	//player->addComponent(new Brain);
+	player->addComponent(new Vision(glm::vec2(2046 * 2, 2046 * 2), glm::vec2(9, 9)));
+	player->addComponent(new Brain);
 
 
 	for (int i = 0; i < 10; i++){

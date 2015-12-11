@@ -3,6 +3,8 @@
 #include <Entity\HelperComponent.hpp>
 #include "Feeder.hpp"
 
+typedef std::vector<float> FloatVector;
+
 class Vision : public HelperComponent{
 	Transform* _transform = 0;
 	Feeder* _feeder = 0;
@@ -10,7 +12,7 @@ class Vision : public HelperComponent{
 	glm::vec2 _size;
 	glm::ivec2 _resolution;
 
-	std::vector<float> _array;
+	FloatVector _array;
 
 	void _clear();
 	void _plot(float x, float y, float value, bool overdraw = false);
@@ -23,5 +25,5 @@ public:
 	void update(double dt);
 
 	unsigned int length();
-	const float* begin();
+	void get(FloatVector& vector);
 };

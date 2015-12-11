@@ -11,6 +11,7 @@ void Brain::load(){
 	_movement = getComponent<Movement>();
 	_feeder = getComponent<Feeder>();
 	_circle = getComponent<Circle2d>();
+	_vision = getComponent<Vision>();
 	
 	_network.create_from_file("../data/simple_training.net");
 }
@@ -95,9 +96,13 @@ void Brain::update(double dt){
 	
 	if (!_feeder->eating())
 		_movement->forward(speed);
+	
+	if (!_vision)
+		return;
+	
+	FloatVector pixels;
+	_vision->get(pixels);
 
-
-		
 
 
 
@@ -105,10 +110,10 @@ void Brain::update(double dt){
 
 
 	// REMOVE THIS
-	std::string name = EntityManager::nameBank().getName(id());
-	
-	if (name != "player")
-		return;
-	
+	//std::string name = EntityManager::nameBank().getName(id());
+	//
+	//if (name != "player")
+	//	return;
+	//
 	//message_out("%f\n", degrees);
 }

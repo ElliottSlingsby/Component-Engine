@@ -4,6 +4,7 @@
 
 #include "Movement.hpp"
 #include "Feeder.hpp"
+#include "Vision.hpp"
 
 #include <floatfann.h>
 #include <fann_cpp.h>
@@ -13,6 +14,7 @@ class Brain : public HelperComponent{
 	Movement* _movement = 0;
 	Feeder* _feeder = 0;
 	Circle2d* _circle = 0;
+	Vision* _vision = 0;
 
 	float _nearestFood;
 	float _eating;
