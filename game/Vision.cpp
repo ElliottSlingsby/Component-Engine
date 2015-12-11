@@ -42,7 +42,7 @@ void Vision::load(){
 void Vision::update(double dt){
 	_clear();
 
-	_plot(_transform->position().x, _transform->position().y, 1);
+	//_plot(_transform->position().x, _transform->position().y, .5f);
 	
 
 	EntityVector food;
@@ -57,25 +57,27 @@ void Vision::update(double dt){
 		_plot(position.x, position.y, -1.f);
 	}
 
-	//for (Entity* entity : computers){
-	//	glm::vec3 position = entity->getComponent<Transform>()->position() - _transform->position();
-	//
-	//	Feeder* feeder = entity->getComponent<Feeder>();
-	//
-	//	if (feeder->capacity() == 0)
-	//		continue;
-	//			
-	//	if (feeder->capacity() > _feeder->capacity()){
-	//		float value = changeRange(_feeder->capacity(), feeder->maxCapacity(), 0.f, 1.f, feeder->capacity());
-	//
-	//		_plot(position.x, position.y, value);
-	//	}
-	//	else if (feeder->capacity() < _feeder->capacity()){
-	//		float value = changeRange(_feeder->capacity(), 0.f, -1.f, 0.f, feeder->capacity());
-	//
-	//		_plot(position.x, position.y, value);
-	//	}
-	//}
+	for (Entity* entity : computers){
+		glm::vec3 position = entity->getComponent<Transform>()->position();
+
+		_plot(position.x, position.y, 1.f);
+	
+		//Feeder* feeder = entity->getComponent<Feeder>();
+		//
+		//if (feeder->capacity() == 0)
+		//	continue;
+		//		
+		//if (feeder->capacity() > _feeder->capacity()){
+		//	float value = changeRange(_feeder->capacity(), feeder->maxCapacity(), 0.f, 1.f, feeder->capacity());
+		//
+		//	_plot(position.x, position.y, value);
+		//}
+		//else if (feeder->capacity() < _feeder->capacity()){
+		//	float value = changeRange(_feeder->capacity(), 0.f, -1.f, 0.f, feeder->capacity());
+		//
+		//	_plot(position.x, position.y, value);
+		//}
+	}
 
 	_print();
 	message_out("\n\n\n\n\n\n\n\n");
@@ -92,7 +94,8 @@ const float* Vision::begin(){
 void Vision::_print(){
 	for (int y = 0; y < _resolution.y; y++){
 		for (int x = 0; x < _resolution.x; x++){
-			message_out("%2d ", (int)glm::round(_array[_resolution.x * y + x]));
+			//message_out("%5.2f ", _array[_resolution.x * y + x]);
+			message_out("%2d", (int)_array[_resolution.x * y + x]);
 		}
 		message_out("\n");
 	}

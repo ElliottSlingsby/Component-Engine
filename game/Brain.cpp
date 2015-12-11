@@ -77,6 +77,11 @@ void Brain::update(double dt){
 	if (speed > 1.f)
 		speed = 1.f;
 
+	float min = .2f;
+
+	if (speed < min)
+		speed = min;
+
 	// Eating input
 	if (_feeder->eating())
 		_eating = 1.f;

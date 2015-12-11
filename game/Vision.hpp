@@ -3,7 +3,7 @@
 #include <Entity\HelperComponent.hpp>
 #include "Feeder.hpp"
 
-struct Vision : public HelperComponent{
+class Vision : public HelperComponent{
 	Transform* _transform = 0;
 	Feeder* _feeder = 0;
 

@@ -15,6 +15,7 @@ class Feeder : public HelperComponent{
 	float _decay = 5.f;
 	float _nutrition = 10.f;
 	float _max = 200.f;
+	float _death = 10.f;
 
 	float _capacity = 100.f;
 

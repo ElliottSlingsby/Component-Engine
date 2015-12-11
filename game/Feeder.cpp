@@ -20,7 +20,7 @@ void Feeder::update(double dt){
 		
 		circle->setRadius(circle->radius() - (float)(_speed * dt));
 		
-		if (circle->radius() <= 0.f)
+		if (circle->radius() <= _death * 4)
 			EntityManager::destroyEntity(_eating->id());
 
 		_capacity += (float)(_nutrition * dt);
@@ -31,7 +31,7 @@ void Feeder::update(double dt){
 	else{
 		_capacity -= (float)(_decay * dt);
 
-		if (_capacity < 0.f)
+		if (_capacity <= _death)
 			_capacity = 0.f;
 	}
 
@@ -125,6 +125,11 @@ glm::vec3 Feeder::nearestFood(){
 
 	EntityVector computers;
 	EntityManager::getEntities("computer", computers);
+
+	Entity* player = EntityManager::getEntity("player");
+
+	if (player)
+		computers.push_back(player);
 
 	if (computers.size() == 0)
 		return nearestFood;
