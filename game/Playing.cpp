@@ -26,15 +26,15 @@ void Playing::on(){
 	origin->getComponent<Camera>()->set2d(true);
 	origin->getComponent<Camera>()->setZoom(20.f);
 	
-	Entity* player = EntityManager::createEntity("player");
-	player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
-	player->addComponent(new Velocity(1.f));
-	player->addComponent(new Input);
-	player->addComponent(new Movement(25000.f, true));
-	player->addComponent(new Axis(256.f, false));
-	player->addComponent(new Circle2d(256.f));
-	player->addComponent(new Feeder);
-	player->addComponent(new Brain);
+	//Entity* player = EntityManager::createEntity("player");
+	//player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
+	//player->addComponent(new Velocity(1.f));
+	//player->addComponent(new Input);
+	//player->addComponent(new Movement(25000.f, true));
+	//player->addComponent(new Axis(256.f, false));
+	//player->addComponent(new Circle2d(256.f));
+	//player->addComponent(new Feeder(0.f, 10.f, 1000.f));
+	//player->addComponent(new Brain);
 
 	for (int i = 0; i < 10; i++){
 		Entity* computer = EntityManager::createEntity("computer");
@@ -44,7 +44,7 @@ void Playing::on(){
 		computer->addComponent(new Velocity(1.f));
 		computer->addComponent(new Movement(25000.f));
 		computer->addComponent(new Axis(256.f, false));
-		computer->addComponent(new Feeder);
+		computer->addComponent(new Feeder(5.f, 10.f, 1000.f));
 		computer->addComponent(new Brain);
 	}
 

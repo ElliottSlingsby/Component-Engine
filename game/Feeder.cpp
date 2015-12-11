@@ -1,7 +1,14 @@
 #include "Feeder.hpp"
 
+Feeder::Feeder(float decay, float nutrition, float max){
+	_decay = decay;
+	_nutrition = nutrition;
+	_max = max;
+}
+
 void Feeder::load(){
 	_transform = getComponent<Transform>();
+	_circle = getComponent<Circle2d>();
 }
 
 void Feeder::update(double dt){
@@ -28,14 +35,26 @@ void Feeder::update(double dt){
 			_capacity = 0.f;
 	}
 
+	if (_predator && _capacity != 0.f){
+		if (_circle->radius() < _predator->_circle->radius()){
+			_capacity -= (float)(_nutrition * dt);
+			_predator->_capacity += (float)(_nutrition * dt);
+
+			if (_capacity < 0.f)
+				_capacity = 0.f;
+
+			if (_predator->_capacity > _predator->_max)
+				_predator->_capacity = _predator->_max;
+		}
+	}
+
+	_circle->setRadius(_capacity * 4.f);
+
+	if (_circle->radius() < 0.f)
+		_circle->setRadius(0.f);
+
 	_eating = 0;
-
-
-	//// REMOVE THIS
-	//std::string name = EntityManager::nameBank().getName(id());
-	//
-	//if (name == "player")
-	//	message_out("%f\n", capacity());
+	_predator = 0;
 }
 
 void Feeder::onCollision(int id){
@@ -44,10 +63,12 @@ void Feeder::onCollision(int id){
 	if (name == "food"){
 		Entity* other = EntityManager::getEntity(id);
 
-		if (!other)
-			return;
-
 		_eating = other->getComponent<Circle2d>();
+	}
+	else if (name == "computer" || name == "player"){
+		Entity* other = EntityManager::getEntity(id);
+
+		_predator = other->getComponent<Feeder>();
 	}
 }
 
@@ -69,19 +90,50 @@ glm::vec3 Feeder::nearestFood(){
 	EntityVector food;
 	EntityManager::getEntities("food", food);
 
+	if (food.size() == 0){
+		_active = false;
+		return glm::vec3(0, 0, 0);
+	}
+
+	if (!_active)
+		_active = true;
+
 	glm::vec3 nearestFood = food[0]->getComponent<Transform>()->position();
 	float distance = glm::distance(_transform->position(), nearestFood);
 
 	for (Entity* entity : food){
-		Transform* foodTransform = entity->getComponent<Transform>();
+		Transform* transform = entity->getComponent<Transform>();
 
-		float tempDistance = glm::distance(_transform->position(), foodTransform->position());
+		float tempDistance = glm::distance(_transform->position(), transform->position());
 
 		if (distance > tempDistance){
 			distance = tempDistance;
-			nearestFood = foodTransform->position();
+			nearestFood = transform->position();
+		}
+	}
+
+	EntityVector computers;
+	EntityManager::getEntities("computer", computers);
+
+	for (Entity* entity : computers){
+		Feeder* feeder = entity->getComponent<Feeder>();
+
+		if (feeder->_capacity == 0.f)
+			continue;
+
+		if (feeder->_capacity < _capacity){
+			float tempDistance = glm::distance(_transform->position(), feeder->_transform->position());
+
+			if (distance > tempDistance){
+				distance = tempDistance;
+				nearestFood = feeder->_transform->position();
+			}
 		}
 	}
 
 	return nearestFood;
+}
+
+bool Feeder::active(){
+	return _active;
 }

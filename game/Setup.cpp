@@ -20,8 +20,8 @@ bool setup(int argc, char *args[]){
 	Renderer::console().setRunning(true);
 #endif
 
-	EntityManager::stateMachine().addState(new Playing);
-	EntityManager::stateMachine().changeState<Playing>();
+
+
 
 
 
@@ -29,7 +29,7 @@ bool setup(int argc, char *args[]){
 	const unsigned int inputs = 2;
 	const unsigned int hiddenNeurons = 3;
 	const unsigned int outputs = 3;
-	
+
 	FANN::neural_net network;
 
 	network.create_standard(layers, inputs, hiddenNeurons, outputs);
@@ -39,13 +39,28 @@ bool setup(int argc, char *args[]){
 
 	const unsigned int maxEpochs = 500000;
 	const unsigned int epochsBetweenReports = 1000;
-	const float error = (const float) 0.001;
+	const float error = (const float)0.000001;
 
 	network.train_on_file("../data/simple_training.txt", maxEpochs, epochsBetweenReports, error);
 
 	network.save("../data/simple_training.net");
 
 	network.destroy();
+
+
+
+
+
+
+
+
+
+
+
+
+
+	EntityManager::stateMachine().addState(new Playing);
+	EntityManager::stateMachine().changeState<Playing>();
 	
 	return true;
 }

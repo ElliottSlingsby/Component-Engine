@@ -11,72 +11,66 @@ Movement::Movement(float speed, bool player){
 
 void Movement::load(){
 	_transform = getComponent<Transform>();
+	_velocity = getComponent<Velocity>();
+	_input = getComponent<Input>();
 }
 
 void Movement::update(double dt){
 	if (!_player)
 		return;
 
-	Input* input = getComponent<Input>();
-
-	if (!input)
-		return;
-
-	if (input->isDown("w")){
+	if (_input->isDown("w")){
 		forward();
 
-		if (input->isDown("shift"))
+		if (_input->isDown("shift"))
 			forward();
 	}
 
-	if (input->isDown("s")){
+	if (_input->isDown("s")){
 		back();
 
-		if (input->isDown("shift"))
+		if (_input->isDown("shift"))
 			back();
 	}
 	
-	if (input->isDown("a")){
-		left();
+	if (_input->isDown("a")){
+		turn(-1.f);
 
-		if (input->isDown("shift"))
-			left();
+		if (_input->isDown("shift"))
+			turn(-1.f);
 	}
 
-	if (input->isDown("d")){
-		right();
+	if (_input->isDown("d")){
+		turn(1.f);
 
-		if (input->isDown("shift"))
-			right();
+		if (_input->isDown("shift"))
+			turn(1.f);
 	}
 }
 
 void Movement::forward(float scalar){
-	Velocity* velocity = getComponent<Velocity>();
-
-	if (velocity)
-		velocity->localPush(glm::vec3(0.f, 0.f, (-_speed / 25.f) * scalar));
+	if (_velocity)
+		_velocity->localPush(glm::vec3(0.f, 0.f, (-_speed / 25.f) * scalar));
 }
 
 void Movement::back(float scalar){
-	Velocity* velocity = getComponent<Velocity>();
-
-	if (velocity)
-		velocity->localPush(glm::vec3(0.f, 0.f, (_speed / 25.f) * scalar));
+	if (_velocity)
+		_velocity->localPush(glm::vec3(0.f, 0.f, (_speed / 25.f) * scalar));
 }
 
 void Movement::left(float scalar){
-	Velocity* velocity = getComponent<Velocity>();
-
-	if (velocity)
-		velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(_speed * 0.000002) * scalar, 0.f)));
+	if (_velocity)
+		_velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(_speed * 0.000002) * scalar, 0.f)));
 }
 
 void Movement::right(float scalar){
-	Velocity* velocity = getComponent<Velocity>();
+	if (_velocity)
+		_velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(-_speed * 0.000002) * scalar, 0.f)));
+}
 
-	if (velocity)
-		velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(-_speed * 0.000002) * scalar, 0.f)));
+void Movement::turn(float scalar){
+	if (_velocity)
+		_velocity->localTorque(glm::quat(glm::vec3(0.f, glm::radians(-_speed * 0.000002) * scalar, 0.f)));
 }
 
 void Movement::setSpeed(float speed){

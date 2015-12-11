@@ -12,6 +12,7 @@ class Brain : public HelperComponent{
 	Transform* _transform = 0;
 	Movement* _movement = 0;
 	Feeder* _feeder = 0;
+	Circle2d* _circle = 0;
 
 	float _nearestFood;
 	float _eating;

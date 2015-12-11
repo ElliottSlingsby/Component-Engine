@@ -6,17 +6,22 @@
 
 class Feeder : public HelperComponent{
 	Transform* _transform = 0;
+	Circle2d* _circle = 0;
 
+	Feeder* _predator = 0;
 	Circle2d* _eating = 0;
 
 	float _speed = 75.f;
-	float _decay = 10.f;
-	float _nutrition = 100.f;
+	float _decay = 5.f;
+	float _nutrition = 10.f;
 	float _max = 200.f;
 
 	float _capacity = 100.f;
 
+	bool _active = true;
+
 public:
+	Feeder(float decay, float nutrition, float max);
 	void load();
 	void update(double dt);
 	void onCollision(int id);
@@ -24,4 +29,5 @@ public:
 	bool eating();
 	float capacity();
 	glm::vec3 nearestFood();
+	bool active();
 };

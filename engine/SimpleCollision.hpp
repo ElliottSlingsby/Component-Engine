@@ -12,10 +12,21 @@ void runCollisions(){
 	EntityManager::getEntities("computer", computers);
 	EntityManager::getEntities("food", food);
 
-	EntityVector all;
-	all.reserve(1 + computers.size() + food.size());
+	if (food.size() == 0){
+		EntityManager::stateMachine().reload();
+		return;
+	}
 
-	all.push_back(player);
+	EntityVector all;
+
+	if (player)
+		all.reserve(1 + computers.size() + food.size());
+	else
+		all.reserve(computers.size() + food.size());
+
+	if (player)
+		all.push_back(player);
+
 	all.insert(all.end(), computers.begin(), computers.end());
 	all.insert(all.end(), food.begin(), food.end());
 
