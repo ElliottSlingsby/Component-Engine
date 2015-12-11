@@ -2,6 +2,8 @@
 
 #include <Utils.hpp>
 
+#include <Log.hpp>
+
 Brain::Brain(bool perfect){
 	_perfect = perfect;
 }
@@ -17,7 +19,7 @@ void Brain::load(){
 	_circle = getComponent<Circle2d>();
 	_vision = getComponent<Vision>();
 	
-	_network.create_from_file("../data/simple_training.net");
+	_network.create_from_file("../data/log.net");
 }
 
 void Brain::update(double dt){
@@ -30,17 +32,27 @@ void Brain::update(double dt){
 		if (!_vision)
 			return;
 
-		_vision->print();
+		//_vision->print();
 
 		FloatVector input;
 		_vision->get(input);
 
 		// run ANN
 
+		fann_type fannInput[5 * 5];
+
+		for (int i = 0; i < 5 * 5; i++){
+			fannInput[i] = input[i];
+		}
+
+		fann_type* output;
+
+		output = _network.run(fannInput);
+
 		// get outputs
 
-		float food = 0.f;
-		float speed = 0.f;
+		float food = output[0];
+		float speed = output[1];
 
 		if (speed > baseSpeed)
 			speed = baseSpeed;
@@ -140,6 +152,8 @@ void Brain::update(double dt){
 	_vision->get(input);
 
 	FloatVector output = { _nearestFood, speed };
+
+	logFile(input, output);
 
 
 	// REMOVE THIS

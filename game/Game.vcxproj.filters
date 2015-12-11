@@ -33,6 +33,9 @@
     <ClCompile Include="Vision.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Playing.hpp">

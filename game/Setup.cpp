@@ -25,27 +25,27 @@ bool setup(int argc, char *args[]){
 
 
 
-	const unsigned int layers = 3;
-	const unsigned int inputs = 2;
-	const unsigned int hiddenNeurons = 3;
-	const unsigned int outputs = 3;
-
-	FANN::neural_net network;
-
-	network.create_standard(layers, inputs, hiddenNeurons, outputs);
-
-	network.set_activation_function_hidden(FANN::SIGMOID_SYMMETRIC);
-	network.set_activation_function_output(FANN::SIGMOID_SYMMETRIC);
-
-	const unsigned int maxEpochs = 500000;
-	const unsigned int epochsBetweenReports = 1000;
-	const float error = (const float)0.000001;
-
-	network.train_on_file("../data/simple_training.txt", maxEpochs, epochsBetweenReports, error);
-
-	network.save("../data/simple_training.net");
-
-	network.destroy();
+	//const unsigned int layers = 3;
+	//const unsigned int inputs = 5 * 5;
+	//const unsigned int hiddenNeurons = 3;
+	//const unsigned int outputs = 2;
+	//
+	//FANN::neural_net network;
+	//
+	//network.create_standard(layers, inputs, hiddenNeurons, outputs);
+	//
+	//network.set_activation_function_hidden(FANN::SIGMOID_SYMMETRIC);
+	//network.set_activation_function_output(FANN::SIGMOID_SYMMETRIC);
+	//
+	//const unsigned int maxEpochs = 10000;
+	//const unsigned int epochsBetweenReports = 100;
+	//const float error = (const float)0.00001;
+	//
+	//network.train_on_file("../data/log.txt", maxEpochs, epochsBetweenReports, error);
+	//
+	//network.save("../data/log.net");
+	//
+	//network.destroy();
 
 
 

@@ -23,12 +23,12 @@ void Playing::on(){
 	FloatVector input({ 0, 1, 0.5 });
 	FloatVector output({ -1, 1});
 
-	logFile(input, output);
-	logFile(input, output);
-	logFile(input, output);
-	logFile(input, output);
-	logFile(input, output);
-	logFile(input, output);
+	//logFile(input, output);
+	//logFile(input, output);
+	//logFile(input, output);
+	//logFile(input, output);
+	//logFile(input, output);
+	//logFile(input, output);
 
 	//Entity* vision = EntityManager::createEntity("vision");
 	//vision->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(0, 0, glm::radians(90.f))));
@@ -55,16 +55,16 @@ void Playing::on(){
 	origin->getComponent<Camera>()->set2d(true);
 	origin->getComponent<Camera>()->setZoom(20.f);
 	
-	Entity* player = EntityManager::createEntity("player");
-	player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
-	player->addComponent(new Velocity(1.f));
-	player->addComponent(new Input);
-	player->addComponent(new Movement(25000.f, true));
-	player->addComponent(new Axis(256.f, false));
-	player->addComponent(new Circle2d(256.f));
-	player->addComponent(new Feeder(2.f, 10.f, 100.f));
-	player->addComponent(new Vision(glm::vec2(2046 * 2, 2046 * 2), glm::vec2(5, 5)));
-	player->addComponent(new Brain(false));
+	//Entity* player = EntityManager::createEntity("player");
+	//player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
+	//player->addComponent(new Velocity(1.25f));
+	//player->addComponent(new Input);
+	//player->addComponent(new Movement(25000.f, true));
+	//player->addComponent(new Axis(256.f, false));
+	//player->addComponent(new Circle2d(256.f));
+	//player->addComponent(new Feeder(2.f, 10.f, 100.f));
+	//player->addComponent(new Vision(glm::vec2(2046 * 2, 2046 * 2), glm::vec2(5, 5)));
+	//player->addComponent(new Brain(false));
 
 
 	for (int i = 0; i < 10; i++){
@@ -72,11 +72,12 @@ void Playing::on(){
 		computer->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, glm::radians(randomRange(360, 1)))));
 		computer->getComponent<Transform>()->setPosition(glm::vec3(randomRange(_width, _spread), randomRange(_height, _spread), 0));
 		computer->addComponent(new Circle2d(256.f));
-		computer->addComponent(new Velocity(1.f));
+		computer->addComponent(new Velocity(1.25f));
 		computer->addComponent(new Movement(25000.f));
 		computer->addComponent(new Axis(256.f, false));
 		computer->addComponent(new Feeder(2.f, 10.f, 100.f));
-		computer->addComponent(new Brain);
+		computer->addComponent(new Brain(false));
+		computer->addComponent(new Vision(glm::vec2(2046 * 2, 2046 * 2), glm::vec2(5, 5)));
 	}
 
 	//for (int i = 0; i < 25; i++){

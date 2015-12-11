@@ -92,6 +92,7 @@ void Vision::print(){
 }
 
 void Vision::get(FloatVector& vector){
-	vector.resize(_resolution.x * _resolution.y);
+	vector.clear();
+	vector.reserve(_resolution.x * _resolution.y);
 	vector.insert(vector.begin(), _array.begin(), _array.end());
 }
