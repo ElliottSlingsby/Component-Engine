@@ -29,6 +29,16 @@ public:
 	}
 
 	template<typename T>
+	T* getState(){
+		if (!_states[&typeid(T)]){
+			message_out("%s!\n", "State doesn't exist");
+		}
+		else{
+			return static_cast<T*>(_states[&typeid(T)]);
+		}
+	}
+
+	template<typename T>
 	void changeState(){
 		if (!_states[&typeid(T)])
 			message_out("%s!\n", "State doesn't exist");

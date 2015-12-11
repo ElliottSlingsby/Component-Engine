@@ -52,9 +52,6 @@ void Vision::update(double dt){
 	Vec3Vector otherThreats;
 	Vec3Vector otherFood;
 
-	glm::vec3 nearestFood = _feeder->nearestFood(otherFood);
-	glm::vec3 nearestThreat = _feeder->nearestThreat(otherThreats);
-	
 	if (_feeder->eating())
 		_plot(_transform->position().x, _transform->position().y, -1);
 
@@ -70,9 +67,11 @@ void Vision::update(double dt){
 	}
 
 
-	_plot(nearestFood.x, nearestFood.y, -1.f, true);
+	glm::vec3 nearestFood = _feeder->nearestFood(otherFood);
+	//glm::vec3 nearestThreat = _feeder->nearestThreat(otherThreats);
 
-	_plot(nearestThreat.x, nearestThreat.y, 1.f, true);
+	_plot(nearestFood.x, nearestFood.y, -1.f, true);
+	//_plot(nearestThreat.x, nearestThreat.y, 1.f, true);
 }
 
 unsigned int Vision::length(){

@@ -4,8 +4,8 @@
 
 #include <Log.hpp>
 
-Brain::Brain(bool perfect){
-	_perfect = perfect;
+Brain::Brain(bool training){
+	_training = training;
 }
 
 Brain::~Brain(){
@@ -28,7 +28,7 @@ void Brain::update(double dt){
 
 	float baseSpeed = changeRange(0, _feeder->maxCapacity(), 1.f, 0.f, _feeder->capacity());
 
-	if (!_perfect){
+	if (!_training){
 		if (!_vision)
 			return;
 
@@ -135,18 +135,23 @@ void Brain::update(double dt){
 		_eating = 0.f;
 
 
-	_movement->turn(_nearestFood);
+
+	// REMOVE THIS
+	std::string name = EntityManager::nameBank().getName(id());
 	
-	if (!_feeder->eating())
-		_movement->forward(speed);
-	
+	if (name != "player"){
+		_movement->turn(_nearestFood);
+
+		if (!_feeder->eating())
+			_movement->forward(speed);
+
+		return;
+	}
+
 
 
 	if (!_vision)
 		return;
-	
-	_vision->print();
-
 
 	FloatVector input;
 	_vision->get(input);
@@ -156,11 +161,8 @@ void Brain::update(double dt){
 	logFile(input, output);
 
 
-	// REMOVE THIS
-	//std::string name = EntityManager::nameBank().getName(id());
-	//
-	//if (name != "player")
-	//	return;
-	//
+	
+	_vision->print();
+
 	//message_out("%f\n", degrees);
 }

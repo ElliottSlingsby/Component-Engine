@@ -19,35 +19,51 @@
 
 #include "Log.hpp"
 
+void Playing::setTraining(bool training){
+	_training = training;
+}
+
+void Playing::setSize(const glm::vec2& size){
+	_size = size;
+}
+
+void Playing::setResolution(const glm::vec2& resolution){
+	_resolution = resolution;
+}
+
+void Playing::setError(float error){
+	_error = error;
+}
+
+void Playing::setOffline(bool offline){
+	_offline = offline;
+}
+
 void Playing::on(){
-	FloatVector input({ 0, 1, 0.5 });
-	FloatVector output({ -1, 1});
+	if (!_training && !_offline){
+		const unsigned int layers = 3;
+		const unsigned int inputs = _resolution.x * _resolution.y;
+		const unsigned int hiddenNeurons = 3;
+		const unsigned int outputs = 2;
 
-	//logFile(input, output);
-	//logFile(input, output);
-	//logFile(input, output);
-	//logFile(input, output);
-	//logFile(input, output);
-	//logFile(input, output);
+		FANN::neural_net network;
 
-	//Entity* vision = EntityManager::createEntity("vision");
-	//vision->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(0, 0, glm::radians(90.f))));
-	//vision->addComponent(new Vision(glm::vec2(1024, 1024), glm::vec2(7, 7)));
-	//
-	//vision->trigger(Entity::TRIGGER_LOAD);
-	//
-	//
-	//
-	//Vision& test = *vision->getComponent<Vision>();
-	//
-	//test._clear();
-	//
-	//test._plot(0, 200, 0.5f);
-	//
-	//test._print();
+		network.create_standard(layers, inputs, hiddenNeurons, outputs);
 
+		network.set_activation_function_hidden(FANN::SIGMOID_SYMMETRIC);
+		network.set_activation_function_output(FANN::SIGMOID_SYMMETRIC);
 
+		const unsigned int maxEpochs = 1000;
+		const unsigned int epochsBetweenReports = 100;
 
+		network.train_on_file("../data/log.txt", maxEpochs, epochsBetweenReports, _error);
+
+		network.save("../data/log.net");
+
+		network.destroy();
+	}
+
+	
 	Entity* origin = EntityManager::createEntity("origin");
 	origin->getComponent<Transform>()->setPosition(glm::vec3(0, 0, 1));
 	origin->addComponent(new Grid(512, 128, 8, Grid::AxisZ));
@@ -55,19 +71,25 @@ void Playing::on(){
 	origin->getComponent<Camera>()->set2d(true);
 	origin->getComponent<Camera>()->setZoom(20.f);
 	
-	//Entity* player = EntityManager::createEntity("player");
-	//player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
-	//player->addComponent(new Velocity(1.25f));
-	//player->addComponent(new Input);
-	//player->addComponent(new Movement(25000.f, true));
-	//player->addComponent(new Axis(256.f, false));
-	//player->addComponent(new Circle2d(256.f));
-	//player->addComponent(new Feeder(2.f, 10.f, 100.f));
-	//player->addComponent(new Vision(glm::vec2(2046 * 2, 2046 * 2), glm::vec2(5, 5)));
-	//player->addComponent(new Brain(false));
+	Entity* player = EntityManager::createEntity("player");
+	player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
+	player->addComponent(new Velocity(1.25f));
+	player->addComponent(new Input);
+	player->addComponent(new Movement(25000.f, true));
+	player->addComponent(new Axis(256.f, false));
+	player->addComponent(new Circle2d(256.f));
+	player->addComponent(new Feeder(2.f, 10.f, 100.f));
+	player->addComponent(new Vision(_size, _resolution));
+	player->addComponent(new Brain(_training));
 
+	int amount;
 
-	for (int i = 0; i < 10; i++){
+	if (_training)
+		amount = 3;
+	else
+		amount = 10;
+
+	for (int i = 0; i < amount; i++){
 		Entity* computer = EntityManager::createEntity("computer");
 		computer->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, glm::radians(randomRange(360, 1)))));
 		computer->getComponent<Transform>()->setPosition(glm::vec3(randomRange(_width, _spread), randomRange(_height, _spread), 0));
@@ -76,16 +98,9 @@ void Playing::on(){
 		computer->addComponent(new Movement(25000.f));
 		computer->addComponent(new Axis(256.f, false));
 		computer->addComponent(new Feeder(2.f, 10.f, 100.f));
-		computer->addComponent(new Brain(false));
-		computer->addComponent(new Vision(glm::vec2(2046 * 2, 2046 * 2), glm::vec2(5, 5)));
+		computer->addComponent(new Brain(_training));
+		computer->addComponent(new Vision(_size, _resolution));
 	}
-
-	//for (int i = 0; i < 25; i++){
-	//	Entity* food = EntityManager::createEntity("food");
-	//	food->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
-	//	food->getComponent<Transform>()->setPosition(glm::vec3(_random(_width, _spread), _random(_height, _spread), 0));
-	//	food->addComponent(new Circle2d(128.f));
-	//}
 
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 }
