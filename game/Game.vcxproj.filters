@@ -30,6 +30,9 @@
     <ClCompile Include="Feeder.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="Vision.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Playing.hpp">
@@ -48,6 +51,9 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Feeder.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Vision.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

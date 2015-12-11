@@ -18,7 +18,11 @@ class Feeder : public HelperComponent{
 
 	float _capacity = 100.f;
 
+	bool _beingEaten;
+
 	bool _active = true;
+
+	int _lastPredator = NULL_ID;
 
 public:
 	Feeder(float decay, float nutrition, float max);
@@ -30,4 +34,6 @@ public:
 	float capacity();
 	glm::vec3 nearestFood();
 	bool active();
+	Entity* beingEaten();
+	float maxCapacity();
 };

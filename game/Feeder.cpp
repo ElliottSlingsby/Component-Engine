@@ -35,17 +35,21 @@ void Feeder::update(double dt){
 			_capacity = 0.f;
 	}
 
-	if (_predator && _capacity != 0.f){
-		if (_circle->radius() < _predator->_circle->radius()){
-			_capacity -= (float)(_nutrition * dt);
-			_predator->_capacity += (float)(_nutrition * dt);
+	if (_predator && _capacity != 0.f && _circle->radius() < _predator->_circle->radius()){
+		_beingEaten = true;
+		_lastPredator = _predator->id();
 
-			if (_capacity < 0.f)
-				_capacity = 0.f;
+		_capacity -= (float)(_nutrition * dt);
+		_predator->_capacity += (float)(_nutrition * dt);
 
-			if (_predator->_capacity > _predator->_max)
-				_predator->_capacity = _predator->_max;
-		}
+		if (_capacity < 0.f)
+			_capacity = 0.f;
+
+		if (_predator->_capacity > _predator->_max)
+			_predator->_capacity = _predator->_max;
+	}
+	else{
+		_beingEaten = false;
 	}
 
 	_circle->setRadius(_capacity * 4.f);
@@ -55,6 +59,13 @@ void Feeder::update(double dt){
 
 	_eating = 0;
 	_predator = 0;
+}
+
+Entity* Feeder::beingEaten(){
+	if (!_beingEaten)
+		return 0;
+
+	return EntityManager::getEntity(_lastPredator);
 }
 
 void Feeder::onCollision(int id){
@@ -115,6 +126,9 @@ glm::vec3 Feeder::nearestFood(){
 	EntityVector computers;
 	EntityManager::getEntities("computer", computers);
 
+	if (computers.size() == 0)
+		return nearestFood;
+
 	for (Entity* entity : computers){
 		Feeder* feeder = entity->getComponent<Feeder>();
 
@@ -136,4 +150,8 @@ glm::vec3 Feeder::nearestFood(){
 
 bool Feeder::active(){
 	return _active;
+}
+
+float Feeder::maxCapacity(){
+	return _max;
 }

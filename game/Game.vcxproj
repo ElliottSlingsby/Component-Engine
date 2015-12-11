@@ -18,6 +18,7 @@
     <ClCompile Include="Setup.cpp" />
     <ClCompile Include="Playing.cpp" />
     <ClCompile Include="Velocity.cpp" />
+    <ClCompile Include="Vision.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brain.hpp" />
@@ -26,6 +27,7 @@
     <ClInclude Include="Movement.hpp" />
     <ClInclude Include="Playing.hpp" />
     <ClInclude Include="Velocity.hpp" />
+    <ClInclude Include="Vision.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D723C848-82C1-43DD-917D-66B54A51DA04}</ProjectGuid>

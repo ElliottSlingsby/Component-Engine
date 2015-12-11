@@ -19,8 +19,6 @@ class Brain : public HelperComponent{
 
 	FANN::neural_net _network;
 
-	float _changeRange(float oldMin, float oldMax, float newMin, float newMax, float oldValue);
-
 public:
 	~Brain();
 

@@ -1,5 +1,7 @@
 #include "Brain.hpp"
 
+#include <Utils.hpp>
+
 Brain::~Brain(){
 	_network.destroy();
 }
@@ -13,23 +15,43 @@ void Brain::load(){
 	_network.create_from_file("../data/simple_training.net");
 }
 
-float Brain::_changeRange(float oldMin, float oldMax, float newMin, float newMax, float oldValue){
-	return (((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin;
-}
-
 void Brain::update(double dt){
 	if (_feeder->capacity() == 0.f)
 		return;
 
-	// Nearest input
-	glm::vec3 nearest = _feeder->nearestFood();
 
-	glm::vec3 difference = glm::normalize(_transform->position() - nearest);
+	float baseSpeed = changeRange(0, _feeder->maxCapacity(), 1.f, 0.f, _feeder->capacity());
+
+
+	Entity* predator = _feeder->beingEaten();
+
+	glm::vec3 target;
+
+	if (predator)
+		target = predator->getComponent<Transform>()->position();
+	else
+		target = _feeder->nearestFood();
+
+	// Nearest input
+
+	glm::vec3 difference = glm::normalize(_transform->position() - target);
 	
 	float differenceAngle = glm::atan(difference.x, difference.y);
 	float facingAngle = glm::eulerAngles(_transform->rotation()).z;
 
 
+
+	if (predator){
+		float angle = glm::degrees(facingAngle + differenceAngle + glm::radians(180.f));
+		
+		if (glm::sign(angle) == -1.f)
+			angle += 360;
+
+		_movement->turn(changeRange(0, 360, -1, 1, angle));
+		_movement->forward(baseSpeed);
+
+		return;
+	}
 
 
 
@@ -39,20 +61,18 @@ void Brain::update(double dt){
 		_nearestFood += 360;
 
 	_nearestFood = glm::degrees(facingAngle + differenceAngle);
-
-
-
+	
 	if (glm::sign(_nearestFood) == -1.f)
 		_nearestFood += 360;
 
 	float degrees = _nearestFood;
 	
-	_nearestFood = _changeRange(0, 360, -1, 1, _nearestFood);
+	_nearestFood = changeRange(0, 360, -1, 1, _nearestFood);
 
 
 	float max = 1024.f;
 
-	float speed = _changeRange(0, max, 0.f, 1.f, glm::distance(_transform->position(), nearest));
+	float speed = changeRange(0, max, 0.f, baseSpeed, glm::distance(_transform->position(), target));
 	
 	if (speed > 1.f)
 		speed = 1.f;
@@ -71,6 +91,12 @@ void Brain::update(double dt){
 
 
 		
+
+
+
+
+
+
 	// REMOVE THIS
 	std::string name = EntityManager::nameBank().getName(id());
 	

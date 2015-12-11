@@ -102,6 +102,9 @@
     <ClCompile Include="Component\Box2d.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Setup.hpp" />
@@ -181,5 +184,8 @@
       <Filter>Public\Component</Filter>
     </ClInclude>
     <ClInclude Include="SimpleCollision.hpp" />
+    <ClInclude Include="Utils.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
