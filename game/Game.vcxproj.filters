@@ -56,5 +56,8 @@
     <ClInclude Include="Vision.hpp">
       <Filter>Public</Filter>
     </ClInclude>
+    <ClInclude Include="Log.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

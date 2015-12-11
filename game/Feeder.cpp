@@ -12,6 +12,9 @@ void Feeder::load(){
 }
 
 void Feeder::update(double dt){
+	if (_capacity == 0)
+		return;
+
 	if (_eating){
 		Circle2d* circle = _eating->getComponent<Circle2d>();
 

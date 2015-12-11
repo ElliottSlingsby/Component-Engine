@@ -15,10 +15,20 @@
 #include "Input.hpp"
 #include "Brain.hpp"
 #include "Feeder.hpp"
-
 #include "Vision.hpp"
 
+#include "Log.hpp"
+
 void Playing::on(){
+	FloatVector input({ 0, 1, 0.5 });
+	FloatVector output({ -1, 1});
+
+	logFile(input, output);
+	logFile(input, output);
+	logFile(input, output);
+	logFile(input, output);
+	logFile(input, output);
+	logFile(input, output);
 
 	//Entity* vision = EntityManager::createEntity("vision");
 	//vision->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(0, 0, glm::radians(90.f))));
@@ -53,8 +63,8 @@ void Playing::on(){
 	player->addComponent(new Axis(256.f, false));
 	player->addComponent(new Circle2d(256.f));
 	player->addComponent(new Feeder(2.f, 10.f, 100.f));
-	player->addComponent(new Vision(glm::vec2(2046 * 2, 2046 * 2), glm::vec2(9, 9)));
-	player->addComponent(new Brain);
+	player->addComponent(new Vision(glm::vec2(2046 * 2, 2046 * 2), glm::vec2(5, 5)));
+	player->addComponent(new Brain(false));
 
 
 	for (int i = 0; i < 10; i++){

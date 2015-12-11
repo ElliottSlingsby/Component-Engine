@@ -73,17 +73,13 @@ void Vision::update(double dt){
 	_plot(nearestFood.x, nearestFood.y, -1.f, true);
 
 	_plot(nearestThreat.x, nearestThreat.y, 1.f, true);
-
-
-	_print();
-	message_out("\n\n\n\n\n\n\n\n");
 }
 
 unsigned int Vision::length(){
 	return _resolution.x * _resolution.y;
 }
 
-void Vision::_print(){
+void Vision::print(){
 	for (int y = 0; y < _resolution.y; y++){
 		for (int x = 0; x < _resolution.x; x++){
 			//message_out("%5.2f ", _array[_resolution.x * y + x]);
@@ -91,6 +87,8 @@ void Vision::_print(){
 		}
 		message_out("\n");
 	}
+
+	message_out("\n\n\n\n\n\n\n\n");
 }
 
 void Vision::get(FloatVector& vector){

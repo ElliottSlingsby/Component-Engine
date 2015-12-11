@@ -19,9 +19,12 @@ class Brain : public HelperComponent{
 	float _nearestFood;
 	float _eating;
 
+	bool _perfect = true;
+
 	FANN::neural_net _network;
 
 public:
+	Brain(bool perfect = true);
 	~Brain();
 
 	void load();

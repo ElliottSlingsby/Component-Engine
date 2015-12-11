@@ -16,8 +16,7 @@ class Vision : public HelperComponent{
 
 	void _clear();
 	void _plot(float x, float y, float value, bool overdraw = false);
-	void _print();
-
+	
 public:
 	Vision(glm::vec2 size, glm::vec2 resolution);
 
@@ -26,4 +25,6 @@ public:
 
 	unsigned int length();
 	void get(FloatVector& vector);
+
+	void print();
 };

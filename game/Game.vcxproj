@@ -25,6 +25,7 @@
     <ClInclude Include="Feeder.hpp" />
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Movement.hpp" />
+    <ClInclude Include="Log.hpp" />
     <ClInclude Include="Playing.hpp" />
     <ClInclude Include="Velocity.hpp" />
     <ClInclude Include="Vision.hpp" />

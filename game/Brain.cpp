@@ -2,6 +2,10 @@
 
 #include <Utils.hpp>
 
+Brain::Brain(bool perfect){
+	_perfect = perfect;
+}
+
 Brain::~Brain(){
 	_network.destroy();
 }
@@ -20,8 +24,35 @@ void Brain::update(double dt){
 	if (_feeder->capacity() == 0.f)
 		return;
 
-
 	float baseSpeed = changeRange(0, _feeder->maxCapacity(), 1.f, 0.f, _feeder->capacity());
+
+	if (!_perfect){
+		if (!_vision)
+			return;
+
+		_vision->print();
+
+		FloatVector input;
+		_vision->get(input);
+
+		// run ANN
+
+		// get outputs
+
+		float food = 0.f;
+		float speed = 0.f;
+
+		if (speed > baseSpeed)
+			speed = baseSpeed;
+
+		_movement->turn(food);
+
+		if (!_feeder->eating())
+			_movement->forward(speed);
+
+		return;
+	}
+	
 
 
 	Entity* predator = _feeder->beingEaten();
@@ -97,16 +128,18 @@ void Brain::update(double dt){
 	if (!_feeder->eating())
 		_movement->forward(speed);
 	
+
+
 	if (!_vision)
 		return;
 	
-	FloatVector pixels;
-	_vision->get(pixels);
+	_vision->print();
 
 
+	FloatVector input;
+	_vision->get(input);
 
-
-
+	FloatVector output = { _nearestFood, speed };
 
 
 	// REMOVE THIS
