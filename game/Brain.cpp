@@ -27,10 +27,12 @@ void Brain::update(double dt){
 
 	glm::vec3 target;
 
+	Vec3Vector otherFood;
+
 	if (predator)
 		target = predator->getComponent<Transform>()->position();
 	else
-		target = _feeder->nearestFood();
+		target = _feeder->nearestFood(otherFood);
 
 	// Nearest input
 

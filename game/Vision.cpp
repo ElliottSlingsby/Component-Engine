@@ -15,21 +15,28 @@ void Vision::_clear(){
 		_array[i] = 0.f;
 }
 
-void Vision::_plot(float x, float y, float value){
+void Vision::_plot(float x, float y, float value, bool overdraw){
 	glm::vec3 world = glm::vec3(x, y, 0.f);
 	glm::vec3 local = (world - _transform->position()) * glm::quat(glm::vec3(0.f, 0.f, glm::eulerAngles(_transform->rotation()).z));
 
-	
 	int newX = (int)changeRange(-(_size.x / 2.f), _size.x / 2.f, 0.f, (float)_resolution.x, local.x);
 	int newY = (int)changeRange(_size.y / 2.f, -(_size.y / 2.f), 0.f, (float)_resolution.y, local.y);
 
-
-	if (0 > newX || newX >= _resolution.x)
+	if ((newX < 0 || newX >= _resolution.x) && !overdraw)
 		return;
 
-	if (0 > newY || newY >= _resolution.y)
+	if ((newY < 0 || newY >= _resolution.y) && !overdraw)
 		return;
 
+	if (overdraw &&  newX < 0)
+		newX = 0;
+	else if (overdraw && newX >= _resolution.x)
+		newX = _resolution.x - 1;
+
+	if (overdraw && newY < 0)
+		newY = 0;
+	else if (overdraw && newY >= _resolution.y)
+		newY = _resolution.y - 1;
 	_array[(newY * _resolution.x) + newX] = value;
 
 }
@@ -41,43 +48,48 @@ void Vision::load(){
 
 void Vision::update(double dt){
 	_clear();
-
-	//_plot(_transform->position().x, _transform->position().y, .5f);
 	
+	Vec3Vector otherThreats;
+	Vec3Vector otherFood;
 
-	EntityVector food;
-	EntityManager::getEntities("food", food);
+	glm::vec3 nearestFood = _feeder->nearestFood(otherFood);
+	glm::vec3 nearestThreat = _feeder->nearestThreat(otherThreats);
 
-	EntityVector computers;
-	EntityManager::getEntities("computer", computers);
 
-	for (Entity* entity : food){
-		glm::vec3 position = entity->getComponent<Transform>()->position();
-
+	for (glm::vec3 position : otherFood){
 		_plot(position.x, position.y, -1.f);
 	}
 
-	for (Entity* entity : computers){
-		glm::vec3 position = entity->getComponent<Transform>()->position();
-
+	for (glm::vec3 position : otherThreats){
 		_plot(position.x, position.y, 1.f);
-	
-		//Feeder* feeder = entity->getComponent<Feeder>();
-		//
-		//if (feeder->capacity() == 0)
-		//	continue;
-		//		
-		//if (feeder->capacity() > _feeder->capacity()){
-		//	float value = changeRange(_feeder->capacity(), feeder->maxCapacity(), 0.f, 1.f, feeder->capacity());
-		//
-		//	_plot(position.x, position.y, value);
-		//}
-		//else if (feeder->capacity() < _feeder->capacity()){
-		//	float value = changeRange(_feeder->capacity(), 0.f, -1.f, 0.f, feeder->capacity());
-		//
-		//	_plot(position.x, position.y, value);
-		//}
 	}
+
+	//_plot(_transform->position().x, _transform->position().y, 1);
+
+
+
+	//EntityVector food;
+	//EntityManager::getEntities("food", food);
+	//
+	//EntityVector computers;
+	//EntityManager::getEntities("computer", computers);
+	//
+	//for (Entity* entity : food){
+	//	glm::vec3 position = entity->getComponent<Transform>()->position();
+	//	_plot(position.x, position.y, -1.f);
+	//}
+	//
+	//for (Entity* entity : computers){
+	//	glm::vec3 position = entity->getComponent<Transform>()->position();
+	//
+	//	_plot(position.x, position.y, 1.f);
+	//}
+	
+
+	_plot(nearestFood.x, nearestFood.y, -1.f, true);
+
+	_plot(nearestThreat.x, nearestThreat.y, 1.f, true);
+
 
 	_print();
 	message_out("\n\n\n\n\n\n\n\n");
@@ -95,7 +107,7 @@ void Vision::_print(){
 	for (int y = 0; y < _resolution.y; y++){
 		for (int x = 0; x < _resolution.x; x++){
 			//message_out("%5.2f ", _array[_resolution.x * y + x]);
-			message_out("%2d", (int)_array[_resolution.x * y + x]);
+			message_out("%2d", (int)_array[(_resolution.x * y) + x]);
 		}
 		message_out("\n");
 	}

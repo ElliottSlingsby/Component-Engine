@@ -97,7 +97,54 @@ float Feeder::capacity(){
 	return _capacity / _max;
 }
 
-glm::vec3 Feeder::nearestFood(){
+glm::vec3 Feeder::nearestThreat(Vec3Vector& vector){
+	EntityVector computers;
+	EntityManager::getEntities("computer", computers);
+
+
+	Entity* player = EntityManager::getEntity("player");
+
+	if (player)
+		computers.push_back(player);
+
+
+	if (computers.size() == 0){
+		_active = false;
+		return glm::vec3(0, 0, 0);
+	}
+
+	if (!_active)
+		_active = true;
+
+
+	glm::vec3 nearest = computers[0]->getComponent<Transform>()->position();
+	float distance = glm::distance(_transform->position(), nearest);
+	
+	for (Entity* entity : computers){
+		Feeder* otherFeeder = entity->getComponent<Feeder>();
+
+		if (otherFeeder == this)
+			continue;
+
+		if (otherFeeder->_capacity < _capacity)
+			continue;
+
+		glm::vec3 otherPosition = entity->getComponent<Transform>()->position();
+
+		vector.push_back(otherPosition);
+
+		float newDistance = glm::distance(_transform->position(), otherPosition);
+
+		if (newDistance < distance){
+			nearest = otherPosition;
+			distance = newDistance;
+		}
+	}
+
+	return nearest;
+}
+
+glm::vec3 Feeder::nearestFood(Vec3Vector& vector){
 	EntityVector food;
 	EntityManager::getEntities("food", food);
 
@@ -114,6 +161,8 @@ glm::vec3 Feeder::nearestFood(){
 
 	for (Entity* entity : food){
 		Transform* transform = entity->getComponent<Transform>();
+
+		vector.push_back(transform->position());
 
 		float tempDistance = glm::distance(_transform->position(), transform->position());
 

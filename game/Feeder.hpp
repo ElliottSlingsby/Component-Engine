@@ -4,6 +4,9 @@
 
 #include <Component\Circle2d.hpp>
 
+typedef std::vector<glm::vec3> Vec3Vector;
+
+
 class Feeder : public HelperComponent{
 	Transform* _transform = 0;
 	Circle2d* _circle = 0;
@@ -31,9 +34,11 @@ public:
 	void update(double dt);
 	void onCollision(int id);
 
+	glm::vec3 nearestFood(Vec3Vector& vector);
+	glm::vec3 nearestThreat(Vec3Vector& vector);
+
 	bool eating();
 	float capacity();
-	glm::vec3 nearestFood();
 	bool active();
 	Entity* beingEaten();
 	float maxCapacity();

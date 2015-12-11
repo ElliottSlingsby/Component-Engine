@@ -13,7 +13,7 @@ class Vision : public HelperComponent{
 	std::vector<float> _array;
 
 	void _clear();
-	void _plot(float x, float y, float value);
+	void _plot(float x, float y, float value, bool overdraw = false);
 	void _print();
 
 public:
