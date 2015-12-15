@@ -123,7 +123,7 @@ void	btHashedSimplePairCache::growTables()
 		{
 	
 			const btSimplePair& pair = m_overlappingPairArray[i];
-			int indexA = pair.m_indexA;
+			int indexA = pair.m_indexAttribute;
 			int indexB = pair.m_indexB;
 			
 			int	hashValue = static_cast<int>(getHash(static_cast<unsigned int>(indexA),static_cast<unsigned int>(indexB)) & (m_overlappingPairArray.capacity()-1));	// New hash value with new mask
@@ -232,7 +232,7 @@ void* btHashedSimplePairCache::removeOverlappingPair(int indexA, int indexB)
 	// Remove the last pair from the hash table.
 	const btSimplePair* last = &m_overlappingPairArray[lastPairIndex];
 		/* missing swap here too, Nat. */ 
-	int lastHash = static_cast<int>(getHash(static_cast<unsigned int>(last->m_indexA), static_cast<unsigned int>(last->m_indexB)) & (m_overlappingPairArray.capacity()-1));
+	int lastHash = static_cast<int>(getHash(static_cast<unsigned int>(last->m_indexAttribute), static_cast<unsigned int>(last->m_indexB)) & (m_overlappingPairArray.capacity()-1));
 
 	index = m_hashTable[lastHash];
 	btAssert(index != BT_SIMPLE_NULL_PAIR);

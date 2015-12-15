@@ -68,7 +68,7 @@ protected:
 
 	btAlignedObjectArray<char*>				m_allocatedNames;
 
-	btAlignedObjectArray<int*>				m_indexArrays;
+	btAlignedObjectArray<int*>				m_indexAttributerrays;
 	btAlignedObjectArray<short int*>		m_shortIndexArrays;
 	btAlignedObjectArray<unsigned char*>	m_charIndexArrays;
 

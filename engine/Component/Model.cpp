@@ -1,6 +1,7 @@
 #include "Model.hpp"
 
 #include <GL\glew.h>
+#include <Static\Renderer.hpp>
 
 Model::Model(const std::string& meshSrc, const std::string& materialSrc){
 	_meshSrc = meshSrc;
@@ -52,7 +53,12 @@ void Model::render(){
 		glDisable(GL_LIGHTING);
 	}
 
+	//GLuint program = Renderer::shaderManager().currentProgram();
+	//Renderer::shaderManager().useProgram(_shader);
+
 	draw();
+
+	//Renderer::shaderManager().useProgram(program);
 
 	if (switched && _unlit)
 		glEnable(GL_LIGHTING);

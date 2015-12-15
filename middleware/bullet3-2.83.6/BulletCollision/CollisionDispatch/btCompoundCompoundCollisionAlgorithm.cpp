@@ -374,10 +374,10 @@ void btCompoundCompoundCollisionAlgorithm::processCollision (const btCollisionOb
 					
 					btTransform	newChildWorldTrans0;
 					btTransform	orgInterpolationTrans0;
-					childShape0 = compoundShape0->getChildShape(pairs[i].m_indexA);
+					childShape0 = compoundShape0->getChildShape(pairs[i].m_indexAttribute);
 					orgTrans0 = col0ObjWrap->getWorldTransform();
 					orgInterpolationTrans0 = col0ObjWrap->getWorldTransform();
-					const btTransform& childTrans0 = compoundShape0->getChildTransform(pairs[i].m_indexA);
+					const btTransform& childTrans0 = compoundShape0->getChildTransform(pairs[i].m_indexAttribute);
 					newChildWorldTrans0 = orgTrans0*childTrans0 ;
 					childShape0->getAabb(newChildWorldTrans0,aabbMin0,aabbMax0);
 				}
@@ -402,13 +402,13 @@ void btCompoundCompoundCollisionAlgorithm::processCollision (const btCollisionOb
 				{
 					algo->~btCollisionAlgorithm();
 					m_dispatcher->freeCollisionAlgorithm(algo);
-					m_removePairs.push_back(btSimplePair(pairs[i].m_indexA,pairs[i].m_indexB));
+					m_removePairs.push_back(btSimplePair(pairs[i].m_indexAttribute,pairs[i].m_indexB));
 				}
 			}
 		}
 		for (int i=0;i<m_removePairs.size();i++)
 		{
-			m_childCollisionAlgorithmCache->removeOverlappingPair(m_removePairs[i].m_indexA,m_removePairs[i].m_indexB);
+			m_childCollisionAlgorithmCache->removeOverlappingPair(m_removePairs[i].m_indexAttribute,m_removePairs[i].m_indexB);
 		}
 		m_removePairs.clear();
 	}

@@ -12,12 +12,21 @@ bool setup(int argc, char *args[]){
 	if (!Renderer::initiate())
 		return false;
 
-	EntityManager::stateMachine().addState(new Playing);
-	EntityManager::stateMachine().changeState<Playing>();
-
 #ifdef _DEBUG
 	Renderer::console().setRunning(true);
 #endif
-	
+
+
+
+	Renderer::shaderManager().createProgram("main", "simple_vertex.gls", "simple_fragment.gls");
+	Renderer::shaderManager().useProgram("main");
+
+
+
+
+
+	EntityManager::stateMachine().addState(new Playing);
+	EntityManager::stateMachine().changeState<Playing>();
+
 	return true;
 }

@@ -68,7 +68,7 @@ private:
 	btRigidBody* m_chassisBody;
 
 	int m_indexRightAxis;
-	int m_indexUpAxis;
+	int m_indexUniformpAxis;
 	int	m_indexForwardAxis;
 
 	void defaultInit(const btVehicleTuning& tuning);
@@ -159,7 +159,7 @@ public:
 	}
 	inline int getUpAxis() const
 	{
-		return m_indexUpAxis;
+		return m_indexUniformpAxis;
 	}
 
 	inline int getForwardAxis() const
@@ -190,7 +190,7 @@ public:
 	virtual void	setCoordinateSystem(int rightIndex,int upIndex,int forwardIndex)
 	{
 		m_indexRightAxis = rightIndex;
-		m_indexUpAxis = upIndex;
+		m_indexUniformpAxis = upIndex;
 		m_indexForwardAxis = forwardIndex;
 	}
 

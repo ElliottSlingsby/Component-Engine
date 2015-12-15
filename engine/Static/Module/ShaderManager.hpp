@@ -17,6 +17,8 @@
 #include <glm\mat4x2.hpp>
 #include <glm\mat4x3.hpp>
 
+#include <Static\DebugOutput.hpp>
+
 class ShaderManager{
 	std::string _shaderPath = "../";
 
@@ -26,8 +28,14 @@ class ShaderManager{
 	GLintMap _shaders;
 	GLintMap _programs;
 
+	GLuint _activeProgram = 0;
+
 	std::string _loadText(const std::string& filename);
-	bool _glErrorCheck(const std::string& message, GLint target, int check, bool program = false);
+	bool _glErrorCheck(const std::string& message, GLuint target, GLenum error, bool program = false);
+	bool _glSimpleErrorCheck();
+	
+	GLint _indexUniform(const std::string& name);
+	GLint _indexAttribute(const std::string& name);
 
 public:
 	enum ShaderType{
@@ -37,13 +45,39 @@ public:
 
 	~ShaderManager();
 
+	void enableVertexAttribute(const std::string& name = "position");
+
 	void setShaderLocation(const std::string& filepath);
 	bool loadShader(const std::string& filename, ShaderType type);
 
 	void createProgram(const std::string& name, const std::string& vertexFilename, const std::string& fragmentFilename);
+
+	void useProgram(GLuint program);
 	void useProgram(const std::string& name = "");
+
+	GLuint currentProgram();
+
+	void uniform(unsigned int index, const glm::mat4& value);
+	void uniform(const std::string& name, const glm::mat4& value);
 	
+	void attribute(unsigned int index, const glm::vec3& value);
+	void attribute(const std::string& name, const glm::vec3& value);
+
 	/*
+
+	void uniform(unsigned int index, const glm::mat2& values, unsigned int count = 1){}
+	void uniform(unsigned int index, const glm::mat3& values, unsigned int count = 1){}
+	void uniform(unsigned int index, const glm::vec4& values, unsigned int count = 1){}
+	void uniform(unsigned int index, const glm::vec3& values, unsigned int count = 1){}
+	void uniform(unsigned int index, const glm::vec2& values, unsigned int count = 1){}
+	void uniform(unsigned int index, float* value, unsigned int count = 1){}
+	void uniform(unsigned int index, double* value, unsigned int count = 1){}
+	void uniform(unsigned int index, int* value, unsigned int count = 1){}
+	void uniform(unsigned int index, unsigned int* value, unsigned int count = 1){}
+	void uniform(unsigned int index, bool* value, unsigned int count = 1){}
+		
+	/*
+	
 	// Square Matrices
 	void attribute(unsigned int index, const glm::mat2& value);
 	void attribute(unsigned int index, const glm::mat3& value);

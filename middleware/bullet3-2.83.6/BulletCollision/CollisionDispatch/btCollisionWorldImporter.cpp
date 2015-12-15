@@ -222,11 +222,11 @@ void btCollisionWorldImporter::deleteAllData()
 	}
 	m_allocatedbtStridingMeshInterfaceDatas.clear();
 
-	for (i=0;i<m_indexArrays.size();i++)
+	for (i=0;i<m_indexAttributerrays.size();i++)
 	{
-		btAlignedFree(m_indexArrays[i]);
+		btAlignedFree(m_indexAttributerrays[i]);
 	}
-  m_indexArrays.clear();
+  m_indexAttributerrays.clear();
 
 	for (i=0;i<m_shortIndexArrays.size();i++)
 	{
@@ -665,7 +665,7 @@ btTriangleIndexVertexArray* btCollisionWorldImporter::createMeshInterface(btStri
 			meshPart.m_indexType = PHY_INTEGER;
 			meshPart.m_triangleIndexStride = 3*sizeof(int);
 			int* indexArray = (int*)btAlignedAlloc(sizeof(int)*3*meshPart.m_numTriangles,16);
-			m_indexArrays.push_back(indexArray);
+			m_indexAttributerrays.push_back(indexArray);
 			for (int j=0;j<3*meshPart.m_numTriangles;j++)
 			{
 				indexArray[j] = meshData.m_meshPartsPtr[i].m_indices32[j].m_value;

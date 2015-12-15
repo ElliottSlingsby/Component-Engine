@@ -25,13 +25,13 @@ const int BT_SIMPLE_NULL_PAIR=0xffffffff;
 struct btSimplePair
 {
 	btSimplePair(int indexA,int indexB)
-		:m_indexA(indexA),
+		:m_indexAttribute(indexA),
 		m_indexB(indexB),
 		m_userPointer(0)
 	{
 	}
 
-	int m_indexA;
+	int m_indexAttribute;
 	int m_indexB;
 	union
 	{
@@ -120,7 +120,7 @@ private:
 
 	SIMD_FORCE_INLINE bool equalsPair(const btSimplePair& pair, int indexA, int indexB)
 	{	
-		return pair.m_indexA == indexA && pair.m_indexB == indexB;
+		return pair.m_indexAttribute == indexA && pair.m_indexB == indexB;
 	}
 
 	

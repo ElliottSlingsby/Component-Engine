@@ -38,7 +38,7 @@ m_pitchControl(btScalar(0.))
 {
 	m_chassisBody = chassis;
 	m_indexRightAxis = 0;
-	m_indexUpAxis = 2;
+	m_indexUniformpAxis = 2;
 	m_indexForwardAxis = 1;
 	defaultInit(tuning);
 }
@@ -699,10 +699,10 @@ void	btRaycastVehicle::updateFriction(btScalar	timeStep)
 					btVector3 sideImp = m_axle[wheel] * m_sideImpulse[wheel];
 
 #if defined ROLLING_INFLUENCE_FIX // fix. It only worked if car's up was along Y - VT.
-					btVector3 vChassisWorldUp = getRigidBody()->getCenterOfMassTransform().getBasis().getColumn(m_indexUpAxis);
+					btVector3 vChassisWorldUp = getRigidBody()->getCenterOfMassTransform().getBasis().getColumn(m_indexUniformpAxis);
 					rel_pos -= vChassisWorldUp * (vChassisWorldUp.dot(rel_pos) * (1.f-wheelInfo.m_rollInfluence));
 #else
-					rel_pos[m_indexUpAxis] *= wheelInfo.m_rollInfluence;
+					rel_pos[m_indexUniformpAxis] *= wheelInfo.m_rollInfluence;
 #endif
 					m_chassisBody->applyImpulse(sideImp,rel_pos);
 

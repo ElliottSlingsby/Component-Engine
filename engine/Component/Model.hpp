@@ -13,6 +13,8 @@ protected:
 	const MeshData* _mesh = 0;
 	const MaterialData* _material = 0;
 
+	std::string _shader = "";
+
 	bool _unlit = false;
 	bool _fixedRotation = false;
 

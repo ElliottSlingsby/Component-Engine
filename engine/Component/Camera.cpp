@@ -22,6 +22,15 @@ void Camera::preRender(){
 		glMultMatrixf(&glm::inverse(glm::mat4_cast(glm::quat(glm::vec3(0, 0, glm::eulerAngles(_transform->rotation()).z))))[0][0]);
 		glTranslatef(_transform->position().x, _transform->position().y, 0);
 	}
+	
+	//glm::mat4 modelview;
+	//glm::mat4 projection;
+	//
+	//glGetFloatv(GL_MODELVIEW_MATRIX, &modelview[0][0]);
+	//glGetFloatv(GL_PROJECTION_MATRIX, &projection[0][0]);
+	//
+	//Renderer::shaderManager().uniform("modelview", modelview);
+	//Renderer::shaderManager().uniform("projection", projection);
 }
 
 void Camera::reshape(){
