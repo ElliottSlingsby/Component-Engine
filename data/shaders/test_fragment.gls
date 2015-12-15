@@ -1,0 +1,12 @@
+#version 420 compatibility
+
+uniform sampler2D uniform_diffuse;
+
+uniform sampler2D uniform_other;
+
+in vec3 out_normal;
+in vec2 out_texcoord;
+
+void main(){
+	gl_FragColor = texture2D(uniform_diffuse, out_texcoord);
+}

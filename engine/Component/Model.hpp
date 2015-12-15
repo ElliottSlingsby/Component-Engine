@@ -13,14 +13,16 @@ protected:
 	const MeshData* _mesh = 0;
 	const MaterialData* _material = 0;
 
-	std::string _shader = "";
+	std::string _shader = "main";
+
+	GLuint _sampler = 0;
 
 	bool _unlit = false;
 	bool _fixedRotation = false;
 
 public:
 	Model(){}
-	Model(const std::string& meshSrc, const std::string& materialSrc = "");
+	Model(const std::string& meshSrc, const std::string& materialSrc = "", const std::string& shader = "");
 
 	void load();
 	void render();

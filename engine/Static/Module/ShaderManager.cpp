@@ -3,17 +3,6 @@
 
 #include <fstream>
 
-void print(const glm::mat4& mat){
-	for (int y = 0; y < 4; y++){
-		for (int x = 0; x < 4; x++){
-			message_out("%2f ", mat[y][x]);
-		}
-		message_out("\n");
-	}
-
-	message_out("\n\n\n\n\n\n\n\n\n\n\n\n");
-}
-
 std::string ShaderManager::_loadText(const std::string& filename){
 	std::fstream file;
 
@@ -194,6 +183,7 @@ GLint ShaderManager::_indexUniform(const std::string& name){
 	GLint value = glGetUniformLocation(_activeProgram, name.c_str());
 
 	if (value == -1){
+		_glSimpleErrorCheck();
 		error_out(("No such uniform called " + name + ".\n").c_str());
 	}
 
@@ -204,6 +194,7 @@ GLint ShaderManager::_indexAttribute(const std::string& name){
 	GLint value = glGetAttribLocation(_activeProgram, name.c_str());
 
 	if (value == -1){
+		_glSimpleErrorCheck();
 		error_out(("No such attribute called " + name + ".\n").c_str());
 	}
 
@@ -215,6 +206,25 @@ void ShaderManager::uniform(unsigned int index, const glm::mat4& value){
 }
 
 void ShaderManager::uniform(const std::string& name, const glm::mat4& value){
+	uniform(_indexUniform(name), value);
+}
+
+void ShaderManager::uniform(unsigned int index, const glm::vec3& value){
+	glUniform3fv(index, 1, &value[0]);
+}
+
+void ShaderManager::uniform(const std::string& name, const glm::vec3& value){
+	uniform(_indexUniform(name), value);
+}
+
+
+void ShaderManager::uniform(unsigned int index, GLint value){
+	glUniform1i(index, value);
+}
+
+
+
+void ShaderManager::uniform(const std::string& name, GLint value){
 	uniform(_indexUniform(name), value);
 }
 

@@ -1,5 +1,7 @@
-#version 420
+#version 420 compatibility
+
+uniform vec3 uniform_colour;
 
 void main(){
-	gl_FragColor = vec4(1, 1, 0, 1);
+	gl_FragColor = vec4(uniform_colour, 1);
 }

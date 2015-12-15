@@ -48,13 +48,13 @@ MeshData* AssetLoader::_loadMesh(const std::string& filepath){
 	glBufferData(GL_ARRAY_BUFFER, positionsSize + normalsSize + texcoordsSize, 0, GL_STATIC_DRAW);
 
 	// Filling vertex buffer
-	glBufferSubData(GL_ARRAY_BUFFER, 0, positionsSize, &(mesh.positions)[0]);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, positionsSize, &(mesh.positions)[0]); // Positions
 
 	if (normalsSize)
-		glBufferSubData(GL_ARRAY_BUFFER, positionsSize, normalsSize, &(mesh.normals)[0]);
+		glBufferSubData(GL_ARRAY_BUFFER, positionsSize, normalsSize, &(mesh.normals)[0]); // Normals
 
 	if (texcoordsSize)
-		glBufferSubData(GL_ARRAY_BUFFER, positionsSize + normalsSize, texcoordsSize, &(mesh.texcoords)[0]);
+		glBufferSubData(GL_ARRAY_BUFFER, positionsSize + normalsSize, texcoordsSize, &(mesh.texcoords)[0]); // Texcoords
 	
 	// Setting up index buffer
 	GLuint indexBuffer = 0;
@@ -125,8 +125,6 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 	SDL_LockSurface(image);
 
 	SDL_Surface* flipped = flipVertical(image);
-	
-	//SDL_FreeSurface(image);
 
 	// Upload pixels
 	glTexImage2D(GL_TEXTURE_2D, 0, format, flipped->w, flipped->h, 0, format, GL_UNSIGNED_BYTE, flipped->pixels);

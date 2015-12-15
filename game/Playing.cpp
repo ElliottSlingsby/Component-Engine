@@ -21,7 +21,7 @@ void Playing::on(){
 	model->getComponent<Transform>()->setPosition(glm::vec3(0, 0, 0));
 	model->getComponent<Transform>()->setScale(glm::vec3(2, 2, 2));
 	model->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(180.f), 0, glm::radians(180.f))));
-	model->addComponent(new Model("star.obj", "star.png"));
+	model->addComponent(new Model("star.obj", "star.png", "main"));
 	model->getComponent<Model>()->setUnlit(true);
 	
 	Entity* player = EntityManager::createEntity("player");
@@ -36,7 +36,7 @@ void Playing::on(){
 	player->addComponent(new Box2d(32, 64));
 	
 	Entity* box0 = EntityManager::createEntity("box");
-	box0->addComponent(new Model("cube.obj", "test.jpg"));
+	box0->addComponent(new Model("cube.obj", "test.jpg", "main"));
 	box0->getComponent<Model>()->setUnlit(true);
 	box0->getComponent<Transform>()->setScale(glm::vec3(4, 4, 4));
 	box0->getComponent<Transform>()->setPosition(glm::vec3(512, 512, -2));

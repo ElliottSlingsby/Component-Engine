@@ -32,8 +32,7 @@ class ShaderManager{
 
 	std::string _loadText(const std::string& filename);
 	bool _glErrorCheck(const std::string& message, GLuint target, GLenum error, bool program = false);
-	bool _glSimpleErrorCheck();
-	
+
 	GLint _indexUniform(const std::string& name);
 	GLint _indexAttribute(const std::string& name);
 
@@ -44,6 +43,8 @@ public:
 	};
 
 	~ShaderManager();
+
+	bool _glSimpleErrorCheck(); // TESTING ONLY
 
 	void enableVertexAttribute(const std::string& name = "position");
 
@@ -59,6 +60,12 @@ public:
 
 	void uniform(unsigned int index, const glm::mat4& value);
 	void uniform(const std::string& name, const glm::mat4& value);
+
+	void uniform(unsigned int index, const glm::vec3& value);
+	void uniform(const std::string& name, const glm::vec3& value);
+
+	void uniform(unsigned int index, GLint value);
+	void uniform(const std::string& name, GLint value);
 	
 	void attribute(unsigned int index, const glm::vec3& value);
 	void attribute(const std::string& name, const glm::vec3& value);
