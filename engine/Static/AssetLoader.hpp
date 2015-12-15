@@ -74,6 +74,7 @@ class AssetLoader{
 
 	MeshData* _loadMesh(const std::string& filepath);
 	MaterialData* _loadMaterial(const std::string& filepath);
+	GLuint _createTexture(SDL_Surface* surface);
 
 	~AssetLoader();
 

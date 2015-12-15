@@ -109,22 +109,42 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 		message_out("%s %s!", "Cannot load texture", (_assetPath + filepath).c_str());
 		return 0;
 	}
+
+
+	// Texture size
+	glm::vec2 size(image->w, image->h);
 	
+	GLuint diffuse = _createTexture(image);
+	GLuint specular = _createTexture(IMG_Load((_assetPath + "wood/diffuse.png").c_str())); // TESTING
+	GLuint ambient = 0;
+
+	// Add to map
+	MaterialData* asset = new MaterialData(specular, diffuse, ambient, size);
+	_assets[filepath] = asset;
+
+	return asset;
+}
+
+void AssetLoader::setAssetLocation(const std::string& filepath){
+	_instance()._assetPath = "../" + filepath + "/";
+}
+
+GLuint AssetLoader::_createTexture(SDL_Surface* surface){
 	// Gl id creation
 	GLuint id = 0;
+
 	glGenTextures(1, &id);
 	glBindTexture(GL_TEXTURE_2D, id);
 
 	// Format check
 	int format = GL_RGB;
 
-	if (image->format->BytesPerPixel == 4)
+	if (surface->format->BytesPerPixel == 4)
 		format = GL_RGBA;
 
+	SDL_LockSurface(surface);
 
-	SDL_LockSurface(image);
-
-	SDL_Surface* flipped = flipVertical(image);
+	SDL_Surface* flipped = flipVertical(surface);
 
 	// Upload pixels
 	glTexImage2D(GL_TEXTURE_2D, 0, format, flipped->w, flipped->h, 0, format, GL_UNSIGNED_BYTE, flipped->pixels);
@@ -135,19 +155,8 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	// Texture size
-	glm::vec2 size(flipped->w, flipped->h);
-
 	// Free the original surface
 	SDL_FreeSurface(flipped);
 
-	// Add to map
-	MaterialData* asset = new MaterialData(0, id, 0, size);
-	_assets[filepath] = asset;
-
-	return asset;
-}
-
-void AssetLoader::setAssetLocation(const std::string& filepath){
-	_instance()._assetPath = "../" + filepath + "/";
+	return id;
 }

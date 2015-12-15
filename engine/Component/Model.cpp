@@ -70,9 +70,24 @@ void Model::render(){
 	//Renderer::shaderManager().useProgram(_shader);
 
 
-	if (_material){	
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, _material->diffuse);
+	if (_material){
+
+		GLint diffuse = glGetUniformLocation(Renderer::shaderManager().currentProgram(), "uniform_diffuse");
+
+		if (_material->diffuse && diffuse != -1){
+			glBindTexture(GL_TEXTURE_2D, _material->diffuse);
+			glActiveTexture(GL_TEXTURE0);
+			glBindSampler(_material->diffuse, diffuse);
+		}
+
+		GLint specular = glGetUniformLocation(Renderer::shaderManager().currentProgram(), "uniform_specular");
+
+		if (_material->specular && specular != -1){
+			glBindTexture(GL_TEXTURE_2D, _material->specular);
+			glActiveTexture(GL_TEXTURE1);
+			glBindSampler(_material->specular, specular);
+		}
+		
 
 		//glActiveTexture(GL_TEXTURE0 + 1);
 		//glBindTexture(GL_TEXTURE_2D, _material->specular);
