@@ -16,6 +16,7 @@
     <ClCompile Include="Movement.cpp" />
     <ClCompile Include="Setup.cpp" />
     <ClCompile Include="Playing.cpp" />
+    <ClCompile Include="Spin.cpp" />
     <ClCompile Include="Velocity.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -23,6 +24,7 @@
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Movement.hpp" />
     <ClInclude Include="Playing.hpp" />
+    <ClInclude Include="Spin.hpp" />
     <ClInclude Include="Velocity.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

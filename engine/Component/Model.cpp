@@ -9,9 +9,6 @@
 //https://www.opengl.org/discussion_boards/showthread.php/163092-Passing-Multiple-Textures-from-OpenGL-to-GLSL-shader
 //https://en.wikibooks.org/wiki/OpenGL_Programming/Advanced/GLSL
 
-
-#define BUFFER_OFFSET(bytes) ((GLubyte*)NULL + (bytes))
-
 Model::Model(const std::string& meshSrc, const std::string& materialSrc, const std::string& shader){
 	_meshSrc = meshSrc;
 	_materialSrc = materialSrc;
@@ -28,17 +25,6 @@ void Model::load(){
 
 	if (_materialSrc != "")
 		_material = AssetLoader::getAsset<MaterialData>(_materialSrc);
-
-	//if (_mesh){
-	//	glEnableVertexAttribArray(0); // Positions
-	//	glVertexAttribPointer(_mesh->vertexBuffer, _mesh->vertexSize, GL_FLOAT, GL_FALSE, sizeof(float)* 3, BUFFER_OFFSET(0));
-	//	
-	//	glEnableVertexAttribArray(1); // Normals
-	//	glVertexAttribPointer(_mesh->vertexBuffer, _mesh->vertexSize, GL_FLOAT, GL_FALSE, sizeof(float)* 3, BUFFER_OFFSET(_mesh->vertexSize));
-	//	
-	//	glEnableVertexAttribArray(2); // Texcoords
-	//	glVertexAttribPointer(_mesh->vertexBuffer, _mesh->vertexSize, GL_FLOAT, GL_FALSE, sizeof(float)* 2, BUFFER_OFFSET(_mesh->vertexSize + _mesh->normalSize));
-	//}
 }
 
 void Model::setMesh(const MeshData* mesh){
@@ -63,13 +49,12 @@ void Model::render(){
 
 	// Scale based on Transform
 	glScalef(-_transform->scale().x, -_transform->scale().y, _transform->scale().z);
-
+	
 
 
 	GLuint program = Renderer::shaderManager().currentProgram();
 	Renderer::shaderManager().useProgram(_shader);
-
-
+	
 	if (_material){
 		// Diffuse binding
 		GLint diffuse = glGetUniformLocation(program, "uniform_diffuse");
@@ -77,8 +62,6 @@ void Model::render(){
 		if (_material->diffuse && diffuse != -1){
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, _material->diffuse);
-			//glBindSampler(_material->diffuse, diffuse);
-
 			Renderer::shaderManager().uniform(diffuse, 0);
 		}
 
@@ -88,8 +71,6 @@ void Model::render(){
 		if (_material->specular && specular != -1){
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, _material->specular);
-			//glBindSampler(_material->specular, specular);
-
 			Renderer::shaderManager().uniform(specular, 1);
 		}
 
@@ -99,16 +80,27 @@ void Model::render(){
 		if (_material->normal && normal != -1){
 			glActiveTexture(GL_TEXTURE2);
 			glBindTexture(GL_TEXTURE_2D, _material->normal);
-			//glBindSampler(_material->normal, normal);
-
 			Renderer::shaderManager().uniform(normal, 2);
 		}
+
+
+		Entity* entity = EntityManager::getEntity("player");
+
+		if (entity){
+			glm::vec3 directional = glm::normalize(entity->getComponent<Transform>()->position() - _transform->position());
+			Renderer::shaderManager().attribute("in_direction", directional);
+		}
+
+
+		//GLint light = glGetAttribLocation(program, "in_light");
+		//
+		//if (light != -1){
+		//	Renderer::shaderManager().uniform(light, glm::vec3(0, 0, 0));
+		//}
 	}
 	else{
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
-
-	
 
 	bool switched = false;
 
@@ -116,31 +108,19 @@ void Model::render(){
 		switched = true;
 		glDisable(GL_LIGHTING);
 	}
-	
-
-	//if (_material && _shader != "main"){
-	//	GLint diffuse = glGetUniformLocation(Renderer::shaderManager().currentProgram(), "uniform_diffuse");
-	//
-	//	Renderer::shaderManager().uniform(diffuse, _material->diffuse);
-	//
-	//	//Renderer::shaderManager()._glSimpleErrorCheck();
-	//}
-
-	//if (_shader == "main")
-	//	Renderer::shaderManager().uniform(0, glm::vec3(1, 1, 1));
 
 	draw();
 
 	glPopMatrix();
 
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindSampler(GL_TEXTURE_2D, 0);
-	//
-	//glActiveTexture(GL_TEXTURE1);
-	//glBindSampler(GL_TEXTURE_2D, 0);
-	//
-	//glActiveTexture(GL_TEXTURE2);
-	//glBindSampler(GL_TEXTURE_2D, 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	Renderer::shaderManager().useProgram(program);
 
@@ -164,8 +144,7 @@ void Model::draw(){
 		// Loading texture data
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glTexCoordPointer(2, GL_FLOAT, 2 * sizeof(float), (void*)(_mesh->vertexSize + _mesh->normalSize));
-
-
+		
 
 		GLuint program = Renderer::shaderManager().currentProgram();
 
@@ -173,9 +152,6 @@ void Model::draw(){
 		GLint normal = glGetAttribLocation(program, "in_normal"); 
 		GLint texcoord = glGetAttribLocation(program, "in_texcoord");
 			
-
-
-
 		if (position != -1){
 			glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 			glEnableVertexAttribArray(position); // Positions

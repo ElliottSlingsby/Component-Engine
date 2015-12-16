@@ -27,6 +27,9 @@
     <ClCompile Include="Input.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="Spin.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Playing.hpp">
@@ -42,6 +45,9 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Input.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Spin.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

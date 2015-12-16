@@ -183,8 +183,7 @@ GLint ShaderManager::_indexUniform(const std::string& name){
 	GLint value = glGetUniformLocation(_activeProgram, name.c_str());
 
 	if (value == -1){
-		_glSimpleErrorCheck();
-		error_out(("No such uniform called " + name + ".\n").c_str());
+		message_out(("Uniform " + name + " == -1.\n").c_str());
 	}
 
 	return value;
@@ -194,8 +193,7 @@ GLint ShaderManager::_indexAttribute(const std::string& name){
 	GLint value = glGetAttribLocation(_activeProgram, name.c_str());
 
 	if (value == -1){
-		_glSimpleErrorCheck();
-		error_out(("No such attribute called " + name + ".\n").c_str());
+		//message_out(("Attribute " + name + " == -1.\n").c_str());
 	}
 
 	return value;

@@ -4,9 +4,15 @@ uniform sampler2D uniform_diffuse;
 uniform sampler2D uniform_specular;
 uniform sampler2D uniform_normal;
 
-in vec3 out_normal;
-in vec2 out_texcoord;
+in highp vec3 out_lighting;
+
+in highp vec3 out_normal;
+in highp vec2 out_texcoord;
 
 void main(){
-	gl_FragColor = texture2D(uniform_normal, out_texcoord);
+	highp vec4 texel = texture2D(uniform_diffuse, out_texcoord);
+
+	//gl_FragColor = vec4(out_normal, texel.a);
+	
+	gl_FragColor = vec4(texel.rgb * out_lighting, texel.a);
 }
