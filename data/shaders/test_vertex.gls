@@ -19,27 +19,17 @@ void main(){
 	gl_Position = ftransform();
 	
 	highp vec3 normal = normalize(gl_NormalMatrix * in_normal);
-	
 
 	highp vec3 ambient = vec3(0, 0, 0);
 	highp vec3 diffuse = vec3(1, 1, 1);
 
-	
-
-	//vec3 position = vec3(0, 0, 0);
-	
-	
-	//highp vec3 direction = normalize(position - in_position);
-	
 	highp vec3 direction = normalize(gl_NormalMatrix * in_lightDirection);
-	
 	
 	out_normal = normal;
 	out_texcoord = in_texcoord;
 	out_direction = direction;
 	
 	float directional = max(dot(normal, direction), 0.0);
-	
 
 	out_lighting = ambient + (diffuse * directional);
 	out_lighting *= in_lightDistance;

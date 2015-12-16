@@ -11,13 +11,16 @@ in highp vec3 out_normal;
 in highp vec2 out_texcoord;
 
 void main(){
-	highp vec4 diffuse = texture2D(uniform_diffuse, out_texcoord);
 
-	//highp vec4 normal = texture2D(uniform_normal, out_texcoord);
+
+
+	highp vec4 diffuse = texture2D(uniform_diffuse, out_texcoord);
 	
-	//vec3 lighting = out_lighting * max(dot(normal.xyz, out_direction), 0.0);
+	//highp vec3 normal = normalize(out_normal + texture2D(uniform_normal, out_texcoord).rgb);
+	//highp vec3 normal = normalize(gl_NormalMatrix * rawNormal);
+	//float directional = max(dot(normal, out_direction), 0.0);
 	
-	//gl_FragColor = vec4(out_normal, diffuse.a);
+	//gl_FragColor = vec4(out_normal, 1);
 	
 	gl_FragColor = vec4(diffuse.rgb * out_lighting, diffuse.a);
 }

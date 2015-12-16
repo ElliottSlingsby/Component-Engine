@@ -48,10 +48,10 @@ void Movement::update(double dt){
 	}
 
 	if (input->isDown("q")){
-		_transform->localRotate(glm::quat(glm::vec3(0.f, glm::radians((float)((_speed / 512) * dt)), 0.f)));
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)((_speed / 512) * dt)))));
 
 		if (input->isDown("shift"))
-			_transform->localRotate(glm::quat(glm::vec3(0.f, glm::radians((float)((_speed / 512) * dt)), 0.f)));
+			_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians((float)((_speed / 512) * dt)))));
 	}
 
 	if (input->isDown("a")){

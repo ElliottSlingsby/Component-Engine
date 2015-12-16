@@ -93,12 +93,16 @@ void Model::render(){
 			glm::vec3 position = lightPosition->getComponent<Transform>()->position();
 
 			position.z = -position.z;
+			//position.x = -position.x;
+			//position.y = -position.y;
 
 			glm::vec3 difference = position - _transform->position();
 
-			message_out("%.2f %.2f %.2f\n", position.x, position.y, position.z);
+			//message_out("%.2f %.2f %.2f\n", position.x, position.y, position.z);
 
 			glm::vec3 direction = glm::normalize(difference);
+
+			direction = glm::normalize(direction * _transform->rotation());
 
 			Renderer::shaderManager().attribute("in_lightDirection", direction);
 
