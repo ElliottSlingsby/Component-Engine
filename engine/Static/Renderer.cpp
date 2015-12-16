@@ -47,8 +47,8 @@ bool Renderer::_setupSDL(){
 		return false;
 	}
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
@@ -74,14 +74,14 @@ bool Renderer::_setupGL(){
 	}
 
 	// OpenGl settings
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_ALPHA_TEST);
-	glEnable(GL_SCISSOR_TEST);
-	glEnable(GL_FOG);
+	//glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_LIGHTING);
+	//glEnable(GL_COLOR_MATERIAL);
+	//glEnable(GL_CULL_FACE);
+	//glEnable(GL_ALPHA_TEST);
+	//glEnable(GL_SCISSOR_TEST);
+	//glEnable(GL_FOG);
 
 	 GLenum error = glGetError();
 

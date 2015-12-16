@@ -66,40 +66,47 @@ void Model::render(){
 
 
 
-	//GLuint program = Renderer::shaderManager().currentProgram();
-	//Renderer::shaderManager().useProgram(_shader);
+	GLuint program = Renderer::shaderManager().currentProgram();
+	Renderer::shaderManager().useProgram(_shader);
 
 
 	if (_material){
-
-		GLint diffuse = glGetUniformLocation(Renderer::shaderManager().currentProgram(), "uniform_diffuse");
+		// Diffuse binding
+		GLint diffuse = glGetUniformLocation(program, "uniform_diffuse");
 
 		if (_material->diffuse && diffuse != -1){
-			glBindTexture(GL_TEXTURE_2D, _material->diffuse);
 			glActiveTexture(GL_TEXTURE0);
-			glBindSampler(_material->diffuse, diffuse);
+			glBindTexture(GL_TEXTURE_2D, _material->diffuse);
+			//glBindSampler(_material->diffuse, diffuse);
+
+			Renderer::shaderManager().uniform(diffuse, 0);
 		}
 
-		GLint specular = glGetUniformLocation(Renderer::shaderManager().currentProgram(), "uniform_specular");
+		// Specular binding
+		GLint specular = glGetUniformLocation(program, "uniform_specular");
 
 		if (_material->specular && specular != -1){
-			glBindTexture(GL_TEXTURE_2D, _material->specular);
 			glActiveTexture(GL_TEXTURE1);
-			glBindSampler(_material->specular, specular);
+			glBindTexture(GL_TEXTURE_2D, _material->specular);
+			//glBindSampler(_material->specular, specular);
+
+			Renderer::shaderManager().uniform(specular, 1);
 		}
-		
 
-		//glActiveTexture(GL_TEXTURE0 + 1);
-		//glBindTexture(GL_TEXTURE_2D, _material->specular);
-		//
-		//glActiveTexture(GL_TEXTURE0 + 2);
-		//glBindTexture(GL_TEXTURE_2D, _material->diffuse);
+		// Ambient binding
+		GLint ambient = glGetUniformLocation(program, "uniform_ambient");
 
-		//GLint diffuse = glGetUniformLocation(Renderer::shaderManager().currentProgram(), "uniform_diffuse");
-		//Renderer::shaderManager().uniform(diffuse, _material->diffuse);
+		if (_material->ambient && ambient != -1){
+			glActiveTexture(GL_TEXTURE2);
+			glBindTexture(GL_TEXTURE_2D, _material->ambient);
+			//glBindSampler(_material->ambient, ambient);
+
+			Renderer::shaderManager().uniform(ambient, 2);
+		}
 	}
-	else
+	else{
 		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 
 	
 
@@ -124,12 +131,21 @@ void Model::render(){
 
 	draw();
 
-	//Renderer::shaderManager().useProgram(program);
+	glPopMatrix();
+
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindSampler(GL_TEXTURE_2D, 0);
+	//
+	//glActiveTexture(GL_TEXTURE1);
+	//glBindSampler(GL_TEXTURE_2D, 0);
+	//
+	//glActiveTexture(GL_TEXTURE2);
+	//glBindSampler(GL_TEXTURE_2D, 0);
+
+	Renderer::shaderManager().useProgram(program);
 
 	if (switched && _unlit)
 		glEnable(GL_LIGHTING);
-
-	glPopMatrix();
 }
 
 void Model::draw(){

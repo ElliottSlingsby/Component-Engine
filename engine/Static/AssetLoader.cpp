@@ -7,6 +7,8 @@
 #include <tiny_obj_loader.h>
 #include <vector>
 #include <algorithm>
+#include <fstream>
+#include <string>
 
 AssetLoader::~AssetLoader(){
 	for (AssetMap::iterator i = _assets.begin(); i != _assets.end(); i++){
@@ -21,6 +23,10 @@ AssetLoader& AssetLoader::_instance(){
 }
 
 MeshData* AssetLoader::_loadMesh(const std::string& filepath){
+
+	_materialTextures(_assetPath + "material.mtl");
+
+
 	// tinyobj containers
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
@@ -103,26 +109,143 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 	if (!_renderer)
 		_renderer = SDL_CreateRenderer(Renderer::window().sdlWindow(), -1, SDL_RENDERER_ACCELERATED);
 
-	SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
+	if (!_specularTexture){
+		SDL_Surface* specular = IMG_Load((_assetPath + _defaultSpecular).c_str());
 
-	if (!image){
-		message_out("%s %s!", "Cannot load texture", (_assetPath + filepath).c_str());
-		return 0;
+		if (!specular){
+			error_out(("Cannot find default specular texture at " + _assetPath + _defaultSpecular).c_str());
+		}
+
+		_specularTexture = _createTexture(specular);
+	}
+
+	if (!_ambientTexture){
+		SDL_Surface* ambient = IMG_Load((_assetPath + _defaultNormal).c_str());
+
+		if (!ambient){
+			error_out(("Cannot find default ambient texture at " + _assetPath + _defaultNormal).c_str());
+		}
+
+		_ambientTexture = _createTexture(ambient);
 	}
 
 
-	// Texture size
-	glm::vec2 size(image->w, image->h);
-	
-	GLuint diffuse = _createTexture(image);
-	GLuint specular = _createTexture(IMG_Load((_assetPath + "wood/diffuse.png").c_str())); // TESTING
+
+	//SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
+	//
+	//if (!image){
+	//	message_out("%s %s!", "Cannot load texture", (_assetPath + filepath).c_str());
+	//	return 0;
+	//}
+
+	GLuint diffuse = 0;
+	GLuint specular = 0;
 	GLuint ambient = 0;
 
+	glm::vec2 diffuseSize(0, 0);
+	glm::vec2 specularSize(0, 0);
+	glm::vec2 ambientSize(0, 0);
+
+	std::size_t dot = filepath.find(".");
+
+	std::string extension = filepath.substr(dot);
+
+	if (extension != ".mtl"){
+		glm::vec3 diffuseTexture = _loadTexture(filepath);
+
+		if (diffuseTexture.x != 0){
+			diffuseSize = glm::vec2(diffuseTexture.y, diffuseTexture.z);
+			diffuse = diffuseTexture.x;
+		}
+
+		specular = _specularTexture;
+		specularSize = glm::vec2(1, 1);
+
+		ambient = _ambientTexture;
+		ambientSize = glm::vec2(1, 1);
+	}
+	else{
+		StringVector textures;
+
+		textures = _materialTextures(filepath);
+
+		if (textures.size() < 1){
+			message_out("Material file %s doesn't have enough channels!\n", filepath.c_str());
+			return 0;
+		}
+
+		// Diffuse
+		glm::vec3 diffuseTexture = _loadTexture(textures[0]);
+
+		diffuse = diffuseTexture.x;
+		diffuseSize = glm::vec2(diffuseTexture.y, diffuseTexture.z);
+		
+		// Specular
+		if (textures.size() > 1){
+			glm::vec3 texture = _loadTexture(textures[1]);
+
+			specular = texture.x;
+			specularSize = glm::vec2(texture.y, texture.z);
+		}
+		else{
+			specular = _specularTexture;
+			specularSize = glm::vec2(1, 1);
+		}
+		
+		// Ambient
+		if (textures.size() > 2){
+			glm::vec3 texture = _loadTexture(textures[2]);
+
+			ambient = texture.x;
+			ambientSize = glm::vec2(texture.y, texture.z);
+		}
+		else{
+			ambient = _ambientTexture;
+			ambientSize = glm::vec2(1, 1);
+		}
+	}
+
+
 	// Add to map
-	MaterialData* asset = new MaterialData(specular, diffuse, ambient, size);
+	MaterialData* asset = new MaterialData(diffuse, specular, ambient, diffuseSize, specularSize, ambientSize);
 	_assets[filepath] = asset;
 
 	return asset;
+
+
+	//SDL_Surface* image = IMG_Load((_assetPath + filepath).c_str());
+
+	//diffuse = _createTexture(_assetPath + filepath + textures)
+
+	// Texture size
+	//glm::vec2 size(image->w, image->h);
+	
+	//diffuse = _createTexture(image);
+	//specular = _createTexture(IMG_Load((_assetPath + "wood/diffuse.png").c_str())); // TESTING
+	//ambient = 0;
+
+
+}
+
+glm::vec3 AssetLoader::_loadTexture(const std::string& filepath){
+	glm::vec2 size(0, 0);
+	GLuint id = 0;
+
+	if (_textures.find(filepath) == _textures.end()){
+		std::string fullPath = _assetPath + filepath;
+
+		SDL_Surface* surface = IMG_Load(fullPath.c_str());
+		
+		// Diffuse
+		if (surface){
+			size = glm::vec2(surface->w, surface->h);
+			id = _createTexture(surface);
+
+			_textures[filepath] = glm::vec3(id, size.x, size.y);
+		}
+	}
+
+	return _textures[filepath];
 }
 
 void AssetLoader::setAssetLocation(const std::string& filepath){
@@ -130,6 +253,9 @@ void AssetLoader::setAssetLocation(const std::string& filepath){
 }
 
 GLuint AssetLoader::_createTexture(SDL_Surface* surface){
+	if (!surface)
+		return 0;
+
 	// Gl id creation
 	GLuint id = 0;
 
@@ -159,4 +285,24 @@ GLuint AssetLoader::_createTexture(SDL_Surface* surface){
 	SDL_FreeSurface(flipped);
 
 	return id;
+}
+
+AssetLoader::StringVector AssetLoader::_materialTextures(const std::string& filepath){
+	std::ifstream file(_assetPath + filepath);
+
+	StringVector contents;
+
+	if (file.is_open()){
+		contents.reserve(3);
+
+		int i = 0;
+		for (std::string line; std::getline(file, line); i++){
+			if (i == 3)
+				break;
+
+			contents.push_back(line);
+		}
+	}
+
+	return contents;
 }

@@ -42,7 +42,7 @@ bool Window::running(){
 
 void Window::flip(){
 	SDL_GL_SwapWindow(_sdlWindow);
-	glClearColor(1, 0, 0, 1);
+	glClearColor(0.5f, 0.5f, 0.5f, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

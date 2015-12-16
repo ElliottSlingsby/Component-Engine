@@ -36,7 +36,7 @@ void Playing::on(){
 	player->addComponent(new Box2d(32, 64));
 	
 	Entity* box0 = EntityManager::createEntity("box");
-	box0->addComponent(new Model("cube.obj", "test.jpg", "main"));
+	box0->addComponent(new Model("cube.obj", "test.mtl", "main"));
 	box0->getComponent<Model>()->setUnlit(true);
 	box0->getComponent<Transform>()->setScale(glm::vec3(4, 4, 4));
 	box0->getComponent<Transform>()->setPosition(glm::vec3(512, 512, -2));

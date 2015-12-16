@@ -45,13 +45,17 @@ struct MaterialData : public Asset{
 	const GLuint diffuse;
 	const GLuint ambient;
 
-	const glm::vec2 size;
+	const glm::vec2 specularSize;
+	const glm::vec2 diffuseSize;
+	const glm::vec2 ambientSize;
 
-	MaterialData(GLuint specular, GLuint diffuse, GLuint ambient, glm::vec2 size) :
+	MaterialData(GLuint diffuse, GLuint specular, GLuint ambient, glm::vec2 diffuseSize, glm::vec2 specularSize, glm::vec2 ambientSize) :
 		specular(specular), 
 		diffuse(diffuse), 
 		ambient(ambient),
-		size(size){
+		diffuseSize(diffuseSize),
+		specularSize(specularSize),
+		ambientSize(ambientSize){
 	}
 
 	~MaterialData(){
@@ -69,12 +73,28 @@ class AssetLoader{
 
 	SDL_Renderer* _renderer = 0;
 
+	typedef std::vector<std::string> StringVector;
+	typedef std::unordered_map<std::string, glm::vec3> Vec3Map;
+
+	Vec3Map _textures;
+
+	std::string _defaultNormal = "default/normal.png";
+	std::string _defaultSpecular = "default/specular.png";
+
+	GLuint _ambientTexture = 0;
+	GLuint _specularTexture = 0;
+
 	// Private singleton for use in static functions
 	static AssetLoader& _instance();
 
 	MeshData* _loadMesh(const std::string& filepath);
 	MaterialData* _loadMaterial(const std::string& filepath);
+	glm::vec3 _loadTexture(const std::string& filepath);
+
 	GLuint _createTexture(SDL_Surface* surface);
+
+	StringVector _materialTextures(const std::string& filepath);
+
 
 	~AssetLoader();
 
@@ -92,7 +112,6 @@ public:
 		if (iter == _instance()._assets.end()){
 			Asset* asset = 0;
 
-			// Regex search to determine file type
 			if (typeid(T) == typeid(MeshData))
 				asset = _instance()._loadMesh(filepath);
 
