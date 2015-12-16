@@ -43,25 +43,25 @@ struct MeshData : public Asset{
 struct MaterialData : public Asset{
 	const GLuint specular;
 	const GLuint diffuse;
-	const GLuint ambient;
+	const GLuint normal;
 
 	const glm::vec2 specularSize;
 	const glm::vec2 diffuseSize;
-	const glm::vec2 ambientSize;
+	const glm::vec2 normalSize;
 
-	MaterialData(GLuint diffuse, GLuint specular, GLuint ambient, glm::vec2 diffuseSize, glm::vec2 specularSize, glm::vec2 ambientSize) :
+	MaterialData(GLuint diffuse, GLuint specular, GLuint normal, glm::vec2 diffuseSize, glm::vec2 specularSize, glm::vec2 normalSize) :
 		specular(specular), 
 		diffuse(diffuse), 
-		ambient(ambient),
+		normal(normal),
 		diffuseSize(diffuseSize),
 		specularSize(specularSize),
-		ambientSize(ambientSize){
+		normalSize(normalSize){
 	}
 
 	~MaterialData(){
 		glDeleteTextures(1, &specular);
 		glDeleteTextures(1, &diffuse);
-		glDeleteTextures(1, &ambient);
+		glDeleteTextures(1, &normal);
 	}
 };
 
@@ -81,7 +81,7 @@ class AssetLoader{
 	std::string _defaultNormal = "default/normal.png";
 	std::string _defaultSpecular = "default/specular.png";
 
-	GLuint _ambientTexture = 0;
+	GLuint _normalTexture = 0;
 	GLuint _specularTexture = 0;
 
 	// Private singleton for use in static functions

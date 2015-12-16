@@ -119,14 +119,14 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 		_specularTexture = _createTexture(specular);
 	}
 
-	if (!_ambientTexture){
-		SDL_Surface* ambient = IMG_Load((_assetPath + _defaultNormal).c_str());
+	if (!_normalTexture){
+		SDL_Surface* normal = IMG_Load((_assetPath + _defaultNormal).c_str());
 
-		if (!ambient){
-			error_out(("Cannot find default ambient texture at " + _assetPath + _defaultNormal).c_str());
+		if (!normal){
+			error_out(("Cannot find default normal texture at " + _assetPath + _defaultNormal).c_str());
 		}
 
-		_ambientTexture = _createTexture(ambient);
+		_normalTexture = _createTexture(normal);
 	}
 
 
@@ -140,11 +140,11 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 
 	GLuint diffuse = 0;
 	GLuint specular = 0;
-	GLuint ambient = 0;
+	GLuint normal = 0;
 
 	glm::vec2 diffuseSize(0, 0);
 	glm::vec2 specularSize(0, 0);
-	glm::vec2 ambientSize(0, 0);
+	glm::vec2 normalSize(0, 0);
 
 	std::size_t dot = filepath.find(".");
 
@@ -155,14 +155,14 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 
 		if (diffuseTexture.x != 0){
 			diffuseSize = glm::vec2(diffuseTexture.y, diffuseTexture.z);
-			diffuse = diffuseTexture.x;
+			diffuse = (int)diffuseTexture.x;
 		}
 
 		specular = _specularTexture;
 		specularSize = glm::vec2(1, 1);
 
-		ambient = _ambientTexture;
-		ambientSize = glm::vec2(1, 1);
+		normal = _normalTexture;
+		normalSize = glm::vec2(1, 1);
 	}
 	else{
 		StringVector textures;
@@ -177,14 +177,14 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 		// Diffuse
 		glm::vec3 diffuseTexture = _loadTexture(textures[0]);
 
-		diffuse = diffuseTexture.x;
+		diffuse = (int)diffuseTexture.x;
 		diffuseSize = glm::vec2(diffuseTexture.y, diffuseTexture.z);
 		
 		// Specular
 		if (textures.size() > 1){
 			glm::vec3 texture = _loadTexture(textures[1]);
 
-			specular = texture.x;
+			specular = (int)texture.x;
 			specularSize = glm::vec2(texture.y, texture.z);
 		}
 		else{
@@ -192,22 +192,21 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 			specularSize = glm::vec2(1, 1);
 		}
 		
-		// Ambient
+		// Normal
 		if (textures.size() > 2){
 			glm::vec3 texture = _loadTexture(textures[2]);
 
-			ambient = texture.x;
-			ambientSize = glm::vec2(texture.y, texture.z);
+			normal = (int)texture.x;
+			normalSize = glm::vec2(texture.y, texture.z);
 		}
 		else{
-			ambient = _ambientTexture;
-			ambientSize = glm::vec2(1, 1);
+			normal = _normalTexture;
+			normalSize = glm::vec2(1, 1);
 		}
 	}
-
-
+	
 	// Add to map
-	MaterialData* asset = new MaterialData(diffuse, specular, ambient, diffuseSize, specularSize, ambientSize);
+	MaterialData* asset = new MaterialData(diffuse, specular, normal, diffuseSize, specularSize, normalSize);
 	_assets[filepath] = asset;
 
 	return asset;
@@ -222,7 +221,7 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 	
 	//diffuse = _createTexture(image);
 	//specular = _createTexture(IMG_Load((_assetPath + "wood/diffuse.png").c_str())); // TESTING
-	//ambient = 0;
+	//normal = 0;
 
 
 }

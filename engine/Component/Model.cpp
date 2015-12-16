@@ -93,15 +93,15 @@ void Model::render(){
 			Renderer::shaderManager().uniform(specular, 1);
 		}
 
-		// Ambient binding
-		GLint ambient = glGetUniformLocation(program, "uniform_ambient");
+		// Normal binding
+		GLint normal = glGetUniformLocation(program, "uniform_normal");
 
-		if (_material->ambient && ambient != -1){
+		if (_material->normal && normal != -1){
 			glActiveTexture(GL_TEXTURE2);
-			glBindTexture(GL_TEXTURE_2D, _material->ambient);
-			//glBindSampler(_material->ambient, ambient);
+			glBindTexture(GL_TEXTURE_2D, _material->normal);
+			//glBindSampler(_material->normal, normal);
 
-			Renderer::shaderManager().uniform(ambient, 2);
+			Renderer::shaderManager().uniform(normal, 2);
 		}
 	}
 	else{
