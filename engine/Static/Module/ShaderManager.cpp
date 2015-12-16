@@ -193,7 +193,7 @@ GLint ShaderManager::_indexAttribute(const std::string& name){
 	GLint value = glGetAttribLocation(_activeProgram, name.c_str());
 
 	if (value == -1){
-		//message_out(("Attribute " + name + " == -1.\n").c_str());
+		message_out(("Attribute " + name + " == -1.\n").c_str());
 	}
 
 	return value;
@@ -234,7 +234,13 @@ void ShaderManager::attribute(const std::string& name, const glm::vec3& value){
 	attribute(_indexAttribute(name), value);
 }
 
+void ShaderManager::attribute(unsigned int index, float value){
+	glVertexAttrib1f(index, value);
+}
 
+void ShaderManager::attribute(const std::string& name, float value){
+	attribute(_indexAttribute(name), value);
+}
 
 
 

@@ -5,14 +5,19 @@ uniform sampler2D uniform_specular;
 uniform sampler2D uniform_normal;
 
 in highp vec3 out_lighting;
+in highp vec3 out_direction;
 
 in highp vec3 out_normal;
 in highp vec2 out_texcoord;
 
 void main(){
-	highp vec4 texel = texture2D(uniform_diffuse, out_texcoord);
+	highp vec4 diffuse = texture2D(uniform_diffuse, out_texcoord);
 
-	//gl_FragColor = vec4(out_normal, texel.a);
+	//highp vec4 normal = texture2D(uniform_normal, out_texcoord);
 	
-	gl_FragColor = vec4(texel.rgb * out_lighting, texel.a);
+	//vec3 lighting = out_lighting * max(dot(normal.xyz, out_direction), 0.0);
+	
+	//gl_FragColor = vec4(out_normal, diffuse.a);
+	
+	gl_FragColor = vec4(diffuse.rgb * out_lighting, diffuse.a);
 }

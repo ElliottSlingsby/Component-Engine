@@ -41,10 +41,10 @@ void Movement::update(double dt){
 		return;
 
 	if (input->isDown("e")){
-		_transform->localRotate(glm::quat(glm::vec3(0.f, glm::radians(-(float)((_speed / 512) * dt)), 0.f)));
+		_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)((_speed / 512) * dt)))));
 
 		if (input->isDown("shift"))
-			_transform->localRotate(glm::quat(glm::vec3(0.f, glm::radians(-(float)((_speed / 512) * dt)), 0.f)));
+			_transform->localRotate(glm::quat(glm::vec3(0.f, 0.f, glm::radians(-(float)((_speed / 512) * dt)))));
 	}
 
 	if (input->isDown("q")){
@@ -107,7 +107,7 @@ void Movement::update(double dt){
 		if (input->isDown("up")){
 			_zoom *= 0.995f;
 
-			Entity* entity = EntityManager::getEntity("player");
+			Entity* entity = EntityManager::getEntity("camera");
 
 			if (entity){
 				Camera* camera = entity->getComponent<Camera>();
@@ -120,7 +120,7 @@ void Movement::update(double dt){
 		if (input->isDown("down")){
 			_zoom /= 0.995f;
 
-			Entity* entity = EntityManager::getEntity("player");
+			Entity* entity = EntityManager::getEntity("camera");
 
 			if (entity){
 				Camera* camera = entity->getComponent<Camera>();
@@ -148,22 +148,22 @@ void Movement::update(double dt){
 
 void Movement::forward(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, -_speed * _zoom / 50.f));
+		_velocity->localPush(glm::vec3(0.f, _speed * _zoom / 50.f, 0.f));
 }
 
 void Movement::back(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, 0.f, _speed * _zoom / 50.f));
+		_velocity->localPush(glm::vec3(0.f, -_speed * _zoom / 50.f, 0.f));
 }
 
 void Movement::up(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, _speed / 50.f, 0.f));
+		_velocity->localPush(glm::vec3(0.f, 0.f, _speed / 50.f));
 }
 
 void Movement::down(){
 	if (_velocity)
-		_velocity->localPush(glm::vec3(0.f, -_speed / 50.f, 0.f));
+		_velocity->localPush(glm::vec3(0.f, 0.f, -_speed / 50.f));
 }
 
 void Movement::left(){

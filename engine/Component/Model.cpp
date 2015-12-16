@@ -2,6 +2,7 @@
 
 #include <GL\glew.h>
 #include <Static\Renderer.hpp>
+#include <Static\Utils.hpp>
 
 //https://open.gl/textures
 //https://www.opengl.org/wiki/Sampler_(GLSL)
@@ -84,11 +85,41 @@ void Model::render(){
 		}
 
 
-		Entity* entity = EntityManager::getEntity("player");
+		Entity* lightPosition = EntityManager::getEntity("player");
 
-		if (entity){
-			glm::vec3 directional = glm::normalize(entity->getComponent<Transform>()->position() - _transform->position());
-			Renderer::shaderManager().attribute("in_direction", directional);
+		//Entity* camera = EntityManager::getEntity("camera");
+
+		if (lightPosition){
+			glm::vec3 position = lightPosition->getComponent<Transform>()->position();
+
+			position.z = -position.z;
+
+			glm::vec3 difference = position - _transform->position();
+
+			message_out("%.2f %.2f %.2f\n", position.x, position.y, position.z);
+
+			glm::vec3 direction = glm::normalize(difference);
+
+			Renderer::shaderManager().attribute("in_lightDirection", direction);
+
+			float distance = glm::distance(position, _transform->position());
+
+			float maxDistance = 1024;
+
+			distance = clamp(0, 1, changeRange(0, maxDistance, 1, 0, distance));
+
+			Renderer::shaderManager().attribute("in_lightDistance", distance);
+
+
+			//glm::vec3 direction = glm::normalize(glm::vec3(difference.x, 0, -difference.y));
+
+			//glm::vec3 direction = glm::normalize(glm::vec3(difference.x, -difference.z, -difference.y));
+
+			//glm::vec3 position = lightPosition->getComponent<Transform>()->position();
+
+			
+
+			//Renderer::shaderManager().attribute("in_direction", directional);
 		}
 
 

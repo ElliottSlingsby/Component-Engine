@@ -70,6 +70,9 @@ public:
 	void attribute(unsigned int index, const glm::vec3& value);
 	void attribute(const std::string& name, const glm::vec3& value);
 
+	void attribute(unsigned int index, float value);
+	void attribute(const std::string& name, float value);
+
 	/*
 
 	void uniform(unsigned int index, const glm::mat2& values, unsigned int count = 1){}

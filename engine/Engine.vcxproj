@@ -30,6 +30,7 @@
     <ClCompile Include="Static\Module\ShaderManager.cpp" />
     <ClCompile Include="Static\Module\Window.cpp" />
     <ClCompile Include="Static\Renderer.cpp" />
+    <ClCompile Include="Static\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component\Box2d.hpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="Static\Module\StateMachine.hpp" />
     <ClInclude Include="Static\Module\SystemHandler.hpp" />
     <ClInclude Include="Static\Renderer.hpp" />
+    <ClInclude Include="Static\Utils.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5259262C-54B0-4DB1-9BF0-EC1CFB840124}</ProjectGuid>

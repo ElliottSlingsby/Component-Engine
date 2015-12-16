@@ -18,33 +18,54 @@ void Playing::on(){
 	Entity* origin = EntityManager::createEntity("main");
 	origin->addComponent(new Grid(512, 8, 8, Grid::AxisZ));
 	
-	Entity* model = EntityManager::createEntity("model");
-	model->getComponent<Transform>()->setPosition(glm::vec3(-512, 512, -2));
-	model->getComponent<Transform>()->setScale(glm::vec3(2, 2, 2));
-	model->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(180.f), 0, glm::radians(180.f))));
-	model->addComponent(new Model("star.obj", "star.png", "main"));
-	model->getComponent<Model>()->setUnlit(true);
-	model->addComponent(new Spin(0.35f));
+	//Entity* model = EntityManager::createEntity("model");
+	//model->getComponent<Transform>()->setPosition(glm::vec3(-512, 512, -2));
+	//model->getComponent<Transform>()->setScale(glm::vec3(2, 2, 2));
+	//model->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(180.f), 0, glm::radians(180.f))));
+	//model->addComponent(new Model("star.obj", "star.png", "main"));
+	//model->getComponent<Model>()->setUnlit(true);
+	//model->addComponent(new Spin(0.35f));
+
+	Entity* camera = EntityManager::createEntity("camera");
+	camera->getComponent<Transform>()->setPosition(glm::vec3(0, 0, -1024));
+	camera->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
+	camera->addComponent(new Camera);
+	camera->getComponent<Camera>()->set2d(false);
+	camera->getComponent<Camera>()->setFov(90);
+	camera->getComponent<Camera>()->setDrawDistance(1024 * 8);
+
 	
 	Entity* player = EntityManager::createEntity("player");
-	player->getComponent<Transform>()->setPosition(glm::vec3(-256, 0, -1024));
-	player->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(90.f), 0, 0)));
+	player->getComponent<Transform>()->setScale(glm::vec3(8, 8, 8));
 	player->addComponent(new Velocity(1.f));
 	player->addComponent(new Input);
 	player->addComponent(new Movement(25000.f, 0.1f));
-	player->addComponent(new Camera);
-	player->getComponent<Camera>()->set2d(false);
-	player->getComponent<Camera>()->setFov(90);
-	player->addComponent(new Box2d(32, 64));
+	player->addComponent(new Model("sphere.obj", "white.png"));
+	//player->addComponent(new Box2d(32, 32));
+
+	camera->getComponent<Transform>()->setParent(player->getComponent<Transform>());
 	
-	Entity* box0 = EntityManager::createEntity("box");
-	box0->addComponent(new Model("cube.obj", "test.mtl", "main"));
-	box0->getComponent<Model>()->setUnlit(true);
-	box0->getComponent<Transform>()->setScale(glm::vec3(4, 4, 4));
-	box0->getComponent<Transform>()->setPosition(glm::vec3(512, 512, -2));
-	box0->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(0, 0, glm::radians(10.f))));
-	box0->addComponent(new Box2d(68, 68));
-	box0->addComponent(new Spin(0.5f));
+
+	int size = 5;
+	float spread = 256.f;
+	
+	for (int y = -size; y < size; y++){
+		for (int x = -size; x < size; x++){
+			Entity* box0 = EntityManager::createEntity("box");
+			box0->addComponent(new Model("cube.obj", "white.mtl", "main"));
+			box0->getComponent<Transform>()->setScale(glm::vec3(1, 1, 10));
+			box0->getComponent<Transform>()->setPosition(glm::vec3(x * spread, y * spread, 256));
+			//box0->addComponent(new Spin(0.5f));
+		}
+	}
+	
+
+	//Entity* box0 = EntityManager::createEntity("box");
+	//box0->addComponent(new Model("cube.obj", "test.mtl", "main"));
+	//box0->getComponent<Model>()->setUnlit(true);
+	//box0->getComponent<Transform>()->setScale(glm::vec3(5, 5, 5));
+	//box0->getComponent<Transform>()->setPosition(glm::vec3(0, 0, 100));
+	//box0->addComponent(new Spin(0.5f));
 
 	//player->getComponent<Transform>()->setParent(box0->getComponent<Transform>());
 

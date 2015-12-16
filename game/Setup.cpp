@@ -16,7 +16,7 @@ bool setup(int argc, char *args[]){
 	Renderer::console().setRunning(true);
 #endif
 
-	Renderer::shaderManager().createProgram("simple", "simple_vertex.gls", "simple_fragment.gls");
+	//Renderer::shaderManager().createProgram("simple", "simple_vertex.gls", "simple_fragment.gls");
 
 	Renderer::shaderManager().createProgram("main", "test_vertex.gls", "test_fragment.gls");
 	Renderer::shaderManager().useProgram("main");
