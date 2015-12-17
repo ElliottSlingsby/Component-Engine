@@ -12,48 +12,30 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Setup.cpp" />
-    <ClCompile Include="Playing.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
     <ClCompile Include="Velocity.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="Follow.cpp">
+    <ClCompile Include="MathsDemo.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="Movement.cpp">
+    <ClCompile Include="Box2d.cpp">
       <Filter>Private</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Spin.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Noclip.cpp">
+    <ClCompile Include="Circle2d.cpp">
       <Filter>Private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Playing.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
     <ClInclude Include="Velocity.hpp">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="Follow.hpp">
+    <ClInclude Include="MathsDemo.hpp">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="Movement.hpp">
+    <ClInclude Include="Box2d.hpp">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="Input.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Spin.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Noclip.hpp">
+    <ClInclude Include="Circle2d.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,7 @@
 
 #include <Static\EntityManager.hpp>
 
-struct Playing : public State{
+struct MathsDemo : public State{
 	void on();
 	void off();
 };

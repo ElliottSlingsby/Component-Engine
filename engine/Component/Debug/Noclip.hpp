@@ -2,7 +2,7 @@
 
 #include <Entity\HelperComponent.hpp>
 
-#include "Input.hpp"
+#include <Component\Input.hpp>
 
 class Noclip : public HelperComponent{
 	Transform* _transform = 0;

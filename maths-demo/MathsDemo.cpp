@@ -1,19 +1,13 @@
-#include "Playing.hpp"
+#include "MathsDemo.hpp"
 
 #include <Static\Renderer.hpp>
 
-#include <Component\Box2d.hpp>
 #include <Component\Camera.hpp>
-#include <Component\Debug\Axis.hpp>
 #include <Component\Debug\Grid.hpp>
+#include <Component\Debug\Noclip.hpp>
+#include <Component\Input.hpp>
 
-#include "Movement.hpp"
-#include "Velocity.hpp"
-#include "Input.hpp"
-#include "Spin.hpp"
-#include "Noclip.hpp"
-
-void Playing::on(){
+void MathsDemo::on(){
 	Entity* origin = EntityManager::createEntity("main");
 	origin->addComponent(new Grid(512, 8, 8, Grid::AxisZ));
 	
@@ -25,24 +19,11 @@ void Playing::on(){
 	player->getComponent<Camera>()->setDrawDistance(1024 * 8);
 	player->addComponent(new Input);
 	player->addComponent(new Noclip(64.f, 0.1f));
-	
-	int size = 1;
-	float spread = 256.f;
-	
-	for (int y = -size; y <= size; y++){
-		for (int x = -size; x <= size; x++){
-			Entity* model = EntityManager::createEntity("model");
-			model->getComponent<Transform>()->setScale(glm::vec3(5, 5, 5));
-			model->getComponent<Transform>()->setPosition(glm::vec3(x * spread, y * spread, 0));
-			model->addComponent(new Model("bunny.obj", "wood.mtl", "main"));
-			model->addComponent(new Spin(0.5f));
-		}
-	}
-
+		
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 }
 
-void Playing::off(){
+void MathsDemo::off(){
 	EntityManager::destroyAll();
 	EntityManager::deleteDestroyed();
 }

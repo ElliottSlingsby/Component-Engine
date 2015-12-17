@@ -1,6 +1,6 @@
 #include "AssetLoader.hpp"
 
-#include "Module\SDLFunctions.hpp"
+#include <Static\SDLFunctions.hpp>
 #include <Static\Renderer.hpp>
 
 #include <SDL_image.h>

@@ -87,11 +87,14 @@
     <ClCompile Include="Component\Debug\Grid.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Box2d.cpp">
-      <Filter>Private</Filter>
+    <ClCompile Include="Component\Input.cpp">
+      <Filter>Private\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Debug\Noclip.cpp">
+      <Filter>Private\Component</Filter>
     </ClCompile>
     <ClCompile Include="Static\Utils.cpp">
-      <Filter>Private</Filter>
+      <Filter>Private\Static</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,14 +159,17 @@
     <ClInclude Include="Component\Debug\Grid.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Box2d.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Static\Module\SDLFunctions.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
     <ClInclude Include="Static\Utils.hpp">
-      <Filter>Public</Filter>
+      <Filter>Public\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Input.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Debug\Noclip.hpp">
+      <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Static\SDLFunctions.hpp">
+      <Filter>Public\Static</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

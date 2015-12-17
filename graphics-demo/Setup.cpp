@@ -1,6 +1,6 @@
 #include <Setup.hpp>
 
-#include "Playing.hpp"
+#include "GraphicsDemo.hpp"
 
 bool setup(int argc, char *args[]){
 	Renderer::window().setSize(1280, 720);
@@ -16,13 +16,11 @@ bool setup(int argc, char *args[]){
 	Renderer::console().setRunning(true);
 #endif
 
-	//Renderer::shaderManager().createProgram("simple", "simple_vertex.gls", "simple_fragment.gls");
-
 	Renderer::shaderManager().createProgram("main", "test_vertex.gls", "test_fragment.gls");
 	Renderer::shaderManager().useProgram("main");
 	
-	EntityManager::stateMachine().addState(new Playing);
-	EntityManager::stateMachine().changeState<Playing>();
+	EntityManager::stateMachine().addState(new GraphicsDemo);
+	EntityManager::stateMachine().changeState<GraphicsDemo>();
 
 	return true;
 }

@@ -11,10 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Component\Box2d.cpp" />
     <ClCompile Include="Component\Debug\Axis.cpp" />
     <ClCompile Include="Component\Camera.cpp" />
     <ClCompile Include="Component\Debug\Grid.cpp" />
+    <ClCompile Include="Component\Debug\Noclip.cpp" />
+    <ClCompile Include="Component\Input.cpp" />
     <ClCompile Include="Component\Debug\Line.cpp" />
     <ClCompile Include="Component\Model.cpp" />
     <ClCompile Include="Component\Transform.cpp" />
@@ -31,10 +32,11 @@
     <ClCompile Include="Static\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component\Box2d.hpp" />
     <ClInclude Include="Component\Debug\Axis.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Debug\Grid.hpp" />
+    <ClInclude Include="Component\Debug\Noclip.hpp" />
+    <ClInclude Include="Component\Input.hpp" />
     <ClInclude Include="Component\Debug\Line.hpp" />
     <ClInclude Include="Component\Model.hpp" />
     <ClInclude Include="Component\Transform.hpp" />
@@ -42,7 +44,7 @@
     <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Entity\HelperComponent.hpp" />
     <ClInclude Include="Entity\Identifier.hpp" />
-    <ClInclude Include="Static\Module\SDLFunctions.hpp" />
+    <ClInclude Include="Static\SDLFunctions.hpp" />
     <ClInclude Include="Setup.hpp" />
     <ClInclude Include="Static\AssetLoader.hpp" />
     <ClInclude Include="Static\DebugOutput.hpp" />
