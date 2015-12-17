@@ -24,8 +24,6 @@ void Noclip::update(double dt){
 	_transform->rotate(lookX);
 	_transform->localRotate(lookY);
 
-	//const Uint8* keyDown = SDL_GetKeyboardState(0);
-
 	if (_input->isDown("a")){
 		left(dt);
 
@@ -41,17 +39,31 @@ void Noclip::update(double dt){
 	}
 
 	if (_input->isDown("w")){
-		forward(dt);
-
-		if (_input->isDown("shift"))
+		if (_input->isDown("space") || _input->isDown("ctrl"))
+			globalForward(dt);
+		else
 			forward(dt);
+
+		if (_input->isDown("shift")){
+			if (_input->isDown("space") || _input->isDown("ctrl"))
+				globalForward(dt);
+			else
+				forward(dt);
+		}
 	}
 
 	if (_input->isDown("s")){
-		back(dt);
-
-		if (_input->isDown("shift"))
+		if (_input->isDown("space") || _input->isDown("ctrl"))
+			globalBack(dt);
+		else
 			back(dt);
+
+		if (_input->isDown("shift")){
+			if (_input->isDown("space") || _input->isDown("ctrl"))
+				globalBack(dt);
+			else
+				back(dt);
+		}
 	}
 
 	if (_input->isDown("space")){
@@ -83,6 +95,18 @@ void Noclip::forward(double dt){
 
 void Noclip::back(double dt){
 	_transform->localTranslate(glm::vec3(0, -(float)(_speed * dt), 0));
+}
+
+void Noclip::globalForward(double dt){
+	float z = glm::eulerAngles(_transform->rotation()).z;
+
+	_transform->translate(glm::vec3(0, (float)(_speed * dt), 0) * glm::inverse(glm::quat(glm::vec3(0, 0, z))));
+}
+
+void Noclip::globalBack(double dt){
+	float z = glm::eulerAngles(_transform->rotation()).z;
+
+	_transform->translate(glm::vec3(0, -(float)(_speed * dt), 0) * glm::inverse(glm::quat(glm::vec3(0, 0, z))));
 }
 
 void Noclip::up(double dt){

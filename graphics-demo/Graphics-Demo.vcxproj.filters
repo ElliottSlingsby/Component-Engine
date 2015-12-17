@@ -27,7 +27,4 @@
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="shader1.bin" />
-  </ItemGroup>
 </Project>

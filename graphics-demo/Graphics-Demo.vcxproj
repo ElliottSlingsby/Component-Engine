@@ -19,9 +19,6 @@
     <ClInclude Include="GraphicsDemo.hpp" />
     <ClInclude Include="Spin.hpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="shader1.bin" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8E73416D-1C08-4646-B0C9-1BD79943A691}</ProjectGuid>
     <RootNamespace>Graphics-Demo</RootNamespace>

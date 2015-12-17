@@ -16,7 +16,7 @@ bool setup(int argc, char *args[]){
 	Renderer::console().setRunning(true);
 #endif
 
-	Renderer::shaderManager().createProgram("main", "test_vertex.gls", "test_fragment.gls");
+	Renderer::shaderManager().createProgram("main", "lighting_vertex.gls", "lighting_fragment.gls");
 	Renderer::shaderManager().useProgram("main");
 	
 	EntityManager::stateMachine().addState(new GraphicsDemo);

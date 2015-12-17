@@ -22,6 +22,8 @@ public:
 	void right(double dt);
 	void forward(double dt);
 	void back(double dt);
+	void globalForward(double dt);
+	void globalBack(double dt);
 	void up(double dt);
 	void down(double dt);
 
