@@ -13,13 +13,9 @@
 #include "Spin.hpp"
 #include "Noclip.hpp"
 
-#include <glm\vec3.hpp>
-
 void Playing::on(){
 	Entity* origin = EntityManager::createEntity("main");
-	//origin->getComponent<Transform>()->setScale(glm::vec3(10, 10, 10));
 	origin->addComponent(new Grid(512, 8, 8, Grid::AxisZ));
-	//origin->addComponent(new Model("plane.obj", "wood.mtl"));
 	
 	Entity* player = EntityManager::createEntity("player");
 	player->getComponent<Transform>()->setPosition(glm::vec3(0, -512, 0));

@@ -1,28 +1,35 @@
 #version 420 compatibility
 
+// Global input
+uniform vec2 uniform_resolution;
+
+// Sampler input
 uniform sampler2D uniform_diffuse;
 uniform sampler2D uniform_specular;
 uniform sampler2D uniform_normal;
 
-uniform vec2 uniform_resolution;
-
+// Lighting input
 in highp vec3 out_lightColour;
 in highp vec3 out_lightDirection;
-
-in highp vec3 out_normal;
-in highp vec2 out_texcoord;
 in highp float out_lightDistance;
 
+// VBO input
+in highp vec3 out_normal;
+in highp vec2 out_texcoord;
+
 void main(){
+	// Get base diffuse colour from diffuse texture
 	highp vec4 diffuse = texture2D(uniform_diffuse, out_texcoord);
+			
+	// Get specular value from specular texture
+	highp float specular = texture2D(uniform_specular, out_texcoord).x ;
 	
+	// Get normal value from normal texture
 	highp vec3 normal = texture2D(uniform_normal, out_texcoord).rgb;
-	
 	normal = normalize(normalize(out_normal * normal) * 2.0 - 1.0);
 	
 	float intensity = max(dot(out_normal, normal), 0.0);
-		
-	highp float specular = texture2D(uniform_specular, out_texcoord).x ;
 	
+	// Output fragment colour
 	gl_FragColor = vec4(diffuse.rgb * out_lightColour + (intensity * specular * out_lightDistance), diffuse.a);
 }

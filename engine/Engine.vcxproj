@@ -88,14 +88,14 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -112,7 +112,7 @@
     </Link>
     <ProjectReference />
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
     </Lib>
   </ItemDefinitionGroup>
@@ -133,7 +133,7 @@
     </Link>
     <ProjectReference />
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,5 +1,6 @@
 #version 420 compatibility
 
+// Global input
 uniform vec2 uniform_resolution;
 
 // VBO input
@@ -21,7 +22,7 @@ out highp vec3 out_lightDirection;
 out highp float out_lightDistance;
 
 void main(){
-	// Output gl_Position vertex
+	// Output vertex position
 	gl_Position = ftransform();
 	
 	// Convert in_normal to modelview space
