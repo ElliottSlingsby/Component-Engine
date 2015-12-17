@@ -2,7 +2,7 @@
 
 #include <GL\glew.h>
 
-Box2d::Box2d(float width, float height){
+Box2d::Box2d(float width, float height) : Collider(BOX){
 	_size = glm::vec2(width, height);
 }
 
@@ -147,6 +147,16 @@ bool Box2d::overlapping(const glm::vec2& first, const glm::vec2& second){
 		return true;
 	if (second.x <= first.y && second.y >= first.y)
 		return true;
+
+	return false;
+}
+
+bool Box2d::isCollidingSystem(Collider* other){
+	if (other->type == Collider::BOX){
+		Box2d* otherBox = static_cast<Box2d*>(other);
+
+		return isColliding(otherBox);
+	}
 
 	return false;
 }

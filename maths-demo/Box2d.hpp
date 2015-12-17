@@ -1,9 +1,10 @@
 #pragma once
 
-#include <Entity\HelperComponent.hpp>
+#include "Collider.hpp"
+
 #include <glm\vec2.hpp>
 
-class Box2d : public HelperComponent{
+class Box2d : public Collider{
 	Transform* _transform = 0;
 
 	// Width / Height
@@ -24,5 +25,7 @@ public:
 	void render();
 
 	bool overlapping(const glm::vec2& first, const glm::vec2& second);
+
+	bool isCollidingSystem(Collider* other);
 	bool isColliding(Box2d* other, bool recurse = true);
 };

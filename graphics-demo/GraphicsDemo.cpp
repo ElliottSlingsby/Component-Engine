@@ -14,7 +14,7 @@ void GraphicsDemo::on(){
 	origin->addComponent(new Grid(512, 8, 8, Grid::AxisZ));
 	
 	Entity* player = EntityManager::createEntity("player");
-	player->getComponent<Transform>()->setPosition(glm::vec3(0, -512, 0));
+	player->getComponent<Transform>()->setPosition(glm::vec3(0, -512, -128));
 	player->addComponent(new Camera);
 	player->getComponent<Camera>()->set2d(false);
 	player->getComponent<Camera>()->setFov(90);

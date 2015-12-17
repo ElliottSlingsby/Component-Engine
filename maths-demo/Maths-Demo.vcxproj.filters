@@ -24,6 +24,9 @@
     <ClCompile Include="Circle2d.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionSystem.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Velocity.hpp">
@@ -36,6 +39,12 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Circle2d.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSystem.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

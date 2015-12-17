@@ -28,7 +28,7 @@ int main(int argc, char *args[]){
 	typedef std::list<double> doubleList;
 	doubleList times;
 
-	double fps = 200;
+	double fps = 144;
 	double maxFrame = (double)CLOCKS_PER_SEC / fps;
 
 	while (running && Renderer::window().running()){
@@ -48,7 +48,7 @@ int main(int argc, char *args[]){
 		}
 
 		// Invoke entities and systems
-		EntityManager::systemHandler().runSystems();
+		EntityManager::systemHandler().runSystems(difference);
 
 		EntityManager::invokeAll(&Component::update, difference);
 		EntityManager::invokeAll(&Component::lateUpdate, difference);

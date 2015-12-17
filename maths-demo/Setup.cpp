@@ -2,6 +2,8 @@
 
 #include "MathsDemo.hpp"
 
+#include "CollisionSystem.hpp"
+
 bool setup(int argc, char *args[]){
 	Renderer::window().setSize(1280, 720);
 	Renderer::window().setFixedMouse(true);
@@ -16,7 +18,7 @@ bool setup(int argc, char *args[]){
 	Renderer::console().setRunning(true);
 #endif
 
-	Renderer::shaderManager().useProgram("");
+	EntityManager::systemHandler().addSystem(new CollisionSystem);
 	
 	EntityManager::stateMachine().addState(new MathsDemo);
 	EntityManager::stateMachine().changeState<MathsDemo>();

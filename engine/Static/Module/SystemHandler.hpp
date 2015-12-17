@@ -12,7 +12,8 @@ struct System{
 	virtual void registerComponent(Component* component){}
 	virtual void unregisterComponent(Component* component){}
 
-	virtual void update(){}
+	virtual void update(double dt){}
+	virtual void lateUpdate(double dt){}
 
 	virtual ~System(){}
 };
@@ -46,9 +47,13 @@ public:
 		}
 	}
 
-	void runSystems(){
+	void runSystems(double dt){
 		for (SystemMap::iterator i = _systems.begin(); i != _systems.end(); i++){
-			i->second->update();
+			i->second->update(dt);
+		}
+
+		for (SystemMap::iterator i = _systems.begin(); i != _systems.end(); i++){
+			i->second->lateUpdate(dt);
 		}
 	}
 };
