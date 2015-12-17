@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Box2d.cpp" />
+    <ClCompile Include="Box3d.cpp" />
     <ClCompile Include="Circle2d.cpp" />
     <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Setup.cpp" />
@@ -20,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box2d.hpp" />
+    <ClInclude Include="Box3d.hpp" />
     <ClInclude Include="Circle2d.hpp" />
     <ClInclude Include="Collider.hpp" />
     <ClInclude Include="CollisionSystem.hpp" />

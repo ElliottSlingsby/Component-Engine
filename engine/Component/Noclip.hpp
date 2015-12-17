@@ -24,8 +24,8 @@ public:
 	void back(double dt);
 	void globalForward(double dt);
 	void globalBack(double dt);
-	void up(double dt);
-	void down(double dt);
+	void globalUp(double dt);
+	void globalDown(double dt);
 
 	// Setters
 	void setSpeed(float speed);

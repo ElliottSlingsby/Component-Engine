@@ -90,11 +90,11 @@
     <ClCompile Include="Component\Input.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Debug\Noclip.cpp">
-      <Filter>Private\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Static\Utils.cpp">
       <Filter>Private\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Noclip.cpp">
+      <Filter>Private\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,11 +165,11 @@
     <ClInclude Include="Component\Input.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Debug\Noclip.hpp">
-      <Filter>Public\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Static\SDLFunctions.hpp">
       <Filter>Public\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Noclip.hpp">
+      <Filter>Public\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -78,7 +78,7 @@ bool Renderer::_setupGL(){
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_LIGHTING);
 	//glEnable(GL_COLOR_MATERIAL);
-	//glEnable(GL_CULL_FACE);
+	glEnable(GL_CULL_FACE);
 	glEnable(GL_ALPHA_TEST);
 	//glEnable(GL_SCISSOR_TEST);
 	//glEnable(GL_FOG);

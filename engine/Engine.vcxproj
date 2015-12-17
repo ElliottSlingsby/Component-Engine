@@ -14,7 +14,7 @@
     <ClCompile Include="Component\Debug\Axis.cpp" />
     <ClCompile Include="Component\Camera.cpp" />
     <ClCompile Include="Component\Debug\Grid.cpp" />
-    <ClCompile Include="Component\Debug\Noclip.cpp" />
+    <ClCompile Include="Component\Noclip.cpp" />
     <ClCompile Include="Component\Input.cpp" />
     <ClCompile Include="Component\Debug\Line.cpp" />
     <ClCompile Include="Component\Model.cpp" />
@@ -35,7 +35,7 @@
     <ClInclude Include="Component\Debug\Axis.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Debug\Grid.hpp" />
-    <ClInclude Include="Component\Debug\Noclip.hpp" />
+    <ClInclude Include="Component\Noclip.hpp" />
     <ClInclude Include="Component\Input.hpp" />
     <ClInclude Include="Component\Debug\Line.hpp" />
     <ClInclude Include="Component\Model.hpp" />

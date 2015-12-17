@@ -27,6 +27,9 @@
     <ClCompile Include="CollisionSystem.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="Box3d.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Velocity.hpp">
@@ -45,6 +48,9 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Collider.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Box3d.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,23 +4,23 @@
 
 #include <glm\vec2.hpp>
 
-class Box2d : public Collider{
+class Box3d : public Collider{
 	Transform* _transform = 0;
 
 	// Width / Height
-	glm::vec2 _size;
+	glm::vec3 _size;
 
 	// Runtime updated variables
-	glm::vec2 _corners[4];
-	glm::vec2 _axes[2];
-	glm::vec2 _magnitudes[4];
+	glm::vec3 _corners[8];
+	glm::vec3 _axes[15];
+	glm::vec3 _magnitudes[15];
 
 	bool _testColliding = false;
 
 	void _update();
 
 public:
-	Box2d(float width, float height);
+	Box3d(float width, float height);
 
 	void load();
 	void render();
@@ -28,7 +28,7 @@ public:
 	bool overlapping(const glm::vec2& first, const glm::vec2& second);
 
 	bool isCollidingSystem(Collider* other);
-	bool isColliding(Box2d* other, bool recurse = true);
+	bool isColliding(Box3d* other, bool recurse = true);
 
 	void onCollision(int id);
 };

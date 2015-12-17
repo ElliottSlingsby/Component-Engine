@@ -22,10 +22,8 @@ void CollisionSystem::update(double dt){
 			if (!(*y)->owner()->loaded())
 				continue;
 
-			if ((*x) != (*y) && (*x)->isCollidingSystem(*y)){
+			if ((*x) != (*y) && (*x)->isCollidingSystem(*y))
 				(*x)->owner()->invoke(&Component::onCollision, (*y)->id());
-				message_out("Collision between %d and %d!\n", (*x)->id(), (*y)->id());
-			}
 		}
 	}
 };

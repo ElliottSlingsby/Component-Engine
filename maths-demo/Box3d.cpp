@@ -1,37 +1,37 @@
-#include "Box2d.hpp"
+#include "Box3d.hpp"
 
 #include <GL\glew.h>
 
-Box2d::Box2d(float width, float height) : Collider(BOX){
-	_size = glm::vec2(width, height);
+Box3d::Box3d(float width, float height) : Collider(BOX){
+	//_size = glm::vec2(width, height);
 }
 
-void Box2d::load(){
+void Box3d::load(){
 	_transform = getComponent<Transform>();
 }
 
-void Box2d::_update(){
+void Box3d::_update(){
 	// Updating this world coordinates for each corner
-	glm::vec2 half((_size.x * _transform->scale().x) / 2, (_size.y * _transform->scale().y) / 2);
-
-	_corners[0] = _transform->apply2d(glm::vec2(-half.x, -half.y));
-	_corners[1] = _transform->apply2d(glm::vec2(half.x, -half.y));
-	_corners[2] = _transform->apply2d(glm::vec2(half.x, half.y));
-	_corners[3] = _transform->apply2d(glm::vec2(-half.x, half.y));
-
-	// Updating this axes rotation
-	_axes[0] = glm::vec2(0, 1);
-	_axes[1] = glm::vec2(1, 0);
-
-	glm::quat rotation(glm::vec3(0, 0, glm::eulerAngles(_transform->rotation()).z));
-
-	for (int i = 0; i < 2; i++){
-		glm::vec3 axis = glm::vec3(_axes[i].x, _axes[i].y, 0) * glm::inverse(rotation);
-		_axes[i] = glm::vec2(axis.x, axis.y);
-	}
+	//glm::vec2 half((_size.x * _transform->scale().x) / 2, (_size.y * _transform->scale().y) / 2);
+	//
+	//_corners[0] = _transform->apply2d(glm::vec2(-half.x, -half.y));
+	//_corners[1] = _transform->apply2d(glm::vec2(half.x, -half.y));
+	//_corners[2] = _transform->apply2d(glm::vec2(half.x, half.y));
+	//_corners[3] = _transform->apply2d(glm::vec2(-half.x, half.y));
+	//
+	//// Updating this axes rotation
+	//_axes[0] = glm::vec2(0, 1);
+	//_axes[1] = glm::vec2(1, 0);
+	//
+	//glm::quat rotation(glm::vec3(0, 0, glm::eulerAngles(_transform->rotation()).z));
+	//
+	//for (int i = 0; i < 2; i++){
+	//	glm::vec3 axis = glm::vec3(_axes[i].x, _axes[i].y, 0) * glm::inverse(rotation);
+	//	_axes[i] = glm::vec2(axis.x, axis.y);
+	//}
 }
 
-void Box2d::render(){
+void Box3d::render(){
 	glColor3f(1.f, 1.f, 1.f);
 
 	glDisable(GL_LIGHTING);
@@ -100,7 +100,7 @@ void Box2d::render(){
 	_testColliding = false;
 }
 
-bool Box2d::overlapping(const glm::vec2& first, const glm::vec2& second){
+bool Box3d::overlapping(const glm::vec2& first, const glm::vec2& second){
 	if (first.x <= second.x && first.y >= second.x)
 		return true;
 	if (first.x <= second.y && first.y >= second.y)
@@ -113,9 +113,9 @@ bool Box2d::overlapping(const glm::vec2& first, const glm::vec2& second){
 	return false;
 }
 
-bool Box2d::isCollidingSystem(Collider* other){
+bool Box3d::isCollidingSystem(Collider* other){
 	if (other->type == Collider::BOX){
-		Box2d* otherBox = static_cast<Box2d*>(other);
+		Box3d* otherBox = static_cast<Box3d*>(other);
 
 		return isColliding(otherBox);
 	}
@@ -123,48 +123,48 @@ bool Box2d::isCollidingSystem(Collider* other){
 	return false;
 }
 
-bool Box2d::isColliding(Box2d* other, bool recurse){
+bool Box3d::isColliding(Box3d* other, bool recurse){
 	_update();
 
 	// Projecting other onto this axes and updating magnitudes
-	Box2d* targets[2] = { this, other };
-
-	for (int i = 0; i < 2; i++){
-		for (int j = 0; j < 2; j++){
-			float minimum = glm::dot(_axes[j], targets[i]->_corners[0]);
-			float maximum = minimum;
-
-			for (int k = 0; k < 4; k++){
-				float magnitude = glm::dot(_axes[j], targets[i]->_corners[k]);
-
-				if (magnitude < minimum)
-					minimum = magnitude;
-				else if (magnitude > maximum)
-					maximum = magnitude;
-			}
-
-			_magnitudes[(i * 2) + j] = glm::vec2(minimum, maximum);
-		}
-	}
-
-	// Check for exit case before carrying on
-	if (recurse){
-		bool result = other->isColliding(this, false);
-
-		if (!result)
-			return false;
-	}
-
-	// Check for overlaps
-	if (!overlapping(_magnitudes[0], _magnitudes[2]))
-		return false;
-
-	if (!overlapping(_magnitudes[1], _magnitudes[3]))
-		return false;
+	//Box3d* targets[2] = { this, other };
+	//
+	//for (int i = 0; i < 2; i++){
+	//	for (int j = 0; j < 2; j++){
+	//		float minimum = glm::dot(_axes[j], targets[i]->_corners[0]);
+	//		float maximum = minimum;
+	//
+	//		for (int k = 0; k < 4; k++){
+	//			float magnitude = glm::dot(_axes[j], targets[i]->_corners[k]);
+	//
+	//			if (magnitude < minimum)
+	//				minimum = magnitude;
+	//			else if (magnitude > maximum)
+	//				maximum = magnitude;
+	//		}
+	//
+	//		_magnitudes[(i * 2) + j] = glm::vec2(minimum, maximum);
+	//	}
+	//}
+	//
+	//// Check for exit case before carrying on
+	//if (recurse){
+	//	bool result = other->isColliding(this, false);
+	//
+	//	if (!result)
+	//		return false;
+	//}
+	//
+	//// Check for overlaps
+	//if (!overlapping(_magnitudes[0], _magnitudes[2]))
+	//	return false;
+	//
+	//if (!overlapping(_magnitudes[1], _magnitudes[3]))
+	//	return false;
 
 	return true;
 }
 
-void Box2d::onCollision(int id){
+void Box3d::onCollision(int id){
 	_testColliding = true;
 }
