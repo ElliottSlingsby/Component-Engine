@@ -15,6 +15,7 @@ Input::Input(){
 		{ "q", SDL_SCANCODE_Q },
 		{ "e", SDL_SCANCODE_E },
 		{ "ctrl", SDL_SCANCODE_LCTRL },
+		{ "space", SDL_SCANCODE_SPACE },
 		{ "shift", SDL_SCANCODE_LSHIFT }
 	});
 }

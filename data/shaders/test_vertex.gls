@@ -1,36 +1,45 @@
 #version 420 compatibility
 
+// VBO input
 in highp vec3 in_position;
 in highp vec3 in_normal;
 in highp vec2 in_texcoord;
 
-//in highp vec3 in_lightPosition;
-
+// Lighting input
 in highp vec3 in_lightDirection;
 in highp float in_lightDistance;
 
-out highp vec3 out_lighting;
-out highp vec3 out_direction;
-
+// VBO output
 out highp vec3 out_normal;
 out highp vec2 out_texcoord;
 
+// Lighting output
+out highp vec3 out_lightColour;
+out highp vec3 out_lightDirection;
+
 void main(){
+	// Output gl_Position vertex
 	gl_Position = ftransform();
 	
+	// Convert in_normal to modelview space
 	highp vec3 normal = normalize(gl_NormalMatrix * in_normal);
 
-	highp vec3 ambient = vec3(0, 0, 0);
-	highp vec3 diffuse = vec3(1, 1, 1);
-
+	// Convert in_lightDirection to modelview space
 	highp vec3 direction = normalize(gl_NormalMatrix * in_lightDirection);
 	
+	// Calculate light intensity for normal from direction in modelview space
+	float intensity = max(dot(normal, direction), 0.0);
+
+	// Setup lighting colour (hardcoded for now)
+	highp vec3 ambientColour = vec3(0, 0, 0);
+	highp vec3 diffuseColour = vec3(1, 1, 1);
+	
+	// Apply colour and light distance
+	vec3 lightColour = ambientColour + (diffuseColour * intensity) * in_lightDistance;
+		
+	// Output values
 	out_normal = normal;
 	out_texcoord = in_texcoord;
-	out_direction = direction;
-	
-	float directional = max(dot(normal, direction), 0.0);
-
-	out_lighting = ambient + (diffuse * directional);
-	out_lighting *= in_lightDistance;
+	out_lightDirection = direction;
+	out_lightColour = lightColour;
 }

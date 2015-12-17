@@ -66,9 +66,6 @@
     <ClCompile Include="Component\Camera.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Light.cpp">
-      <Filter>Private\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Component\Model.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
@@ -88,9 +85,6 @@
       <Filter>Private\Component</Filter>
     </ClCompile>
     <ClCompile Include="Component\Debug\Grid.cpp">
-      <Filter>Private\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Debug\Noclip.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
     <ClCompile Include="Component\Box2d.cpp">
@@ -132,9 +126,6 @@
     <ClInclude Include="Component\Camera.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Light.hpp">
-      <Filter>Public\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Model.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
@@ -160,9 +151,6 @@
       <Filter>Public\Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\Debug\Axis.hpp">
-      <Filter>Public\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Debug\Noclip.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
     <ClInclude Include="Component\Debug\Grid.hpp">

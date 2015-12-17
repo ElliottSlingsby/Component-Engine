@@ -2,8 +2,11 @@
 
 #include <Entity\HelperComponent.hpp>
 
+#include "Input.hpp"
+
 class Noclip : public HelperComponent{
 	Transform* _transform = 0;
+	Input* _input = 0;
 
 	float _speed;
 	float _sensitivity;
