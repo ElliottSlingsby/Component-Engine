@@ -182,9 +182,9 @@ GLuint ShaderManager::currentProgram(){
 GLint ShaderManager::_indexUniform(const std::string& name){
 	GLint value = glGetUniformLocation(_activeProgram, name.c_str());
 
-	if (value == -1){
-		message_out(("Uniform " + name + " == -1.\n").c_str());
-	}
+	//if (value == -1){
+	//	message_out(("Uniform " + name + " == -1.\n").c_str());
+	//}
 
 	return value;
 }
@@ -192,9 +192,9 @@ GLint ShaderManager::_indexUniform(const std::string& name){
 GLint ShaderManager::_indexAttribute(const std::string& name){
 	GLint value = glGetAttribLocation(_activeProgram, name.c_str());
 
-	if (value == -1){
-		message_out(("Attribute " + name + " == -1.\n").c_str());
-	}
+	//if (value == -1){
+	//	message_out(("Attribute " + name + " == -1.\n").c_str());
+	//}
 
 	return value;
 }
@@ -212,6 +212,14 @@ void ShaderManager::uniform(unsigned int index, const glm::vec3& value){
 }
 
 void ShaderManager::uniform(const std::string& name, const glm::vec3& value){
+	uniform(_indexUniform(name), value);
+}
+
+void ShaderManager::uniform(unsigned int index, const glm::vec2& value){
+	glUniform2fv(index, 1, &value[0]);
+}
+
+void ShaderManager::uniform(const std::string& name, const glm::vec2& value){
 	uniform(_indexUniform(name), value);
 }
 

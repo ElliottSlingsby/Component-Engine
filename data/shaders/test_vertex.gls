@@ -1,5 +1,7 @@
 #version 420 compatibility
 
+uniform vec2 uniform_resolution;
+
 // VBO input
 in highp vec3 in_position;
 in highp vec3 in_normal;
@@ -16,6 +18,7 @@ out highp vec2 out_texcoord;
 // Lighting output
 out highp vec3 out_lightColour;
 out highp vec3 out_lightDirection;
+out highp float out_lightDistance;
 
 void main(){
 	// Output gl_Position vertex
@@ -42,4 +45,5 @@ void main(){
 	out_texcoord = in_texcoord;
 	out_lightDirection = direction;
 	out_lightColour = lightColour;
+	out_lightDistance = in_lightDistance;
 }

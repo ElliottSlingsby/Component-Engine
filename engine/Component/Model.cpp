@@ -93,12 +93,9 @@ void Model::render(){
 			glm::vec3 position = lightPosition->getComponent<Transform>()->position();
 
 			position.z = -position.z;
-			//position.x = -position.x;
-			//position.y = -position.y;
 
 			glm::vec3 difference = position - _transform->position();
 
-			//message_out("%.2f %.2f %.2f\n", position.x, position.y, position.z);
 
 			glm::vec3 direction = glm::normalize(difference);
 
@@ -113,19 +110,9 @@ void Model::render(){
 			distance = clamp(0, 1, changeRange(0, maxDistance, 1, 0, distance));
 
 			Renderer::shaderManager().attribute("in_lightDistance", distance);
-
-
-			//glm::vec3 direction = glm::normalize(glm::vec3(difference.x, 0, -difference.y));
-
-			//glm::vec3 direction = glm::normalize(glm::vec3(difference.x, -difference.z, -difference.y));
-
-			//glm::vec3 position = lightPosition->getComponent<Transform>()->position();
-
-			
-
-			//Renderer::shaderManager().attribute("in_direction", directional);
 		}
 
+		Renderer::shaderManager().uniform("uniform_resolution", Renderer::window().size());
 
 		//GLint light = glGetAttribLocation(program, "in_light");
 		//

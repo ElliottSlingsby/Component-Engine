@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <string>
+#include <glm\vec2.hpp>
 
 class Window{
 	std::string _title = "";
@@ -34,6 +35,7 @@ public:
 	bool running();
 	int width();
 	int height();
+	glm::vec2 size();
 	SDL_Window* sdlWindow();
 
 	void flip();

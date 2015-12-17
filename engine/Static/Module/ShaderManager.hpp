@@ -64,8 +64,12 @@ public:
 	void uniform(unsigned int index, const glm::vec3& value);
 	void uniform(const std::string& name, const glm::vec3& value);
 
+	void uniform(unsigned int index, const glm::vec2& value);
+	void uniform(const std::string& name, const glm::vec2& value);
+
 	void uniform(unsigned int index, GLint value);
 	void uniform(const std::string& name, GLint value);
+
 	
 	void attribute(unsigned int index, const glm::vec3& value);
 	void attribute(const std::string& name, const glm::vec3& value);
