@@ -96,6 +96,18 @@
     <ClCompile Include="Component\Noclip.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Maths\utils.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths\vec3.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths\vec2.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths\quat.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Setup.hpp" />
@@ -170,6 +182,18 @@
     </ClInclude>
     <ClInclude Include="Component\Noclip.hpp">
       <Filter>Public\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\utils.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\vec3.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\vec2.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\quat.hpp">
+      <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,7 +4,11 @@
 
 #include "CollisionSystem.hpp"
 
+#include <Maths\utils.hpp>
+
 bool setup(int argc, char *args[]){
+	mathsTesting();
+
 	Renderer::window().setSize(1280, 720);
 	Renderer::window().setFixedMouse(true);
 
