@@ -22,13 +22,13 @@
     <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="Entity\Identifier.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Maths\mat4.cpp" />
-    <ClCompile Include="Maths\quat.cpp" />
-    <ClCompile Include="Maths\vec2.cpp" />
-    <ClCompile Include="Maths\vec3.cpp" />
+    <ClCompile Include="Maths\Mat4.cpp" />
+    <ClCompile Include="Maths\Quat.cpp" />
+    <ClCompile Include="Maths\Utils.cpp" />
+    <ClCompile Include="Maths\Vec2.cpp" />
+    <ClCompile Include="Maths\Vec3.cpp" />
     <ClCompile Include="Static\AssetLoader.cpp" />
     <ClCompile Include="Static\EntityManager.cpp" />
-    <ClCompile Include="Maths\utils.cpp" />
     <ClCompile Include="Static\Module\Console.cpp" />
     <ClCompile Include="Static\Module\NameBank.cpp" />
     <ClCompile Include="Static\Module\ShaderManager.cpp" />
@@ -49,11 +49,11 @@
     <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Entity\HelperComponent.hpp" />
     <ClInclude Include="Entity\Identifier.hpp" />
-    <ClInclude Include="Maths\mat4.hpp" />
-    <ClInclude Include="Maths\quat.hpp" />
-    <ClInclude Include="Maths\utils.hpp" />
-    <ClInclude Include="Maths\vec2.hpp" />
-    <ClInclude Include="Maths\vec3.hpp" />
+    <ClInclude Include="Maths\Mat4.hpp" />
+    <ClInclude Include="Maths\Quat.hpp" />
+    <ClInclude Include="Maths\Utils.hpp" />
+    <ClInclude Include="Maths\Vec2.hpp" />
+    <ClInclude Include="Maths\Vec3.hpp" />
     <ClInclude Include="Static\SDLFunctions.hpp" />
     <ClInclude Include="Setup.hpp" />
     <ClInclude Include="Static\AssetLoader.hpp" />
@@ -100,14 +100,14 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(SolutionDir)engine\maths;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(SolutionDir)engine\maths;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -124,7 +124,7 @@
     </Link>
     <ProjectReference />
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Maths.lib;SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
     </Lib>
   </ItemDefinitionGroup>
@@ -145,7 +145,7 @@
     </Link>
     <ProjectReference />
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Maths.lib;SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

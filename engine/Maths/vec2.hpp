@@ -1,35 +1,34 @@
 #pragma once
 
-struct vec2{
+struct Vec2{
 	float x = 0.f;
 	float y = 0.f;
 
-	vec2();
-	vec2(const vec2& other);
-	vec2(float x, float y);
+	Vec2();
+	Vec2(const Vec2& other);
+	Vec2(float x, float y);
 
 	unsigned int length();
-	void* gl();
 
-	void operator=(const vec2& other);
+	void operator=(const Vec2& other);
 
-	vec2 operator+(const vec2& other);
-	vec2 operator-(const vec2& other);
+	Vec2 operator+(const Vec2& other);
+	Vec2 operator-(const Vec2& other);
 
-	vec2 operator*(const vec2& other);
-	vec2 operator/(const vec2& other);
+	Vec2 operator*(const Vec2& other);
+	Vec2 operator/(const Vec2& other);
 
-	void operator+=(const vec2& other);
-	void operator-=(const vec2& other);
+	void operator+=(const Vec2& other);
+	void operator-=(const Vec2& other);
 
-	void operator*=(const vec2& other);
-	void operator/=(const vec2& other);
+	void operator*=(const Vec2& other);
+	void operator/=(const Vec2& other);
 
-	vec2 operator+(float other);
-	vec2 operator-(float other);
+	Vec2 operator+(float other);
+	Vec2 operator-(float other);
 
-	vec2 operator*(float other);
-	vec2 operator/(float other);
+	Vec2 operator*(float other);
+	Vec2 operator/(float other);
 
 	void operator+=(float other);
 	void operator-=(float other);
@@ -38,10 +37,10 @@ struct vec2{
 	void operator/=(float other);
 };
 
-float dot(const vec2& a, const vec2& b);
+float dot(const Vec2& a, const Vec2& b);
 
-float magnitude(const vec2& a);
+float magnitude(const Vec2& a);
 
-float distance(const vec2& a, const vec2& b);
+float distance(const Vec2& a, const Vec2& b);
 
-vec2 normalize(const vec2& a);
+Vec2 normalize(const Vec2& a);

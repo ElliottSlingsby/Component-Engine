@@ -1,6 +1,6 @@
 #include <Setup.hpp>
 
-#include "GraphicsDemo.hpp"
+#include "DemoGraphics.hpp"
 
 bool setup(int argc, char *args[]){
 	Renderer::window().setSize(1280, 720);
@@ -19,8 +19,8 @@ bool setup(int argc, char *args[]){
 	Renderer::shaderManager().createProgram("main", "lighting_vertex.gls", "lighting_fragment.gls");
 	Renderer::shaderManager().useProgram("main");
 	
-	EntityManager::stateMachine().addState(new GraphicsDemo);
-	EntityManager::stateMachine().changeState<GraphicsDemo>();
+	EntityManager::stateMachine().addState(new DemoGraphics);
+	EntityManager::stateMachine().changeState<DemoGraphics>();
 
 	return true;
 }

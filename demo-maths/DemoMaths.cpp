@@ -1,4 +1,4 @@
-#include "MathsDemo.hpp"
+#include "DemoMaths.hpp"
 
 #include <Static\Renderer.hpp>
 
@@ -10,7 +10,7 @@
 #include "Box2d.hpp"
 #include "Box3d.hpp"
 
-void MathsDemo::on(){
+void DemoMaths::on(){
 	// Origin entity contains coloured grid plane on Z axis
 	Entity* origin = EntityManager::createEntity("origin");
 	origin->addComponent(new Grid(256, 16, 8, Grid::AxisZ));
@@ -36,7 +36,7 @@ void MathsDemo::on(){
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 }
 
-void MathsDemo::off(){
+void DemoMaths::off(){
 	EntityManager::destroyAll();
 	EntityManager::deleteDestroyed();
 }

@@ -1,32 +1,32 @@
 #pragma once
 
-#include "vec3.hpp"
+#include "Vec3.hpp"
 
-struct quat{
+struct Quat{
 	float w = 1.f;
 	float x = 0.f;
 	float y = 0.f;
 	float z = 0.f;
 
-	quat();
-	quat(const quat& other);
-	quat(float w, float x, float y, float z);
-	quat(const vec3& angles);
+	Quat();
+	Quat(const Quat& other);
+	Quat(float w, float x, float y, float z);
+	Quat(const Vec3& angles);
 
-	void operator=(const quat& other);
+	void operator=(const Quat& other);
 
-	quat operator*(const quat& other);
-	void operator*=(const quat& other);
+	Quat operator*(const Quat& other);
+	void operator*=(const Quat& other);
 
-	vec3 operator*(const vec3& other);
+	Vec3 operator*(const Vec3& other);
 };
 
-quat conjugate(const quat& a);
+Quat conjugate(const Quat& a);
 
-vec3 eulerAngles(const quat& a);
+Vec3 eulerAngles(const Quat& a);
 
-quat inverse(const quat& a);
+Quat inverse(const Quat& a);
 
-float magnitude(const quat& a);
+float magnitude(const Quat& a);
 
-quat normalize(const quat& a);
+Quat normalize(const Quat& a);

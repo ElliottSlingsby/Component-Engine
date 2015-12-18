@@ -2,7 +2,7 @@
 
 #include <Static\EntityManager.hpp>
 
-struct MathsDemo : public State{
+struct DemoGraphics : public State{
 	void on();
 	void off();
 };

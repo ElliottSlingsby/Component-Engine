@@ -1,14 +1,10 @@
 #include <Setup.hpp>
 
-#include "MathsDemo.hpp"
+#include "DemoMaths.hpp"
 
 #include "CollisionSystem.hpp"
 
-#include <Maths\utils.hpp>
-
 bool setup(int argc, char *args[]){
-	mathsTesting();
-
 	Renderer::window().setSize(1280, 720);
 	Renderer::window().setFixedMouse(true);
 
@@ -24,8 +20,8 @@ bool setup(int argc, char *args[]){
 
 	EntityManager::systemHandler().addSystem(new CollisionSystem);
 	
-	EntityManager::stateMachine().addState(new MathsDemo);
-	EntityManager::stateMachine().changeState<MathsDemo>();
+	EntityManager::stateMachine().addState(new DemoMaths);
+	EntityManager::stateMachine().changeState<DemoMaths>();
 
 	return true;
 }

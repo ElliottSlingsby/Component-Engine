@@ -1,4 +1,4 @@
-#include "GraphicsDemo.hpp"
+#include "DemoGraphics.hpp"
 
 #include <Static\Renderer.hpp>
 
@@ -9,7 +9,7 @@
 
 #include "Spin.hpp"
 
-void GraphicsDemo::on(){
+void DemoGraphics::on(){
 	// Origin entity contains black grid plane on Z axis
 	Entity* origin = EntityManager::createEntity("origin");
 	origin->addComponent(new Grid(128, 32, 8, Grid::AxisZ));
@@ -42,7 +42,7 @@ void GraphicsDemo::on(){
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 }
 
-void GraphicsDemo::off(){
+void DemoGraphics::off(){
 	EntityManager::destroyAll();
 	EntityManager::deleteDestroyed();
 }

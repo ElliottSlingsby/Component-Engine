@@ -11,26 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Box2d.cpp" />
-    <ClCompile Include="Box3d.cpp" />
-    <ClCompile Include="Circle2d.cpp" />
-    <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Setup.cpp" />
-    <ClCompile Include="MathsDemo.cpp" />
-    <ClCompile Include="Velocity.cpp" />
+    <ClCompile Include="DemoGraphics.cpp" />
+    <ClCompile Include="Spin.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Box2d.hpp" />
-    <ClInclude Include="Box3d.hpp" />
-    <ClInclude Include="Circle2d.hpp" />
-    <ClInclude Include="Collider.hpp" />
-    <ClInclude Include="CollisionSystem.hpp" />
-    <ClInclude Include="MathsDemo.hpp" />
-    <ClInclude Include="Velocity.hpp" />
+    <ClInclude Include="DemoGraphics.hpp" />
+    <ClInclude Include="Spin.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{04B52284-EA98-43B8-B0C0-941F856AC532}</ProjectGuid>
-    <RootNamespace>Maths-Demo</RootNamespace>
+    <ProjectGuid>{8E73416D-1C08-4646-B0C9-1BD79943A691}</ProjectGuid>
+    <RootNamespace>Demo-Graphics</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -60,14 +51,14 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)engine;$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)engine\maths;$(SolutionDir)engine;$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)engine;$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)engine\maths;$(SolutionDir)engine;$(SolutionDir)middleware\bullet3-2.83.6;$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
