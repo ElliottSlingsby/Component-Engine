@@ -8,6 +8,7 @@
 #include <Component\Input.hpp>
 
 #include "Box2d.hpp"
+#include "Box3d.hpp"
 
 void MathsDemo::on(){
 	// Origin entity contains coloured grid plane on Z axis
@@ -23,13 +24,13 @@ void MathsDemo::on(){
 	player->getComponent<Camera>()->setDrawDistance(1024 * 8);
 	player->addComponent(new Input);
 	player->addComponent(new Noclip(128.f, 0.1f));
-	player->addComponent(new Box2d(512.f, 256.f));
+	player->addComponent(new Box3d(512.f, 512.f, 512.f));
 
 	// Other entity contains a collider
 	Entity* other = EntityManager::createEntity("other");
 	other->getComponent<Transform>()->setPosition(glm::vec3(0, 512, 0));
 	other->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(0, 0, glm::radians(45.f))));
-	other->addComponent(new Box2d(512.f, 256.f));
+	other->addComponent(new Box3d(512.f, 256.f, 256.f));
 	
 	// Load all entities and subsequent components
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);

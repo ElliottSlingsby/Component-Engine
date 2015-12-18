@@ -2,7 +2,7 @@
 
 #include <GL\glew.h>
 
-Box2d::Box2d(float width, float height) : Collider(BOX){
+Box2d::Box2d(float width, float height) : Collider(BOX2D){
 	_size = glm::vec2(width, height);
 }
 
@@ -12,7 +12,7 @@ void Box2d::load(){
 
 void Box2d::_update(){
 	// Updating this world coordinates for each corner
-	glm::vec2 half((_size.x * _transform->scale().x) / 2, (_size.y * _transform->scale().y) / 2);
+	glm::vec2 half((_size.x * _transform->scale().x) / 2.f, (_size.y * _transform->scale().y) / 2.f);
 
 	_corners[0] = _transform->apply2d(glm::vec2(-half.x, -half.y));
 	_corners[1] = _transform->apply2d(glm::vec2(half.x, -half.y));
@@ -32,51 +32,50 @@ void Box2d::_update(){
 }
 
 void Box2d::render(){
+	_update();
+
 	glColor3f(1.f, 1.f, 1.f);
 
-	glDisable(GL_LIGHTING);
 	glDisable(GL_CULL_FACE);
 
-	if (EntityManager::nameBank().getName(id()) == "player" || EntityManager::nameBank().getName(id()) == "box"){
-		// Rotating debug axes
-		float length = 2056;
-
-		glLineWidth(2);
-
-		glBegin(GL_LINES);
-
-		glColor3f(1.f, 0.f, 0.f);
-		glVertex3f(-_axes[0].x * length, -_axes[0].y * length, 0.5f);
-		glVertex3f(_axes[0].x * length, _axes[0].y * length, 0.5f);
-
-		glColor3f(0.f, 1.f, 0.5f);
-		glVertex3f(-_axes[1].x * length, -_axes[1].y * length, 0.5f);
-		glVertex3f(_axes[1].x * length, _axes[1].y * length, 0.5f);
-
-		glColor3f(1.f, 1.f, 1.f);
-
-		glEnd();
-
-		// Overlapping debug lines
-		glLineWidth(4);
-
-		glBegin(GL_LINES);
-
-		glVertex3f(_axes[0].x * _magnitudes[0].x, _axes[0].y * _magnitudes[0].x, 1.f);
-		glVertex3f(_axes[0].x * _magnitudes[0].y, _axes[0].y * _magnitudes[0].y, 1.f);
-
-		glVertex3f(_axes[1].x * _magnitudes[1].x, _axes[1].y * _magnitudes[1].x, 1.f);
-		glVertex3f(_axes[1].x * _magnitudes[1].y, _axes[1].y * _magnitudes[1].y, 1.f);
-
-		glVertex3f(_axes[0].x * _magnitudes[2].x, _axes[0].y * _magnitudes[2].x, 1.f);
-		glVertex3f(_axes[0].x * _magnitudes[2].y, _axes[0].y * _magnitudes[2].y, 1.f);
-
-		glVertex3f(_axes[1].x * _magnitudes[3].x, _axes[1].y * _magnitudes[3].x, 1.f);
-		glVertex3f(_axes[1].x * _magnitudes[3].y, _axes[1].y * _magnitudes[3].y, 1.f);
-
-		glEnd();
-	}
-
+	// Rotating debug axes
+	float length = 2056;
+	
+	glLineWidth(2);
+	
+	glBegin(GL_LINES);
+	
+	glColor3f(1.f, 0.f, 0.f);
+	glVertex3f(-_axes[0].x * length, -_axes[0].y * length, 0.5f);
+	glVertex3f(_axes[0].x * length, _axes[0].y * length, 0.5f);
+	
+	glColor3f(0.f, 1.f, 0.5f);
+	glVertex3f(-_axes[1].x * length, -_axes[1].y * length, 0.5f);
+	glVertex3f(_axes[1].x * length, _axes[1].y * length, 0.5f);
+	
+	glColor3f(1.f, 1.f, 1.f);
+	
+	glEnd();
+	
+	// Overlapping debug lines
+	glLineWidth(4);
+	
+	glBegin(GL_LINES);
+	
+	glVertex3f(_axes[0].x * _magnitudes[0].x, _axes[0].y * _magnitudes[0].x, 1.f);
+	glVertex3f(_axes[0].x * _magnitudes[0].y, _axes[0].y * _magnitudes[0].y, 1.f);
+	
+	glVertex3f(_axes[1].x * _magnitudes[1].x, _axes[1].y * _magnitudes[1].x, 1.f);
+	glVertex3f(_axes[1].x * _magnitudes[1].y, _axes[1].y * _magnitudes[1].y, 1.f);
+	
+	glVertex3f(_axes[0].x * _magnitudes[2].x, _axes[0].y * _magnitudes[2].x, 1.f);
+	glVertex3f(_axes[0].x * _magnitudes[2].y, _axes[0].y * _magnitudes[2].y, 1.f);
+	
+	glVertex3f(_axes[1].x * _magnitudes[3].x, _axes[1].y * _magnitudes[3].x, 1.f);
+	glVertex3f(_axes[1].x * _magnitudes[3].y, _axes[1].y * _magnitudes[3].y, 1.f);
+	
+	glEnd();
+	
 	glBegin(GL_QUADS);
 
 	if (_testColliding)
@@ -94,7 +93,6 @@ void Box2d::render(){
 	glLineWidth(1);
 	glColor3f(1.f, 1.f, 1.f);
 
-	glEnable(GL_LIGHTING);
 	glEnable(GL_CULL_FACE);
 
 	_testColliding = false;
@@ -114,7 +112,7 @@ bool Box2d::overlapping(const glm::vec2& first, const glm::vec2& second){
 }
 
 bool Box2d::isCollidingSystem(Collider* other){
-	if (other->type == Collider::BOX){
+	if (other->type == Collider::BOX2D){
 		Box2d* otherBox = static_cast<Box2d*>(other);
 
 		return isColliding(otherBox);

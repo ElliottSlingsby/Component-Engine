@@ -5,10 +5,10 @@
 class Collider : public HelperComponent{
 public:
 	enum Type{
-		BOX,
-		SPHERE,
-		CAPSULE,
-		HULL
+		BOX2D,
+		BOX3D,
+		CIRCLE2D,
+		CIRCLE3D
 	};
 
 	const Type type;

@@ -11,16 +11,27 @@ class Box3d : public Collider{
 	glm::vec3 _size;
 
 	// Runtime updated variables
-	glm::vec3 _corners[8];
-	glm::vec3 _axes[15];
-	glm::vec3 _magnitudes[15];
+	glm::vec3 _cornersTop[4];
+	glm::vec3 _cornersBottom[4];
 
+	// 0 - 3	= Top
+	// 4 - 7	= Bottom (+4)
+	glm::vec3 _corners[8];
+	
+	glm::vec3 _axes[3];
+	
+	glm::vec2 _magnitudes[6];
+
+	// Edge values only updated on one side per onCollision
+	glm::vec3 _edgeAxes[9];
+	glm::vec2 _edgeMagnitudes[18];
+	
 	bool _testColliding = false;
 
 	void _update();
 
 public:
-	Box3d(float width, float height);
+	Box3d(float width, float height, float depth);
 
 	void load();
 	void render();
