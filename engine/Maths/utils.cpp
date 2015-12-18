@@ -32,12 +32,11 @@ void mathsTesting(){
 	//glm::quat a0(glm::vec3(glm::radians(10.f), glm::radians(24.f), glm::radians(32.f)));
 	//quat b0(vec3(glm::radians(10.f), glm::radians(24.f), glm::radians(32.f)));
 
-	a0 = glm::normalize(a0);
-	b0 = normalize(b0);
-
-	
-	//a0 *= a0;
-	//b0 *= b0;
+	//a0 = glm::normalize(a0);
+	//b0 = normalize(b0);
+		
+	a0 *= a0;
+	b0 *= b0;
 
 	//b0 = normalize(b0);
 
@@ -47,9 +46,9 @@ void mathsTesting(){
 	//glm::quat a0(glm::vec3(10.f, 24.f, 32.f));
 	//quat b0(vec3(10.f, 24.f, 32.f));
 
-	//a = glm::conjugate(a);
-	//
-	//b = conjugate(b);
+	a0 = glm::conjugate(a0);
+
+	b0 = conjugate(b0);
 }
 
 float radians(float a){

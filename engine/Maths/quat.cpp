@@ -42,10 +42,10 @@ void quat::operator=(const quat& other){
 
 quat quat::operator*(const quat& other){
 	return quat(
-		other.x * x - other.y * y - other.z * z - other.w * w,
-		other.x * z + other.y * w + other.z * x - other.w * y,
-		other.x * w - other.y * z + other.z * y + other.w * x,
-		other.x * y + other.y * x - other.z * w + other.w * z
+		other.w * w - other.y * y - other.z * z - other.x * x,
+		other.w * x - other.y * z + other.z * y + other.x * w,
+		other.w * y + other.y * w - other.z * x + other.x * z,
+		other.w * z + other.y * x + other.z * w - other.x * y
 	);
 }
 
@@ -60,7 +60,7 @@ vec3 quat::operator*(const vec3& other){
 
 // Functions
 quat conjugate(const quat& a){
-	return quat(-a.x, -a.y, -a.z, a.w);
+	return quat(a.w, -a.x, -a.y, -a.z);
 }
 
 vec3 eulerAngles(const quat& a){
