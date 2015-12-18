@@ -22,6 +22,7 @@
     <ClCompile Include="Entity\Entity.cpp" />
     <ClCompile Include="Entity\Identifier.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Maths\mat4.cpp" />
     <ClCompile Include="Maths\quat.cpp" />
     <ClCompile Include="Maths\vec2.cpp" />
     <ClCompile Include="Maths\vec3.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="Entity\Entity.hpp" />
     <ClInclude Include="Entity\HelperComponent.hpp" />
     <ClInclude Include="Entity\Identifier.hpp" />
+    <ClInclude Include="Maths\mat4.hpp" />
     <ClInclude Include="Maths\quat.hpp" />
     <ClInclude Include="Maths\utils.hpp" />
     <ClInclude Include="Maths\vec2.hpp" />

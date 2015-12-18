@@ -108,6 +108,9 @@
     <ClCompile Include="Maths\quat.cpp">
       <Filter>Private</Filter>
     </ClCompile>
+    <ClCompile Include="Maths\mat4.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Setup.hpp" />
@@ -193,6 +196,9 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Maths\quat.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\mat4.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>
