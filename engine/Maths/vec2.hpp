@@ -5,6 +5,7 @@ struct vec2{
 	float y = 0.f;
 
 	vec2();
+	vec2(const vec2& other);
 	vec2(float x, float y);
 
 	unsigned int length();
@@ -23,6 +24,18 @@ struct vec2{
 
 	void operator*=(const vec2& other);
 	void operator/=(const vec2& other);
+
+	vec2 operator+(float other);
+	vec2 operator-(float other);
+
+	vec2 operator*(float other);
+	vec2 operator/(float other);
+
+	void operator+=(float other);
+	void operator-=(float other);
+
+	void operator*=(float other);
+	void operator/=(float other);
 };
 
 float dot(const vec2& a, const vec2& b);

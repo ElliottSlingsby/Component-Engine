@@ -9,6 +9,7 @@ struct quat{
 	float z = 0.f;
 
 	quat();
+	quat(const quat& other);
 	quat(float w, float x, float y, float z);
 	quat(const vec3& angles);
 

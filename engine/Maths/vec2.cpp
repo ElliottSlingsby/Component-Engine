@@ -6,6 +6,11 @@
 // Methods
 vec2::vec2(){}
 
+vec2::vec2(const vec2& other){
+	this->x = other.x;
+	this->y = other.y;
+}
+
 vec2::vec2(float x, float y){
 	this->x = x;
 	this->y = y;
@@ -59,6 +64,43 @@ void vec2::operator*=(const vec2& other){
 void vec2::operator/=(const vec2& other){
 	x /= other.x;
 	y /= other.y;
+}
+
+vec2 vec2::operator+(float other){
+	return vec2(x + other, y + other);
+}
+
+vec2 vec2::operator-(float other){
+	return vec2(x - other, y - other);
+}
+
+vec2 vec2::operator*(float other){
+	return vec2(x * other, y * other);
+}
+
+vec2 vec2::operator/(float other){
+	return vec2(x / other, y / other);
+}
+
+void vec2::operator+=(float other){
+	x += other;
+	y += other;
+}
+
+void vec2::operator-=(float other){
+	x -= other;
+	y -= other;
+}
+
+
+void vec2::operator*=(float other){
+	x *= other;
+	y *= other;
+}
+
+void vec2::operator/=(float other){
+	x /= other;
+	y /= other;
 }
 
 // Functions

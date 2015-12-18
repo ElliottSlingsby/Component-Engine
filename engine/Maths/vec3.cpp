@@ -6,6 +6,12 @@
 // Methods
 vec3::vec3(){}
 
+vec3::vec3(const vec3& other){
+	this->x = other.x;
+	this->y = other.y;
+	this->z = other.z;
+}
+
 vec3::vec3(float x, float y, float z){
 	this->x = x;
 	this->y = y;
@@ -64,6 +70,47 @@ void vec3::operator/=(const vec3& other){
 	x /= other.x;
 	y /= other.y;
 	z /= other.z;
+}
+
+vec3 vec3::operator+(float other){
+	return vec3(x + other, y + other, z + other);
+}
+
+vec3 vec3::operator-(float other){
+	return vec3(x - other, y - other, z - other);
+}
+
+vec3 vec3::operator*(float other){
+	return vec3(x * other, y * other, z * other);
+}
+
+vec3 vec3::operator/(float other){
+	return vec3(x / other, y / other, z / other);
+}
+
+void vec3::operator+=(float other){
+	x += other;
+	y += other;
+	z += other;
+}
+
+void vec3::operator-=(float other){
+	x -= other;
+	y -= other;
+	z -= other;
+}
+
+
+void vec3::operator*=(float other){
+	x *= other;
+	y *= other;
+	z *= other;
+}
+
+void vec3::operator/=(float other){
+	x /= other;
+	y /= other;
+	z /= other;
 }
 
 // Functions
