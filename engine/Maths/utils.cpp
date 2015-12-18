@@ -40,8 +40,8 @@ void mathsTesting(){
 
 	//b0 = normalize(b0);
 
-	//glm::vec3 a1 = glm::eulerAngles(glm::normalize(a0));
-	//vec3 b1 = eulerAngles(normalize(b0));
+	glm::vec3 a1 = glm::eulerAngles(glm::normalize(a0));
+	vec3 b1 = eulerAngles(normalize(b0));
 
 	//glm::quat a0(glm::vec3(10.f, 24.f, 32.f));
 	//quat b0(vec3(10.f, 24.f, 32.f));
