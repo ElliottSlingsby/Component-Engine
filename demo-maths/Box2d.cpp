@@ -3,7 +3,7 @@
 #include <GL\glew.h>
 
 Box2d::Box2d(float width, float height) : Collider(BOX2D){
-	_size = glm::vec2(width, height);
+	_size = Vec2(width, height);
 }
 
 void Box2d::load(){
@@ -12,22 +12,22 @@ void Box2d::load(){
 
 void Box2d::_update(){
 	// Updating this world coordinates for each corner
-	glm::vec2 half((_size.x * _transform->scale().x) / 2.f, (_size.y * _transform->scale().y) / 2.f);
+	Vec2 half((_size.x * _transform->scale().x) / 2.f, (_size.y * _transform->scale().y) / 2.f);
 
-	_corners[0] = _transform->apply2d(glm::vec2(-half.x, -half.y));
-	_corners[1] = _transform->apply2d(glm::vec2(half.x, -half.y));
-	_corners[2] = _transform->apply2d(glm::vec2(half.x, half.y));
-	_corners[3] = _transform->apply2d(glm::vec2(-half.x, half.y));
+	//_corners[0] = _transform->apply2d(Vec2(-half.x, -half.y));
+	//_corners[1] = _transform->apply2d(Vec2(half.x, -half.y));
+	//_corners[2] = _transform->apply2d(Vec2(half.x, half.y));
+	//_corners[3] = _transform->apply2d(Vec2(-half.x, half.y));
 
 	// Updating this axes rotation
-	_axes[0] = glm::vec2(0, 1);
-	_axes[1] = glm::vec2(1, 0);
+	_axes[0] = Vec2(0, 1);
+	_axes[1] = Vec2(1, 0);
 
-	glm::quat rotation(glm::vec3(0, 0, glm::eulerAngles(_transform->rotation()).z));
+	Quat rotation(Vec3(0, 0, eulerAngles(_transform->rotation()).z));
 
 	for (int i = 0; i < 2; i++){
-		glm::vec3 axis = glm::vec3(_axes[i].x, _axes[i].y, 0) * glm::inverse(rotation);
-		_axes[i] = glm::vec2(axis.x, axis.y);
+		Vec3 axis = inverse(rotation) * Vec3(_axes[i].x, _axes[i].y, 0);
+		_axes[i] = Vec2(axis.x, axis.y);
 	}
 }
 
@@ -98,7 +98,7 @@ void Box2d::render(){
 	_testColliding = false;
 }
 
-bool Box2d::overlapping(const glm::vec2& first, const glm::vec2& second){
+bool Box2d::overlapping(const Vec2& first, const Vec2& second){
 	if (first.x <= second.x && first.y >= second.x)
 		return true;
 	if (first.x <= second.y && first.y >= second.y)
@@ -129,11 +129,11 @@ bool Box2d::isColliding(Box2d* other, bool recurse){
 
 	for (int i = 0; i < 2; i++){
 		for (int j = 0; j < 2; j++){
-			float minimum = glm::dot(_axes[j], targets[i]->_corners[0]);
+			float minimum = dot(_axes[j], targets[i]->_corners[0]);
 			float maximum = minimum;
 
 			for (int k = 0; k < 4; k++){
-				float magnitude = glm::dot(_axes[j], targets[i]->_corners[k]);
+				float magnitude = dot(_axes[j], targets[i]->_corners[k]);
 
 				if (magnitude < minimum)
 					minimum = magnitude;
@@ -141,7 +141,7 @@ bool Box2d::isColliding(Box2d* other, bool recurse){
 					maximum = magnitude;
 			}
 
-			_magnitudes[(i * 2) + j] = glm::vec2(minimum, maximum);
+			_magnitudes[(i * 2) + j] = Vec2(minimum, maximum);
 		}
 	}
 

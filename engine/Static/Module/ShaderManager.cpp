@@ -199,27 +199,27 @@ GLint ShaderManager::_indexAttribute(const std::string& name){
 	return value;
 }
 
-void ShaderManager::uniform(unsigned int index, const glm::mat4& value){
-	glUniformMatrix4fv(index, 1, true, &value[0][0]);
+void ShaderManager::uniform(unsigned int index, Mat4 value){
+	glUniformMatrix4fv(index, 1, true, value.gl());
 }
 
-void ShaderManager::uniform(const std::string& name, const glm::mat4& value){
+void ShaderManager::uniform(const std::string& name, const Mat4& value){
 	uniform(_indexUniform(name), value);
 }
 
-void ShaderManager::uniform(unsigned int index, const glm::vec3& value){
-	glUniform3fv(index, 1, &value[0]);
+void ShaderManager::uniform(unsigned int index, const Vec3& value){
+	glUniform3f(index, value.x, value.y, value.z);
 }
 
-void ShaderManager::uniform(const std::string& name, const glm::vec3& value){
+void ShaderManager::uniform(const std::string& name, const Vec3& value){
 	uniform(_indexUniform(name), value);
 }
 
-void ShaderManager::uniform(unsigned int index, const glm::vec2& value){
-	glUniform2fv(index, 1, &value[0]);
+void ShaderManager::uniform(unsigned int index, const Vec2& value){
+	glUniform2f(index, value.x, value.y);
 }
 
-void ShaderManager::uniform(const std::string& name, const glm::vec2& value){
+void ShaderManager::uniform(const std::string& name, const Vec2& value){
 	uniform(_indexUniform(name), value);
 }
 
@@ -234,11 +234,11 @@ void ShaderManager::uniform(const std::string& name, GLint value){
 	uniform(_indexUniform(name), value);
 }
 
-void ShaderManager::attribute(unsigned int index, const glm::vec3& value){
+void ShaderManager::attribute(unsigned int index, const Vec3& value){
 	glVertexAttrib3fv(index, &value.x);
 }
 
-void ShaderManager::attribute(const std::string& name, const glm::vec3& value){
+void ShaderManager::attribute(const std::string& name, const Vec3& value){
 	attribute(_indexAttribute(name), value);
 }
 
@@ -249,254 +249,3 @@ void ShaderManager::attribute(unsigned int index, float value){
 void ShaderManager::attribute(const std::string& name, float value){
 	attribute(_indexAttribute(name), value);
 }
-
-
-
-
-
-
-/*
-// Float Vectors
-void ShaderManager::attribute(unsigned int index, const glm::vec4& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::vec3& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value.x);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::vec2& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value.x);
-}
-
-// Bool Vectors
-void ShaderManager::attribute(unsigned int index, const glm::bvec4& value){
-	glVertexAttribLPointer(index, value.length, GL_BOOL, sizeof(bool), &value.x);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::bvec3& value){
-	glVertexAttribLPointer(index, value.length, GL_BOOL, sizeof(bool), &value.x);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::bvec2& value){
-	glVertexAttribLPointer(index, value.length, GL_BOOL, sizeof(bool), &value.x);
-}
-
-// Int Vectors
-void ShaderManager::attribute(unsigned int index, const glm::ivec4& value){
-	glVertexAttribLPointer(index, value.length, GL_INT, sizeof(int), &value.x);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::ivec3& value){
-	glVertexAttribLPointer(index, value.length, GL_INT, sizeof(int), &value.x);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::ivec2& value){
-	glVertexAttribLPointer(index, value.length, GL_INT, sizeof(int), &value.x);
-}
-
-// Unsigned Vectors
-void ShaderManager::attribute(unsigned int index, const glm::uvec4& value){
-	glVertexAttribLPointer(index, value.length, GL_UNSIGNED_INT, sizeof(unsigned int), &value.x);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::uvec3& value){
-	glVertexAttribLPointer(index, value.length, GL_UNSIGNED_INT, sizeof(unsigned int), &value.x);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::uvec2& value){
-	glVertexAttribLPointer(index, value.length, GL_UNSIGNED_INT, sizeof(unsigned int), &value.x);
-}
-
-// Double Vectors
-void ShaderManager::attribute(unsigned int index, const glm::dvec4& value){
-	glVertexAttribLPointer(index, value.length, GL_DOUBLE, sizeof(double), &value.x);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::dvec3& value){
-	glVertexAttribLPointer(index, value.length, GL_DOUBLE, sizeof(double), &value.x);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::dvec2& value){
-	glVertexAttribLPointer(index, value.length, GL_DOUBLE, sizeof(double), &value.x);
-}
-
-// Square Matrices
-void ShaderManager::attribute(unsigned int index, const glm::mat4& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value[0][0]);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat3& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value[0][0]);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat2& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value[0][0]);
-}
-
-// 2xN Matrices
-void ShaderManager::attribute(unsigned int index, const glm::mat2x3& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value[0][0]);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat2x4& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value[0][0]);
-}
-
-// 3xN Matrices
-void ShaderManager::attribute(unsigned int index, const glm::mat3x2& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value[0][0]);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat3x4& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value[0][0]);
-}
-
-// 4xN Matrices
-void ShaderManager::attribute(unsigned int index, const glm::mat4x2& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value[0][0]);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat4x3& value){
-	glVertexAttribLPointer(index, value.length, GL_FLOAT, sizeof(float), &value[0][0]);
-}
-
-// Primitives
-void ShaderManager::attribute(unsigned int index, float value){
-	glVertexAttribLPointer(index, 1, GL_FLOAT, sizeof(float), &value);
-}
-
-void ShaderManager::attribute(unsigned int index, double value){
-	glVertexAttribLPointer(index, 1, GL_DOUBLE, sizeof(double), &value);
-}
-
-void ShaderManager::attribute(unsigned int index, int value){
-	glVertexAttribLPointer(index, 1, GL_INT, sizeof(int), &value);
-}
-
-void ShaderManager::attribute(unsigned int index, unsigned int value){
-	glVertexAttribLPointer(index, 1, GL_UNSIGNED_INT, sizeof(unsigned int), &value);
-}
-
-void ShaderManager::attribute(unsigned int index, bool value){
-	glVertexAttribLPointer(index, 1, GL_BOOL, sizeof(bool), &value);
-}
-
-// Primitive Arrays
-void ShaderManager::attribute(unsigned int index, const float* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const double* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_DOUBLE, sizeof(double), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const int* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_INT, sizeof(int), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const unsigned int* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_UNSIGNED_INT, sizeof(unsigned int), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const bool* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_BOOL, sizeof(bool), value);
-}
-
-// Object Arrays
-void ShaderManager::attribute(unsigned int index, const glm::mat2* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat3* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat4* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat2x3* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat2x4* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat3x2* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat3x4* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat4x2* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::mat4x3* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::vec4* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::vec3* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::vec2* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_FLOAT, sizeof(float), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::bvec4* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_BOOL, sizeof(bool), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::bvec3* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_BOOL, sizeof(bool), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::bvec2* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_BOOL, sizeof(bool), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::ivec4* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_INT, sizeof(int), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::ivec3* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_INT, sizeof(int), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::ivec2* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_INT, sizeof(int), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::uvec4* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_UNSIGNED_INT, sizeof(unsigned int), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::uvec3* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_UNSIGNED_INT, sizeof(unsigned int), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::uvec2* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_UNSIGNED_INT, sizeof(unsigned int), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::dvec4* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_DOUBLE, sizeof(double), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::dvec3* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_DOUBLE, sizeof(double), value);
-}
-
-void ShaderManager::attribute(unsigned int index, const glm::dvec2* value, unsigned int length){
-	glVertexAttribLPointer(index, length, GL_DOUBLE, sizeof(double), value);
-}
-*/

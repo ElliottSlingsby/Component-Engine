@@ -5,9 +5,10 @@
 #include <algorithm>
 #include <Static\DebugOutput.hpp>
 #include <string>
-#include <glm\vec3.hpp>
-#include <glm\vec2.hpp>
 #include <SDL.h>
+
+#include <Maths\Vec2.hpp>
+#include <Maths\Vec3.hpp>
 
 struct Asset{
 	virtual ~Asset(){}
@@ -22,9 +23,9 @@ struct MeshData : public Asset{
 	const unsigned int textureSize;
 	const unsigned int normalSize;
 
-	const glm::vec3 size;
+	const Vec3 size;
 
-	MeshData(GLuint vertexBuffer, GLuint indexBuffer, unsigned int indicesSize, unsigned int vertexSize, unsigned int textureSize, unsigned int normalSize, glm::vec3 size) :
+	MeshData(GLuint vertexBuffer, GLuint indexBuffer, unsigned int indicesSize, unsigned int vertexSize, unsigned int textureSize, unsigned int normalSize, Vec3 size) :
 		vertexBuffer(vertexBuffer), 
 		indexBuffer(indexBuffer), 
 		indicesSize(indicesSize),
@@ -45,11 +46,11 @@ struct MaterialData : public Asset{
 	const GLuint diffuse;
 	const GLuint normal;
 
-	const glm::vec2 specularSize;
-	const glm::vec2 diffuseSize;
-	const glm::vec2 normalSize;
+	const Vec2 specularSize;
+	const Vec2 diffuseSize;
+	const Vec2 normalSize;
 
-	MaterialData(GLuint diffuse, GLuint specular, GLuint normal, glm::vec2 diffuseSize, glm::vec2 specularSize, glm::vec2 normalSize) :
+	MaterialData(GLuint diffuse, GLuint specular, GLuint normal, Vec2 diffuseSize, Vec2 specularSize, Vec2 normalSize) :
 		specular(specular), 
 		diffuse(diffuse), 
 		normal(normal),
@@ -74,7 +75,7 @@ class AssetLoader{
 	SDL_Renderer* _renderer = 0;
 
 	typedef std::vector<std::string> StringVector;
-	typedef std::unordered_map<std::string, glm::vec3> Vec3Map;
+	typedef std::unordered_map<std::string, Vec3> Vec3Map;
 
 	Vec3Map _textures;
 
@@ -89,7 +90,7 @@ class AssetLoader{
 
 	MeshData* _loadMesh(const std::string& filepath);
 	MaterialData* _loadMaterial(const std::string& filepath);
-	glm::vec3 _loadTexture(const std::string& filepath);
+	Vec3 _loadTexture(const std::string& filepath);
 
 	GLuint _createTexture(SDL_Surface* surface);
 

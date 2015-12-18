@@ -2,13 +2,7 @@
 
 #include <GL\glew.h>
 #include <Static\Renderer.hpp>
-#include <Static\Utils.hpp>
-
-//https://open.gl/textures
-//https://www.opengl.org/wiki/Sampler_(GLSL)
-//http://www.geeks3d.com/20110908/opengl-3-3-sampler-objects-control-your-texture-units/
-//https://www.opengl.org/discussion_boards/showthread.php/163092-Passing-Multiple-Textures-from-OpenGL-to-GLSL-shader
-//https://en.wikibooks.org/wiki/OpenGL_Programming/Advanced/GLSL
+#include <Maths\Utils.hpp>
 
 Model::Model(const std::string& meshSrc, const std::string& materialSrc, const std::string& shader){
 	_meshSrc = meshSrc;
@@ -46,7 +40,7 @@ void Model::render(){
 
 	// Rotate based on Transform
 	if (!_fixedRotation)
-		glMultMatrixf(&glm::mat4_cast(_transform->rotation())[0][0]);
+		glMultMatrixf(mat4Cast(_transform->rotation()).gl());
 
 	// Scale based on Transform
 	glScalef(-_transform->scale().x, -_transform->scale().y, _transform->scale().z);
@@ -90,26 +84,26 @@ void Model::render(){
 		//Entity* camera = EntityManager::getEntity("camera");
 
 		if (lightPosition){
-			glm::vec3 position = lightPosition->getComponent<Transform>()->position();
+			Vec3 position = lightPosition->getComponent<Transform>()->position();
 
 			position.z = -position.z;
 
-			glm::vec3 difference = position - _transform->position();
+			Vec3 difference = position - _transform->position();
 
 
-			glm::vec3 direction = glm::normalize(difference);
+			Vec3 direction = normalize(difference);
 
-			direction = glm::normalize(direction * _transform->rotation());
+			direction = normalize(_transform->rotation() * direction);
 
 			Renderer::shaderManager().attribute("in_lightDirection", direction);
 
-			float distance = glm::distance(position, _transform->position());
+			float dif = distance(position, _transform->position());
 
 			float maxDistance = 1024;
 
-			distance = clamp(0, 1, changeRange(0, maxDistance, 1, 0, distance));
+			dif = clamp(0, 1, changeRange(0, maxDistance, 1, 0, dif));
 
-			Renderer::shaderManager().attribute("in_lightDistance", distance);
+			Renderer::shaderManager().attribute("in_lightDistance", dif);
 		}
 
 		Renderer::shaderManager().uniform("uniform_resolution", Renderer::window().size());
@@ -117,7 +111,7 @@ void Model::render(){
 		//GLint light = glGetAttribLocation(program, "in_light");
 		//
 		//if (light != -1){
-		//	Renderer::shaderManager().uniform(light, glm::vec3(0, 0, 0));
+		//	Renderer::shaderManager().uniform(light, Vec3(0, 0, 0));
 		//}
 	}
 	else{

@@ -1,11 +1,13 @@
 #include "DemoMaths.hpp"
 
 #include <Static\Renderer.hpp>
+#include <Maths\Utils.hpp>
 
 #include <Component\Camera.hpp>
 #include <Component\Debug\Grid.hpp>
 #include <Component\Noclip.hpp>
 #include <Component\Input.hpp>
+#include <Component\Debug\Spin.hpp>
 
 #include "Box2d.hpp"
 #include "Box3d.hpp"
@@ -17,21 +19,38 @@ void DemoMaths::on(){
 	
 	// Player entity contains the camera, movement controls, and a collider
 	Entity* player = EntityManager::createEntity("player");
-	player->getComponent<Transform>()->setPosition(glm::vec3(0, 0, -128));
+	player->getComponent<Transform>()->setPosition(Vec3(0, 0, -128));
 	player->addComponent(new Camera);
 	player->getComponent<Camera>()->set2d(false);
 	player->getComponent<Camera>()->setFov(90);
 	player->getComponent<Camera>()->setDrawDistance(1024 * 8);
 	player->addComponent(new Input);
 	player->addComponent(new Noclip(128.f, 0.1f));
-	player->addComponent(new Box3d(512.f, 512.f, 512.f));
+	player->addComponent(new Box3d(256, 256, 256));
 
 	// Other entity contains a collider
-	Entity* other = EntityManager::createEntity("other");
-	other->getComponent<Transform>()->setPosition(glm::vec3(0, 512, 0));
-	other->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(0, 0, glm::radians(45.f))));
-	other->addComponent(new Box3d(512.f, 256.f, 256.f));
+	Entity* box0 = EntityManager::createEntity("box");
+	box0->getComponent<Transform>()->setPosition(Vec3(0, 512, 0));
+	box0->getComponent<Transform>()->setRotation(Quat(Vec3(0, 0, radians(45.f))));
+	box0->addComponent(new Box3d(512.f, 256.f, 256.f));
+	box0->addComponent(new Spin(1.f));
 	
+	Entity* box1 = EntityManager::createEntity("box");
+	box1->getComponent<Transform>()->setPosition(Vec3(512, 512, 0));
+	box1->getComponent<Transform>()->setRotation(Quat(Vec3(radians(90.f), radians(12.f), radians(0.f))));
+	box1->addComponent(new Box3d(512.f, 256.f, 256.f));
+	box1->addComponent(new Spin(1.f));
+	
+	Entity* spinner = EntityManager::createEntity("spinner");
+	spinner->getComponent<Transform>()->setPosition(Vec3(-512, -512, 0));
+	spinner->addComponent(new Box3d(1024, 128, 32));
+	spinner->addComponent(new Spin(1.f));
+
+	Entity* pillar0 = EntityManager::createEntity("pillar");
+	pillar0->getComponent<Transform>()->setPosition(Vec3(-512 + 256, -512 + 256, 0));
+	pillar0->addComponent(new Box3d(64, 64, 1024));
+	pillar0->addComponent(new Spin(10.f));
+		
 	// Load all entities and subsequent components
 	EntityManager::invokeAll(Entity::TRIGGER_LOAD);
 }

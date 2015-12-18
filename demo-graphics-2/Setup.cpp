@@ -15,10 +15,8 @@ bool setup(int argc, char *args[]){
 #ifdef _DEBUG
 	Renderer::console().setRunning(true);
 #endif
-
-	Renderer::shaderManager().createProgram("normals_only", "lighting_vertex.gls", "normals_fragment.gls");
-
-	Renderer::shaderManager().createProgram("main", "lighting_vertex.gls", "lighting_fragment.gls");
+	
+	Renderer::shaderManager().createProgram("main", "lighting_vertex.gls", "specular_fragment.gls");
 	Renderer::shaderManager().useProgram("main");
 	
 	EntityManager::stateMachine().addState(new DemoGraphics);

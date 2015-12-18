@@ -90,9 +90,6 @@
     <ClCompile Include="Component\Input.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Static\Utils.cpp">
-      <Filter>Private\Static</Filter>
-    </ClCompile>
     <ClCompile Include="Component\Noclip.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
@@ -109,6 +106,9 @@
       <Filter>Private</Filter>
     </ClCompile>
     <ClCompile Include="Maths\Vec3.cpp">
+      <Filter>Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Debug\Spin.cpp">
       <Filter>Private</Filter>
     </ClCompile>
   </ItemGroup>
@@ -174,9 +174,6 @@
     <ClInclude Include="Component\Debug\Grid.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Static\Utils.hpp">
-      <Filter>Public\Static</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Input.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
@@ -199,6 +196,9 @@
       <Filter>Public</Filter>
     </ClInclude>
     <ClInclude Include="Maths\Vec3.hpp">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Debug\Spin.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>

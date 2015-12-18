@@ -3,13 +3,13 @@
 #include <Component\Model.hpp>
 
 class Line : public Model{
-	glm::vec3 _vector;
+	Vec3 _vector;
 
 public:
-	Line(const glm::vec3& vector);
+	Line(const Vec3& vector);
 
-	void setVector(const glm::vec3& vector);
-	glm::vec3 vector();
+	void setVector(const Vec3& vector);
+	Vec3 vector();
 
 	void draw();
 };

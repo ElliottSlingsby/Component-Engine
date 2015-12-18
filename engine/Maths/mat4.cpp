@@ -48,7 +48,7 @@ Mat4::Mat4(float a0, float a1, float a2, float a3, float b0, float b1, float b2,
 	m[3][3] = d3; // w4
 }
 
-void* Mat4::gl(){
+const float* Mat4::gl(){
 	return &m[0][0];
 }
 

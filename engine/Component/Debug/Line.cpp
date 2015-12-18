@@ -1,15 +1,15 @@
 #include "Line.hpp"
 
-Line::Line(const glm::vec3& vector){
+Line::Line(const Vec3& vector){
 	setVector(vector);
 	setUnlit(true);
 }
 
-void Line::setVector(const glm::vec3& vector){
+void Line::setVector(const Vec3& vector){
 	_vector = vector;
 }
 
-glm::vec3 Line::vector(){
+Vec3 Line::vector(){
 	return _vector;
 }
 

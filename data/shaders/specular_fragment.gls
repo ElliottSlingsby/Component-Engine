@@ -1,0 +1,20 @@
+#version 420 compatibility
+
+// Global input
+uniform vec2 uniform_resolution;
+
+// Sampler input
+uniform sampler2D uniform_diffuse;
+uniform sampler2D uniform_specular;
+uniform sampler2D uniform_normal;
+
+// VBO input
+in highp vec3 out_normal;
+in highp vec2 out_texcoord;
+
+void main(){
+	// Get raw specular value from specular texture
+	highp vec3 specular = texture2D(uniform_specular, out_texcoord).rgb;
+
+	gl_FragColor = vec4(specular, 1);
+}

@@ -1,10 +1,11 @@
 #pragma once
 
 #include <Entity\Component.hpp>
-#include <glm\vec3.hpp>
-#include <glm\gtc\quaternion.hpp>
 #include <set>
 #include <vector>
+
+#include <Maths\Vec3.hpp>
+#include <Maths\Quat.hpp>
 
 typedef std::vector<int> IntVector;
 
@@ -14,18 +15,18 @@ class Transform : public Component{
 	typedef std::set<Transform*> TransformSet;
 	TransformSet _children;
 
-	glm::vec3 _position;
-	glm::quat _rotation;
-	glm::vec3 _scale;
+	Vec3 _position;
+	Quat _rotation;
+	Vec3 _scale;
 
 	void _addChild(Transform* child);
 	void _removeChild(Transform* child);
 
 public:
 	Transform(
-		const glm::vec3& position = glm::vec3(0.f, 0.f, 0.f),
-		const glm::quat& rotation = glm::quat(1.f, 0.f, 0.f, 0.f),
-		const glm::vec3& scale = glm::vec3(1.f, 1.f, 1.f)
+		const Vec3& position = Vec3(0.f, 0.f, 0.f),
+		const Quat& rotation = Quat(1.f, 0.f, 0.f, 0.f),
+		const Vec3& scale = Vec3(1.f, 1.f, 1.f)
 	);
 
 	~Transform();
@@ -34,32 +35,31 @@ public:
 	Transform* parent();
 	void childrenIDs(IntVector& intVector);
 
-	glm::vec3 position();
-	glm::quat rotation();
-	glm::vec3 scale();
-	glm::vec3 localPosition();
-	glm::quat localRotation();
+	Vec3 position();
+	Quat rotation();
+	Vec3 scale();
+	Vec3 localPosition();
+	Quat localRotation();
 
 	unsigned int childrenSize();
 
 	// Setters
 	void setParent(Transform* parent);
-	void setPosition(const glm::vec3& vector);
-	void setRotation(const glm::quat& vector);
-	void setScale(const glm::vec3& scale);
+	void setPosition(const Vec3& vector);
+	void setRotation(const Quat& vector);
+	void setScale(const Vec3& scale);
 
-	glm::vec3 apply(const glm::vec3& vector);
-	glm::vec2 apply2d(const glm::vec2& vector);
+	Vec3 apply(const Vec3& vector);
 
 	// Global movements
-	void translate(const glm::vec3& vector);
-	void rotate(const glm::quat& rotation);
+	void translate(const Vec3& vector);
+	void rotate(Quat rotation);
 
 	// Local movements
-	void localTranslate(const glm::vec3& translation);
-	void localRotate(const glm::quat& rotation);
+	void localTranslate(const Vec3& translation);
+	void localRotate(const Quat& rotation);
 
 	// Look methods
-	void lookAt(const glm::vec3& position);
-	glm::vec3 lookingAt();
+	void lookAt(const Vec3& position);
+	Vec3 lookingAt();
 };

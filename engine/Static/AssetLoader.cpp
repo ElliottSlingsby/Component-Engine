@@ -76,8 +76,8 @@ MeshData* AssetLoader::_loadMesh(const std::string& filepath){
 	//}
 
 	// Getting min and max of mesh
-	glm::vec3 min(mesh.positions[0], mesh.positions[1], mesh.positions[2]);
-	glm::vec3 max(min);
+	Vec3 min(mesh.positions[0], mesh.positions[1], mesh.positions[2]);
+	Vec3 max(min);
 
 	for (unsigned int i = 0; i < mesh.positions.size() / 3; i++){
 		if (mesh.positions[i] < min.x)
@@ -97,7 +97,7 @@ MeshData* AssetLoader::_loadMesh(const std::string& filepath){
 	}
 
 	// Bounding box lengths
-	glm::vec3 size(min.x + max.x, min.y + max.y, min.z + max.z);
+	Vec3 size(min.x + max.x, min.y + max.y, min.z + max.z);
 
 	MeshData* asset = new MeshData(vertexBuffer, indexBuffer, indicesSize, positionsSize, texcoordsSize, normalsSize, size);
 	_assets[filepath] = asset;
@@ -142,27 +142,27 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 	GLuint specular = 0;
 	GLuint normal = 0;
 
-	glm::vec2 diffuseSize(0, 0);
-	glm::vec2 specularSize(0, 0);
-	glm::vec2 normalSize(0, 0);
+	Vec2 diffuseSize(0, 0);
+	Vec2 specularSize(0, 0);
+	Vec2 normalSize(0, 0);
 
 	std::size_t dot = filepath.find(".");
 
 	std::string extension = filepath.substr(dot);
 
 	if (extension != ".mtl"){
-		glm::vec3 diffuseTexture = _loadTexture(filepath);
+		Vec3 diffuseTexture = _loadTexture(filepath);
 
 		if (diffuseTexture.x != 0){
-			diffuseSize = glm::vec2(diffuseTexture.y, diffuseTexture.z);
+			diffuseSize = Vec2(diffuseTexture.y, diffuseTexture.z);
 			diffuse = (int)diffuseTexture.x;
 		}
 
 		specular = _specularTexture;
-		specularSize = glm::vec2(1, 1);
+		specularSize = Vec2(1, 1);
 
 		normal = _normalTexture;
-		normalSize = glm::vec2(1, 1);
+		normalSize = Vec2(1, 1);
 	}
 	else{
 		StringVector textures;
@@ -175,33 +175,33 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 		}
 
 		// Diffuse
-		glm::vec3 diffuseTexture = _loadTexture(textures[0]);
+		Vec3 diffuseTexture = _loadTexture(textures[0]);
 
 		diffuse = (int)diffuseTexture.x;
-		diffuseSize = glm::vec2(diffuseTexture.y, diffuseTexture.z);
+		diffuseSize = Vec2(diffuseTexture.y, diffuseTexture.z);
 		
 		// Specular
 		if (textures.size() > 1){
-			glm::vec3 texture = _loadTexture(textures[1]);
+			Vec3 texture = _loadTexture(textures[1]);
 
 			specular = (int)texture.x;
-			specularSize = glm::vec2(texture.y, texture.z);
+			specularSize = Vec2(texture.y, texture.z);
 		}
 		else{
 			specular = _specularTexture;
-			specularSize = glm::vec2(1, 1);
+			specularSize = Vec2(1, 1);
 		}
 		
 		// Normal
 		if (textures.size() > 2){
-			glm::vec3 texture = _loadTexture(textures[2]);
+			Vec3 texture = _loadTexture(textures[2]);
 
 			normal = (int)texture.x;
-			normalSize = glm::vec2(texture.y, texture.z);
+			normalSize = Vec2(texture.y, texture.z);
 		}
 		else{
 			normal = _normalTexture;
-			normalSize = glm::vec2(1, 1);
+			normalSize = Vec2(1, 1);
 		}
 	}
 	
@@ -217,7 +217,7 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 	//diffuse = _createTexture(_assetPath + filepath + textures)
 
 	// Texture size
-	//glm::vec2 size(image->w, image->h);
+	//Vec2 size(image->w, image->h);
 	
 	//diffuse = _createTexture(image);
 	//specular = _createTexture(IMG_Load((_assetPath + "wood/diffuse.png").c_str())); // TESTING
@@ -226,8 +226,8 @@ MaterialData* AssetLoader::_loadMaterial(const std::string& filepath){
 
 }
 
-glm::vec3 AssetLoader::_loadTexture(const std::string& filepath){
-	glm::vec2 size(0, 0);
+Vec3 AssetLoader::_loadTexture(const std::string& filepath){
+	Vec2 size(0, 0);
 	GLuint id = 0;
 
 	if (_textures.find(filepath) == _textures.end()){
@@ -237,10 +237,10 @@ glm::vec3 AssetLoader::_loadTexture(const std::string& filepath){
 		
 		// Diffuse
 		if (surface){
-			size = glm::vec2(surface->w, surface->h);
+			size = Vec2(surface->w, surface->h);
 			id = _createTexture(surface);
 
-			_textures[filepath] = glm::vec3(id, size.x, size.y);
+			_textures[filepath] = Vec3(id, size.x, size.y);
 		}
 	}
 

@@ -6,6 +6,7 @@
 #include <Static\AssetLoader.hpp>
 
 #include <Component\Debug\Line.hpp>
+#include <Maths\Utils.hpp>
 
 static int consoleThread(void* data){
 	Console& console = *static_cast<Console*>(data);
@@ -84,7 +85,7 @@ int Console::interpretInput(){
 		Entity* entity = EntityManager::getEntity(results[1].str());
 
 		if (entity)
-			entity->getComponent<Transform>()->setPosition(glm::vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str())));
+			entity->getComponent<Transform>()->setPosition(Vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str())));
 
 		return VALID_CODE;
 	}
@@ -92,7 +93,7 @@ int Console::interpretInput(){
 		Entity* entity = EntityManager::getEntity(results[1].str());
 
 		if (entity)
-			entity->getComponent<Transform>()->setRotation(glm::quat(glm::vec3(glm::radians(std::stof(results[2].str())),glm::radians(std::stof(results[3].str())),glm::radians(std::stof(results[4].str())))));
+			entity->getComponent<Transform>()->setRotation(Quat(Vec3(radians(std::stof(results[2].str())),radians(std::stof(results[3].str())),radians(std::stof(results[4].str())))));
 
 		return VALID_CODE;
 	}
@@ -100,7 +101,7 @@ int Console::interpretInput(){
 		Entity* entity = EntityManager::getEntity(results[1].str());
 
 		if (entity)
-			entity->getComponent<Transform>()->setScale(glm::vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str())));
+			entity->getComponent<Transform>()->setScale(Vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str())));
 
 		return VALID_CODE;
 	}
@@ -122,7 +123,7 @@ int Console::interpretInput(){
 		Entity* line = EntityManager::createEntity(results[1].str());
 
 		if (line)
-			line->addComponent(new Line(glm::vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str()))));
+			line->addComponent(new Line(Vec3(std::stof(results[2].str()), std::stof(results[3].str()), std::stof(results[4].str()))));
 
 		line->trigger(Entity::TRIGGER_LOAD);
 
@@ -140,9 +141,9 @@ int Console::interpretInput(){
 				Entity* line = EntityManager::createEntity(results[3].str());
 
 				if (line){
-					glm::vec3 cross = glm::cross(glm::normalize(lineFirst->vector()), glm::normalize(lineSecond->vector()));
+					Vec3 crss = cross(normalize(lineFirst->vector()), normalize(lineSecond->vector()));
 
-					line->addComponent(new Line(cross * 10.f));
+					line->addComponent(new Line(crss * 10.f));
 					line->trigger(Entity::TRIGGER_LOAD);
 
 					return VALID_CODE;
@@ -160,7 +161,7 @@ int Console::interpretInput(){
 			Line* lineFirst = entityFirst->getComponent<Line>();
 			Line* lineSecond = entitySecond->getComponent<Line>();
 
-			float length = glm::dot(glm::normalize(lineFirst->vector()), glm::normalize(lineSecond->vector()));
+			float length = dot(normalize(lineFirst->vector()), normalize(lineSecond->vector()));
 
 			lineSecond->setVector(lineSecond->vector() * length);
 

@@ -2,7 +2,8 @@
 
 #include <GL\glew.h>
 #include <Static\Renderer.hpp>
-#include <glm\gtc\matrix_transform.hpp>
+
+#include <Maths\Mat4.hpp>
 
 void Camera::load(){
 	_transform = getComponent<Transform>();
@@ -15,16 +16,16 @@ void Camera::preRender(){
 	glLoadIdentity();
 
 	if (!_2d){
-		glMultMatrixf(&glm::inverse(glm::mat4_cast(_transform->rotation()))[0][0]);
+		glMultMatrixf(inverse(mat4Cast(_transform->rotation())).gl());
 		glTranslatef(_transform->position().x, _transform->position().y, _transform->position().z);
 	}
 	else{
-		glMultMatrixf(&glm::inverse(glm::mat4_cast(glm::quat(glm::vec3(0, 0, glm::eulerAngles(_transform->rotation()).z))))[0][0]);
+		glMultMatrixf(inverse(mat4Cast(Quat(Vec3(0, 0, eulerAngles(_transform->rotation()).z)))).gl());
 		glTranslatef(_transform->position().x, _transform->position().y, 0);
 	}
 	
-	//glm::mat4 modelview;
-	//glm::mat4 projection;
+	//Mat4 modelview;
+	//Mat4 projection;
 	//
 	//glGetFloatv(GL_MODELVIEW_MATRIX, &modelview[0][0]);
 	//glGetFloatv(GL_PROJECTION_MATRIX, &projection[0][0]);
@@ -39,14 +40,14 @@ void Camera::reshape(){
 
 	float aspectRatio = ((float)Renderer::window().width() / (float)Renderer::window().height());
 
-	glm::mat4 matrix(
+	Mat4 matrix(
 		-1,	0,	0,	0,
 		0,	-1,	0,	0,
 		0,	0,	1,	0,
 		0,	0,	0,	1
 	);
 
-	glMultMatrixf(&matrix[0][0]);
+	glMultMatrixf(matrix.gl());
 
 	if (!_2d){
 		gluPerspective(_fov / aspectRatio, aspectRatio, 0.1, _drawDistance);

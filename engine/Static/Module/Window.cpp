@@ -86,8 +86,8 @@ int Window::height(){
 	return _height;
 }
 
-glm::vec2 Window::size(){
-	return glm::vec2(_width, _height);
+Vec2 Window::size(){
+	return Vec2(_width, _height);
 }
 
 SDL_Window* Window::sdlWindow(){

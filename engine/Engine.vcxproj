@@ -14,6 +14,7 @@
     <ClCompile Include="Component\Debug\Axis.cpp" />
     <ClCompile Include="Component\Camera.cpp" />
     <ClCompile Include="Component\Debug\Grid.cpp" />
+    <ClCompile Include="Component\Debug\Spin.cpp" />
     <ClCompile Include="Component\Noclip.cpp" />
     <ClCompile Include="Component\Input.cpp" />
     <ClCompile Include="Component\Debug\Line.cpp" />
@@ -34,12 +35,12 @@
     <ClCompile Include="Static\Module\ShaderManager.cpp" />
     <ClCompile Include="Static\Module\Window.cpp" />
     <ClCompile Include="Static\Renderer.cpp" />
-    <ClCompile Include="Static\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component\Debug\Axis.hpp" />
     <ClInclude Include="Component\Camera.hpp" />
     <ClInclude Include="Component\Debug\Grid.hpp" />
+    <ClInclude Include="Component\Debug\Spin.hpp" />
     <ClInclude Include="Component\Noclip.hpp" />
     <ClInclude Include="Component\Input.hpp" />
     <ClInclude Include="Component\Debug\Line.hpp" />
@@ -66,7 +67,6 @@
     <ClInclude Include="Static\Module\StateMachine.hpp" />
     <ClInclude Include="Static\Module\SystemHandler.hpp" />
     <ClInclude Include="Static\Renderer.hpp" />
-    <ClInclude Include="Static\Utils.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5259262C-54B0-4DB1-9BF0-EC1CFB840124}</ProjectGuid>
@@ -100,14 +100,14 @@
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(SolutionDir)engine\maths;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(SolutionDir)engine\maths;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\glm;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(SolutionDir)engine\maths;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)middleware\glew-1.13.0\include;$(SolutionDir)middleware\SDL2_image-2.0.0\src;$(SolutionDir)middleware\SDL2-2.0.3\include;$(SolutionDir)middleware\tinyobjloader;$(SolutionDir)engine\maths;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -124,7 +124,7 @@
     </Link>
     <ProjectReference />
     <Lib>
-      <AdditionalDependencies>Maths.lib;SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
     </Lib>
   </ItemDefinitionGroup>
@@ -145,7 +145,7 @@
     </Link>
     <ProjectReference />
     <Lib>
-      <AdditionalDependencies>Maths.lib;SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;OpenGL32.lib;glu32.lib;glew32.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

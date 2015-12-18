@@ -2,18 +2,18 @@
 
 #include "Collider.hpp"
 
-#include <glm\vec2.hpp>
+#include <Maths\Vec2.hpp>
 
 class Box2d : public Collider{
 	Transform* _transform = 0;
 
 	// Width / Height
-	glm::vec2 _size;
+	Vec2 _size;
 
 	// Runtime updated variables
-	glm::vec2 _corners[4];
-	glm::vec2 _axes[2];
-	glm::vec2 _magnitudes[4];
+	Vec2 _corners[4];
+	Vec2 _axes[2];
+	Vec2 _magnitudes[4];
 
 	bool _testColliding = false;
 
@@ -25,7 +25,7 @@ public:
 	void load();
 	void render();
 
-	bool overlapping(const glm::vec2& first, const glm::vec2& second);
+	bool overlapping(const Vec2& first, const Vec2& second);
 
 	bool isCollidingSystem(Collider* other);
 	bool isColliding(Box2d* other, bool recurse = true);

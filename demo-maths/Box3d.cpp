@@ -3,7 +3,7 @@
 #include <GL\glew.h>
 
 Box3d::Box3d(float width, float height, float depth) : Collider(BOX3D){
-	_size = glm::vec3(width, height, depth);
+	_size = Vec3(width, height, depth);
 }
 
 void Box3d::load(){
@@ -12,27 +12,27 @@ void Box3d::load(){
 
 void Box3d::_update(){
 	// Updating this world coordinates for each corner
-	glm::vec3 half = (_size * _transform->scale()) / 2.f;
+	Vec3 half = (_size * _transform->scale()) / 2.f;
 
-	_corners[0] = _transform->apply(glm::vec3(-half.x, -half.y, -half.z));
-	_corners[1] = _transform->apply(glm::vec3(half.x, -half.y, -half.z));
-	_corners[2] = _transform->apply(glm::vec3(half.x, half.y, -half.z));
-	_corners[3] = _transform->apply(glm::vec3(-half.x, half.y, -half.z));
+	_corners[0] = _transform->apply(Vec3(-half.x, -half.y, -half.z));
+	_corners[1] = _transform->apply(Vec3(half.x, -half.y, -half.z));
+	_corners[2] = _transform->apply(Vec3(half.x, half.y, -half.z));
+	_corners[3] = _transform->apply(Vec3(-half.x, half.y, -half.z));
 
-	_corners[4 + 0] = _transform->apply(glm::vec3(-half.x, -half.y, half.z));
-	_corners[4 + 1] = _transform->apply(glm::vec3(half.x, -half.y, half.z));
-	_corners[4 + 2] = _transform->apply(glm::vec3(half.x, half.y, half.z));
-	_corners[4 + 3] = _transform->apply(glm::vec3(-half.x, half.y, half.z));
+	_corners[4 + 0] = _transform->apply(Vec3(-half.x, -half.y, half.z));
+	_corners[4 + 1] = _transform->apply(Vec3(half.x, -half.y, half.z));
+	_corners[4 + 2] = _transform->apply(Vec3(half.x, half.y, half.z));
+	_corners[4 + 3] = _transform->apply(Vec3(-half.x, half.y, half.z));
 		
 	// Updating this axes rotation
-	_axes[0] = glm::vec3(1, 0, 0);
-	_axes[1] = glm::vec3(0, 1, 0);
-	_axes[2] = glm::vec3(0, 0, 1);
+	_axes[0] = Vec3(1, 0, 0);
+	_axes[1] = Vec3(0, 1, 0);
+	_axes[2] = Vec3(0, 0, 1);
 
-	glm::quat rotation = _transform->rotation();
+	Quat rotation = _transform->rotation();
 		
 	for (int i = 0; i < 3; i++){
-		glm::vec3 axis = _axes[i] * glm::inverse(rotation);
+		Vec3 axis = rotation * _axes[i];
 		_axes[i] = axis;
 	}
 }
@@ -110,7 +110,7 @@ void Box3d::render(){
 	_testColliding = false;
 }
 
-bool Box3d::overlapping(const glm::vec2& first, const glm::vec2& second){
+bool Box3d::overlapping(const Vec2& first, const Vec2& second){
 	if (first.x <= second.x && first.y >= second.x)
 		return true;
 	if (first.x <= second.y && first.y >= second.y)
@@ -140,11 +140,11 @@ bool Box3d::isColliding(Box3d* other, bool recurse){
 	
 	for (int y = 0; y < 2; y++){
 		for (int x = 0; x < 3; x++){
-			float minimum = glm::dot(_axes[x], targets[y]->_corners[0]);
+			float minimum = dot(_axes[x], targets[y]->_corners[0]);
 			float maximum = minimum;
 	
 			for (int i = 0; i < 8; i++){
-				float magnitude = glm::dot(_axes[x], targets[y]->_corners[i]);
+				float magnitude = dot(_axes[x], targets[y]->_corners[i]);
 	
 				if (magnitude < minimum)
 					minimum = magnitude;
@@ -152,7 +152,7 @@ bool Box3d::isColliding(Box3d* other, bool recurse){
 					maximum = magnitude;
 			}
 	
-			_magnitudes[y * 3 + x] = glm::vec2(minimum, maximum);
+			_magnitudes[y * 3 + x] = Vec2(minimum, maximum);
 		}
 	}
 	
@@ -184,18 +184,18 @@ bool Box3d::isColliding(Box3d* other, bool recurse){
 	// Edge axes update
 	for (int y = 0; y < 3; y++){
 		for (int x = 0; x < 3; x++){
-			_edgeAxes[y * 3 + x] = glm::cross(_axes[x], other->_axes[y]);
+			_edgeAxes[y * 3 + x] = cross(_axes[x], other->_axes[y]);
 		}
 	}	
 
 	// Edge calculations
 	for (int x = 0; x < 2; x++){
 		for (int y = 0; y < 9; y++){
-			float minimum = glm::dot(_edgeAxes[y], targets[x]->_corners[0]);
+			float minimum = dot(_edgeAxes[y], targets[x]->_corners[0]);
 			float maximum = minimum;
 
 			for (int i = 0; i < 8; i++){
-				float magnitude = glm::dot(_edgeAxes[y], targets[x]->_corners[i]);
+				float magnitude = dot(_edgeAxes[y], targets[x]->_corners[i]);
 
 				if (magnitude < minimum)
 					minimum = magnitude;
@@ -203,7 +203,7 @@ bool Box3d::isColliding(Box3d* other, bool recurse){
 					maximum = magnitude;
 			}
 
-			_edgeMagnitudes[x * 9 + y] = glm::vec2(minimum, maximum);
+			_edgeMagnitudes[x * 9 + y] = Vec2(minimum, maximum);
 		}
 	}
 

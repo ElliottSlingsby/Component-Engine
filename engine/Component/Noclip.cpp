@@ -1,7 +1,9 @@
 #include "Noclip.hpp"
 
-#include <glm\gtc\quaternion.hpp>
 #include <SDL.h>
+
+#include <Maths\Quat.hpp>
+#include <Maths\Utils.hpp>
 
 Noclip::Noclip(float speed, float sensitivity){
 	_speed = speed;
@@ -21,8 +23,8 @@ void Noclip::update(double dt){
 	SDL_GetRelativeMouseState(&mouseRX, &mouseRY);
 
 	// Apply sensitivity to movements in seperate quaternions 
-	glm::quat lookX(glm::vec3(0.f, 0.f, glm::radians(-(float)(mouseRX * _sensitivity))));
-	glm::quat lookY(glm::vec3(glm::radians((float)(mouseRY * _sensitivity)), 0.f, 0.f));
+	Quat lookX(Vec3(0.f, 0.f, radians(-(float)(mouseRX * _sensitivity))));
+	Quat lookY(Vec3(radians((float)(mouseRY * _sensitivity)), 0.f, 0.f));
 
 	// Rotate left and right globally on z axis
 	_transform->rotate(lookX);
@@ -61,31 +63,19 @@ void Noclip::update(double dt){
 
 	// Move forward locally
 	if (_input->isDown("w")){
-		if (_input->isDown("space") || _input->isDown("ctrl")) // Globally if moving up or down
-			globalForward(dt);
-		else
-			forward(dt);
+		forward(dt);
 
-		if (_input->isDown("shift")){
-			if (_input->isDown("space") || _input->isDown("ctrl"))
-				globalForward(dt);
-			else
-				forward(dt);
-		}
+		if (_input->isDown("shift"))
+			forward(dt);
+		
 	}
 
 	// Move back locally
 	if (_input->isDown("s")){
-		if (_input->isDown("space") || _input->isDown("ctrl"))
-			globalBack(dt);
-		else
-			back(dt);
+		back(dt);
 
 		if (_input->isDown("shift")){
-			if (_input->isDown("space") || _input->isDown("ctrl"))
-				globalBack(dt);
-			else
-				back(dt);
+			back(dt);
 		}
 	}
 
@@ -107,39 +97,39 @@ void Noclip::update(double dt){
 }
 
 void Noclip::left(double dt){
-	_transform->localTranslate(glm::vec3(-(float)(_speed * dt), 0, 0));
+	_transform->localTranslate(Vec3(-(float)(_speed * dt), 0, 0));
 }
 
 void Noclip::right(double dt){
-	_transform->localTranslate(glm::vec3((float)(_speed * dt), 0, 0));
+	_transform->localTranslate(Vec3((float)(_speed * dt), 0, 0));
 }
 
 void Noclip::forward(double dt){
-	_transform->localTranslate(glm::vec3(0, (float)(_speed * dt), 0));
+	_transform->localTranslate(Vec3(0, (float)(_speed * dt), 0));
 }
 
 void Noclip::back(double dt){
-	_transform->localTranslate(glm::vec3(0, -(float)(_speed * dt), 0));
+	_transform->localTranslate(Vec3(0, -(float)(_speed * dt), 0));
 }
 
 void Noclip::globalForward(double dt){
-	float z = glm::eulerAngles(_transform->rotation()).z;
+	float z = eulerAngles(_transform->rotation()).z;
 
-	_transform->translate(glm::vec3(0, (float)(_speed * dt), 0) * glm::inverse(glm::quat(glm::vec3(0, 0, z))));
+	_transform->translate(inverse(Quat(Vec3(0, 0, z))) * Vec3(0, (float)(_speed * dt), 0));
 }
 
 void Noclip::globalBack(double dt){
-	float z = glm::eulerAngles(_transform->rotation()).z;
+	float z = eulerAngles(_transform->rotation()).z;
 
-	_transform->translate(glm::vec3(0, -(float)(_speed * dt), 0) * glm::inverse(glm::quat(glm::vec3(0, 0, z))));
+	_transform->translate(inverse(Quat(Vec3(0, 0, z))) * Vec3(0, -(float)(_speed * dt), 0));
 }
 
 void Noclip::globalUp(double dt){
-	_transform->translate(glm::vec3(0, 0, -(float)(_speed * dt)));
+	_transform->translate(Vec3(0, 0, -(float)(_speed * dt)));
 }
 
 void Noclip::globalDown(double dt){
-	_transform->translate(glm::vec3(0, 0, (float)(_speed * dt)));
+	_transform->translate(Vec3(0, 0, (float)(_speed * dt)));
 }
 
 void Noclip::setSpeed(float speed){

@@ -18,8 +18,8 @@
     <ClInclude Include="DemoGraphics.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8E73416D-1C08-4646-B0C9-1BD79943A691}</ProjectGuid>
-    <RootNamespace>Demo-Graphics</RootNamespace>
+    <ProjectGuid>{36D3A38D-546B-43B4-986C-E4DCFA8C5014}</ProjectGuid>
+    <RootNamespace>Demo-Graphics-2</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
