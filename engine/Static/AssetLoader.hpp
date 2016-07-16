@@ -114,12 +114,12 @@ public:
 
 			if (typeid(T) == typeid(MeshData))
 				asset = _instance()._loadMesh(filepath);
-
+			
 			else if (typeid(T) == typeid(MaterialData))
 				asset = _instance()._loadMaterial(filepath);
-
-			else
-				message_out("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
+			
+			//else
+			//	message_out("%s: %s %s!\n", "Asset Loader", "Unknown asset type", filepath);
 
 			return dynamic_cast<const T*>(asset);
 		}

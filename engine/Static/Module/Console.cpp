@@ -71,12 +71,12 @@ int Console::interpretInput(){
 	else if (std::regex_match(input, results, _patternMap["help"])){
 		std::smatch subResults;
 
-		if (std::regex_match(results[1].str(), subResults, _patternMap["you"]))
-			std::cout << "I don't want to do that." << std::endl;
-		else if (results[1].str() != "")
-			std::cout << "I can't help " << results[1].str() << "." << std::endl;
-		else
-			std::cout << "Help who?" << std::endl;
+		//if (std::regex_match(results[1].str(), subResults, _patternMap["you"]))
+		//	std::cout << "I don't want to do that." << std::endl;
+		//else if (results[1].str() != "")
+		//	std::cout << "I can't help " << results[1].str() << "." << std::endl;
+		//else
+		//	std::cout << "Help who?" << std::endl;
 
 		return VALID_CODE;
 	}

@@ -6,8 +6,7 @@
 #include <Component\Debug\Grid.hpp>
 #include <Component\Noclip.hpp>
 #include <Component\Input.hpp>
-
-#include "Spin.hpp"
+#include <Component\Debug\Spin.hpp>
 
 void DemoGraphics::on(){
 	// Origin entity contains black grid plane on Z axis

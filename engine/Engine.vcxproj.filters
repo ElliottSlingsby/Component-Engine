@@ -96,19 +96,7 @@
     <ClCompile Include="Component\Noclip.cpp">
       <Filter>Private\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Maths\Mat4.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Maths\Quat.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Maths\Utils.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Maths\Vec2.cpp">
-      <Filter>Private</Filter>
-    </ClCompile>
-    <ClCompile Include="Maths\Vec3.cpp">
+    <ClCompile Include="Component\Debug\Spin.cpp">
       <Filter>Private</Filter>
     </ClCompile>
   </ItemGroup>
@@ -186,19 +174,7 @@
     <ClInclude Include="Component\Noclip.hpp">
       <Filter>Public\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Maths\Mat4.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Maths\Quat.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Maths\Utils.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Maths\Vec2.hpp">
-      <Filter>Public</Filter>
-    </ClInclude>
-    <ClInclude Include="Maths\Vec3.hpp">
+    <ClInclude Include="Component\Debug\Spin.hpp">
       <Filter>Public</Filter>
     </ClInclude>
   </ItemGroup>
